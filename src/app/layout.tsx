@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter as FontSans } from 'next/font/google';
 import { cn } from '@/utils/tailwind';
-import './../styles/globals.css';
+import '../styles/globals.css';
 import { MSWComponent } from '@/mocks/MSWComponent';
 import Link from 'next/link';
 
