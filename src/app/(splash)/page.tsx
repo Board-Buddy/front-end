@@ -1,26 +1,17 @@
 'use client';
 
 import { Button } from '@/components/button';
-import { addNewPost, getPosts } from '@/services/sample';
+import { checkUserLogin } from '@/services/auth';
 
 export default function Home() {
-  const newPostClick = async () => {
-    const response = await addNewPost({
-      id: Math.floor(Math.random() * 10000),
-      content: 'new post',
-    });
-    console.log(response.data);
-  };
-
-  const getPostClick = async () => {
-    const response = await getPosts();
+  const loginCheck = async () => {
+    const response = await checkUserLogin();
     console.log(response.data);
   };
 
   return (
     <main>
-      <Button onClick={newPostClick}>newPost</Button>
-      <Button onClick={getPostClick}>getPost</Button>
+      <Button onClick={loginCheck}>loginCheck</Button>
     </main>
   );
 }
