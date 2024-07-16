@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter as FontSans } from 'next/font/google';
 import { cn } from '@/utils/tailwind';
-import '../styles/globals.css';
+import '../../styles/globals.css';
 import { MSWComponent } from '@/mocks/MSWComponent';
-import NavBar from '@/components/NavBar';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -32,13 +31,7 @@ export default function RootLayout({
           className={cn(
             'max-w-md bg-white mx-auto min-h-dvh max-h-dvh flex flex-col py-2 shadow-md',
           )}
-        >
-          <header className="px-4 mx-auto py-3">상단 헤더</header>
-          <main className="overflow-y-auto flex-1 px-4">
-            <MSWComponent>{children}</MSWComponent>
-          </main>
-          <NavBar />
-        </div>
+        ></div>
       </body>
     </html>
   );
