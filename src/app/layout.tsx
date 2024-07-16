@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { Inter as FontSans } from 'next/font/google';
 import { cn } from '@/utils/tailwind';
-import '../../styles/globals.css';
+import '../styles/globals.css';
 import { MSWComponent } from '@/mocks/MSWComponent';
+import ReactQueryProviders from '@/utils/reactQueryProvider';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -29,10 +30,12 @@ export default function RootLayout({
       >
         <div
           className={cn(
-            'max-w-md bg-white mx-auto min-h-dvh max-h-dvh flex flex-col py-2 shadow-md',
+            'max-w-md bg-white mx-auto min-h-dvh max-h-dvh flex flex-col shadow-md',
           )}
         >
-          <MSWComponent>{children}</MSWComponent>
+          <MSWComponent>
+            <ReactQueryProviders>{children}</ReactQueryProviders>
+          </MSWComponent>
         </div>
       </body>
     </html>

@@ -1,5 +1,6 @@
 'use client';
 
+import { MSW_MOCKING } from '@/constants/env';
 import { useEffect, useState } from 'react';
 
 export const MSWComponent = ({ children }: { children: React.ReactNode }) => {
@@ -12,7 +13,7 @@ export const MSWComponent = ({ children }: { children: React.ReactNode }) => {
         return;
       }
 
-      if (process.env.NEXT_PUBLIC_API_MOCKING === 'enabled') {
+      if (MSW_MOCKING === 'enabled') {
         const { worker } = await import('./browser');
         await worker.start();
         setMswReady(true);
