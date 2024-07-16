@@ -1,7 +1,6 @@
 'use client';
 
 import { cn } from '@/utils/tailwind';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import HomeIcon from './svg/HomeIcon';
@@ -24,8 +23,8 @@ const NavBar = () => {
       {navBarList.map((item) => (
         <li
           key={item.title}
-          onClick={() => setFocusedItem(item.title)}
           className="basis-1/4"
+          onClick={() => setFocusedItem(item.title)}
         >
           <Link href={item.to} className="flex flex-col items-center">
             <item.icon
