@@ -3,7 +3,7 @@ import { Inter as FontSans } from 'next/font/google';
 import { cn } from '@/utils/tailwind';
 import '../styles/globals.css';
 import { MSWComponent } from '@/mocks/MSWComponent';
-import Link from 'next/link';
+import NavBar from '@/components/NavBar';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -30,29 +30,14 @@ export default function RootLayout({
       >
         <div
           className={cn(
-            'max-w-md bg-white mx-auto min-h-dvh max-h-dvh flex flex-col',
+            'max-w-md bg-white mx-auto min-h-dvh max-h-dvh flex flex-col py-2 shadow-md',
           )}
         >
           <header className="px-4 mx-auto py-3">상단 헤더</header>
           <main className="overflow-y-auto flex-1 px-4">
             <MSWComponent>{children}</MSWComponent>
           </main>
-          <footer>
-            <ul className="flex justify-evenly items-center h-16">
-              <li>
-                <Link href="/home">홈</Link>
-              </li>
-              <li>
-                <Link href="/chat">메세지</Link>
-              </li>
-              <li>
-                <Link href="/map">카페 위치</Link>
-              </li>
-              <li>
-                <Link href="/my">마이페이지</Link>
-              </li>
-            </ul>
-          </footer>
+          <NavBar />
         </div>
       </body>
     </html>
