@@ -31,7 +31,9 @@ export default function RootLayout({
           className={cn(
             'max-w-md bg-white mx-auto min-h-dvh max-h-dvh flex flex-col py-2 shadow-md',
           )}
-        ></div>
+        >
+          <MSWComponent>{children}</MSWComponent>
+        </div>
       </body>
     </html>
   );
