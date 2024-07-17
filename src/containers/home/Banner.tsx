@@ -7,10 +7,6 @@ import '@/styles/carousel.css';
 import CustomDot from './CustomDot';
 
 const Banner = () => {
-  {
-    /* <div className="w-full bg-slate-100 rounded-xl h-[160px] mb-4" /> */
-  }
-
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -28,14 +24,14 @@ const Banner = () => {
 
   return (
     <Carousel
-      draggable={true}
-      swipeable={true}
+      draggable
+      swipeable
       arrows={false}
-      showDots={true}
+      showDots
       customDot={<CustomDot />}
       responsive={responsive}
-      ssr={true} // means to render carousel on server-side.
-      infinite={true}
+      ssr // means to render carousel on server-side.
+      infinite
       containerClass="carousel-container"
       className="rounded-xl h-40 shadow-md mb-4"
     >

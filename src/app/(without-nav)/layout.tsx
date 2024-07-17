@@ -14,6 +14,7 @@ export default function RootLayout({
   return (
     <>
       <header className="px-4 mx-auto py-3">상단 헤더</header>
+      {children}
     </>
   );
 }

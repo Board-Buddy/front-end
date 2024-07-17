@@ -30,6 +30,8 @@ const config = {
         foreground: 'hsl(var(--foreground))',
         primary: 'var(--main-color)',
         secondary: 'var(--second-main-color)',
+        sub_first: 'var(--sub-color-first)',
+        sub_second: 'var(--sub-color-second)',
         muted: 'var(--gray-500)',
       },
       borderRadius: {

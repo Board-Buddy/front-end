@@ -2,7 +2,7 @@ import { cn } from '@/utils/tailwind';
 import React from 'react';
 import { DotProps } from 'react-multi-carousel';
 
-const CustomDot = ({ index, active, onClick, carouselState }: DotProps) => {
+const CustomDot = ({ active, onClick }: DotProps) => {
   return (
     <button
       className={cn(
@@ -10,7 +10,9 @@ const CustomDot = ({ index, active, onClick, carouselState }: DotProps) => {
         active ? 'bg-opacity-70' : 'bg-opacity-30',
       )}
       onClick={() => onClick!()}
-    ></button>
+      type="button"
+      aria-label="custom-dot"
+    />
   );
 };
 

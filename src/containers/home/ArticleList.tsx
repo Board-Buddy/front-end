@@ -5,9 +5,9 @@ import { useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { SearchParams } from '@/types/article';
 import { UserInfo } from '@/types/user';
+import { useRouter } from 'next/navigation';
 import Selectors from './Selectors';
 import Article from './Article';
-import { useRouter } from 'next/navigation';
 
 const ArticleList = () => {
   const router = useRouter();
