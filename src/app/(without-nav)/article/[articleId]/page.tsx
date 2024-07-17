@@ -1,4 +1,4 @@
-const page = () => {
+const page = ({ params }: { params: { id: string } }) => {
   return <div>post detail page</div>;
 };
 
