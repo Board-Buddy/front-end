@@ -29,7 +29,7 @@ const config = {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: 'var(--main-color)',
-        secondary: 'var(--secondary-color)',
+        secondary: 'var(--second-main-color)',
         muted: 'var(--gray-500)',
       },
       borderRadius: {
