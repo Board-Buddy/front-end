@@ -25,3 +25,9 @@ export interface Author {
   nickname: string;
   rank: number;
 }
+
+export interface SearchParams {
+  location: string;
+  status: string | null;
+  sort: string | null;
+}

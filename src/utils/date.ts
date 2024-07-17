@@ -24,25 +24,23 @@ export const formatRelativeTime = (createdAt: string) => {
   const now = new Date();
   const createdDate = new Date(createdAt);
 
-  console.log(now, createdDate);
-
   const diffInMilliseconds = Number(now) - Number(createdDate);
   const diffInMinutes = Math.floor(diffInMilliseconds / (1000 * 60));
   const diffInHours = Math.floor(diffInMilliseconds / (1000 * 60 * 60));
 
-  console.log(diffInMinutes, diffInHours);
-
   if (diffInMinutes < 1) {
     return '방금 전';
-  } else if (diffInMinutes < 60) {
-    return `${diffInMinutes}분 전`;
-  } else if (diffInHours < 24) {
-    return `${diffInHours}시간 전`;
-  } else {
-    // 날짜 형식 포맷
-    const year = createdDate.getFullYear();
-    const month = createdDate.getMonth() + 1;
-    const day = createdDate.getDate();
-    return `${year}년 ${month}월 ${day}일`;
   }
+  if (diffInMinutes < 60) {
+    return `${diffInMinutes}분 전`;
+  }
+  if (diffInHours < 24) {
+    return `${diffInHours}시간 전`;
+  }
+
+  // 날짜 형식 포맷
+  const year = createdDate.getFullYear();
+  const month = createdDate.getMonth() + 1;
+  const day = createdDate.getDate();
+  return `${year}년 ${month}월 ${day}일`;
 };

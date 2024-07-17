@@ -14,7 +14,6 @@ import { cn } from '@/utils/tailwind';
 import Image from 'next/image';
 
 const Article = ({
-  id,
   title,
   description,
   author,

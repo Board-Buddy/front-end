@@ -1,10 +1,5 @@
 import { checkUserLogin, login } from '@/services/auth';
-import {
-  useMutation,
-  useQuery,
-  QueryClient,
-  useQueryClient,
-} from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 export const useUserLoginCheck = () => {

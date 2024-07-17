@@ -1,14 +1,13 @@
-'use client';
+import { Dispatch, SetStateAction } from 'react';
 
-import { UserInfo } from '@/types/user';
-import { useQueryClient } from '@tanstack/react-query';
-
-const LocationSettingButton = () => {
-  const cache = useQueryClient();
-
-  const location = cache.getQueryData(['userInfo']) as UserInfo;
-
-  return <p>{location.dong}</p>;
+const LocationSettingButton = ({
+  location,
+  setLocation,
+}: {
+  location: string;
+  setLocation: Dispatch<SetStateAction<string>>;
+}) => {
+  return <p>{location}</p>;
 };
 
 export default LocationSettingButton;

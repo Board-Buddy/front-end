@@ -6,7 +6,7 @@ const Ranking = () => {
       <CardHeader>
         <CardTitle>이번 달 Top 3</CardTitle>
       </CardHeader>
-      <CardContent></CardContent>
+      <CardContent />
     </Card>
   );
 };
