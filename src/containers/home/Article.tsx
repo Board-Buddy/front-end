@@ -13,7 +13,10 @@ import { rankBadgeImageSrc } from '@/utils/rankBadge';
 import { cn } from '@/utils/tailwind';
 import Image from 'next/image';
 
+type Props = { onClick: () => void } & ArticleType;
+
 const Article = ({
+  onClick,
   title,
   description,
   author,
@@ -24,11 +27,11 @@ const Article = ({
   endTime,
   createdAt,
   status,
-}: ArticleType) => {
+}: Props) => {
   const badgeImage = rankBadgeImageSrc(author.rank);
 
   return (
-    <Card className="mb-3">
+    <Card className="mb-3" onClick={onClick}>
       <CardHeader>
         <CardTitle className="flex text-md font-normal items-center">
           <div

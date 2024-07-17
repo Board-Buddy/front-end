@@ -7,8 +7,11 @@ import { SearchParams } from '@/types/article';
 import { UserInfo } from '@/types/user';
 import Selectors from './Selectors';
 import Article from './Article';
+import { useRouter } from 'next/navigation';
 
 const ArticleList = () => {
+  const router = useRouter();
+
   const cache = useQueryClient();
   const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
 
@@ -36,6 +39,7 @@ const ArticleList = () => {
       />
       {data.map((article) => (
         <Article
+          onClick={() => router.push(`/article/${article.id}`)}
           key={article.id}
           id={article.id}
           title={article.title}
