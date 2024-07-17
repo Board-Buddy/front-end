@@ -19,7 +19,7 @@ const NavBar = () => {
   const [focusedItem, setFocusedItem] = useState(navBarList[0].title);
 
   return (
-    <ul className="flex items-center h-16 px-6">
+    <ul className="flex items-center h-16 px-6 py-4 border-t border-gray-200">
       {navBarList.map((item) => (
         <li
           key={item.title}
