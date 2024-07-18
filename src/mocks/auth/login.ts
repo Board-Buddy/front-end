@@ -8,7 +8,7 @@ export const login = http.post(`${API_BASE_URL}/api/auth/login`, async () => {
     data: {
       nickname: 'kong',
       sido: '서울특별시',
-      sigu: '잠실구',
+      sigu: '송파구',
       dong: '잠실동',
       isPhoneNumberVerified: true,
       awsS3SavedFileURL: null,
