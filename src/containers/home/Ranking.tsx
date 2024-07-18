@@ -30,6 +30,7 @@ const Ranking = () => {
       <CardContent className="flex items-end justify-center gap-2">
         {rankingData.map((person) => (
           <RankingBar
+            key={person.rank}
             nickname={person.name}
             profileUrl={person.profileUrl}
             rank={person.rank}

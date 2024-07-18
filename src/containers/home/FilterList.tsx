@@ -41,6 +41,7 @@ const FilterList = ({
     <div className="flex gap-1 mb-3">
       {filterList.map((item) => (
         <button
+          key={item.title}
           type="button"
           className={cn(
             'border border-gray-400 font-semibold text-gray-400 rounded-3xl py-1 px-4 text-sm hover:text-white hover:bg-primary hover:border-primary transition-all',
