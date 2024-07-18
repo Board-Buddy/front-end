@@ -7,7 +7,7 @@ const Ranking = () => {
   const rankingData = [
     {
       rank: 2,
-      name: 'User2',
+      name: '닉네임긴버전안녕',
       profileUrl: '',
     },
     {

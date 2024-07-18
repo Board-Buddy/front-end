@@ -14,11 +14,13 @@ const RankingBar = ({ nickname, profileUrl, rank }: Props) => {
     <div className="flex flex-col items-center gap-2">
       <CustomAvatar src={profileUrl} rank={rank} nickname={nickname} />
       <div
-        className={`${height[rank]} ${color[rank]} w-13 text-center rounded-md p-1`}
+        className={`${height[rank]} ${color[rank]} text-center rounded-md p-1`}
       >
-        <span className="text-xs text-gray-700 font-semibold bg-white bg-opacity-80 p-1 rounded-md">
-          {nickname}
-        </span>
+        <div className="bg-white bg-opacity-80 px-1 rounded-md w-12 py-1">
+          <span className="text-xs text-gray-700 font-semibold line-clamp-2">
+            {nickname}
+          </span>
+        </div>
       </div>
     </div>
   );
