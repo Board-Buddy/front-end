@@ -31,3 +31,9 @@ export interface SearchParams {
   status: string | null;
   sort: string | null;
 }
+
+export interface ArticleRequest {
+  pageParam: number;
+  status?: string;
+  sort?: string | null;
+}

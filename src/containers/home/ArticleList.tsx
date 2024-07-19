@@ -1,13 +1,20 @@
 'use client';
 
 import { useGetArticles } from '@/hooks/useArticles';
-import { useState } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
-import { SearchParams } from '@/types/article';
+import { Fragment, useState } from 'react';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  ArticleRequest,
+  ArticleList as IArticleList,
+  Article as IArticle,
+  SearchParams,
+} from '@/types/article';
 import { UserInfo } from '@/types/user';
 import { useRouter } from 'next/navigation';
 import Selectors from './Selectors';
 import Article from './Article';
+import api from '@/services';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 const ArticleList = () => {
   const router = useRouter();
@@ -22,15 +29,46 @@ const ArticleList = () => {
     sort: null,
   });
 
-  const { isPending, isError, data, error } = useGetArticles();
+  const getArticles = ({ pageParam }: ArticleRequest) =>
+    api
+      .get('/api/gatherArticles', {
+        params: { page: pageParam },
+      })
+      .then((response) => response.data.data.posts);
 
-  if (isPending) return <p>Loading...</p>;
+  const { data, error, isFetching, fetchNextPage, hasNextPage, status } =
+    useInfiniteQuery({
+      queryKey: ['articles'],
+      queryFn: getArticles,
+      initialPageParam: 0,
+      getNextPageParam: (lastPage, allPages, lastPageParam) => {
+        if (lastPage.length === 0) {
+          return undefined;
+        }
+        return lastPageParam + 1;
+      },
+      getPreviousPageParam: (firstPageParam) => {
+        if (firstPageParam <= 1) {
+          return undefined;
+        }
+        return firstPageParam - 1;
+      },
+    });
 
-  if (isError) {
-    return <span>Error: {error.message}</span>;
+  if (status === 'success') {
+    console.log(data.pages);
   }
 
-  return (
+  const { setTarget } = useIntersectionObserver({
+    hasNextPage,
+    fetchNextPage,
+  });
+
+  return status === 'pending' ? (
+    <p>Loading...</p>
+  ) : status === 'error' ? (
+    <p>Error: {error.message}</p>
+  ) : (
     <>
       <Selectors
         location={location}
@@ -38,23 +76,28 @@ const ArticleList = () => {
         filter={filter}
         setFilter={setFilter}
       />
-      {data.map((article) => (
-        <Article
-          onClick={() => router.push(`/article/${article.id}`)}
-          key={article.id}
-          id={article.id}
-          title={article.title}
-          description={article.description}
-          author={article.author}
-          location={article.location}
-          maxParticipants={article.maxParticipants}
-          currentParticipants={article.currentParticipants}
-          startTime={article.startTime}
-          endTime={article.endTime}
-          createdAt={article.createdAt}
-          status={article.status}
-        />
+      {data.pages.map((group, i) => (
+        <Fragment key={i}>
+          {group.map((article: IArticle) => (
+            <Article
+              onClick={() => router.push(`/article/${article.id}`)}
+              key={article.id}
+              id={article.id}
+              title={article.title}
+              description={article.description}
+              author={article.author}
+              location={article.location}
+              maxParticipants={article.maxParticipants}
+              currentParticipants={article.currentParticipants}
+              startTime={article.startTime}
+              endTime={article.endTime}
+              createdAt={article.createdAt}
+              status={article.status}
+            />
+          ))}
+        </Fragment>
       ))}
+      <div ref={setTarget} className="h-0" />
     </>
   );
 };

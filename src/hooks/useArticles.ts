@@ -1,10 +1,12 @@
 import { getArticles } from '@/services/article';
 import { ArticleList } from '@/types/article';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
-export const useGetArticles = () => {
-  return useQuery<ArticleList>({
+export const useGetArticles = (status: string, sort: string) => {
+  return useInfiniteQuery<ArticleList>({
     queryKey: ['articles'],
-    queryFn: getArticles,
+    queryFn: getArticles({ status, sort}),
+    initialPageParam: 0,
+    getNextPageParam: 
   });
 };

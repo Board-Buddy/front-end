@@ -28,7 +28,8 @@ const Article = ({
   createdAt,
   status,
 }: Props) => {
-  const badgeImage = rankBadgeImageSrc(author.rank);
+  const badgeImage =
+    author && author.rank ? rankBadgeImageSrc(author.rank) : null;
 
   return (
     <Card className="mb-3" onClick={onClick}>
