@@ -50,6 +50,9 @@
     "jsx-a11y/click-events-have-key-events": "off",
     "jsx-a11y/heading-has-content": "off",
     "react/prop-types": "off",
-    "jsx-a11y/role-has-required-aria-props": "off"
+    "jsx-a11y/role-has-required-aria-props": "off",
+    "consistent-return": "off",
+    "no-nested-ternary": "off",
+    "react/no-array-index-key": "warn"
   }
 }

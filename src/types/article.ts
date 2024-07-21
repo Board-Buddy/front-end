@@ -1,6 +1,7 @@
 export interface ArticleListResponse {
   data: {
     posts: ArticleList;
+    last: boolean;
   };
   message: string;
 }
@@ -28,6 +29,12 @@ export interface Author {
 
 export interface SearchParams {
   location: string;
+  status: string | null;
+  sort: string | null;
+}
+
+export interface ArticleRequest {
+  pageParam: number;
   status: string | null;
   sort: string | null;
 }

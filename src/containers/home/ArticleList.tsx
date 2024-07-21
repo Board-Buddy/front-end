@@ -1,11 +1,12 @@
 'use client';
 
-import { useGetArticles } from '@/hooks/useArticles';
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { SearchParams } from '@/types/article';
+import { Article as IArticle, SearchParams } from '@/types/article';
 import { UserInfo } from '@/types/user';
 import { useRouter } from 'next/navigation';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { useGetArticles } from '@/hooks/useGetArticles';
 import Selectors from './Selectors';
 import Article from './Article';
 
@@ -22,15 +23,21 @@ const ArticleList = () => {
     sort: null,
   });
 
-  const { isPending, isError, data, error } = useGetArticles();
+  const { data, error, fetchNextPage, hasNextPage, status } = useGetArticles(
+    filter.status,
+    filter.sort,
+  );
 
-  if (isPending) return <p>Loading...</p>;
+  const { setTarget } = useIntersectionObserver({
+    hasNextPage,
+    fetchNextPage,
+  });
 
-  if (isError) {
-    return <span>Error: {error.message}</span>;
-  }
-
-  return (
+  return status === 'pending' ? (
+    <p>Loading...</p>
+  ) : status === 'error' ? (
+    <p>Error: {error.message}</p>
+  ) : (
     <>
       <Selectors
         location={location}
@@ -38,23 +45,28 @@ const ArticleList = () => {
         filter={filter}
         setFilter={setFilter}
       />
-      {data.map((article) => (
-        <Article
-          onClick={() => router.push(`/article/${article.id}`)}
-          key={article.id}
-          id={article.id}
-          title={article.title}
-          description={article.description}
-          author={article.author}
-          location={article.location}
-          maxParticipants={article.maxParticipants}
-          currentParticipants={article.currentParticipants}
-          startTime={article.startTime}
-          endTime={article.endTime}
-          createdAt={article.createdAt}
-          status={article.status}
-        />
+      {data.pages.map((group, i) => (
+        <Fragment key={i}>
+          {group.posts.map((article: IArticle) => (
+            <Article
+              onClick={() => router.push(`/article/${article.id}`)}
+              key={article.id}
+              id={article.id}
+              title={article.title}
+              description={article.description}
+              author={article.author}
+              location={article.location}
+              maxParticipants={article.maxParticipants}
+              currentParticipants={article.currentParticipants}
+              startTime={article.startTime}
+              endTime={article.endTime}
+              createdAt={article.createdAt}
+              status={article.status}
+            />
+          ))}
+        </Fragment>
       ))}
+      <div ref={setTarget} className="h-0" />
     </>
   );
 };
