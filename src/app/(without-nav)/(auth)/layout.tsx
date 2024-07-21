@@ -8,14 +8,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex flex-col p-3">
+    <div className="flex flex-col p-3 min-h-dvh max-h-dvh">
       <ChevronLeft
         className="w-6 h-6 cursor-pointer mb-6"
         onClick={() => {
           window.history.back();
         }}
       />
-      <main className="min-h-screen p-2">{children}</main>
+      <div className="overflow-y-scroll p-2">{children}</div>
     </div>
   );
 }

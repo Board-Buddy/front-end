@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
+import Link from 'next/link';
 
 const page = () => {
   return (
@@ -29,9 +30,11 @@ const page = () => {
           <Label htmlFor="thirdparty">[선택] 개인정보 제3자 제공 동의</Label>
         </div>
       </div>
-      <Button className="bg-primary text-white font-bold text-lg w-full h-12 mt-4">
-        다음
-      </Button>
+      <Link href="/register/accounts">
+        <Button className="bg-primary text-white font-bold text-lg w-full h-12 mt-4">
+          다음
+        </Button>
+      </Link>
     </>
   );
 };
