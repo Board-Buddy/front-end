@@ -7,4 +7,4 @@ export const getArticles = ({ pageParam }: ArticleRequest) =>
     .get('/api/gatherArticles', {
       params: { page: pageParam },
     })
-    .then((response) => response.data.data.posts);
+    .then((response) => response.data.data);

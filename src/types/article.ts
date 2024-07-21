@@ -1,6 +1,7 @@
 export interface ArticleListResponse {
   data: {
     posts: ArticleList;
+    last: boolean;
   };
   message: string;
 }

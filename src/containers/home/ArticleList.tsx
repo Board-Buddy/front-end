@@ -1,20 +1,14 @@
 'use client';
 
-import { useGetArticles } from '@/hooks/useArticles';
 import { Fragment, useState } from 'react';
-import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
-import {
-  ArticleRequest,
-  ArticleList as IArticleList,
-  Article as IArticle,
-  SearchParams,
-} from '@/types/article';
+import { useQueryClient } from '@tanstack/react-query';
+import { Article as IArticle, SearchParams } from '@/types/article';
 import { UserInfo } from '@/types/user';
 import { useRouter } from 'next/navigation';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { useGetArticles } from '@/hooks/useGetArticles';
 import Selectors from './Selectors';
 import Article from './Article';
-import api from '@/services';
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 const ArticleList = () => {
   const router = useRouter();
@@ -29,35 +23,10 @@ const ArticleList = () => {
     sort: null,
   });
 
-  const getArticles = ({ pageParam }: ArticleRequest) =>
-    api
-      .get('/api/gatherArticles', {
-        params: { page: pageParam },
-      })
-      .then((response) => response.data.data.posts);
-
-  const { data, error, isFetching, fetchNextPage, hasNextPage, status } =
-    useInfiniteQuery({
-      queryKey: ['articles'],
-      queryFn: getArticles,
-      initialPageParam: 0,
-      getNextPageParam: (lastPage, allPages, lastPageParam) => {
-        if (lastPage.length === 0) {
-          return undefined;
-        }
-        return lastPageParam + 1;
-      },
-      getPreviousPageParam: (firstPageParam) => {
-        if (firstPageParam <= 1) {
-          return undefined;
-        }
-        return firstPageParam - 1;
-      },
-    });
-
-  if (status === 'success') {
-    console.log(data.pages);
-  }
+  const { data, error, fetchNextPage, hasNextPage, status } = useGetArticles(
+    '',
+    '',
+  );
 
   const { setTarget } = useIntersectionObserver({
     hasNextPage,
@@ -78,7 +47,7 @@ const ArticleList = () => {
       />
       {data.pages.map((group, i) => (
         <Fragment key={i}>
-          {group.map((article: IArticle) => (
+          {group.posts.map((article: IArticle) => (
             <Article
               onClick={() => router.push(`/article/${article.id}`)}
               key={article.id}
