@@ -6,9 +6,9 @@ import { Article as IArticle, SearchParams } from '@/types/article';
 import { UserInfo } from '@/types/user';
 import { useRouter } from 'next/navigation';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
-import { useGetArticles } from '@/hooks/useGetArticles';
 import Selectors from './Selectors';
 import Article from './Article';
+import { useGetArticles } from '@/hooks/useArticle';
 
 const ArticleList = () => {
   const router = useRouter();
@@ -17,13 +17,13 @@ const ArticleList = () => {
   const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
   const locationString = `${userInfo.sido} ${userInfo.sigu} ${userInfo.dong}`;
 
-  const [location, setLocation] = useState(locationString);
   const [filter, setFilter] = useState<Omit<SearchParams, 'location'>>({
     status: null,
     sort: null,
   });
 
   const { data, error, fetchNextPage, hasNextPage, status } = useGetArticles(
+    locationString,
     filter.status,
     filter.sort,
   );
@@ -39,12 +39,7 @@ const ArticleList = () => {
     <p>Error: {error.message}</p>
   ) : (
     <>
-      <Selectors
-        location={location}
-        setLocation={setLocation}
-        filter={filter}
-        setFilter={setFilter}
-      />
+      <Selectors filter={filter} setFilter={setFilter} />
       {data.pages.map((group, i) => (
         <Fragment key={i}>
           {group.posts.map((article: IArticle) => (

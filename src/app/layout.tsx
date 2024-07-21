@@ -4,6 +4,8 @@ import { cn } from '@/utils/tailwind';
 import '../styles/globals.css';
 import { MSWComponent } from '@/mocks/MSWComponent';
 import ReactQueryProviders from '@/utils/reactQueryProvider';
+import Header from '@/components/Header';
+import { HeaderProvider } from '@/context/HeaderContext';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -34,7 +36,12 @@ export default function RootLayout({
           )}
         >
           <MSWComponent>
-            <ReactQueryProviders>{children}</ReactQueryProviders>
+            <ReactQueryProviders>
+              <HeaderProvider>
+                <Header />
+                {children}
+              </HeaderProvider>
+            </ReactQueryProviders>
           </MSWComponent>
         </div>
       </body>
