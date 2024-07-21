@@ -18,7 +18,7 @@ const page = () => {
       </Link>
 
       <div className="flex gap-1 mt-2 text-white font-semibold text-sm">
-        <p>이미 버드버디 회원이라면?</p>
+        <p>이미 보드버디 회원이라면?</p>
         <Link href="/login">
           <span className="underline cursor-pointer">로그인</span>
         </Link>
