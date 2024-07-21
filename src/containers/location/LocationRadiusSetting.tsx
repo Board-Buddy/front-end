@@ -37,8 +37,8 @@ const LocationRadiusSetting = () => {
   const locationMutation = useLocation();
   const radiusMutation = useRadius();
 
-  const onSelect = (location: string) => {
-    const selectedLocation = location.split(' ');
+  const onSelect = (loc: string) => {
+    const selectedLocation = loc.split(' ');
     locationMutation.mutate({
       sido: selectedLocation[0],
       sigu: selectedLocation[1],
@@ -109,7 +109,7 @@ const LocationRadiusSetting = () => {
         <Slider
           defaultValue={[0]}
           value={[value]}
-          onValueChange={([value]) => {
+          onValueChange={() => {
             setValue(value);
             onValueChange();
           }}
