@@ -35,6 +35,6 @@ export interface SearchParams {
 
 export interface ArticleRequest {
   pageParam: number;
-  status?: string;
-  sort?: string | null;
+  status: string | null;
+  sort: string | null;
 }

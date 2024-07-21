@@ -24,8 +24,8 @@ const ArticleList = () => {
   });
 
   const { data, error, fetchNextPage, hasNextPage, status } = useGetArticles(
-    '',
-    '',
+    filter.status,
+    filter.sort,
   );
 
   const { setTarget } = useIntersectionObserver({
