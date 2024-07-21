@@ -10,7 +10,8 @@ const Header = () => {
 
   const pathname = usePathname();
 
-  if (pathname === '/') return null;
+  if (pathname === '/' || pathname === '/login' || pathname === '/signup')
+    return null;
 
   const headerParams: Record<string, { title: string; leftArrow: boolean }> = {
     '/': {

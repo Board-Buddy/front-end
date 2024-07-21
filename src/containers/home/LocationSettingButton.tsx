@@ -3,7 +3,6 @@
 import { ChevronDown } from 'lucide-react';
 
 import Image from 'next/image';
-import { useState } from 'react';
 import locationList from '@/containers/location/locationList.json';
 import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';

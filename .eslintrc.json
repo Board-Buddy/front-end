@@ -53,6 +53,7 @@
     "jsx-a11y/role-has-required-aria-props": "off",
     "consistent-return": "off",
     "no-nested-ternary": "off",
-    "react/no-array-index-key": "warn"
+    "react/no-array-index-key": "warn",
+    "jsx-a11y/no-static-element-interactions": "off"
   }
 }

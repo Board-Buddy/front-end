@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, useState, ReactNode, useRef } from 'react';
+import { createContext, useContext, useState, ReactNode, useMemo } from 'react';
 
 interface HeaderContextType {
   settingVisible: boolean;
@@ -17,17 +17,18 @@ export const HeaderProvider = ({ children }: { children: ReactNode }) => {
     undefined,
   );
 
+  const value = useMemo(
+    () => ({
+      settingVisible,
+      setSettingVisible,
+      settingContent,
+      setSettingContent,
+    }),
+    [settingVisible, settingContent],
+  );
+
   return (
-    <HeaderContext.Provider
-      value={{
-        settingVisible,
-        setSettingVisible,
-        settingContent,
-        setSettingContent,
-      }}
-    >
-      {children}
-    </HeaderContext.Provider>
+    <HeaderContext.Provider value={value}>{children}</HeaderContext.Provider>
   );
 };
 
