@@ -1,5 +1,4 @@
 import { Button } from '@/components/ui/button';
-import Example from '@/containers/splash/Example';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -13,7 +12,6 @@ const page = () => {
         height={108}
       />
       <Link href="/signup">
-        {' '}
         <Button className="mt-32 rounded-3xl text-white font-bold py-6 w-64 text-md">
           보드버디 참여하기
         </Button>
