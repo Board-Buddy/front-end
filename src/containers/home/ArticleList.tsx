@@ -6,9 +6,9 @@ import { Article as IArticle, SearchParams } from '@/types/article';
 import { UserInfo } from '@/types/user';
 import { useRouter } from 'next/navigation';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
-import { useGetArticles } from '@/hooks/useGetArticles';
 import Selectors from './Selectors';
 import Article from './Article';
+import { useGetArticles } from '@/hooks/useArticle';
 
 const ArticleList = () => {
   const router = useRouter();

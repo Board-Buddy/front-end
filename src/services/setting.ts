@@ -6,4 +6,4 @@ export const setLocation = ({ sido, sigu, dong }: { [key: string]: string }) =>
 
 /** 위치 반경 설정 API */
 export const setRadius = ({ radius }: { radius: 2 | 5 | 7 | 10 }) =>
-  api.post('/api/locations', { radius: radius });
+  api.post('/api/radius', { radius: radius });

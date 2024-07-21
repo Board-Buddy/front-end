@@ -11,10 +11,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <>
-      <header className="px-4 mx-auto py-3">상단 헤더</header>
-      <main className="overflow-y-auto flex-1">{children}</main>
-    </>
-  );
+  return <main className="flex-1">{children}</main>;
 }

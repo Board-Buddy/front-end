@@ -22,6 +22,7 @@ import { Slider } from '@/components/ui/slider';
 import { UserInfo } from '@/types/user';
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
+import { useLocation, useRadius } from '@/hooks/useSetting';
 
 const LocationRadiusSetting = () => {
   const [open, setOpen] = useState(false);
@@ -31,7 +32,24 @@ const LocationRadiusSetting = () => {
   const locationString = `${userInfo.sido} ${userInfo.sigu} ${userInfo.dong}`;
 
   const [location, setLocation] = useState(locationString);
-  const [radius, setRadius] = useState(2);
+  const [value, setValue] = useState(0);
+
+  const locationMutation = useLocation();
+  const radiusMutation = useRadius();
+
+  const onSelect = (location: string) => {
+    const selectedLocation = location.split(' ');
+    locationMutation.mutate({
+      sido: selectedLocation[0],
+      sigu: selectedLocation[1],
+      dong: selectedLocation[2],
+    });
+  };
+
+  const onValueChange = () => {
+    const radiusOptions = [2, 5, 7, 10] as const;
+    radiusMutation.mutate({ radius: radiusOptions[value] });
+  };
 
   return (
     <div className="bg-white rounded-t-2xl shadow-[0_-2px_10px_0_rgba(48,48,48,0.1)]">
@@ -70,6 +88,7 @@ const LocationRadiusSetting = () => {
                       value={dong.label}
                       onSelect={(currentValue) => {
                         setLocation(currentValue);
+                        onSelect(currentValue);
                         setOpen(false);
                       }}
                     >
@@ -88,12 +107,15 @@ const LocationRadiusSetting = () => {
           </PopoverContent>
         </Popover>
         <Slider
-          defaultValue={[2]}
-          value={[radius]}
-          onValueChange={([value]) => setRadius(value)}
-          min={2}
-          max={8}
-          step={2}
+          defaultValue={[0]}
+          value={[value]}
+          onValueChange={([value]) => {
+            setValue(value);
+            onValueChange();
+          }}
+          min={0}
+          max={3}
+          step={1}
         />
         <div className="flex justify-between text-sm text-gray-800">
           <div>2km</div>

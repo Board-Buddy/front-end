@@ -14,8 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <header className="px-4 mx-auto py-3">상단 헤더</header>
-      <main className="overflow-y-auto flex-1 px-4">{children}</main>
+      <main className="overflow-y-auto flex-1 px-4 py-4">{children}</main>
       <NavBar />
     </>
   );
