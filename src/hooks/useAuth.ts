@@ -13,9 +13,12 @@ export const useUserLogin = () => {
   return useMutation({
     mutationFn: (data: { username: string; password: string }) => login(data),
     onSuccess: (data) => {
-      const userInfo = data.data.data;
+      const userInfo = data.data.data.profileDTO;
       queryClient.setQueryData(['userInfo'], userInfo);
       router.push('/home');
+    },
+    onError: (error: any) => {
+      alert(error.response.data.message);
     },
   });
 };
