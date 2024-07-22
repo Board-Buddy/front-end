@@ -13,6 +13,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useUserLogin } from '@/hooks/useAuth';
 
 const LoginForm = () => {
   const formSchema = z.object({
@@ -22,10 +23,16 @@ const LoginForm = () => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      id: '',
+      password: '',
+    },
   });
 
+  const { mutate: login } = useUserLogin();
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // TODO: form submit logic
+    login({ username: values.id, password: values.password });
   };
 
   return (
