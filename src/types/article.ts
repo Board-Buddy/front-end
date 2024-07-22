@@ -25,6 +25,8 @@ export interface Article {
 export interface Author {
   nickname: string;
   rank: number;
+  profileURL?: string;
+  description?: string;
 }
 
 export interface SearchParams {

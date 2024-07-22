@@ -11,5 +11,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <main className="flex-1">{children}</main>;
+  return <main className="overflow-y-auto">{children}</main>;
 }
