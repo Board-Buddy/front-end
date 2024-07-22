@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
+import { checkIdDuplicate } from '@/services/auth';
 
 const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
 const phoneRegex = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
@@ -71,6 +72,15 @@ const RegisterForm = () => {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      id: '',
+      password: '',
+      passwordConfirm: '',
+      location: '',
+      nickname: '',
+      phone: '',
+      phoneVerifyCode: '',
+    },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
@@ -78,12 +88,18 @@ const RegisterForm = () => {
   };
 
   const verifyId = async () => {
-    // TODO: id verification logic
-    setUniqueId(true);
+    const { status, message } = await checkIdDuplicate(form.getValues('id'));
+
+    if (status === 'success') {
+      form.clearErrors('id');
+      setUniqueId(true);
+    } else {
+      form.setError('id', { type: 'manual', message: message });
+    }
   };
 
   const verifyNickname = async () => {
-    // TODO: id verification logic
+    // TODO: nickname verification logic
     setUniqueNickname(true);
   };
 
@@ -100,16 +116,29 @@ const RegisterForm = () => {
             <FormItem>
               <div className="flex items-center gap-2">
                 <FormControl>
-                  <Input placeholder="아이디 입력" {...field} />
+                  <Input
+                    placeholder="아이디 입력"
+                    {...field}
+                    onChange={(e) => {
+                      setUniqueId(false);
+                      form.setValue('id', e.target.value);
+                    }}
+                  />
                 </FormControl>
                 <Button
                   type="button"
                   className="text-white font-semibold"
                   onClick={verifyId}
+                  disabled={uniqueId}
                 >
                   중복확인
                 </Button>
               </div>
+              {uniqueId && (
+                <p className="text-sm text-green-600 ml-1 mt-1">
+                  사용 가능한 아이디입니다.
+                </p>
+              )}
               <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
             </FormItem>
           )}
