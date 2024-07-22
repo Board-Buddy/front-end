@@ -20,6 +20,22 @@ import {
   smsCertificationSend,
   smsCertificationVerify,
 } from '@/services/auth';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from '@/components/ui/command';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { Check, ChevronDown } from 'lucide-react';
+import locationList from '@/containers/location/locationList.json';
+import { Select } from '@/components/ui/select';
 
 const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
 const phoneRegex = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
@@ -31,38 +47,40 @@ const RegisterForm = () => {
     useState(false);
   const [verifiedPhone, setVerifiedPhone] = useState(false);
 
+  const [open, setOpen] = useState(false);
+
   const formSchema = z
     .object({
       id: z
-        .string({ message: '아이디를 입력해주세요.' })
-        .min(2, {
-          message: '아이디는 2자 이상 16자 이하로 입력하세요.',
+        .string()
+        .min(1, {
+          message: '아이디를 입력해주세요.',
         })
         .max(16, {
           message: '아이디는 2자 이상 16자 이하로 입력하세요.',
         }),
       password: z
-        .string({ message: '비밀번호를 입력해주세요.' })
+        .string()
+        .min(1, { message: '비밀번호를 입력해주세요.' })
         .regex(
           passwordRegex,
           '비밀번호는 영문, 숫자, 특수문자 포함 8자 이상 20자 이하여야 합니다.',
         ),
-      passwordConfirm: z.string({
+      passwordConfirm: z.string().min(1, {
         message: '비밀번호를 한번 더 입력해주세요.',
       }),
-      location: z.string({ message: '지역을 선택해주세요.' }).min(2).max(10),
+      location: z.string().min(1, { message: '지역을 선택해주세요.' }),
       nickname: z
-        .string({ message: '닉네임을 입력해주세요.' })
-        .min(2, {
-          message: '닉네임은 2자 이상 8자 이하로 입력하세요.',
-        })
+        .string()
+        .min(1, { message: '닉네임을 입력해주세요.' })
         .max(8, {
           message: '닉네임은 2자 이상 8자 이하로 입력하세요.',
         }),
       phone: z
-        .string({ message: '핸드폰 번호를 입력해주세요.' })
+        .string()
+        .min(1, { message: '핸드폰 번호를 입력해주세요.' })
         .regex(phoneRegex, '01012345678 형식에 맞춰 입력해주세요.'),
-      phoneVerifyCode: z.string({
+      phoneVerifyCode: z.string().min(1, {
         message: '휴대폰으로 전송된 인증번호를 입력해주세요.',
       }),
     })
@@ -193,7 +211,7 @@ const RegisterForm = () => {
                     {...field}
                     onChange={(e) => {
                       setUniqueId(false);
-                      form.setValue('id', e.target.value);
+                      field.onChange(e.target.value);
                     }}
                   />
                 </FormControl>
@@ -201,7 +219,7 @@ const RegisterForm = () => {
                   type="button"
                   className="text-white font-semibold"
                   onClick={verifyId}
-                  disabled={uniqueId || form.getValues('id') === ''}
+                  disabled={uniqueId || !field.value}
                 >
                   중복확인
                 </Button>
@@ -255,7 +273,7 @@ const RegisterForm = () => {
                     {...field}
                     onChange={(e) => {
                       setUniqueNickname(false);
-                      form.setValue('nickname', e.target.value);
+                      field.onChange(e.target.value);
                     }}
                   />
                 </FormControl>
@@ -263,7 +281,7 @@ const RegisterForm = () => {
                   type="button"
                   className="text-white font-semibold"
                   onClick={verifyNickname}
-                  disabled={uniqueNickname || form.getValues('nickname') === ''}
+                  disabled={uniqueNickname || !field.value}
                 >
                   중복확인
                 </Button>
@@ -283,7 +301,68 @@ const RegisterForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Input placeholder="지역 선택" {...field} />
+                <Popover open={open} onOpenChange={setOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      role="combobox"
+                      aria-expanded={open}
+                      className="flex items-center justify-start p-0 bg-transparent border-gray-200 border w-[408px]"
+                    >
+                      <div className="flex items-center text-md px-3">
+                        <span
+                          className={cn(
+                            !field.value ? 'text-gray-400' : 'text-black',
+                          )}
+                        >
+                          {field.value
+                            ? locationList.find(
+                                (dong) => dong.label === field.value,
+                              )?.value
+                            : '동네 선택'}
+                        </span>
+                        <ChevronDown
+                          className={cn(
+                            !field.value ? 'text-gray-400' : 'text-black',
+                            'ml-1 h-4 w-4 shrink-0',
+                          )}
+                        />
+                      </div>
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[408px] p-0 bg-white border-gray-500">
+                    <Command>
+                      <CommandInput
+                        placeholder="동명으로 검색(ex. 서초동)"
+                        className="border-gray-500"
+                      />
+                      <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
+                      <CommandList>
+                        <CommandGroup>
+                          {locationList.map((dong) => (
+                            <CommandItem
+                              key={dong.label}
+                              value={dong.label}
+                              onSelect={(currentValue) => {
+                                field.onChange(currentValue);
+                                setOpen(false);
+                              }}
+                            >
+                              <Check
+                                className={cn(
+                                  'mr-2 h-4 w-4',
+                                  field.value === dong.label
+                                    ? 'opacity-100'
+                                    : 'opacity-0',
+                                )}
+                              />
+                              {dong.label}
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
               </FormControl>
               <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
             </FormItem>
@@ -301,7 +380,7 @@ const RegisterForm = () => {
                     {...field}
                     onChange={(e) => {
                       setShowPhoneVerifyCodeInput(false);
-                      form.setValue('phone', e.target.value);
+                      field.onChange(e.target.value);
                       form.setValue('phoneVerifyCode', '');
                       setVerifiedPhone(false);
                     }}
@@ -311,9 +390,7 @@ const RegisterForm = () => {
                   type="button"
                   className="text-white font-semibold"
                   onClick={sendPhoneCertificationNumber}
-                  disabled={
-                    form.getValues('phone') === '' || showPhoneVerifyCodeInput
-                  }
+                  disabled={!field.value || showPhoneVerifyCodeInput}
                 >
                   인증번호 전송
                 </Button>
@@ -335,7 +412,7 @@ const RegisterForm = () => {
                       {...field}
                       onChange={(e) => {
                         setVerifiedPhone(false);
-                        form.setValue('phoneVerifyCode', e.target.value);
+                        field.onChange(e.target.value);
                       }}
                     />
                   </FormControl>
