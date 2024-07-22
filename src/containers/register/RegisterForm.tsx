@@ -14,7 +14,12 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
-import { checkIdDuplicate, checkNicknameDuplicate } from '@/services/auth';
+import {
+  checkIdDuplicate,
+  checkNicknameDuplicate,
+  smsCertificationSend,
+  smsCertificationVerify,
+} from '@/services/auth';
 
 const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
 const phoneRegex = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
@@ -24,6 +29,7 @@ const RegisterForm = () => {
   const [uniqueNickname, setUniqueNickname] = useState(false);
   const [showPhoneVerifyCodeInput, setShowPhoneVerifyCodeInput] =
     useState(false);
+  const [verifiedPhone, setVerifiedPhone] = useState(false);
 
   const formSchema = z
     .object({
@@ -105,7 +111,7 @@ const RegisterForm = () => {
       form.clearErrors('id');
       setUniqueId(true);
     } else {
-      form.setError('id', { type: 'manual', message: message });
+      form.setError('id', { type: 'manual', message });
     }
   };
 
@@ -129,13 +135,49 @@ const RegisterForm = () => {
       form.clearErrors('nickname');
       setUniqueNickname(true);
     } else {
-      form.setError('nickname', { type: 'manual', message: message });
+      form.setError('nickname', { type: 'manual', message });
     }
   };
 
   const sendPhoneCertificationNumber = async () => {
-    setShowPhoneVerifyCodeInput(true);
+    const phoneNumberValue = form.getValues('phone');
+    const validation =
+      formSchema._def.schema.shape.phone.safeParse(phoneNumberValue);
+
+    if (!validation.success) {
+      form.setError('phone', {
+        type: 'manual',
+        message: validation.error.errors[0].message,
+      });
+      return;
+    }
+
+    const { status, message } = await smsCertificationSend(
+      form.getValues('phone'),
+    );
+
+    if (status === 'success') {
+      form.clearErrors('phone');
+      setShowPhoneVerifyCodeInput(true);
+    } else {
+      form.setError('phone', { type: 'manual', message });
+    }
   };
+
+  const verifyPhone = async () => {
+    const { status, message } = await smsCertificationVerify({
+      phoneNumber: form.getValues('phone'),
+      certificationNumber: form.getValues('phoneVerifyCode'),
+    });
+
+    if (status === 'success') {
+      form.clearErrors('phoneVerifyCode');
+      setVerifiedPhone(true);
+    } else {
+      form.setError('phoneVerifyCode', { type: 'manual', message });
+    }
+  };
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -159,7 +201,7 @@ const RegisterForm = () => {
                   type="button"
                   className="text-white font-semibold"
                   onClick={verifyId}
-                  disabled={uniqueId}
+                  disabled={uniqueId || form.getValues('id') === ''}
                 >
                   중복확인
                 </Button>
@@ -221,7 +263,7 @@ const RegisterForm = () => {
                   type="button"
                   className="text-white font-semibold"
                   onClick={verifyNickname}
-                  disabled={uniqueNickname}
+                  disabled={uniqueNickname || form.getValues('nickname') === ''}
                 >
                   중복확인
                 </Button>
@@ -254,12 +296,24 @@ const RegisterForm = () => {
             <FormItem>
               <div className="flex items-center gap-2">
                 <FormControl>
-                  <Input placeholder="01012345678" {...field} />
+                  <Input
+                    placeholder="01012345678"
+                    {...field}
+                    onChange={(e) => {
+                      setShowPhoneVerifyCodeInput(false);
+                      form.setValue('phone', e.target.value);
+                      form.setValue('phoneVerifyCode', '');
+                      setVerifiedPhone(false);
+                    }}
+                  />
                 </FormControl>
                 <Button
                   type="button"
                   className="text-white font-semibold"
                   onClick={sendPhoneCertificationNumber}
+                  disabled={
+                    form.getValues('phone') === '' || showPhoneVerifyCodeInput
+                  }
                 >
                   인증번호 전송
                 </Button>
@@ -276,12 +330,29 @@ const RegisterForm = () => {
               <FormItem>
                 <div className="flex items-center gap-2">
                   <FormControl>
-                    <Input placeholder="핸드폰 인증번호 입력" {...field} />
+                    <Input
+                      placeholder="핸드폰 인증번호 입력"
+                      {...field}
+                      onChange={(e) => {
+                        setVerifiedPhone(false);
+                        form.setValue('phoneVerifyCode', e.target.value);
+                      }}
+                    />
                   </FormControl>
-                  <Button type="button" className="text-white font-semibold">
+                  <Button
+                    type="button"
+                    className="text-white font-semibold"
+                    onClick={verifyPhone}
+                    disabled={verifiedPhone}
+                  >
                     인증번호 확인
                   </Button>
                 </div>
+                {verifiedPhone && (
+                  <p className="text-sm text-green-600 ml-1 mt-1">
+                    인증에 성공하였습니다.
+                  </p>
+                )}
                 <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
               </FormItem>
             )}

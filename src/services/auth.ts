@@ -6,7 +6,11 @@ export const checkIdDuplicate = async (id: string) => {
     const response = await api.post(`/api/auth/check-username`, {
       username: id,
     });
-    return { status: 'success', data: response.data };
+    return {
+      status: 'success',
+      data: response.data.data,
+      message: response.data.message,
+    };
   } catch (error: any) {
     if (error.response) {
       // 서버 응답 오류 처리
@@ -14,13 +18,12 @@ export const checkIdDuplicate = async (id: string) => {
         status: 'error',
         message: error.response.data.message || '서버 오류가 발생했습니다.',
       };
-    } else {
-      // 기타 오류 처리
-      return {
-        status: 'error',
-        message: '알 수 없는 오류가 발생했습니다. 다시 시도해주세요.',
-      };
     }
+    // 기타 오류 처리
+    return {
+      status: 'error',
+      message: '알 수 없는 오류가 발생했습니다. 다시 시도해주세요.',
+    };
   }
 };
 
@@ -28,9 +31,13 @@ export const checkIdDuplicate = async (id: string) => {
 export const checkNicknameDuplicate = async (nickname: string) => {
   try {
     const response = await api.post(`/api/auth/check-nickname`, {
-      nickname: nickname,
+      nickname,
     });
-    return { status: 'success', data: response.data };
+    return {
+      status: 'success',
+      data: response.data.data,
+      message: response.data.message,
+    };
   } catch (error: any) {
     if (error.response) {
       // 서버 응답 오류 처리
@@ -38,29 +45,73 @@ export const checkNicknameDuplicate = async (nickname: string) => {
         status: 'error',
         message: error.response.data.message || '서버 오류가 발생했습니다.',
       };
-    } else {
-      // 기타 오류 처리
-      return {
-        status: 'error',
-        message: '알 수 없는 오류가 발생했습니다. 다시 시도해주세요.',
-      };
     }
+    // 기타 오류 처리
+    return {
+      status: 'error',
+      message: '알 수 없는 오류가 발생했습니다. 다시 시도해주세요.',
+    };
   }
 };
 
 /** SMS 인증 메시지 전송 API */
-export const smsCertificationSend = (phoneNumber: string) =>
-  api.post(`/api/auth/sms-certifications/send`, { phoneNumber: phoneNumber });
+export const smsCertificationSend = async (phoneNumber: string) => {
+  try {
+    const response = await api.post(`/api/auth/sms-certifications/send`, {
+      phoneNumber,
+    });
 
-/** SMS 인증 요청 API */
-export const smsCertificationVerify = (data: {
+    return {
+      status: 'success',
+      data: response.data.data,
+      message: response.data.message,
+    };
+  } catch (error: any) {
+    if (error.response) {
+      // 서버 응답 오류 처리
+      return {
+        status: 'error',
+        message: error.response.data.message || '서버 오류가 발생했습니다.',
+      };
+    }
+    // 기타 오류 처리
+    return {
+      status: 'error',
+      message: '알 수 없는 오류가 발생했습니다. 다시 시도해주세요.',
+    };
+  }
+};
+
+/** SMS 인증 API */
+export const smsCertificationVerify = async (data: {
   phoneNumber: string;
   certificationNumber: string;
-}) =>
-  api.post(`/api/auth/sms-certifications/verify`, {
-    phoneNumber: data.phoneNumber,
-    certificationNumber: data.certificationNumber,
-  });
+}) => {
+  try {
+    const response = await api.post(`/api/auth/sms-certifications/verify`, {
+      phoneNumber: data.phoneNumber,
+      certificationNumber: data.certificationNumber,
+    });
+    return {
+      status: 'success',
+      data: response.data.data,
+      message: response.data.message,
+    };
+  } catch (error: any) {
+    if (error.response) {
+      // 서버 응답 오류 처리
+      return {
+        status: 'error',
+        message: error.response.data.message || '서버 오류가 발생했습니다.',
+      };
+    }
+    // 기타 오류 처리
+    return {
+      status: 'error',
+      message: '알 수 없는 오류가 발생했습니다. 다시 시도해주세요.',
+    };
+  }
+};
 
 /** 회원가입 API */
 export const register = (data: {

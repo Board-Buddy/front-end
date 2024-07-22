@@ -23,7 +23,6 @@ export const checkUsername = http.post<any, RequestBody, ResponseBody>(
         message: '동일한 아이디가 이미 존재합니다.',
       };
       return HttpResponse.json(result, { status: 409 });
-    } else {
     }
 
     const result = {
