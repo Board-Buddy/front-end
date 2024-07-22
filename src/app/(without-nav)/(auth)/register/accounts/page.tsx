@@ -9,7 +9,7 @@ const page = () => {
           회원가입에 필요한 정보를 입력해주세요.
         </p>
       </div>
-      <div className="my-4">
+      <div className="mt-6">
         <RegisterForm />
       </div>
     </>
