@@ -17,6 +17,7 @@ import { useState } from 'react';
 import {
   checkIdDuplicate,
   checkNicknameDuplicate,
+  register,
   smsCertificationSend,
   smsCertificationVerify,
 } from '@/services/auth';
@@ -35,7 +36,7 @@ import {
 } from '@/components/ui/popover';
 import { Check, ChevronDown } from 'lucide-react';
 import locationList from '@/containers/location/locationList.json';
-import { Select } from '@/components/ui/select';
+import { useRouter } from 'next/navigation';
 
 const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
 const phoneRegex = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
@@ -46,6 +47,8 @@ const RegisterForm = () => {
   const [showPhoneVerifyCodeInput, setShowPhoneVerifyCodeInput] =
     useState(false);
   const [verifiedPhone, setVerifiedPhone] = useState(false);
+
+  const router = useRouter();
 
   const [open, setOpen] = useState(false);
 
@@ -80,9 +83,7 @@ const RegisterForm = () => {
         .string()
         .min(1, { message: '핸드폰 번호를 입력해주세요.' })
         .regex(phoneRegex, '01012345678 형식에 맞춰 입력해주세요.'),
-      phoneVerifyCode: z.string().min(1, {
-        message: '휴대폰으로 전송된 인증번호를 입력해주세요.',
-      }),
+      phoneVerifyCode: z.string(),
     })
     .superRefine(({ password, passwordConfirm }, ctx) => {
       if (passwordConfirm !== password) {
@@ -107,8 +108,62 @@ const RegisterForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    // TODO: form submit logic
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    console.log(
+      uniqueId,
+      uniqueNickname,
+      showPhoneVerifyCodeInput,
+      verifiedPhone,
+    );
+
+    if (!uniqueId) {
+      form.setError('id', {
+        type: 'manual',
+        message: '아이디 중복확인이 필요합니다.',
+      });
+      return;
+    }
+
+    if (!uniqueNickname) {
+      form.setError('nickname', {
+        type: 'manual',
+        message: '닉네임 중복확인이 필요합니다.',
+      });
+      return;
+    }
+
+    if (!showPhoneVerifyCodeInput) {
+      form.setError('phone', {
+        type: 'manual',
+        message: '휴대폰 인증이 필요합니다.',
+      });
+      return;
+    }
+
+    if (!verifiedPhone) {
+      form.setError('phoneVerifyCode', {
+        type: 'manual',
+        message: '휴대폰 인증이 필요합니다.',
+      });
+      return;
+    }
+
+    const { status, message } = await register({
+      username: values.id,
+      password: values.password,
+      nickname: values.nickname,
+      phoneNumber: values.phone,
+      sido: values.location.split(' ')[0],
+      sigu: values.location.split(' ')[1],
+      dong: values.location.split(' ')[2],
+    });
+
+    if (status === 'success') {
+      alert(message);
+      router.push('/login');
+    } else {
+      alert(message);
+    }
   };
 
   const verifyId = async () => {
