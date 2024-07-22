@@ -13,7 +13,7 @@ export interface Article {
   title: string;
   description: string;
   author: Author;
-  location: string;
+  meetingLocation: string;
   maxParticipants: number;
   currentParticipants: number;
   startTime: string;

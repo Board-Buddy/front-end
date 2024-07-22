@@ -50,7 +50,7 @@ const ArticleList = () => {
               title={article.title}
               description={article.description}
               author={article.author}
-              location={article.location}
+              meetingLocation={article.meetingLocation}
               maxParticipants={article.maxParticipants}
               currentParticipants={article.currentParticipants}
               startTime={article.startTime}
