@@ -23,13 +23,13 @@ const ApplyButton = ({
   };
 
   return (
-    <Button
-      className={cn(
-        'w-[392px] text-white font-bold text-md h-12 shadow-lg sticky left-7 bottom-4',
-      )}
-    >
-      {buttonStyles[participationStatus].text}
-    </Button>
+    <div className="px-4 mb-8">
+      <Button
+        className={cn('w-full text-white font-bold text-md h-12 shadow-md')}
+      >
+        {buttonStyles[participationStatus].text}
+      </Button>
+    </div>
   );
 };
 

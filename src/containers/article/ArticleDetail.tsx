@@ -1,5 +1,6 @@
 'use client';
 
+import { Comment } from '@/types/comment';
 import ArticleContent from './ArticleContent';
 import Profile from './Profile';
 import ApplyButton from './ApplyButton';
@@ -13,7 +14,7 @@ const ArticleDetail = ({ id }: { id: string }) => {
     author: {
       nickname: '김보드',
       rank: 1,
-      profileURL: 'https://',
+      profileURL: '',
       description: '자기소개',
     },
     meetingLocation: '레드버튼 신림점',
@@ -23,17 +24,17 @@ const ArticleDetail = ({ id }: { id: string }) => {
     endTime: '2024-07-20 13:00',
     createdAt: '2024-07-19 13:09',
     status: '모집중',
-    participationStatus: 'author',
+    participationStatus: 'waiting',
   };
 
   // TODO: id로 댓글 fetch
-  const comments = [
+  const commentList: Comment[] = [
     {
       id: 1,
       author: {
-        nickname: '김한량',
+        nickname: 'yubin',
         rank: 0,
-        profileURL: 'http:~',
+        profileURL: '',
       },
       content: '댓글 내용 어쩌구',
       createdAt: '2024-06-20T13:21:00Z',
@@ -43,7 +44,7 @@ const ArticleDetail = ({ id }: { id: string }) => {
           author: {
             nickname: '이한량',
             rank: 1,
-            profileURL: 'http:~',
+            profileURL: '',
           },
           content: '대댓글 내용 어쩌구',
           createdAt: '2024-06-20T13:21:00Z',
@@ -53,7 +54,7 @@ const ArticleDetail = ({ id }: { id: string }) => {
           author: {
             nickname: '아리랑',
             rank: 0,
-            profileURL: 'http:~',
+            profileURL: '',
           },
           content: '대댓글 내용 어쩌구',
           createdAt: '2024-06-20T13:21:00Z',
@@ -65,7 +66,7 @@ const ArticleDetail = ({ id }: { id: string }) => {
       author: {
         nickname: '김구구',
         rank: 2,
-        profileURL: 'http:~',
+        profileURL: '',
       },
       content: '댓글 내용 어쩌구',
       createdAt: '2024-06-20T13:21:00Z',
@@ -87,8 +88,8 @@ const ArticleDetail = ({ id }: { id: string }) => {
         createdAt={article.createdAt}
         status={article.status}
       />
-      <CommentList />
       <ApplyButton participationStatus={article.participationStatus} />
+      <CommentList commentList={commentList} />
     </div>
   );
 };

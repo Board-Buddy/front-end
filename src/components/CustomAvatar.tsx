@@ -7,8 +7,8 @@ interface Props {
   src: string;
   rank: number | null;
   nickname: string;
-  avatarSize?: number;
-  badgeSize?: number;
+  avatarSize: number;
+  badgeSize: number;
 }
 
 const CustomAvatar = ({
@@ -27,7 +27,7 @@ const CustomAvatar = ({
   return (
     <Link href={`/profile/${nickname}`}>
       <Avatar className={cn('overflow-visible', `size-${avatarSize}`)}>
-        <AvatarImage src={src} />
+        <AvatarImage src={src || '/images/default_profile.png'} />
         <AvatarFallback>CN</AvatarFallback>
         <div className="absolute -bottom-1 right-0">
           {rank ? (
