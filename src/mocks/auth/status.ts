@@ -2,8 +2,6 @@ import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 
 export const status = http.get(`${API_BASE_URL}/api/auth/status`, () => {
-  console.log('Captured a "GET /api/auth/status" request');
-
   return HttpResponse.json({
     data: {
       userInfo: {
