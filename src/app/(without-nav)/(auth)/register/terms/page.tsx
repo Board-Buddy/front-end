@@ -12,7 +12,7 @@ const page = () => {
           서비스를 이용하려면 약관 동의가 필요합니다.
         </p>
       </div>
-      <div className="flex flex-col gap-3 my-4">
+      <div className="flex flex-col gap-3 mt-6">
         <div className="flex items-center space-x-2">
           <Checkbox id="all" className="rounded-full transition-all" />
           <Label htmlFor="all">전체 동의</Label>
