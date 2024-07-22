@@ -20,8 +20,7 @@ const phoneRegex = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
 
 const RegisterForm = () => {
   const [uniqueId, setUniqueId] = useState(false);
-  const [showEmailVerifyCodeInput, setShowEmailVerifyCodeInput] =
-    useState(false);
+  const [uniqueNickname, setUniqueNickname] = useState(false);
   const [showPhoneVerifyCodeInput, setShowPhoneVerifyCodeInput] =
     useState(false);
 
@@ -43,12 +42,6 @@ const RegisterForm = () => {
         ),
       passwordConfirm: z.string({
         message: '비밀번호를 한번 더 입력해주세요.',
-      }),
-      email: z
-        .string({ message: '이메일을 입력해주세요.' })
-        .email({ message: '이메일 형식이 올바르지 않습니다.' }),
-      emailVerifyCode: z.string({
-        message: '이메일로 전송된 인증번호를 입력해주세요.',
       }),
       location: z.string({ message: '지역을 선택해주세요.' }).min(2).max(10),
       nickname: z
@@ -89,8 +82,9 @@ const RegisterForm = () => {
     setUniqueId(true);
   };
 
-  const sendEmailCertificationNumber = async () => {
-    setShowEmailVerifyCodeInput(true);
+  const verifyNickname = async () => {
+    // TODO: id verification logic
+    setUniqueNickname(true);
   };
 
   const sendPhoneCertificationNumber = async () => {
@@ -150,52 +144,21 @@ const RegisterForm = () => {
         />
         <FormField
           control={form.control}
-          name="email"
+          name="nickname"
           render={({ field }) => (
             <FormItem>
               <div className="flex items-center gap-2">
                 <FormControl>
-                  <Input placeholder="이메일 입력" {...field} />
+                  <Input placeholder="닉네임 입력" {...field} />
                 </FormControl>
                 <Button
                   type="button"
                   className="text-white font-semibold"
-                  onClick={sendEmailCertificationNumber}
+                  onClick={verifyNickname}
                 >
-                  인증번호 전송
+                  중복확인
                 </Button>
               </div>
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
-            </FormItem>
-          )}
-        />
-        {showEmailVerifyCodeInput && (
-          <FormField
-            control={form.control}
-            name="emailVerifyCode"
-            render={({ field }) => (
-              <FormItem>
-                <div className="flex items-center gap-2">
-                  <FormControl>
-                    <Input placeholder="이메일 인증번호 입력" {...field} />
-                  </FormControl>
-                  <Button type="button" className="text-white font-semibold">
-                    인증번호 확인
-                  </Button>
-                </div>
-                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
-              </FormItem>
-            )}
-          />
-        )}
-        <FormField
-          control={form.control}
-          name="nickname"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input placeholder="닉네임 입력" {...field} />
-              </FormControl>
               <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
             </FormItem>
           )}
