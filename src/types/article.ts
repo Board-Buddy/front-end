@@ -20,6 +20,7 @@ export interface Article {
   endTime: string;
   createdAt: string;
   status: string;
+  participationStatus?: string;
 }
 
 export interface Author {
