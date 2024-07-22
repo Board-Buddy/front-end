@@ -44,3 +44,16 @@ export const formatRelativeTime = (createdAt: string) => {
   const day = createdDate.getDate();
   return `${year}년 ${month}월 ${day}일`;
 };
+
+export const commentTime = (createdAt: string) => {
+  const date = new Date(createdAt);
+
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+
+  return `${year}/${month}/${day} · ${hours}:${minutes}`;
+};

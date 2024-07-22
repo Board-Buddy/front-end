@@ -13,18 +13,21 @@ export interface Article {
   title: string;
   description: string;
   author: Author;
-  location: string;
+  meetingLocation: string;
   maxParticipants: number;
   currentParticipants: number;
   startTime: string;
   endTime: string;
   createdAt: string;
   status: string;
+  participationStatus?: string;
 }
 
 export interface Author {
   nickname: string;
   rank: number;
+  profileURL?: string;
+  description?: string;
 }
 
 export interface SearchParams {

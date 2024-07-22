@@ -20,7 +20,7 @@ const Article = ({
   title,
   description,
   author,
-  location,
+  meetingLocation,
   maxParticipants,
   currentParticipants,
   startTime,
@@ -58,7 +58,7 @@ const Article = ({
             height={12}
             className="mr-1"
           />
-          {location}
+          {meetingLocation}
         </div>
         <div className="text-gray-600 flex items-center">
           <Image
