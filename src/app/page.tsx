@@ -10,9 +10,10 @@ const page = () => {
         alt="보드버디 로고"
         width={216}
         height={108}
+        className="mb-32"
       />
       <Link href="/register/terms">
-        <Button className="mt-32 rounded-3xl text-white font-bold py-6 w-64 text-md">
+        <Button className="rounded-3xl text-white font-bold py-6 w-64 text-md">
           보드버디 참여하기
         </Button>
       </Link>
