@@ -2,8 +2,6 @@ import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 
 export const login = http.post(`${API_BASE_URL}/api/auth/login`, async () => {
-  console.log('로그인 요청');
-
   const result = {
     data: {
       nickname: 'kong',
