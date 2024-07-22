@@ -25,8 +25,28 @@ export const checkIdDuplicate = async (id: string) => {
 };
 
 /** 닉네임 중복 검사 API  */
-export const checkNicknameDuplicate = (nickname: string) =>
-  api.post(`/api/auth/check-nickname`, { nickname: nickname });
+export const checkNicknameDuplicate = async (nickname: string) => {
+  try {
+    const response = await api.post(`/api/auth/check-nickname`, {
+      nickname: nickname,
+    });
+    return { status: 'success', data: response.data };
+  } catch (error: any) {
+    if (error.response) {
+      // 서버 응답 오류 처리
+      return {
+        status: 'error',
+        message: error.response.data.message || '서버 오류가 발생했습니다.',
+      };
+    } else {
+      // 기타 오류 처리
+      return {
+        status: 'error',
+        message: '알 수 없는 오류가 발생했습니다. 다시 시도해주세요.',
+      };
+    }
+  }
+};
 
 /** SMS 인증 메시지 전송 API */
 export const smsCertificationSend = (phoneNumber: string) =>

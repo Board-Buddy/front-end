@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useState } from 'react';
-import { checkIdDuplicate } from '@/services/auth';
+import { checkIdDuplicate, checkNicknameDuplicate } from '@/services/auth';
 
 const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
 const phoneRegex = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
@@ -88,6 +88,17 @@ const RegisterForm = () => {
   };
 
   const verifyId = async () => {
+    const idValue = form.getValues('id');
+    const validation = formSchema._def.schema.shape.id.safeParse(idValue);
+
+    if (!validation.success) {
+      form.setError('id', {
+        type: 'manual',
+        message: validation.error.errors[0].message,
+      });
+      return;
+    }
+
     const { status, message } = await checkIdDuplicate(form.getValues('id'));
 
     if (status === 'success') {
@@ -99,8 +110,27 @@ const RegisterForm = () => {
   };
 
   const verifyNickname = async () => {
-    // TODO: nickname verification logic
-    setUniqueNickname(true);
+    const nicknameValue = form.getValues('nickname');
+    const validation =
+      formSchema._def.schema.shape.nickname.safeParse(nicknameValue);
+
+    if (!validation.success) {
+      form.setError('nickname', {
+        type: 'manual',
+        message: validation.error.errors[0].message,
+      });
+      return;
+    }
+    const { status, message } = await checkNicknameDuplicate(
+      form.getValues('nickname'),
+    );
+
+    if (status === 'success') {
+      form.clearErrors('nickname');
+      setUniqueNickname(true);
+    } else {
+      form.setError('nickname', { type: 'manual', message: message });
+    }
   };
 
   const sendPhoneCertificationNumber = async () => {
@@ -178,16 +208,29 @@ const RegisterForm = () => {
             <FormItem>
               <div className="flex items-center gap-2">
                 <FormControl>
-                  <Input placeholder="닉네임 입력" {...field} />
+                  <Input
+                    placeholder="닉네임 입력"
+                    {...field}
+                    onChange={(e) => {
+                      setUniqueNickname(false);
+                      form.setValue('nickname', e.target.value);
+                    }}
+                  />
                 </FormControl>
                 <Button
                   type="button"
                   className="text-white font-semibold"
                   onClick={verifyNickname}
+                  disabled={uniqueNickname}
                 >
                   중복확인
                 </Button>
               </div>
+              {uniqueNickname && (
+                <p className="text-sm text-green-600 ml-1 mt-1">
+                  사용 가능한 닉네임입니다.
+                </p>
+              )}
               <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
             </FormItem>
           )}
