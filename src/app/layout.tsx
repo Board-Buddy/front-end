@@ -45,6 +45,10 @@ export default function RootLayout({
           </MSWComponent>
         </div>
       </body>
+      {/* <script
+        type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4afeea470f83d64f402e4393effb86bc"
+      ></script> */}
     </html>
   );
 }
