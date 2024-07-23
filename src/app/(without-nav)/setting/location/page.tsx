@@ -6,7 +6,7 @@ export const fetchCache = 'force-no-store';
 
 const page = () => {
   return (
-    <div className="flex flex-col min-h-full">
+    <div className="flex flex-col">
       <Map />
       <LocationRadiusSetting />
     </div>
