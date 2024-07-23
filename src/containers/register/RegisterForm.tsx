@@ -72,6 +72,10 @@ const RegisterForm = () => {
       passwordConfirm: z.string().min(1, {
         message: '비밀번호를 한번 더 입력해주세요.',
       }),
+      email: z
+        .string()
+        .min(1, { message: '이메일을 입력해주세요.' })
+        .email({ message: '이메일 형태로 입력해주세요.' }),
       location: z.string().min(1, { message: '지역을 선택해주세요.' }),
       nickname: z
         .string()
@@ -101,6 +105,7 @@ const RegisterForm = () => {
       id: '',
       password: '',
       passwordConfirm: '',
+      email: '',
       location: '',
       nickname: '',
       phone: '',
@@ -151,6 +156,7 @@ const RegisterForm = () => {
     const { status, message } = await register({
       username: values.id,
       password: values.password,
+      email: values.email,
       nickname: values.nickname,
       phoneNumber: values.phone,
       sido: values.location.split(' ')[0],
@@ -311,6 +317,18 @@ const RegisterForm = () => {
                   type="password"
                   {...field}
                 />
+              </FormControl>
+              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input placeholder="이메일 입력" type="email" {...field} />
               </FormControl>
               <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
             </FormItem>

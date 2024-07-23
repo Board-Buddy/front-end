@@ -120,6 +120,7 @@ export const smsCertificationVerify = async (data: {
 export const register = async (data: {
   username: string;
   password: string;
+  email: string;
   nickname: string;
   phoneNumber: string;
   sido: string;
