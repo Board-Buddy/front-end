@@ -45,8 +45,7 @@ const CommentList = ({ articleId }: { articleId: number }) => {
                 src={comment.author.profileImageS3SavedURL || ''}
                 rank={comment.author.rank}
                 nickname={comment.author.nickname}
-                avatarSize={8}
-                badgeSize={16}
+                avatarSize="xs"
               />
               <p className="text-sm">{comment.author.nickname}</p>
               <div className="ml-auto flex gap-2">
@@ -77,8 +76,7 @@ const CommentList = ({ articleId }: { articleId: number }) => {
                     src={reply.author.profileImageS3SavedURL || ''}
                     rank={reply.author.rank}
                     nickname={reply.author.nickname}
-                    avatarSize={8}
-                    badgeSize={16}
+                    avatarSize="xs"
                   />
                   <p className="text-sm">{reply.author.nickname}</p>
                   <div className="ml-auto flex gap-2">

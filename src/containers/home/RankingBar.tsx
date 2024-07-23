@@ -16,8 +16,7 @@ const RankingBar = ({ nickname, profileUrl, rank }: Props) => {
         src={profileUrl}
         rank={rank}
         nickname={nickname}
-        avatarSize={12}
-        badgeSize={15}
+        avatarSize="sm"
       />
       <div
         className={`${height[rank]} ${color[rank]} text-center rounded-md p-1`}
