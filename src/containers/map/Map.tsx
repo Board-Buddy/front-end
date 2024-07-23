@@ -25,8 +25,6 @@ const geolocationOptions = {
 };
 
 const Map = () => {
-  const mapRef = useRef<HTMLDivElement>(null);
-
   const cafes = [
     {
       addressName: '서울 종로구 내수동 73',
@@ -64,6 +62,9 @@ const Map = () => {
     },
   ];
 
+  const mapRef = useRef<HTMLDivElement>(null);
+  const mapObjectRef = useRef<any>(null);
+
   const [showInfo, setShowInfo] = useState(false);
   const [cafeInfo, setCafeInfo] = useState<Cafe | null>(null);
   const [radius, setRadius] = useState(MAP_INITIAL_RADIUS);
@@ -88,11 +89,11 @@ const Map = () => {
           maxLevel: MAP_MAX_LEVEL,
         };
         const map = new window.kakao.maps.Map(container, options);
+        mapObjectRef.current = map;
 
         // 지도 클릭 이벤트 등록
         window.kakao.maps.event.addListener(map, 'click', () => {
           setShowInfo(false);
-          map.relayout();
         });
 
         // 지도 확대/축소 이벤트 등록
@@ -136,11 +137,10 @@ const Map = () => {
             return function () {
               setShowInfo(true);
               setCafeInfo(cafe);
-              map.relayout();
             };
           }
 
-          // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
+          // 마커에 click 이벤트 등록
           // 이벤트 리스너로는 클로저를 만들어 등록합니다
           // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
           window.kakao.maps.event.addListener(
@@ -156,6 +156,17 @@ const Map = () => {
       document.head.removeChild(script);
     };
   }, [location]);
+
+  useEffect(() => {
+    if (mapObjectRef.current && cafeInfo) {
+      mapObjectRef.current.relayout();
+
+      const moveLatLon = new window.kakao.maps.LatLng(cafeInfo.y, cafeInfo.x);
+
+      mapObjectRef.current.setLevel(3, { anchor: moveLatLon, animate: true }); // 지도 레벨을 3으로 설정한다.
+      mapObjectRef.current.panTo(moveLatLon); // 지도 중심을 부드럽게 이동한다.
+    }
+  }, [showInfo, cafeInfo]);
 
   if (error) {
     return <div>위치 정보를 허용해주세요.</div>;
