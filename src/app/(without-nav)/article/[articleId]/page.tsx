@@ -1,11 +1,7 @@
 import ArticleDetail from '@/containers/article/ArticleDetail';
 
-const page = ({ params }: { params: { id: string } }) => {
-  return (
-    <div>
-      <ArticleDetail id={params.id} />
-    </div>
-  );
+const page = ({ params }: { params: { articleId: number } }) => {
+  return <ArticleDetail id={params.articleId} />;
 };
 
 export default page;

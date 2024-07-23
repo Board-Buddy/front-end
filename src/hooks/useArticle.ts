@@ -1,5 +1,6 @@
-import { getArticles } from '@/services/article';
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { getArticle, getArticles } from '@/services/article';
+import { Article } from '@/types/article';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 export const useGetArticles = (
   location: string,
@@ -16,5 +17,14 @@ export const useGetArticles = (
       }
       return lastPageParam + 1;
     },
+  });
+};
+
+export const useGetArticle = (articleId: number) => {
+  return useQuery<Omit<Article, 'id'>>({
+    queryKey: ['article', { articleId }],
+    queryFn: () => getArticle({ gatherArticleId: articleId }),
+    staleTime: 0,
+    gcTime: 0,
   });
 };
