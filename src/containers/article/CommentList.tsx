@@ -1,6 +1,5 @@
 'use client';
 
-import { Comment } from '@/types/comment';
 import React from 'react';
 import CustomAvatar from '@/components/CustomAvatar';
 import { Button } from '@/components/ui/button';
@@ -10,11 +9,27 @@ import { UserInfo } from '@/types/user';
 import { CornerDownRight, Ellipsis, MessageSquare } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { commentTime } from '@/utils/date';
+import { useGetComments } from '@/hooks/useComment';
 
-const CommentList = ({ commentList }: { commentList: Comment[] }) => {
+const CommentList = ({ articleId }: { articleId: number }) => {
   const cache = useQueryClient();
   const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
   const { nickname } = userInfo;
+
+  const {
+    data: commentList,
+    isPending,
+    isError,
+    error,
+  } = useGetComments(articleId);
+
+  if (isPending) {
+    return <span>Loading...</span>;
+  }
+
+  if (isError) {
+    return <span>Error: {error.message}</span>;
+  }
 
   return (
     <div className="p-4">
@@ -27,7 +42,7 @@ const CommentList = ({ commentList }: { commentList: Comment[] }) => {
           >
             <div className="flex items-center gap-2 mb-2">
               <CustomAvatar
-                src={comment.author.profileURL || ''}
+                src={comment.author.profileImageS3SavedURL || ''}
                 rank={comment.author.rank}
                 nickname={comment.author.nickname}
                 avatarSize={8}
@@ -59,7 +74,7 @@ const CommentList = ({ commentList }: { commentList: Comment[] }) => {
                 <div className="flex items-center gap-2 mb-2">
                   <CornerDownRight size={16} className="text-gray-700" />
                   <CustomAvatar
-                    src={reply.author.profileURL || ''}
+                    src={reply.author.profileImageS3SavedURL || ''}
                     rank={reply.author.rank}
                     nickname={reply.author.nickname}
                     avatarSize={8}

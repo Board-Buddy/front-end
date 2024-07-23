@@ -2,7 +2,7 @@ import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 
 export const getArticle = http.get(
-  `${API_BASE_URL}/api/gatherArticles/*`,
+  `${API_BASE_URL}/api/gatherArticles/:id([0-9]+)`,
   () => {
     return HttpResponse.json({
       status: 'success',
