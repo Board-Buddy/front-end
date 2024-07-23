@@ -155,7 +155,7 @@ const Map = () => {
     return () => {
       document.head.removeChild(script);
     };
-  }, [location, cafes]);
+  }, [location]);
 
   if (error) {
     return <div>위치 정보를 허용해주세요.</div>;
