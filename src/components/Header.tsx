@@ -33,7 +33,7 @@ const Header = () => {
     },
     '/map': {
       title: '보드게임 카페 찾기',
-      leftArrow: false,
+      leftArrow: true,
     },
     '/my': {
       title: '마이페이지',
