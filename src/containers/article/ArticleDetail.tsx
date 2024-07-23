@@ -8,7 +8,6 @@ import CommentList from './CommentList';
 import { useGetArticle } from '@/hooks/useArticle';
 
 const ArticleDetail = ({ id }: { id: number }) => {
-  // TODO: id로 article fetch
   const { data: article, isPending, isError, error } = useGetArticle(id);
 
   // TODO: id로 댓글 fetch
