@@ -5,27 +5,11 @@ import ArticleContent from './ArticleContent';
 import Profile from './Profile';
 import ApplyButton from './ApplyButton';
 import CommentList from './CommentList';
+import { useGetArticle } from '@/hooks/useArticle';
 
-const ArticleDetail = ({ id }: { id: string }) => {
+const ArticleDetail = ({ id }: { id: number }) => {
   // TODO: id로 article fetch
-  const article = {
-    title: '퇴근 후 보드게임 ㄱㄱ하실분',
-    description: '스플렌더 하실 분~',
-    author: {
-      nickname: '김보드',
-      rank: 1,
-      profileURL: '',
-      description: '자기소개',
-    },
-    meetingLocation: '레드버튼 신림점',
-    maxParticipants: 4,
-    currentParticipants: 2,
-    startTime: '2024-07-20 11:00',
-    endTime: '2024-07-20 13:00',
-    createdAt: '2024-07-19 13:09',
-    status: '모집중',
-    participationStatus: 'waiting',
-  };
+  const { data: article, isPending, isError, error } = useGetArticle(id);
 
   // TODO: id로 댓글 fetch
   const commentList: Comment[] = [
@@ -34,7 +18,7 @@ const ArticleDetail = ({ id }: { id: string }) => {
       author: {
         nickname: 'yubin',
         rank: 0,
-        profileURL: '',
+        profileImageS3SavedURL: '',
       },
       content: '댓글 내용 어쩌구',
       createdAt: '2024-06-20T13:21:00Z',
@@ -44,7 +28,7 @@ const ArticleDetail = ({ id }: { id: string }) => {
           author: {
             nickname: '이한량',
             rank: 1,
-            profileURL: '',
+            profileImageS3SavedURL: '',
           },
           content: '대댓글 내용 어쩌구',
           createdAt: '2024-06-20T13:21:00Z',
@@ -54,7 +38,7 @@ const ArticleDetail = ({ id }: { id: string }) => {
           author: {
             nickname: '아리랑',
             rank: 0,
-            profileURL: '',
+            profileImageS3SavedURL: '',
           },
           content: '대댓글 내용 어쩌구',
           createdAt: '2024-06-20T13:21:00Z',
@@ -66,13 +50,21 @@ const ArticleDetail = ({ id }: { id: string }) => {
       author: {
         nickname: '김구구',
         rank: 2,
-        profileURL: '',
+        profileImageS3SavedURL: '',
       },
       content: '댓글 내용 어쩌구',
       createdAt: '2024-06-20T13:21:00Z',
       replies: [],
     },
   ];
+
+  if (isPending) {
+    return <span>Loading...</span>;
+  }
+
+  if (isError) {
+    return <span>Error: {error.message}</span>;
+  }
 
   return (
     <div>
@@ -88,7 +80,7 @@ const ArticleDetail = ({ id }: { id: string }) => {
         createdAt={article.createdAt}
         status={article.status}
       />
-      <ApplyButton participationStatus={article.participationStatus} />
+      <ApplyButton participationStatus={article.participationStatus!} />
       <CommentList commentList={commentList} />
     </div>
   );

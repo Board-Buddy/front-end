@@ -8,3 +8,9 @@ export const getArticles = ({ pageParam, status, sort }: ArticleRequest) =>
       params: { page: pageParam, status, sort },
     })
     .then((response) => response.data.data);
+
+/** 모집글 상세 조회 API */
+export const getArticle = ({ gatherArticleId }: { gatherArticleId: number }) =>
+  api
+    .get(`/api/gatherArticles/${gatherArticleId}`)
+    .then((response) => response.data.data.post);

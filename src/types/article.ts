@@ -14,6 +14,8 @@ export interface Article {
   description: string;
   author: Author;
   meetingLocation: string;
+  x?: number;
+  y?: number;
   maxParticipants: number;
   currentParticipants: number;
   startTime: string;
@@ -26,7 +28,7 @@ export interface Article {
 export interface Author {
   nickname: string;
   rank: number;
-  profileURL?: string;
+  profileImageS3SavedURL?: string;
   description?: string;
 }
 

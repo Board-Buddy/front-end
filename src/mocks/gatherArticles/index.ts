@@ -1,5 +1,6 @@
 import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
+import { getArticle } from './{gatherArticleId}';
 
 export const getArticles = http.get(
   `${API_BASE_URL}/api/gatherArticles`,
@@ -115,4 +116,4 @@ export const getArticles = http.get(
   },
 );
 
-export const articleHandlers = [getArticles];
+export const articleHandlers = [getArticles, getArticle];
