@@ -8,11 +8,10 @@ const Profile = ({ author }: { author: Author }) => {
     <Link href={`/profile/${author.nickname}`}>
       <div className="flex items-center border-b-[1px] border-gray-200 p-4">
         <CustomAvatar
-          src={author.profileURL || ''}
+          src={author.profileImageS3SavedURL || ''}
           rank={author.rank}
           nickname={author.nickname}
-          avatarSize={16}
-          badgeSize={22}
+          avatarSize="md"
         />
         <div className="ml-3">
           <span className="text-lg font-bold">{author.nickname}</span>
