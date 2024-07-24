@@ -11,7 +11,7 @@ const ReloadButton = ({ show, onClick }: Props) => {
   return (
     <div
       className={cn(
-        'absolute top-3 left-1/2 -ml-[68px] z-10 transition-all',
+        'absolute top-4 left-1/2 -ml-[68px] z-10 transition-all',
         show ? 'visible' : 'hidden',
       )}
     >
