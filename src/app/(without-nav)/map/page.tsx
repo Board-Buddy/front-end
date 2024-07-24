@@ -1,7 +1,7 @@
-import Map from '@/containers/map/Map';
+import GeoLocation from '@/containers/map/GeoLocation';
 
 const page = () => {
-  return <Map />;
+  return <GeoLocation />;
 };
 
 export default page;

@@ -1,14 +1,10 @@
 'use client';
 
+import { Location } from '@/types/map';
 import { useEffect, useState } from 'react';
 
-interface ILocation {
-  latitude: number;
-  longitude: number;
-}
-
 const useGeoLocation = (options = {}) => {
-  const [location, setLocation] = useState<ILocation>();
+  const [location, setLocation] = useState<Location>();
   const [error, setError] = useState('');
 
   const handleSuccess = (pos: GeolocationPosition) => {
