@@ -12,6 +12,7 @@ import {
   MAP_MAX_LEVEL,
 } from '@/constants/map';
 import MapInfo from './MapInfo';
+import ReloadButton from './ReloadButton';
 
 declare global {
   interface Window {
@@ -69,6 +70,11 @@ const Map = () => {
 
   const [showInfo, setShowInfo] = useState(false);
   const [cafeInfo, setCafeInfo] = useState<Cafe | null>(null);
+  const [showReloadButton, setShowReloadButton] = useState(false);
+
+  const onReloadButtonClick = () => {
+    setShowReloadButton(false);
+  };
 
   const { location, error } = useGeoLocation(geolocationOptions);
 
@@ -99,6 +105,7 @@ const Map = () => {
 
         // 지도 확대/축소 이벤트 등록
         window.kakao.maps.event.addListener(map, 'zoom_changed', () => {
+          setShowReloadButton(true);
           const level = map.getLevel();
           radiusRef.current = LEVEL_TO_RADIUS[level];
         });
@@ -107,6 +114,7 @@ const Map = () => {
         window.kakao.maps.event.addListener(map, 'dragend', () => {
           const centerPoint = map.getCenter();
           console.log(centerPoint.getLat(), centerPoint.getLng());
+          setShowReloadButton(true);
         });
 
         // 현재 위치 마커 생성
@@ -143,6 +151,7 @@ const Map = () => {
             return function () {
               setShowInfo(true);
               setCafeInfo(cafe);
+              setShowReloadButton(false);
             };
           }
 
@@ -179,7 +188,7 @@ const Map = () => {
   }
 
   return (
-    <>
+    <div className="relative">
       <div
         ref={mapRef}
         className={cn(
@@ -187,8 +196,9 @@ const Map = () => {
           showInfo ? 'h-[calc(100vh-300px)]' : 'h-[calc(100vh-50px)]',
         )}
       />
+      <ReloadButton show={showReloadButton} onClick={onReloadButtonClick} />
       <MapInfo cafe={cafeInfo} />
-    </>
+    </div>
   );
 };
 
