@@ -43,6 +43,7 @@ const Map = ({ location }: { location: Location }) => {
   });
 
   const [showInfo, setShowInfo] = useState(false);
+  const [clickListener, setClickListener] = useState(false);
   const [cafeInfo, setCafeInfo] = useState<Cafe | null>(null);
   const [showReloadButton, setShowReloadButton] = useState(false);
 
@@ -75,6 +76,7 @@ const Map = ({ location }: { location: Location }) => {
           level: MAP_INITIAL_LEVEL,
           maxLevel: MAP_MAX_LEVEL,
         };
+
         const map = new window.kakao.maps.Map(container, options);
         setMapObject(map);
 
@@ -148,10 +150,8 @@ const Map = ({ location }: { location: Location }) => {
           return function () {
             setShowInfo(true);
             setCafeInfo(cafe);
+            setClickListener((old) => !old);
             setShowReloadButton(false);
-
-            const moveLatLon = new window.kakao.maps.LatLng(cafe.y, cafe.x);
-            mapObject.panTo(moveLatLon); // 지도 중심을 부드럽게 이동한다.
           };
         }
 
@@ -168,6 +168,22 @@ const Map = ({ location }: { location: Location }) => {
       });
     }
   }, [cafes, mapObject]);
+
+  useEffect(() => {
+    if (cafeInfo) {
+      setTimeout(() => {
+        mapObject.relayout();
+
+        if (showInfo) {
+          const moveLatLon = new window.kakao.maps.LatLng(
+            cafeInfo.y,
+            cafeInfo.x,
+          );
+          mapObject.panTo(moveLatLon); // 지도 중심을 부드럽게 이동한다.
+        }
+      }, 150);
+    }
+  }, [clickListener, cafeInfo, mapObject, showInfo]);
 
   return (
     <div className="relative">
