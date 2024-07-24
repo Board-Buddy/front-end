@@ -57,6 +57,53 @@ export const boardCafes = http.get(
       );
     }
 
+    if (radius === '300') {
+      return HttpResponse.json(
+        {
+          status: 'success',
+          data: {
+            cafes: [
+              {
+                address_name: '서울 종로구 관철동 13-1',
+                distance: '2677',
+                id: '2055835737',
+                phone: '02-733-3799',
+                place_name: '레드버튼 종로점',
+                place_url: 'http://place.map.kakao.com/2055835737',
+                road_address_name: '서울 종로구 삼일대로19길 15',
+                x: '127.07840761344235',
+                y: '37.569449085306',
+              },
+              {
+                address_name: '서울 종로구 관철동 13-1',
+                distance: '2677',
+                id: '2055835737',
+                phone: '02-733-3799',
+                place_name: '레드버튼 종로점',
+                place_url: 'http://place.map.kakao.com/2055835737',
+                road_address_name: '서울 종로구 삼일대로19길 15',
+                x: '127.0786123396573',
+                y: '37.622066776269925',
+              },
+              {
+                address_name: '서울 종로구 관철동 13-1',
+                distance: '2677',
+                id: '2055835737',
+                phone: '02-733-3799',
+                place_name: '레드버튼 종로점',
+                place_url: 'http://place.map.kakao.com/2055835737',
+                road_address_name: '서울 종로구 삼일대로19길 15',
+                x: '127.07787884529003',
+                y: '37.61931024105776',
+              },
+            ],
+          },
+          message: '보드 게임 카페 조회를 성공하였습니다.',
+        },
+        { status: 200 },
+      );
+    }
+
     return HttpResponse.json(
       { status: 'error', data: null, message: '올바른 요청이 아닙니다.' },
       { status: 404 },

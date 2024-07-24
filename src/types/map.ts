@@ -1,4 +1,4 @@
-export interface CafeResponse {
+export interface Cafe {
   address_name: string;
   distance: string;
   id: string;
@@ -10,14 +10,7 @@ export interface CafeResponse {
   y: string;
 }
 
-export interface Cafe {
-  addressName: string;
-  distance: string;
-  id: string;
-  phone: string;
-  placeName: string;
-  placeUrl: string;
-  roadAddressName: string;
-  x: string;
-  y: string;
+export interface Location {
+  latitude: number;
+  longitude: number;
 }

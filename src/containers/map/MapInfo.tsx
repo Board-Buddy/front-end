@@ -6,16 +6,17 @@ import Link from 'next/link';
 const MapInfo = ({ cafe }: { cafe: Cafe | null }) => {
   if (cafe === null) return null;
 
-  const { phone, placeName, placeUrl, roadAddressName } = cafe;
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  const { phone, place_name, place_url, road_address_name } = cafe;
 
   return (
     <div className="p-4 bg-white rounded-2xl shadow-[0_-2px_10px_0_rgba(48,48,48,0.1)]">
       <div className="flex flex-col gap-4">
-        <h2 className="font-bold text-lg">{placeName}</h2>
+        <h2 className="font-bold text-lg">{place_name}</h2>
         <div className="flex flex-col text-md text-gray-800 gap-1">
           <div className="flex items-center gap-2">
             <MapPin className="size-5 text-secondary" />
-            {roadAddressName}
+            {road_address_name}
           </div>
           <div className="flex items-center gap-2">
             <Phone className="size-5 text-secondary" />
@@ -23,8 +24,8 @@ const MapInfo = ({ cafe }: { cafe: Cafe | null }) => {
           </div>
           <div className="flex items-center gap-2">
             <LinkIcon className="size-5 text-secondary" />
-            <Link href={placeUrl} target="_blank">
-              <span className="underline underline-offset-2">{placeUrl}</span>
+            <Link href={place_url} target="_blank">
+              <span className="underline underline-offset-2">{place_url}</span>
             </Link>
           </div>
         </div>
