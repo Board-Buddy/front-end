@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/utils/tailwind';
 import { Cafe } from '@/types/map';
 import {
+  LEVEL_TO_RADIUS,
   MAP_INITIAL_LEVEL,
   MAP_INITIAL_RADIUS,
   MAP_MAX_LEVEL,
@@ -64,10 +65,10 @@ const Map = () => {
 
   const mapRef = useRef<HTMLDivElement>(null);
   const mapObjectRef = useRef<any>(null);
+  const radiusRef = useRef<number>(MAP_INITIAL_RADIUS);
 
   const [showInfo, setShowInfo] = useState(false);
   const [cafeInfo, setCafeInfo] = useState<Cafe | null>(null);
-  const [radius, setRadius] = useState(MAP_INITIAL_RADIUS);
 
   const { location, error } = useGeoLocation(geolocationOptions);
 
@@ -99,8 +100,13 @@ const Map = () => {
         // 지도 확대/축소 이벤트 등록
         window.kakao.maps.event.addListener(map, 'zoom_changed', () => {
           const level = map.getLevel();
-          const radiusValue = [0, 70, 150, 300, 600, 1300, 2700, 5500, 12000];
-          setRadius(radiusValue[level]);
+          radiusRef.current = LEVEL_TO_RADIUS[level];
+        });
+
+        // 지도 이동(드래그) 이벤트 등록
+        window.kakao.maps.event.addListener(map, 'dragend', () => {
+          const centerPoint = map.getCenter();
+          console.log(centerPoint.getLat(), centerPoint.getLng());
         });
 
         // 현재 위치 마커 생성
