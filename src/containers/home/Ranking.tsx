@@ -1,25 +1,24 @@
 'use client';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useGetRankings } from '@/hooks/useRankings';
 import RankingBar from './RankingBar';
 
 const Ranking = () => {
+  const { data, isPending, isError, error } = useGetRankings();
+
+  if (isPending) {
+    return <p>Loading...</p>;
+  }
+
+  if (isError) {
+    return <p>Error: {error.message}</p>;
+  }
+
   const rankingData = [
-    {
-      rank: 2,
-      name: '닉네임긴버전안녕',
-      profileUrl: '',
-    },
-    {
-      rank: 1,
-      name: 'User1',
-      profileUrl: '',
-    },
-    {
-      rank: 3,
-      name: 'User3',
-      profileUrl: '',
-    },
+    { rank: 2, ...data[1] },
+    { rank: 1, ...data[0] },
+    { rank: 3, ...data[2] },
   ];
 
   return (
@@ -27,12 +26,12 @@ const Ranking = () => {
       <CardHeader>
         <CardTitle className="text-md">지난달 Top 3</CardTitle>
       </CardHeader>
-      <CardContent className="flex items-end justify-center gap-2">
+      <CardContent className="flex items-end justify-center gap-3">
         {rankingData.map((person) => (
           <RankingBar
             key={person.rank}
-            nickname={person.name}
-            profileUrl={person.profileUrl}
+            nickname={person.nickname}
+            profileUrl={person.profileImageS3SavedURL}
             rank={person.rank}
           />
         ))}
