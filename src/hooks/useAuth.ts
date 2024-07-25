@@ -2,8 +2,12 @@ import { checkUserLogin, login } from '@/services/auth';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
-export const useUserLoginCheck = () => {
-  return useQuery({ queryKey: ['userLoginCheck'], queryFn: checkUserLogin });
+export const useUserLoginCheck = ({ isReady }: { isReady: boolean }) => {
+  return useQuery({
+    queryKey: ['userInfo'],
+    queryFn: checkUserLogin,
+    enabled: isReady,
+  });
 };
 
 export const useUserLogin = () => {

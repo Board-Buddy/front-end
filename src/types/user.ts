@@ -6,3 +6,11 @@ export interface UserInfo {
   isPhoneNumberVerified: boolean;
   awsS3SavedFileURL: string | null;
 }
+
+export interface UserLoginResponse {
+  status: string;
+  data: {
+    profileDTO: UserInfo;
+  };
+  message: string;
+}

@@ -3,13 +3,17 @@ import { http, HttpResponse } from 'msw';
 
 export const status = http.get(`${API_BASE_URL}/api/auth/status`, () => {
   return HttpResponse.json({
+    status: 'success',
     data: {
-      userInfo: {
-        username: 'username',
+      profileDTO: {
         nickname: 'kong',
-        profileURL: '/uploadFiles/68d1ff37-c6d4-4619-a602-cb5e55fd3dff.png',
+        sido: '서울특별시',
+        sigu: '송파구',
+        dong: '잠실동',
+        isPhoneNumberVerified: true,
+        profileImageS3SavedURL: null,
       },
-      message: '세션이 유효합니다.',
     },
+    message: '유효한 세션입니다.',
   });
 });
