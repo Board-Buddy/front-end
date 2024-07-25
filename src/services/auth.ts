@@ -156,4 +156,36 @@ export const login = (data: { username: string; password: string }) =>
   api.post('/api/auth/login', data);
 
 /** 로그인 확인 API */
-export const checkUserLogin = () => api.get('/api/auth/status');
+export const checkUserLogin = () =>
+  api.get('/api/auth/status').then((response) => response.data.data.profileDTO);
+
+/** 소셜 로그인 추가 인증 API */
+export const oauthRegister = async (data: {
+  phoneNumber: string;
+  sido: string;
+  sigu: string;
+  dong: string;
+}) => {
+  try {
+    const response = await api.post('/api/auth/register', data);
+
+    return {
+      status: 'success',
+      data: response.data.data,
+      message: response.data.message,
+    };
+  } catch (error: any) {
+    if (error.response) {
+      // 서버 응답 오류 처리
+      return {
+        status: 'error',
+        message: error.response.data.message || '서버 오류가 발생했습니다.',
+      };
+    }
+    // 기타 오류 처리
+    return {
+      status: 'error',
+      message: '알 수 없는 오류가 발생했습니다. 다시 시도해주세요.',
+    };
+  }
+};
