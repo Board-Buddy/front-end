@@ -7,7 +7,7 @@ interface Props {
 }
 
 const RankingBar = ({ nickname, profileUrl, rank }: Props) => {
-  const height = [null, 'h-32', 'h-20', 'h-16'];
+  const height = [null, 'h-36', 'h-24', 'h-16'];
   const color = [null, 'bg-primary', 'bg-sub_first', 'bg-sub_second'];
 
   return (

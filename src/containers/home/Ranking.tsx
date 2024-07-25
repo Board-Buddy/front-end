@@ -18,7 +18,7 @@ const Ranking = () => {
   const rankingData = [
     { rank: 2, ...data[1] },
     { rank: 1, ...data[0] },
-    { rank: 2, ...data[2] },
+    { rank: 3, ...data[2] },
   ];
 
   return (
@@ -26,7 +26,7 @@ const Ranking = () => {
       <CardHeader>
         <CardTitle className="text-md">지난달 Top 3</CardTitle>
       </CardHeader>
-      <CardContent className="flex items-end justify-center gap-2">
+      <CardContent className="flex items-end justify-center gap-3">
         {rankingData.map((person) => (
           <RankingBar
             key={person.rank}
