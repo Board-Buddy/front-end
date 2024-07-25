@@ -167,7 +167,7 @@ export const oauthRegister = async (data: {
   dong: string;
 }) => {
   try {
-    const response = await api.post('/api/auth/register', data);
+    const response = await api.post('/api/auth/oauth2/register', data);
 
     return {
       status: 'success',

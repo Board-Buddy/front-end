@@ -14,7 +14,7 @@ interface ResponseBody {
   message: string;
 }
 
-export const register = http.post<any, RequestBody, ResponseBody>(
+export const oauthRegister = http.post<any, RequestBody, ResponseBody>(
   `${API_BASE_URL}/api/auth/oauth2/register`,
   async ({ request }) => {
     const requestBody = await request.json();
