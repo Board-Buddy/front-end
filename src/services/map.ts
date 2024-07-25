@@ -1,6 +1,9 @@
 import api from '@/services';
 
-/** 보드게임 카페 조회 API */
+/** 보드게임 카페 조회 API
+ * @param x 경도
+ * @param y 위도
+ */
 export const getBoardCafes = ({
   x,
   y,
