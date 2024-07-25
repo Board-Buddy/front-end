@@ -51,8 +51,13 @@ const Header = () => {
   let leftArrow = headerParams[pathname]?.leftArrow || false;
 
   if (pathname.startsWith('/article/') && pathname.split('/').length === 3) {
-    title = '모집글 상세';
-    leftArrow = true;
+    if (pathname.includes('write')) {
+      title = '모집글 작성';
+      leftArrow = true;
+    } else {
+      title = '모집글 상세';
+      leftArrow = true;
+    }
   }
 
   return (
