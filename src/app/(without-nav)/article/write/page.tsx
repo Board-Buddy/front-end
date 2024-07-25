@@ -1,5 +1,11 @@
+import ArticleWriteForm from '@/containers/article/ArticleWriteForm';
+
 const page = () => {
-  return <div>글 작성 페이지</div>;
+  return (
+    <div className="p-4">
+      <ArticleWriteForm />
+    </div>
+  );
 };
 
 export default page;
