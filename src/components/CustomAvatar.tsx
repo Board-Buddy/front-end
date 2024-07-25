@@ -4,7 +4,7 @@ import { cn } from '@/utils/tailwind';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 
 interface Props {
-  src: string;
+  src: string | null;
   rank: number | null;
   nickname: string;
   avatarSize: string;

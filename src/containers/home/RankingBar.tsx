@@ -2,7 +2,7 @@ import CustomAvatar from '@/components/CustomAvatar';
 
 interface Props {
   nickname: string;
-  profileUrl: string;
+  profileUrl: string | null;
   rank: number;
 }
 

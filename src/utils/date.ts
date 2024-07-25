@@ -57,3 +57,11 @@ export const commentTime = (createdAt: string) => {
 
   return `${year}/${month}/${day} · ${hours}:${minutes}`;
 };
+
+/** 현재 연월 가져오기 */
+export const getCurrentYearAndMonth = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  return `${year} ${month}`;
+};
