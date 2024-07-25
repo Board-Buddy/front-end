@@ -2,6 +2,10 @@ import { getBoardCafes } from '@/services/map';
 import { Cafe } from '@/types/map';
 import { useQuery } from '@tanstack/react-query';
 
+/** 보드게임 카페 조회 query
+ * @param x 경도
+ * @param y 위도
+ */
 export const useGetBoardCafes = ({
   x,
   y,

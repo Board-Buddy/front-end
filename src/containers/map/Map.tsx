@@ -26,10 +26,12 @@ const Map = ({ location }: { location: Location }) => {
 
   const [mapObject, setMapObject] = useState<any>(null);
   const [radius, setRadius] = useState<number>(MAP_INITIAL_RADIUS);
-  const [center, setCenter] = useState<{ x: number; y: number }>({
-    x: location.latitude,
-    y: location.longitude,
-  });
+  const [center, setCenter] = useState<{ latitude: number; longitude: number }>(
+    {
+      latitude: location.latitude,
+      longitude: location.longitude,
+    },
+  );
 
   const {
     data: cafes,
@@ -37,8 +39,8 @@ const Map = ({ location }: { location: Location }) => {
     isError,
     refetch,
   } = useGetBoardCafes({
-    x: center.x,
-    y: center.y,
+    x: center.longitude,
+    y: center.latitude,
     radius,
   });
 
@@ -65,7 +67,10 @@ const Map = ({ location }: { location: Location }) => {
 
     script.onload = () => {
       window.kakao.maps.load(() => {
-        setCenter({ x: location.latitude, y: location.latitude });
+        setCenter({
+          latitude: location.latitude,
+          longitude: location.longitude,
+        });
 
         const container = mapRef.current;
         const options = {
@@ -96,8 +101,8 @@ const Map = ({ location }: { location: Location }) => {
         window.kakao.maps.event.addListener(map, 'dragend', () => {
           const centerPoint = map.getCenter();
           setCenter({
-            x: centerPoint.getLat(),
-            y: centerPoint.getLng(),
+            latitude: centerPoint.getLat(),
+            longitude: centerPoint.getLng(),
           });
           setShowReloadButton(true);
         });
