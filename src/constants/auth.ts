@@ -1,4 +1,4 @@
-const OAUTH_LOGIN_MESSAGE_CODE = [
+export const OAUTH_LOGIN_MESSAGE_CODE = [
   '로그인에 성공하였습니다.',
   '인증 요청 또는 토큰 요청에 필요한 매개 변수가 누락되었습니다.',
   '누락되었거나 유효하지 않은 클라이언트 식별자입니다.',

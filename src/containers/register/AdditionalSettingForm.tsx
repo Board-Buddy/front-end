@@ -134,7 +134,6 @@ const AdditionalSettingForm = () => {
       setGetUserInfo(true);
     } else {
       alert(message);
-      return;
     }
   };
 
@@ -145,7 +144,7 @@ const AdditionalSettingForm = () => {
     } else {
       console.log(error);
     }
-  }, [isSuccess]);
+  }, [isSuccess, error]);
 
   return (
     <Form {...form}>
