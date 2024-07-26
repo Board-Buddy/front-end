@@ -23,7 +23,8 @@ import { CalendarIcon } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
 import { formatDate, getYesterday, oneMonthLater } from '@/utils/date';
 import { cn } from '@/utils/tailwind';
-import { Textarea } from '@/components/ui/textarea';
+import { useEffect, useState } from 'react';
+import { formSchema, useWriteFormContext } from '@/context/WriteFormContext';
 import {
   Select,
   SelectContent,
@@ -31,42 +32,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useState } from 'react';
+import { Textarea } from '@/components/ui/textarea';
+import { useRouter } from 'next/navigation';
 
 const ArticleWriteForm = () => {
-  const [showTimeErrorMessage, setShowTimeErrorMessage] = useState(false);
+  const router = useRouter();
 
-  const formSchema = z.object({
-    title: z
-      .string()
-      .min(1, { message: '제목을 입력해주세요.' })
-      .max(50, { message: '제목은 50자 이하로 입력 가능합니다.' }),
-    date: z.date({ required_error: '날짜를 선택해주세요.' }),
-    startHour: z.coerce.number().min(0).max(24),
-    endHour: z.coerce.number().min(0).max(24),
-    startMinute: z.coerce.number().min(0).max(59),
-    endMinute: z.coerce.number().min(0).max(59),
-    personnel: z.coerce
-      .number({ message: '인원을 선택해주세요.' })
-      .min(2)
-      .max(10),
-    location: z.string({ required_error: '위치를 선택해주세요.' }),
-    content: z.string().min(1, { message: '내용을 입력해주세요.' }),
-  });
+  const { formState, setFormState } = useWriteFormContext();
+  const [showTimeErrorMessage, setShowTimeErrorMessage] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: '',
-      date: undefined,
-      personnel: undefined,
-      startHour: undefined,
-      endHour: undefined,
-      startMinute: undefined,
-      endMinute: undefined,
-      content: '',
-    },
+    defaultValues: formState,
   });
+
+  useEffect(() => {
+    form.reset(formState);
+  }, [formState, form]);
+
+  const handleLocationSettingButton = () => {
+    setFormState(form.getValues());
+
+    // 위치 선택 페이지로 이동
+    router.push('/write/locationSetting');
+  };
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     const startHourValue = values.startHour;
@@ -79,7 +68,6 @@ const ArticleWriteForm = () => {
       (startHourValue === endHourValue && startMinuteValue > endMinuteValue)
     ) {
       setShowTimeErrorMessage(true);
-      return;
     } else {
       setShowTimeErrorMessage(false);
       // TODO: Article create API call
@@ -118,7 +106,7 @@ const ArticleWriteForm = () => {
                   <PopoverTrigger asChild>
                     <FormControl className="mt-2">
                       <Button
-                        variant={'outline'}
+                        variant="outline"
                         className={cn(
                           'w-full pl-3 text-left font-normal',
                           !field.value && 'text-muted',
@@ -287,20 +275,15 @@ const ArticleWriteForm = () => {
               className={cn(!form.getFieldState('location').invalid && 'pb-4')}
             >
               <FormLabel className="font-semibold">모임 위치</FormLabel>
-              <Select onValueChange={field.onChange}>
-                <FormControl className="mt-2">
-                  <SelectTrigger>
-                    <SelectValue placeholder="모임 위치 선택" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent className="bg-white w-20 h-[150px]">
-                  {[...Array(9)].map((_, index) => (
-                    <SelectItem key={index} value={index.toString()}>
-                      {index + 2}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <FormControl className="mt-2">
+                <Button
+                  type="button"
+                  className="mt-2 block w-full bg-transparent text-left border border-slate-40"
+                  onClick={handleLocationSettingButton}
+                >
+                  {!field.value && '위치 선택'}
+                </Button>
+              </FormControl>
               <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
             </FormItem>
           )}
