@@ -43,3 +43,17 @@ export interface ArticleRequest {
   status: string | null;
   sort: string | null;
 }
+
+export interface NewArticle {
+  title: string;
+  description: string;
+  meetingLocation: string;
+  sido: string;
+  sigu: string;
+  dong: string;
+  x: string;
+  y: string;
+  maxParticipants: number;
+  startDateTime: string;
+  endDateTime: string;
+}

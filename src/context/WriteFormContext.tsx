@@ -9,14 +9,11 @@ export const formSchema = z.object({
     .min(1, { message: '제목을 입력해주세요.' })
     .max(50, { message: '제목은 50자 이하로 입력 가능합니다.' }),
   date: z.date({ required_error: '날짜를 선택해주세요.' }),
-  startHour: z.coerce.number().min(0).max(24),
-  endHour: z.coerce.number().min(0).max(24),
-  startMinute: z.coerce.number().min(0).max(59),
-  endMinute: z.coerce.number().min(0).max(59),
-  maxParticipants: z.coerce
-    .number({ message: '인원을 선택해주세요.' })
-    .min(2)
-    .max(10),
+  startHour: z.string(),
+  endHour: z.string(),
+  startMinute: z.string(),
+  endMinute: z.string(),
+  maxParticipants: z.string({ required_error: '인원을 선택해주세요.' }),
   meetingLocation: z.string({ required_error: '위치를 선택해주세요.' }),
   description: z.string().min(1, { message: '내용을 입력해주세요.' }),
   sido: z.string(),
@@ -39,11 +36,11 @@ export const WriteFormProvider = ({ children }: { children: ReactNode }) => {
   const [formState, setFormState] = useState<FormSchemaType>({
     title: '',
     date: new Date(),
-    startHour: 0,
-    endHour: 0,
-    startMinute: 0,
-    endMinute: 0,
-    maxParticipants: 2,
+    startHour: '',
+    endHour: '',
+    startMinute: '',
+    endMinute: '',
+    maxParticipants: '',
     meetingLocation: '',
     description: '',
     sido: '',

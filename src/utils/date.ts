@@ -87,3 +87,42 @@ export const getYesterday = () => {
   date.setDate(date.getDate() - 1);
   return date;
 };
+
+/** 2024-07-20 11:00 형태로 변환
+ * @param date Date 객체
+ * @param hour 시
+ * @param minute 분
+ */
+export const formatDateTime = (
+  date: Date,
+  hour: number | string,
+  minute: number | string,
+) => {
+  const dateTime = date;
+  dateTime.setHours(typeof hour === 'number' ? hour : parseInt(hour));
+  dateTime.setMinutes(typeof minute === 'number' ? minute : parseInt(minute));
+
+  // 날짜 포맷팅
+  const formattedDate = dateTime
+    .toLocaleDateString('ko-KR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+    .replace(/\./g, '-')
+    .replace(/\s/g, '');
+
+  // 시간 포맷팅
+  const formattedTime = dateTime
+    .toLocaleTimeString('ko-KR', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    })
+    .replace(/\./g, '');
+
+  // 포맷팅된 날짜와 시간
+  const formattedDateTime = `${formattedDate} ${formattedTime}`;
+
+  return formattedDateTime;
+};

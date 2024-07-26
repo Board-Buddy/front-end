@@ -21,7 +21,12 @@ import {
 import { Button } from '@/components/ui/button';
 import { CalendarIcon } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
-import { formatDate, getYesterday, oneMonthLater } from '@/utils/date';
+import {
+  formatDate,
+  formatDateTime,
+  getYesterday,
+  oneMonthLater,
+} from '@/utils/date';
 import { cn } from '@/utils/tailwind';
 import { useEffect, useState } from 'react';
 import { formSchema, useWriteFormContext } from '@/context/WriteFormContext';
@@ -34,6 +39,7 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useRouter } from 'next/navigation';
+import { addArticle } from '@/services/article';
 
 const ArticleWriteForm = () => {
   const router = useRouter();
@@ -48,16 +54,18 @@ const ArticleWriteForm = () => {
 
   useEffect(() => {
     form.reset(formState);
+    console.log(formState);
   }, [formState, form]);
 
   const handleLocationSettingButton = () => {
+    console.log(form.getValues());
     setFormState(form.getValues());
 
     // 위치 선택 페이지로 이동
     router.push('/write/locationSetting');
   };
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const startHourValue = values.startHour;
     const endHourValue = values.endHour;
     const startMinuteValue = values.startMinute;
@@ -70,7 +78,35 @@ const ArticleWriteForm = () => {
       setShowTimeErrorMessage(true);
     } else {
       setShowTimeErrorMessage(false);
-      // TODO: Article create API call
+
+      const { status, message } = await addArticle({
+        title: values.title,
+        description: values.description,
+        startDateTime: formatDateTime(
+          values.date,
+          values.startHour,
+          values.startMinute,
+        ),
+        endDateTime: formatDateTime(
+          values.date,
+          values.endHour,
+          values.endMinute,
+        ),
+        maxParticipants: parseInt(values.maxParticipants),
+        meetingLocation: values.meetingLocation,
+        sido: values.sido,
+        sigu: values.sigu,
+        dong: values.dong,
+        x: values.x,
+        y: values.y,
+      });
+
+      if (status === 'success') {
+        alert('모집글이 업로드되었습니다.');
+        router.push('/home');
+      } else {
+        alert(message);
+      }
     }
   };
 
@@ -154,13 +190,10 @@ const ArticleWriteForm = () => {
               name="startHour"
               render={({ field }) => (
                 <FormItem>
-                  <Select onValueChange={field.onChange}>
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger className="w-20">
-                        <SelectValue
-                          className="placeholder:text-muted"
-                          placeholder="시"
-                        />
+                        <SelectValue placeholder="시" />
                         <SelectContent className="bg-white h-[150px]">
                           {[...Array(24)].map((_, index) => (
                             <SelectItem
@@ -183,7 +216,7 @@ const ArticleWriteForm = () => {
               name="startMinute"
               render={({ field }) => (
                 <FormItem>
-                  <Select onValueChange={field.onChange}>
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl className="w-20">
                       <SelectTrigger className="w-20">
                         <SelectValue placeholder="분" />
@@ -209,7 +242,7 @@ const ArticleWriteForm = () => {
               name="endHour"
               render={({ field }) => (
                 <FormItem>
-                  <Select onValueChange={field.onChange}>
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl className="w-20">
                       <SelectTrigger className="w-20">
                         <SelectValue placeholder="시" />
@@ -235,7 +268,7 @@ const ArticleWriteForm = () => {
               name="endMinute"
               render={({ field }) => (
                 <FormItem>
-                  <Select onValueChange={field.onChange}>
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl className="w-20">
                       <SelectTrigger className="w-20">
                         <SelectValue placeholder="분" />
@@ -296,7 +329,7 @@ const ArticleWriteForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel className="font-semibold">모집 인원</FormLabel>
-              <Select onValueChange={field.onChange}>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl className="mt-2">
                   <SelectTrigger>
                     <SelectValue placeholder="모집 인원 선택" />
