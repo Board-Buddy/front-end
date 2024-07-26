@@ -21,7 +21,12 @@ import {
 import { Button } from '@/components/ui/button';
 import { CalendarIcon } from 'lucide-react';
 import { Calendar } from '@/components/ui/calendar';
-import { formatDate, getYesterday, oneMonthLater } from '@/utils/date';
+import {
+  formatDate,
+  formatDateTime,
+  getYesterday,
+  oneMonthLater,
+} from '@/utils/date';
 import { cn } from '@/utils/tailwind';
 import { useEffect, useState } from 'react';
 import { formSchema, useWriteFormContext } from '@/context/WriteFormContext';
@@ -34,6 +39,7 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useRouter } from 'next/navigation';
+import { addArticle } from '@/services/article';
 
 const ArticleWriteForm = () => {
   const router = useRouter();
@@ -57,7 +63,7 @@ const ArticleWriteForm = () => {
     router.push('/write/locationSetting');
   };
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const startHourValue = values.startHour;
     const endHourValue = values.endHour;
     const startMinuteValue = values.startMinute;
@@ -70,7 +76,35 @@ const ArticleWriteForm = () => {
       setShowTimeErrorMessage(true);
     } else {
       setShowTimeErrorMessage(false);
-      // TODO: Article create API call
+
+      const { status, message } = await addArticle({
+        title: values.title,
+        description: values.description,
+        startDateTime: formatDateTime(
+          values.date,
+          values.startHour,
+          values.startMinute,
+        ),
+        endDateTime: formatDateTime(
+          values.date,
+          values.endHour,
+          values.endMinute,
+        ),
+        maxParticipants: parseInt(values.maxParticipants, 10),
+        meetingLocation: values.meetingLocation,
+        sido: values.sido,
+        sigu: values.sigu,
+        dong: values.dong,
+        x: values.x,
+        y: values.y,
+      });
+
+      if (status === 'success') {
+        alert('모집글이 업로드되었습니다.');
+        router.push('/home');
+      } else {
+        alert(message);
+      }
     }
   };
 
@@ -154,13 +188,10 @@ const ArticleWriteForm = () => {
               name="startHour"
               render={({ field }) => (
                 <FormItem>
-                  <Select onValueChange={field.onChange}>
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger className="w-20">
-                        <SelectValue
-                          className="placeholder:text-muted"
-                          placeholder="시"
-                        />
+                        <SelectValue placeholder="시" />
                         <SelectContent className="bg-white h-[150px]">
                           {[...Array(24)].map((_, index) => (
                             <SelectItem
@@ -183,7 +214,7 @@ const ArticleWriteForm = () => {
               name="startMinute"
               render={({ field }) => (
                 <FormItem>
-                  <Select onValueChange={field.onChange}>
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl className="w-20">
                       <SelectTrigger className="w-20">
                         <SelectValue placeholder="분" />
@@ -209,7 +240,7 @@ const ArticleWriteForm = () => {
               name="endHour"
               render={({ field }) => (
                 <FormItem>
-                  <Select onValueChange={field.onChange}>
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl className="w-20">
                       <SelectTrigger className="w-20">
                         <SelectValue placeholder="시" />
@@ -235,7 +266,7 @@ const ArticleWriteForm = () => {
               name="endMinute"
               render={({ field }) => (
                 <FormItem>
-                  <Select onValueChange={field.onChange}>
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl className="w-20">
                       <SelectTrigger className="w-20">
                         <SelectValue placeholder="분" />
@@ -269,19 +300,21 @@ const ArticleWriteForm = () => {
         </div>
         <FormField
           control={form.control}
-          name="location"
+          name="meetingLocation"
           render={({ field }) => (
             <FormItem
-              className={cn(!form.getFieldState('location').invalid && 'pb-4')}
+              className={cn(
+                !form.getFieldState('meetingLocation').invalid && 'pb-4',
+              )}
             >
               <FormLabel className="font-semibold">모임 위치</FormLabel>
               <FormControl className="mt-2">
                 <Button
                   type="button"
-                  className="mt-2 block w-full bg-transparent text-left border border-slate-40"
+                  className="mt-2 block w-full bg-transparent text-left border border-slate-40 font-normal px-3"
                   onClick={handleLocationSettingButton}
                 >
-                  {!field.value && '위치 선택'}
+                  {field.value || '위치 선택'}
                 </Button>
               </FormControl>
               <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
@@ -290,11 +323,11 @@ const ArticleWriteForm = () => {
         />
         <FormField
           control={form.control}
-          name="personnel"
+          name="maxParticipants"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="font-semibold">모집 인원</FormLabel>
-              <Select onValueChange={field.onChange}>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl className="mt-2">
                   <SelectTrigger>
                     <SelectValue placeholder="모집 인원 선택" />
@@ -319,7 +352,7 @@ const ArticleWriteForm = () => {
         />
         <FormField
           control={form.control}
-          name="content"
+          name="description"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="font-semibold">내용</FormLabel>

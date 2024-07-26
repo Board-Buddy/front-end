@@ -117,4 +117,24 @@ export const getArticles = http.get(
   },
 );
 
-export const articleHandlers = [getArticles, getArticle, getComments];
+export const addArticle = http.post(
+  `${API_BASE_URL}/api/gatherArticles`,
+  () => {
+    return HttpResponse.json({
+      status: 'success',
+      data: {
+        post: {
+          id: 1,
+        },
+      },
+      message: '모집글이 업로드 되었습니다',
+    });
+  },
+);
+
+export const articleHandlers = [
+  getArticles,
+  getArticle,
+  getComments,
+  addArticle,
+];

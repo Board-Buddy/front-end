@@ -1,4 +1,4 @@
-import GeoLocation from '@/containers/map/GeoLocation';
+import GeoLocation from '@/components/GeoLocation';
 
 const page = () => {
   return <GeoLocation />;

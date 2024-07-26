@@ -1,5 +1,7 @@
+import GeoLocation from '@/components/GeoLocation';
+
 const page = () => {
-  return <div>위치 선택 페이지</div>;
+  return <GeoLocation />;
 };
 
 export default page;

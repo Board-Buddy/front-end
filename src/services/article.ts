@@ -1,5 +1,5 @@
 import api from '@/services';
-import { ArticleRequest } from '@/types/article';
+import { ArticleRequest, NewArticle } from '@/types/article';
 
 /** 모집글 리스트 조회 API */
 export const getArticles = ({ pageParam, status, sort }: ArticleRequest) =>
@@ -14,3 +14,29 @@ export const getArticle = ({ gatherArticleId }: { gatherArticleId: number }) =>
   api
     .get(`/api/gatherArticles/${gatherArticleId}`)
     .then((response) => response.data.data.post);
+
+/** 모집글 작성 API */
+export const addArticle = async (data: NewArticle) => {
+  try {
+    const response = await api.post('/api/gatherArticles', data);
+
+    return {
+      status: 'success',
+      data: response.data.data,
+      message: response.data.message,
+    };
+  } catch (error: any) {
+    if (error.response) {
+      // 서버 응답 오류 처리
+      return {
+        status: 'error',
+        message: error.response.data.message || '서버 오류가 발생했습니다.',
+      };
+    }
+    // 기타 오류 처리
+    return {
+      status: 'error',
+      message: '알 수 없는 오류가 발생했습니다. 다시 시도해주세요.',
+    };
+  }
+};
