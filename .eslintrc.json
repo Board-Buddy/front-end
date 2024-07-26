@@ -59,6 +59,7 @@
     "react/jsx-no-constructed-context-values": "off",
     "no-underscore-dangle": "off",
     "@typescript-eslint/no-explicit-any": "warn",
-    "react/no-unstable-nested-components": "warn"
+    "react/no-unstable-nested-components": "warn",
+    "no-param-reassign": "warn"
   }
 }
