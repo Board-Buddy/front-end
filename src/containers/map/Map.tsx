@@ -8,7 +8,7 @@ import useKakaoMap from '@/hooks/custom/useKakaoMap';
 import useCafesMarkers from '@/hooks/custom/useCafesMarkers';
 import usePanToCafe from '@/hooks/custom/usePanToCafe';
 import ReloadButton from './ReloadButton';
-import MapInfo from './MapInfo';
+import MapInfo from './CafeInfo';
 
 declare global {
   interface Window {
