@@ -3,7 +3,13 @@ import { Cafe } from '@/types/map';
 import { Link as LinkIcon, MapPin, Phone } from 'lucide-react';
 import Link from 'next/link';
 
-const MapInfo = ({ cafe }: { cafe: Cafe | null }) => {
+interface Props {
+  cafe: Cafe | null;
+  onClick: () => void;
+  buttonTitle: string;
+}
+
+const CafeInfo = ({ cafe, onClick, buttonTitle }: Props) => {
   if (cafe === null) return null;
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -30,11 +36,14 @@ const MapInfo = ({ cafe }: { cafe: Cafe | null }) => {
           </div>
         </div>
       </div>
-      <Button className="text-white font-bold mt-11 w-full text-md h-12">
-        길찾기
+      <Button
+        onClick={onClick}
+        className="text-white font-bold mt-11 w-full text-md h-12"
+      >
+        {buttonTitle}
       </Button>
     </div>
   );
 };
 
-export default MapInfo;
+export default CafeInfo;

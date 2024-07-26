@@ -13,12 +13,17 @@ export const formSchema = z.object({
   endHour: z.coerce.number().min(0).max(24),
   startMinute: z.coerce.number().min(0).max(59),
   endMinute: z.coerce.number().min(0).max(59),
-  personnel: z.coerce
+  maxParticipants: z.coerce
     .number({ message: '인원을 선택해주세요.' })
     .min(2)
     .max(10),
-  location: z.string({ required_error: '위치를 선택해주세요.' }),
-  content: z.string().min(1, { message: '내용을 입력해주세요.' }),
+  meetingLocation: z.string({ required_error: '위치를 선택해주세요.' }),
+  description: z.string().min(1, { message: '내용을 입력해주세요.' }),
+  sido: z.string(),
+  sigu: z.string(),
+  dong: z.string(),
+  x: z.string(),
+  y: z.string(),
 });
 
 type FormSchemaType = z.infer<typeof formSchema>;
@@ -38,9 +43,14 @@ export const WriteFormProvider = ({ children }: { children: ReactNode }) => {
     endHour: 0,
     startMinute: 0,
     endMinute: 0,
-    personnel: 2,
-    location: '',
-    content: '',
+    maxParticipants: 2,
+    meetingLocation: '',
+    description: '',
+    sido: '',
+    sigu: '',
+    dong: '',
+    x: '',
+    y: '',
   });
 
   return (

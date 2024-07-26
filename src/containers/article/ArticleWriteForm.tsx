@@ -269,19 +269,21 @@ const ArticleWriteForm = () => {
         </div>
         <FormField
           control={form.control}
-          name="location"
+          name="meetingLocation"
           render={({ field }) => (
             <FormItem
-              className={cn(!form.getFieldState('location').invalid && 'pb-4')}
+              className={cn(
+                !form.getFieldState('meetingLocation').invalid && 'pb-4',
+              )}
             >
               <FormLabel className="font-semibold">모임 위치</FormLabel>
               <FormControl className="mt-2">
                 <Button
                   type="button"
-                  className="mt-2 block w-full bg-transparent text-left border border-slate-40"
+                  className="mt-2 block w-full bg-transparent text-left border border-slate-40 font-normal px-3"
                   onClick={handleLocationSettingButton}
                 >
-                  {!field.value && '위치 선택'}
+                  {field.value || '위치 선택'}
                 </Button>
               </FormControl>
               <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
@@ -290,7 +292,7 @@ const ArticleWriteForm = () => {
         />
         <FormField
           control={form.control}
-          name="personnel"
+          name="maxParticipants"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="font-semibold">모집 인원</FormLabel>
@@ -319,7 +321,7 @@ const ArticleWriteForm = () => {
         />
         <FormField
           control={form.control}
-          name="content"
+          name="description"
           render={({ field }) => (
             <FormItem>
               <FormLabel className="font-semibold">내용</FormLabel>
