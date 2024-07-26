@@ -18,7 +18,7 @@ export const getArticle = ({ gatherArticleId }: { gatherArticleId: number }) =>
 /** 모집글 작성 API */
 export const addArticle = async (data: NewArticle) => {
   try {
-    const response = await api.post('/api/gatherArticles');
+    const response = await api.post('/api/gatherArticles', data);
 
     return {
       status: 'success',
