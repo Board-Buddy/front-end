@@ -5,8 +5,6 @@ export const boardCafes = http.get(
   `${API_BASE_URL}/api/boardCafes`,
   ({ request }) => {
     const url = new URL(request.url);
-    const x = url.searchParams.get('x');
-    const y = url.searchParams.get('y');
     const radius = url.searchParams.get('radius');
 
     if (radius === '12000') {
@@ -23,6 +21,9 @@ export const boardCafes = http.get(
                 place_name: '보드게임101 광화문점 24시간 무인카페',
                 place_url: 'http://place.map.kakao.com/841664157',
                 road_address_name: '서울 종로구 새문안로3길 23',
+                sido: '서울특별시',
+                sigu: '종로구',
+                dong: '내수동',
                 x: '126.972438244896',
                 y: '37.5725658604431',
               },
@@ -35,6 +36,9 @@ export const boardCafes = http.get(
                 place_name: '보드게임카페 주사위왕국',
                 place_url: 'http://place.map.kakao.com/621777615',
                 road_address_name: '서울 종로구 우정국로2길 42',
+                sido: '서울특별시',
+                sigu: '종로구',
+                dong: '관철동',
                 x: '126.985386588519',
                 y: '37.5694300068762',
               },
@@ -46,6 +50,9 @@ export const boardCafes = http.get(
                 place_name: '레드버튼 종로점',
                 place_url: 'http://place.map.kakao.com/2055835737',
                 road_address_name: '서울 종로구 삼일대로19길 15',
+                sido: '서울특별시',
+                sigu: '종로구',
+                dong: '관철동',
                 x: '126.986720016475',
                 y: '37.569449085306',
               },
@@ -71,6 +78,9 @@ export const boardCafes = http.get(
                 place_name: '레드버튼 종로점',
                 place_url: 'http://place.map.kakao.com/2055835737',
                 road_address_name: '서울 종로구 삼일대로19길 15',
+                sido: '서울특별시',
+                sigu: '종로구',
+                dong: '관철동',
                 x: '127.07840761344235',
                 y: '37.569449085306',
               },
@@ -82,6 +92,9 @@ export const boardCafes = http.get(
                 place_name: '레드버튼 종로점',
                 place_url: 'http://place.map.kakao.com/2055835737',
                 road_address_name: '서울 종로구 삼일대로19길 15',
+                sido: '서울특별시',
+                sigu: '종로구',
+                dong: '관철동',
                 x: '127.0786123396573',
                 y: '37.622066776269925',
               },
@@ -93,6 +106,9 @@ export const boardCafes = http.get(
                 place_name: '레드버튼 종로점',
                 place_url: 'http://place.map.kakao.com/2055835737',
                 road_address_name: '서울 종로구 삼일대로19길 15',
+                sido: '서울특별시',
+                sigu: '종로구',
+                dong: '관철동',
                 x: '127.07787884529003',
                 y: '37.61931024105776',
               },
