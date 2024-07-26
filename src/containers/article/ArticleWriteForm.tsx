@@ -90,7 +90,7 @@ const ArticleWriteForm = () => {
           values.endHour,
           values.endMinute,
         ),
-        maxParticipants: parseInt(values.maxParticipants),
+        maxParticipants: parseInt(values.maxParticipants, 10),
         meetingLocation: values.meetingLocation,
         sido: values.sido,
         sigu: values.sigu,

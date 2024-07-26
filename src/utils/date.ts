@@ -99,8 +99,10 @@ export const formatDateTime = (
   minute: number | string,
 ) => {
   const dateTime = date;
-  dateTime.setHours(typeof hour === 'number' ? hour : parseInt(hour));
-  dateTime.setMinutes(typeof minute === 'number' ? minute : parseInt(minute));
+  dateTime.setHours(typeof hour === 'number' ? hour : parseInt(hour, 10));
+  dateTime.setMinutes(
+    typeof minute === 'number' ? minute : parseInt(minute, 10),
+  );
 
   // 날짜 포맷팅
   const formattedDate = dateTime
@@ -110,7 +112,8 @@ export const formatDateTime = (
       day: '2-digit',
     })
     .replace(/\./g, '-')
-    .replace(/\s/g, '');
+    .replace(/\s/g, '')
+    .slice(0, -1);
 
   // 시간 포맷팅
   const formattedTime = dateTime

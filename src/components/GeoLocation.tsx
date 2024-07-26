@@ -2,12 +2,12 @@
 
 import useGeoLocation from '@/hooks/useGeoLocation';
 import { LoaderCircleIcon } from 'lucide-react';
-import Map from '../containers/map/Map';
 import { useState } from 'react';
 import { Cafe } from '@/types/map';
 import { usePathname, useRouter } from 'next/navigation';
-import CafeInfo from '../containers/map/CafeInfo';
 import { useWriteFormContext } from '@/context/WriteFormContext';
+import CafeInfo from '../containers/map/CafeInfo';
+import Map from '../containers/map/Map';
 
 declare global {
   interface Window {
@@ -60,14 +60,14 @@ const GeoLocation = () => {
         <CafeInfo
           cafe={cafeInfo}
           onClick={handleDirectionButtonClick}
-          buttonTitle={'길찾기'}
+          buttonTitle="길찾기"
         />
       )}
       {pathname.includes('locationSetting') && (
         <CafeInfo
           cafe={cafeInfo}
           onClick={handleSelectButtonClick}
-          buttonTitle={'이곳에서 만날게요'}
+          buttonTitle="이곳에서 만날게요"
         />
       )}
     </Map>
