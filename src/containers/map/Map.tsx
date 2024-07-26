@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { cn } from '@/utils/tailwind';
 import { Cafe, Location } from '@/types/map';
 import { useGetBoardCafes } from '@/hooks/useMap';
@@ -16,9 +16,15 @@ declare global {
   }
 }
 
-const Map = ({ location }: { location: Location }) => {
+interface Props {
+  location: Location;
+  children?: ReactNode;
+  cafeInfo: Cafe | null;
+  setCafeInfo: (cafe: Cafe | null) => void;
+}
+
+const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
   const [showInfo, setShowInfo] = useState(false);
-  const [cafeInfo, setCafeInfo] = useState<Cafe | null>(null);
   const [showReloadButton, setShowReloadButton] = useState(false);
 
   const { mapRef, mapObject, markersRef, radius, center } = useKakaoMap(
@@ -74,7 +80,7 @@ const Map = ({ location }: { location: Location }) => {
         onClick={onReloadButtonClick}
         isPending={isPending}
       />
-      <MapInfo cafe={cafeInfo} />
+      {children}
     </div>
   );
 };
