@@ -45,6 +45,10 @@ const Header = () => {
       title: '동네 설정',
       leftArrow: true,
     },
+    '/write/locationSetting': {
+      title: '모임 위치 선택',
+      leftArrow: true,
+    },
   };
 
   let title = headerParams[pathname]?.title || '';
