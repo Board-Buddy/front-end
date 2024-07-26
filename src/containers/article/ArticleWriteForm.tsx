@@ -54,11 +54,9 @@ const ArticleWriteForm = () => {
 
   useEffect(() => {
     form.reset(formState);
-    console.log(formState);
   }, [formState, form]);
 
   const handleLocationSettingButton = () => {
-    console.log(form.getValues());
     setFormState(form.getValues());
 
     // 위치 선택 페이지로 이동
