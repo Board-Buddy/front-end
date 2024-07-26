@@ -3,6 +3,9 @@
 import useGeoLocation from '@/hooks/useGeoLocation';
 import { LoaderCircleIcon } from 'lucide-react';
 import Map from './Map';
+import MapInfo from './MapInfo';
+import { useState } from 'react';
+import { Cafe } from '@/types/map';
 
 declare global {
   interface Window {
@@ -19,6 +22,8 @@ const geolocationOptions = {
 const GeoLocation = () => {
   const { location, error } = useGeoLocation(geolocationOptions);
 
+  const [cafeInfo, setCafeInfo] = useState<Cafe | null>(null);
+
   if (!location || error) {
     return (
       <div className="flex justify-center items-center h-[calc(100vh-50px)] text-primary">
@@ -27,7 +32,11 @@ const GeoLocation = () => {
     );
   }
 
-  return <Map location={location} />;
+  return (
+    <Map location={location} cafeInfo={cafeInfo} setCafeInfo={setCafeInfo}>
+      <MapInfo cafe={cafeInfo} />
+    </Map>
+  );
 };
 
 export default GeoLocation;

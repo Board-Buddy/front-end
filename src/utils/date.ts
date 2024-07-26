@@ -65,3 +65,25 @@ export const getCurrentYearAndMonth = () => {
   const month = date.getMonth() + 1;
   return `${year} ${month}`;
 };
+
+export const formatDate = (date: Date) => {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  return `${year}/${month}/${day}`;
+};
+
+/** 한달 뒤 날짜 반환 함수 */
+export const oneMonthLater = () => {
+  const date = new Date();
+  date.setMonth(date.getMonth() + 1);
+  return date;
+};
+
+/** 하루 전 날짜 반환 함수 */
+export const getYesterday = () => {
+  const date = new Date();
+  date.setDate(date.getDate() - 1);
+  return date;
+};

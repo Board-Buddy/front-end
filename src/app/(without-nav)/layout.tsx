@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import '../../styles/globals.css';
+import { WriteFormProvider } from '@/context/WriteFormContext';
 
 export const metadata: Metadata = {
   title: 'Board Buddy',
@@ -11,5 +12,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <main className="overflow-y-auto">{children}</main>;
+  return (
+    <WriteFormProvider>
+      <main className="overflow-y-auto">{children}</main>
+    </WriteFormProvider>
+  );
 }

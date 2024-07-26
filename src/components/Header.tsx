@@ -45,14 +45,23 @@ const Header = () => {
       title: '동네 설정',
       leftArrow: true,
     },
+    '/write/locationSetting': {
+      title: '모임 위치 선택',
+      leftArrow: true,
+    },
   };
 
   let title = headerParams[pathname]?.title || '';
   let leftArrow = headerParams[pathname]?.leftArrow || false;
 
   if (pathname.startsWith('/article/') && pathname.split('/').length === 3) {
-    title = '모집글 상세';
-    leftArrow = true;
+    if (pathname.includes('write')) {
+      title = '모집글 작성';
+      leftArrow = true;
+    } else {
+      title = '모집글 상세';
+      leftArrow = true;
+    }
   }
 
   return (
