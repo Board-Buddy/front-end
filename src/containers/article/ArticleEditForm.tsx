@@ -39,9 +39,9 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useRouter } from 'next/navigation';
-import { addArticle } from '@/services/article';
+import { editArticle } from '@/services/article';
 
-const ArticleWriteForm = () => {
+const ArticleEditForm = ({ articleId }: { articleId: number }) => {
   const router = useRouter();
 
   const { formState, setFormState } = useWriteFormContext();
@@ -60,7 +60,7 @@ const ArticleWriteForm = () => {
     setFormState(form.getValues());
 
     // 위치 선택 페이지로 이동
-    router.push('/write/locationSetting');
+    router.push('edit/locationSetting');
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -77,30 +77,33 @@ const ArticleWriteForm = () => {
     } else {
       setShowTimeErrorMessage(false);
 
-      const { status, message } = await addArticle({
-        title: values.title,
-        description: values.description,
-        startDateTime: formatDateTime(
-          values.date,
-          values.startHour,
-          values.startMinute,
-        ),
-        endDateTime: formatDateTime(
-          values.date,
-          values.endHour,
-          values.endMinute,
-        ),
-        maxParticipants: parseInt(values.maxParticipants, 10),
-        meetingLocation: values.meetingLocation,
-        sido: values.sido,
-        sigu: values.sigu,
-        dong: values.dong,
-        x: values.x,
-        y: values.y,
-      });
+      const { status, message } = await editArticle(
+        {
+          title: values.title,
+          description: values.description,
+          startDateTime: formatDateTime(
+            values.date,
+            values.startHour,
+            values.startMinute,
+          ),
+          endDateTime: formatDateTime(
+            values.date,
+            values.endHour,
+            values.endMinute,
+          ),
+          maxParticipants: parseInt(values.maxParticipants, 10),
+          meetingLocation: values.meetingLocation,
+          sido: values.sido,
+          sigu: values.sigu,
+          dong: values.dong,
+          x: values.x,
+          y: values.y,
+        },
+        articleId,
+      );
 
       if (status === 'success') {
-        alert('모집글이 업로드되었습니다.');
+        alert('모집글이 수정되었습니다.');
         router.push('/home');
       } else {
         alert(message);
@@ -367,11 +370,11 @@ const ArticleWriteForm = () => {
           type="submit"
           className={cn('bg-primary text-white font-bold text-lg w-full h-12')}
         >
-          글쓰기
+          수정
         </Button>
       </form>
     </Form>
   );
 };
 
-export default ArticleWriteForm;
+export default ArticleEditForm;

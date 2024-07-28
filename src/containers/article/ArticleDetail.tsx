@@ -31,32 +31,37 @@ const ArticleDetail = ({ id }: { id: number }) => {
     <div>
       <Profile author={article.author} />
       <ArticleContent
+        id={id}
         title={article.title}
         description={article.description}
         meetingLocation={article.meetingLocation}
+        sido={article.sido}
+        sigu={article.sigu}
+        dong={article.dong}
+        x={article.x}
+        y={article.y}
         maxParticipants={article.maxParticipants}
         currentParticipants={article.currentParticipants}
         startDateTime={article.startDateTime}
         endDateTime={article.endDateTime}
         createdAt={article.createdAt}
         status={article.status}
-        x={article.x}
-        y={article.y}
+        isAuthor={nickname === article.author.nickname}
       />
       {article.author.nickname === nickname && (
         <ApplicantsListButton articleId={id} />
       )}
-      {((article.author.nickname !== nickname &&
-        article.participationApplicationStatus === 'none') ||
+      {(article.participationApplicationStatus === 'none' ||
         article.participationApplicationStatus === 'canceled') && (
         <ApplyButton articleId={id} />
       )}
       {article.participationApplicationStatus === 'pending' && (
         <CancelButton articleId={id} />
       )}
-      {article.participationApplicationStatus === 'approved' && (
-        <CancelButtonForApproved articleId={id} />
-      )}
+      {article.author.nickname !== nickname &&
+        article.participationApplicationStatus === 'approved' && (
+          <CancelButtonForApproved articleId={id} />
+        )}
       {article.participationApplicationStatus === 'rejected' && (
         <DisabledButton />
       )}

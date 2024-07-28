@@ -23,12 +23,30 @@ export const getArticle = http.get(
           currentParticipants: 2,
           startDateTime: '2024-07-20 11:00',
           endDateTime: '2024-07-20 13:00',
+          sido: '서울특별시',
+          sigu: '관악구',
+          dong: '신림동',
           createdAt: '2024-07-19 13:09',
           status: 'open',
           participationApplicationStatus: 'none',
         },
       },
       message: '성공적으로 조회되었습니다.',
+    });
+  },
+);
+
+export const editArticle = http.put(
+  `${API_BASE_URL}/api/gatherArticles/:id([0-9]+)`,
+  () => {
+    return HttpResponse.json({
+      status: 'success',
+      data: {
+        post: {
+          id: 1,
+        },
+      },
+      message: '모집글이 수정되었습니다.',
     });
   },
 );

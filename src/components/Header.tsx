@@ -1,13 +1,10 @@
 'use client';
 
-import { useHeader } from '@/context/HeaderContext';
 import { cn } from '@/utils/tailwind';
-import { Bell, ChevronLeft, Ellipsis, SearchIcon } from 'lucide-react';
+import { Bell, ChevronLeft, SearchIcon } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 const Header = () => {
-  const { settingVisible, settingContent } = useHeader();
-
   const pathname = usePathname();
 
   if (
@@ -54,9 +51,12 @@ const Header = () => {
   let title = headerParams[pathname]?.title || '';
   let leftArrow = headerParams[pathname]?.leftArrow || false;
 
-  if (pathname.startsWith('/article/') && pathname.split('/').length === 3) {
+  if (pathname.startsWith('/article/')) {
     if (pathname.includes('write')) {
       title = '모집글 작성';
+      leftArrow = true;
+    } else if (pathname.includes('edit')) {
+      title = '모집글 수정';
       leftArrow = true;
     } else {
       title = '모집글 상세';
@@ -90,12 +90,6 @@ const Header = () => {
           className={cn(
             'w-5 h-5 cursor-pointer',
             pathname === '/home' ? 'visible' : 'hidden',
-          )}
-        />
-        <Ellipsis
-          className={cn(
-            'w-5 h-5 cursor-pointer',
-            settingVisible ? 'visible' : 'hidden',
           )}
         />
       </div>

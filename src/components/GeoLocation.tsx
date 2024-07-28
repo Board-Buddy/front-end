@@ -21,7 +21,11 @@ const geolocationOptions = {
   maximumAge: 1000 * 3600 * 24,
 };
 
-const GeoLocation = () => {
+interface Props {
+  redirectionURL: string;
+}
+
+const GeoLocation = ({ redirectionURL }: Props) => {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -43,7 +47,7 @@ const GeoLocation = () => {
       y: cafeInfo!.y,
     });
 
-    router.push('/article/write');
+    router.push(redirectionURL);
   };
 
   if (!location || error) {
