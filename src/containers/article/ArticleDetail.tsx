@@ -17,13 +17,7 @@ const ArticleDetail = ({ id }: { id: number }) => {
   const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
   const { nickname } = userInfo;
 
-  const {
-    data: article,
-    isPending,
-    isError,
-    error,
-    isSuccess,
-  } = useGetArticle(id);
+  const { data: article, isPending, isError, error } = useGetArticle(id);
 
   if (isPending) {
     return <span>Loading...</span>;
@@ -31,11 +25,6 @@ const ArticleDetail = ({ id }: { id: number }) => {
 
   if (isError) {
     return <span>Error: {error.message}</span>;
-  }
-
-  if (isSuccess) {
-    if (nickname === article.author.nickname) {
-    }
   }
 
   return (
@@ -53,6 +42,7 @@ const ArticleDetail = ({ id }: { id: number }) => {
         status={article.status}
         x={article.x}
         y={article.y}
+        isAuthor={nickname === article.author.nickname}
       />
       {article.author.nickname === nickname && (
         <ApplicantsListButton articleId={id} />

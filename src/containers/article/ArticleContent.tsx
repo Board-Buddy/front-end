@@ -1,10 +1,24 @@
+'use client';
+
 import { Article } from '@/types/article';
 import { formatMeetingTime, formatRelativeTime } from '@/utils/date';
 import { cn } from '@/utils/tailwind';
 import Image from 'next/image';
 import Map from './Map';
+import { EllipsisVerticalIcon } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
-type Props = Omit<Article, 'author' | 'id'>;
+type IArticle = Omit<Article, 'author' | 'id'>;
+
+interface Props extends IArticle {
+  isAuthor: boolean;
+}
 
 const ArticleContent = ({
   title,
@@ -18,6 +32,7 @@ const ArticleContent = ({
   status,
   x,
   y,
+  isAuthor,
 }: Props) => {
   return (
     <div className="p-4">
@@ -28,6 +43,24 @@ const ArticleContent = ({
           {status === 'open' ? '모집중' : '모집마감'}
         </span>
         <span className="text-gray-800 ">{title}</span>
+        <DropdownMenu>
+          <DropdownMenuTrigger
+            className={cn(
+              isAuthor ? 'visible' : 'hidden',
+              'ml-auto cursor-pointer',
+            )}
+          >
+            <EllipsisVerticalIcon />
+            <DropdownMenuContent className="bg-white mt-1 -ml-8 w-16">
+              <DropdownMenuItem className="hover:bg-slate-50 transition-all">
+                수정
+              </DropdownMenuItem>
+              <DropdownMenuItem className="hover:bg-slate-50 transition-all">
+                삭제
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenuTrigger>
+        </DropdownMenu>
       </div>
       <div className="text-md mt-2 text-gray-800 py-4">{description}</div>
       <div className="text-sm">
