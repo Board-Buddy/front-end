@@ -5,6 +5,9 @@ import ArticleContent from './ArticleContent';
 import Profile from './Profile';
 import ApplyButton from './ApplyButton';
 import CommentList from './CommentList';
+import CancelButton from './CancelButton';
+import DisabledButton from './DisabledButton';
+import CancelButtonForApproved from './CancelButtonForApproved';
 
 const ArticleDetail = ({ id }: { id: number }) => {
   const { data: article, isPending, isError, error } = useGetArticle(id);
@@ -26,12 +29,24 @@ const ArticleDetail = ({ id }: { id: number }) => {
         meetingLocation={article.meetingLocation}
         maxParticipants={article.maxParticipants}
         currentParticipants={article.currentParticipants}
-        startTime={article.startTime}
-        endTime={article.endTime}
+        startDateTime={article.startDateTime}
+        endDateTime={article.endDateTime}
         createdAt={article.createdAt}
         status={article.status}
       />
-      <ApplyButton participationStatus={article.participationStatus!} />
+      {(article.participationApplicationStatus === 'none' ||
+        article.participationApplicationStatus === 'canceled') && (
+        <ApplyButton articleId={id} />
+      )}
+      {article.participationApplicationStatus === 'pending' && (
+        <CancelButton articleId={id} />
+      )}
+      {article.participationApplicationStatus === 'approved' && (
+        <CancelButtonForApproved articleId={id} />
+      )}
+      {article.participationApplicationStatus === 'rejected' && (
+        <DisabledButton />
+      )}
       <CommentList articleId={id} />
     </div>
   );
