@@ -1,9 +1,9 @@
 import ArticleEditForm from '@/containers/article/ArticleEditForm';
 
-const page = () => {
+const page = ({ params }: { params: { articleId: number } }) => {
   return (
     <div className="p-4">
-      <ArticleEditForm />
+      <ArticleEditForm articleId={params.articleId} />
     </div>
   );
 };

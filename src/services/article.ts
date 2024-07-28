@@ -40,3 +40,29 @@ export const addArticle = async (data: NewArticle) => {
     };
   }
 };
+
+/** 모집글 수정 API */
+export const editArticle = async (data: NewArticle, articleId: number) => {
+  try {
+    const response = await api.put(`/api/gatherArticles/${articleId}`, data);
+
+    return {
+      status: 'success',
+      data: response.data.data,
+      message: response.data.message,
+    };
+  } catch (error: any) {
+    if (error.response) {
+      // 서버 응답 오류 처리
+      return {
+        status: 'error',
+        message: error.response.data.message || '서버 오류가 발생했습니다.',
+      };
+    }
+    // 기타 오류 처리
+    return {
+      status: 'error',
+      message: '알 수 없는 오류가 발생했습니다. 다시 시도해주세요.',
+    };
+  }
+};

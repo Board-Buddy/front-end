@@ -71,7 +71,7 @@ const ArticleWriteForm = () => {
 
     if (
       startHourValue > endHourValue ||
-      (startHourValue === endHourValue && startMinuteValue > endMinuteValue)
+      (startHourValue === endHourValue && startMinuteValue >= endMinuteValue)
     ) {
       setShowTimeErrorMessage(true);
     } else {

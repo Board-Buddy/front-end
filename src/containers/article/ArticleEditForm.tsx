@@ -39,9 +39,9 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useRouter } from 'next/navigation';
-import { addArticle } from '@/services/article';
+import { editArticle } from '@/services/article';
 
-const ArticleEditForm = () => {
+const ArticleEditForm = ({ articleId }: { articleId: number }) => {
   const router = useRouter();
 
   const { formState, setFormState } = useWriteFormContext();
@@ -71,33 +71,36 @@ const ArticleEditForm = () => {
 
     if (
       startHourValue > endHourValue ||
-      (startHourValue === endHourValue && startMinuteValue > endMinuteValue)
+      (startHourValue === endHourValue && startMinuteValue >= endMinuteValue)
     ) {
       setShowTimeErrorMessage(true);
     } else {
       setShowTimeErrorMessage(false);
 
-      const { status, message } = await addArticle({
-        title: values.title,
-        description: values.description,
-        startDateTime: formatDateTime(
-          values.date,
-          values.startHour,
-          values.startMinute,
-        ),
-        endDateTime: formatDateTime(
-          values.date,
-          values.endHour,
-          values.endMinute,
-        ),
-        maxParticipants: parseInt(values.maxParticipants, 10),
-        meetingLocation: values.meetingLocation,
-        sido: values.sido,
-        sigu: values.sigu,
-        dong: values.dong,
-        x: values.x,
-        y: values.y,
-      });
+      const { status, message } = await editArticle(
+        {
+          title: values.title,
+          description: values.description,
+          startDateTime: formatDateTime(
+            values.date,
+            values.startHour,
+            values.startMinute,
+          ),
+          endDateTime: formatDateTime(
+            values.date,
+            values.endHour,
+            values.endMinute,
+          ),
+          maxParticipants: parseInt(values.maxParticipants, 10),
+          meetingLocation: values.meetingLocation,
+          sido: values.sido,
+          sigu: values.sigu,
+          dong: values.dong,
+          x: values.x,
+          y: values.y,
+        },
+        articleId,
+      );
 
       if (status === 'success') {
         alert('모집글이 수정되었습니다.');

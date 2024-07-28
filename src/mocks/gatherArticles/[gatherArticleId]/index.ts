@@ -35,3 +35,18 @@ export const getArticle = http.get(
     });
   },
 );
+
+export const editArticle = http.put(
+  `${API_BASE_URL}/api/gatherArticles/:id([0-9]+)`,
+  () => {
+    return HttpResponse.json({
+      status: 'success',
+      data: {
+        post: {
+          id: 1,
+        },
+      },
+      message: '모집글이 수정되었습니다.',
+    });
+  },
+);
