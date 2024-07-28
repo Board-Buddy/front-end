@@ -129,3 +129,20 @@ export const formatDateTime = (
 
   return formattedDateTime;
 };
+
+/** startHour, startMinute, endHour, endMinute 반환 함수 */
+export const getTimeFormParameters = (
+  startDateTime: string,
+  endDateTime: string,
+) => {
+  const startDate = new Date(startDateTime);
+  const endDate = new Date(endDateTime);
+
+  const startHour = startDate.getHours().toString();
+  const startMinute = startDate.getMinutes().toString();
+
+  const endHour = endDate.getHours().toString();
+  const endMinute = endDate.getMinutes().toString();
+
+  return { startHour, startMinute, endHour, endMinute };
+};

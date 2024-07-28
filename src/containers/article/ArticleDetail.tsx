@@ -31,6 +31,7 @@ const ArticleDetail = ({ id }: { id: number }) => {
     <div>
       <Profile author={article.author} />
       <ArticleContent
+        id={id}
         title={article.title}
         description={article.description}
         meetingLocation={article.meetingLocation}
