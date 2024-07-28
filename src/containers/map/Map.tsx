@@ -30,7 +30,6 @@ const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
   const { mapRef, mapObject, markersRef, radius, center } = useKakaoMap(
     location,
     setShowInfo,
-    setCafeInfo,
     setShowReloadButton,
   );
 
