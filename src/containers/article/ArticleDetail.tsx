@@ -51,17 +51,17 @@ const ArticleDetail = ({ id }: { id: number }) => {
       {article.author.nickname === nickname && (
         <ApplicantsListButton articleId={id} />
       )}
-      {((article.author.nickname !== nickname &&
-        article.participationApplicationStatus === 'none') ||
+      {(article.participationApplicationStatus === 'none' ||
         article.participationApplicationStatus === 'canceled') && (
         <ApplyButton articleId={id} />
       )}
       {article.participationApplicationStatus === 'pending' && (
         <CancelButton articleId={id} />
       )}
-      {article.participationApplicationStatus === 'approved' && (
-        <CancelButtonForApproved articleId={id} />
-      )}
+      {article.author.nickname !== nickname &&
+        article.participationApplicationStatus === 'approved' && (
+          <CancelButtonForApproved articleId={id} />
+        )}
       {article.participationApplicationStatus === 'rejected' && (
         <DisabledButton />
       )}
