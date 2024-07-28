@@ -9,11 +9,17 @@ import { CornerDownRight, Ellipsis, MessageSquare } from 'lucide-react';
 import { commentTime } from '@/utils/date';
 import { useGetComments } from '@/hooks/useComment';
 import CommentInput from './CommentInput';
+import { useState } from 'react';
 
 const CommentList = ({ articleId }: { articleId: number }) => {
   const cache = useQueryClient();
   const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
   const { nickname } = userInfo;
+
+  const [parentComment, setParentComment] = useState<{
+    parentId: number;
+    authorNickname: string;
+  } | null>(null);
 
   const {
     data: commentList,
@@ -29,6 +35,13 @@ const CommentList = ({ articleId }: { articleId: number }) => {
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
+
+  const handleReplyButtonClick = (parentId: number, authorNickname: string) => {
+    setParentComment({
+      parentId: parentId,
+      authorNickname: authorNickname,
+    });
+  };
 
   return (
     <div className="p-4">
@@ -49,7 +62,15 @@ const CommentList = ({ articleId }: { articleId: number }) => {
               <p className="text-sm">{comment.author.nickname}</p>
               <div className="ml-auto flex gap-2">
                 <Button className="bg-transparent p-0">
-                  <MessageSquare className="text-gray-400 size-4" />
+                  <MessageSquare
+                    className="text-gray-400 size-4"
+                    onClick={() =>
+                      handleReplyButtonClick(
+                        comment.id,
+                        comment.author.nickname,
+                      )
+                    }
+                  />
                 </Button>
                 <Button
                   className={cn(
@@ -80,7 +101,15 @@ const CommentList = ({ articleId }: { articleId: number }) => {
                   <p className="text-sm">{reply.author.nickname}</p>
                   <div className="ml-auto flex gap-2">
                     <Button className="bg-transparent p-0">
-                      <MessageSquare className="text-gray-400 size-4" />
+                      <MessageSquare
+                        className="text-gray-400 size-4"
+                        onClick={() =>
+                          handleReplyButtonClick(
+                            reply.id,
+                            reply.author.nickname,
+                          )
+                        }
+                      />
                     </Button>
                     <Button
                       className={cn(
@@ -103,7 +132,11 @@ const CommentList = ({ articleId }: { articleId: number }) => {
           </div>
         </div>
       ))}
-      <CommentInput articleId={articleId} />
+      <CommentInput
+        articleId={articleId}
+        parentComment={parentComment}
+        setParentComment={setParentComment}
+      />
     </div>
   );
 };
