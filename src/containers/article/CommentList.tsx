@@ -8,8 +8,8 @@ import { UserInfo } from '@/types/user';
 import { CornerDownRight, Ellipsis, MessageSquare } from 'lucide-react';
 import { commentTime } from '@/utils/date';
 import { useGetComments } from '@/hooks/useComment';
-import CommentInput from './CommentInput';
 import { useState } from 'react';
+import CommentInput from './CommentInput';
 
 const CommentList = ({ articleId }: { articleId: number }) => {
   const cache = useQueryClient();
@@ -17,7 +17,7 @@ const CommentList = ({ articleId }: { articleId: number }) => {
   const { nickname } = userInfo;
 
   const [parentComment, setParentComment] = useState<{
-    parentId: number;
+    parentId: string;
     authorNickname: string;
   } | null>(null);
 
@@ -36,10 +36,10 @@ const CommentList = ({ articleId }: { articleId: number }) => {
     return <span>Error: {error.message}</span>;
   }
 
-  const handleReplyButtonClick = (parentId: number, authorNickname: string) => {
+  const handleReplyButtonClick = (parentId: string, authorNickname: string) => {
     setParentComment({
-      parentId: parentId,
-      authorNickname: authorNickname,
+      parentId,
+      authorNickname,
     });
   };
 
@@ -66,7 +66,7 @@ const CommentList = ({ articleId }: { articleId: number }) => {
                     className="text-gray-400 size-4"
                     onClick={() =>
                       handleReplyButtonClick(
-                        comment.id,
+                        comment.id.toString(),
                         comment.author.nickname,
                       )
                     }
@@ -105,7 +105,7 @@ const CommentList = ({ articleId }: { articleId: number }) => {
                         className="text-gray-400 size-4"
                         onClick={() =>
                           handleReplyButtonClick(
-                            reply.id,
+                            reply.id.toString(),
                             reply.author.nickname,
                           )
                         }

@@ -6,29 +6,41 @@ import { useAddComment } from '@/hooks/useComment';
 import { cn } from '@/utils/tailwind';
 import { Dispatch, SetStateAction, useState } from 'react';
 
-const CommentInput = ({
-  articleId,
-  parentComment,
-  setParentComment,
-}: {
+interface Props {
   articleId: number;
   parentComment: {
-    parentId: number;
+    parentId: string;
     authorNickname: string;
   } | null;
   setParentComment: Dispatch<
     SetStateAction<{
-      parentId: number;
+      parentId: string;
       authorNickname: string;
     } | null>
   >;
-}) => {
-  const [value, setValue] = useState('');
+}
 
+const CommentInput = ({
+  articleId,
+  parentComment,
+  setParentComment,
+}: Props) => {
+  const [value, setValue] = useState('');
   const mutation = useAddComment(articleId);
 
   const handleSubmit = () => {
-    mutation.mutate(value);
+    if (parentComment) {
+      mutation.mutate(
+        { content: value, parentId: parentComment.parentId },
+        {
+          onSuccess: () => {
+            setParentComment(null);
+          },
+        },
+      );
+    } else {
+      mutation.mutate({ content: value });
+    }
     setValue('');
   };
 

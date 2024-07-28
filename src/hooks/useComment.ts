@@ -15,8 +15,18 @@ export const useAddComment = (articleId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (content: string) =>
-      addComment({ gatherArticleId: articleId, content }),
+    mutationFn: ({
+      content,
+      parentId,
+    }: {
+      content: string;
+      parentId?: string;
+    }) =>
+      addComment({
+        gatherArticleId: articleId,
+        content,
+        parentId,
+      }),
     onSuccess: () => {
       // 성공 시 댓글 쿼리 무효화
       queryClient.invalidateQueries({ queryKey: ['comments', { articleId }] });

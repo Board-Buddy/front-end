@@ -10,12 +10,21 @@ export const getComments = ({ gatherArticleId }: { gatherArticleId: number }) =>
 export const addComment = ({
   gatherArticleId,
   content,
+  parentId,
 }: {
   gatherArticleId: number;
   content: string;
-}) =>
-  api
-    .post(`/api/gatherArticles/${gatherArticleId}/comments`, {
-      content,
-    })
-    .then((response) => response.data.status);
+  parentId?: string;
+}) => {
+  return parentId
+    ? api
+        .post(`/api/gatherArticles/${gatherArticleId}/comments/${parentId}`, {
+          content,
+        })
+        .then((response) => response.data.status)
+    : api
+        .post(`/api/gatherArticles/${gatherArticleId}/comments`, {
+          content,
+        })
+        .then((response) => response.data.status);
+};
