@@ -19,6 +19,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useWriteFormContext } from '@/context/WriteFormContext';
 import { useRouter } from 'next/navigation';
+import { deleteArticle } from '@/services/article';
 
 interface Props extends Omit<Article, 'author'> {
   isAuthor: boolean;
@@ -42,7 +43,7 @@ const ArticleContent = ({
   status,
   isAuthor,
 }: Props) => {
-  const { formState, setFormState } = useWriteFormContext();
+  const { setFormState } = useWriteFormContext();
   const router = useRouter();
 
   const handleEditButtonClick = () => {
@@ -69,8 +70,18 @@ const ArticleContent = ({
     router.push(`/article/${id}/edit`);
   };
 
-  const handleRemoveButtonClick = () => {
-    // 수정 요청
+  const handleRemoveButtonClick = async () => {
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+    }
+    {
+      const { status, message } = await deleteArticle(id);
+      if (status === 'success') {
+        alert('글이 삭제되었습니다.');
+        router.push('/home');
+      } else {
+        alert(message);
+      }
+    }
   };
 
   return (
