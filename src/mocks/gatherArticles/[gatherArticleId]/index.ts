@@ -13,7 +13,7 @@ export const getArticle = http.get(
           author: {
             nickname: 'yubin',
             rank: 1,
-            profileImageS3SavedURL: 'https://',
+            profileImageS3SavedURL: '',
             description: '자기소개',
           },
           meetingLocation: '레드버튼 신림점',
@@ -28,7 +28,7 @@ export const getArticle = http.get(
           dong: '신림동',
           createdAt: '2024-07-19 13:09',
           status: 'open',
-          participationApplicationStatus: 'none',
+          participationApplicationStatus: 'approved',
         },
       },
       message: '성공적으로 조회되었습니다.',
@@ -47,6 +47,21 @@ export const editArticle = http.put(
         },
       },
       message: '모집글이 수정되었습니다.',
+    });
+  },
+);
+
+export const deleteArticle = http.delete(
+  `${API_BASE_URL}/api/gatherArticles/:id([0-9]+)`,
+  () => {
+    return HttpResponse.json({
+      status: 'success',
+      data: {
+        post: {
+          id: 1,
+        },
+      },
+      message: '글이 삭제되었습니다.',
     });
   },
 );

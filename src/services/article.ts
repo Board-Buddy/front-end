@@ -66,3 +66,29 @@ export const editArticle = async (data: NewArticle, articleId: number) => {
     };
   }
 };
+
+/** 모집글 삭제 API */
+export const deleteArticle = async (articleId: number) => {
+  try {
+    const response = await api.delete(`/api/gatherArticles/${articleId}`);
+
+    return {
+      status: 'success',
+      data: response.data.data,
+      message: response.data.message,
+    };
+  } catch (error: any) {
+    if (error.response) {
+      // 서버 응답 오류 처리
+      return {
+        status: 'error',
+        message: error.response.data.message || '서버 오류가 발생했습니다.',
+      };
+    }
+    // 기타 오류 처리
+    return {
+      status: 'error',
+      message: '알 수 없는 오류가 발생했습니다. 다시 시도해주세요.',
+    };
+  }
+};
