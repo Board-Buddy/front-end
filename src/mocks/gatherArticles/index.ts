@@ -99,7 +99,7 @@ export const getArticles = http.get(
                 startDateTime: '2024-07-20 11:00',
                 endDateTime: '2024-07-20 12:00',
                 createdAt: '2024-07-20 11:00',
-                status: 'closed',
+                status: 'open',
               },
             ],
             last: true,

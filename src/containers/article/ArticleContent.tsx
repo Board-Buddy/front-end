@@ -16,6 +16,8 @@ const ArticleContent = ({
   endDateTime,
   createdAt,
   status,
+  x,
+  y,
 }: Props) => {
   return (
     <div className="p-4">
@@ -67,7 +69,7 @@ const ArticleContent = ({
           />
           {meetingLocation}
         </div>
-        <Map />
+        <Map lat={y!} lng={x!} />
       </div>
     </div>
   );
