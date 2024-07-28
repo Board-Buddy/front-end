@@ -5,7 +5,6 @@ import '../styles/globals.css';
 import { MSWComponent } from '@/mocks/MSWComponent';
 import ReactQueryProviders from '@/utils/reactQueryProvider';
 import Header from '@/components/Header';
-import { HeaderProvider } from '@/context/HeaderContext';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -37,10 +36,8 @@ export default function RootLayout({
         >
           <MSWComponent>
             <ReactQueryProviders>
-              <HeaderProvider>
-                <Header />
-                {children}
-              </HeaderProvider>
+              <Header />
+              {children}
             </ReactQueryProviders>
           </MSWComponent>
         </div>

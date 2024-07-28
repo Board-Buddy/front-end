@@ -17,7 +17,13 @@ const ArticleDetail = ({ id }: { id: number }) => {
   const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
   const { nickname } = userInfo;
 
-  const { data: article, isPending, isError, error } = useGetArticle(id);
+  const {
+    data: article,
+    isPending,
+    isError,
+    error,
+    isSuccess,
+  } = useGetArticle(id);
 
   if (isPending) {
     return <span>Loading...</span>;
@@ -25,6 +31,11 @@ const ArticleDetail = ({ id }: { id: number }) => {
 
   if (isError) {
     return <span>Error: {error.message}</span>;
+  }
+
+  if (isSuccess) {
+    if (nickname === article.author.nickname) {
+    }
   }
 
   return (
