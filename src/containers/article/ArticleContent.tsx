@@ -29,14 +29,17 @@ const ArticleContent = ({
   title,
   description,
   meetingLocation,
+  sigu,
+  sido,
+  dong,
+  x,
+  y,
   maxParticipants,
   currentParticipants,
   startDateTime,
   endDateTime,
   createdAt,
   status,
-  x,
-  y,
   isAuthor,
 }: Props) => {
   const { formState, setFormState } = useWriteFormContext();
@@ -58,9 +61,9 @@ const ArticleContent = ({
       x: x!.toString(),
       y: y!.toString(),
       date: new Date(startDateTime),
-      sido: '',
-      sigu: '',
-      dong: '',
+      sido: sido!,
+      sigu: sigu!,
+      dong: dong!,
     });
 
     router.push(`/article/${id}/edit`);

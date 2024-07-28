@@ -14,6 +14,9 @@ export interface Article {
   description: string;
   author: Author;
   meetingLocation: string;
+  sido?: string;
+  sigu?: string;
+  dong?: string;
   x?: number;
   y?: number;
   maxParticipants: number;

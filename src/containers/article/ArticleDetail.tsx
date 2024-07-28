@@ -35,14 +35,17 @@ const ArticleDetail = ({ id }: { id: number }) => {
         title={article.title}
         description={article.description}
         meetingLocation={article.meetingLocation}
+        sido={article.sido}
+        sigu={article.sigu}
+        dong={article.dong}
+        x={article.x}
+        y={article.y}
         maxParticipants={article.maxParticipants}
         currentParticipants={article.currentParticipants}
         startDateTime={article.startDateTime}
         endDateTime={article.endDateTime}
         createdAt={article.createdAt}
         status={article.status}
-        x={article.x}
-        y={article.y}
         isAuthor={nickname === article.author.nickname}
       />
       {article.author.nickname === nickname && (
