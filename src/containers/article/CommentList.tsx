@@ -1,15 +1,14 @@
 'use client';
 
-import React from 'react';
 import CustomAvatar from '@/components/CustomAvatar';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/tailwind';
 import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
 import { CornerDownRight, Ellipsis, MessageSquare } from 'lucide-react';
-import { Input } from '@/components/ui/input';
 import { commentTime } from '@/utils/date';
 import { useGetComments } from '@/hooks/useComment';
+import CommentInput from './CommentInput';
 
 const CommentList = ({ articleId }: { articleId: number }) => {
   const cache = useQueryClient();
@@ -104,10 +103,7 @@ const CommentList = ({ articleId }: { articleId: number }) => {
           </div>
         </div>
       ))}
-      <div className="mt-4 flex gap-2">
-        <Input placeholder="댓글 입력" />
-        <Button className="text-white font-bold">등록</Button>
-      </div>
+      <CommentInput articleId={articleId} />
     </div>
   );
 };

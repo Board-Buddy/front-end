@@ -45,6 +45,7 @@ export const formatRelativeTime = (createdAt: string) => {
   return `${year}년 ${month}월 ${day}일`;
 };
 
+/** 댓글 작성 일시 포맷 */
 export const commentTime = (createdAt: string) => {
   const date = new Date(createdAt);
 

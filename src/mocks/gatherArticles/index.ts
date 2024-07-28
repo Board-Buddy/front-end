@@ -1,7 +1,7 @@
 import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 import { deleteArticle, editArticle, getArticle } from './[gatherArticleId]';
-import { getComments } from './[gatherArticleId]/comments';
+import { addComment, getComments } from './[gatherArticleId]/comments';
 
 export const getArticles = http.get(
   `${API_BASE_URL}/api/gatherArticles`,
@@ -135,8 +135,9 @@ export const addArticle = http.post(
 export const articleHandlers = [
   getArticles,
   getArticle,
-  getComments,
   addArticle,
   editArticle,
   deleteArticle,
+  getComments,
+  addComment,
 ];
