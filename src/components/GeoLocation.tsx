@@ -22,7 +22,7 @@ const geolocationOptions = {
 };
 
 interface Props {
-  redirectionURL: string;
+  redirectionURL?: string;
 }
 
 const GeoLocation = ({ redirectionURL }: Props) => {
@@ -47,7 +47,7 @@ const GeoLocation = ({ redirectionURL }: Props) => {
       y: cafeInfo!.y,
     });
 
-    router.push(redirectionURL);
+    router.push(redirectionURL!);
   };
 
   if (!location || error) {

@@ -8,7 +8,6 @@ import {
 } from '@/utils/date';
 import { cn } from '@/utils/tailwind';
 import Image from 'next/image';
-import Map from './Map';
 import { EllipsisVerticalIcon } from 'lucide-react';
 import {
   DropdownMenu,
@@ -20,6 +19,7 @@ import {
 import { useWriteFormContext } from '@/context/WriteFormContext';
 import { useRouter } from 'next/navigation';
 import { deleteArticle } from '@/services/article';
+import Map from './Map';
 
 interface Props extends Omit<Article, 'author'> {
   isAuthor: boolean;
@@ -72,10 +72,8 @@ const ArticleContent = ({
 
   const handleRemoveButtonClick = async () => {
     if (window.confirm('정말 삭제하시겠습니까?')) {
-    }
-    {
-      const { status, message } = await deleteArticle(id);
-      if (status === 'success') {
+      const { status: responseStatus, message } = await deleteArticle(id);
+      if (responseStatus === 'success') {
         alert('글이 삭제되었습니다.');
         router.push('/home');
       } else {
