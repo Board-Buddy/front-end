@@ -12,18 +12,20 @@ const ArticleContent = ({
   meetingLocation,
   maxParticipants,
   currentParticipants,
-  startTime,
-  endTime,
+  startDateTime,
+  endDateTime,
   createdAt,
   status,
+  x,
+  y,
 }: Props) => {
   return (
     <div className="p-4">
       <div className="text-lg flex gap-2 font-bold ">
         <span
-          className={cn(status === '모집중' ? 'text-primary' : 'text-gray-600')}
+          className={cn(status === 'open' ? 'text-primary' : 'text-gray-500')}
         >
-          {status}
+          {status === 'open' ? '모집중' : '모집마감'}
         </span>
         <span className="text-gray-800 ">{title}</span>
       </div>
@@ -51,7 +53,7 @@ const ArticleContent = ({
               height={12}
               className="mr-1"
             />
-            {formatMeetingTime(startTime, endTime)}
+            {formatMeetingTime(startDateTime, endDateTime)}
           </div>
         </div>
       </div>
@@ -67,7 +69,7 @@ const ArticleContent = ({
           />
           {meetingLocation}
         </div>
-        <Map />
+        <Map lat={y!} lng={x!} />
       </div>
     </div>
   );

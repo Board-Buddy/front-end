@@ -23,8 +23,8 @@ const Article = ({
   meetingLocation,
   maxParticipants,
   currentParticipants,
-  startTime,
-  endTime,
+  startDateTime,
+  endDateTime,
   createdAt,
   status,
 }: Props) => {
@@ -38,10 +38,12 @@ const Article = ({
           <div
             className={cn(
               'border rounded-md px-2 py-0.5 mr-2',
-              status === '모집중' ? 'text-primary' : 'text-gray-600',
+              status === 'open'
+                ? 'text-primary border-primary'
+                : 'text-gray-600 border-gray-500',
             )}
           >
-            {status}
+            {status === 'open' ? '모집중' : '모집마감'}
           </div>
           {title}
         </CardTitle>
@@ -78,7 +80,7 @@ const Article = ({
             height={12}
             className="mr-1"
           />
-          {formatMeetingTime(startTime, endTime)}
+          {formatMeetingTime(startDateTime, endDateTime)}
         </div>
       </CardContent>
       <CardFooter className="flex text-sm">

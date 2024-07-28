@@ -33,7 +33,9 @@ const CustomAvatar = ({ src, rank, nickname, avatarSize }: Props) => {
     <Link href={`/profile/${nickname}`}>
       <Avatar className={cn(`overflow-visible ${avatarSizeTW[avatarSize]}`)}>
         <AvatarImage src={src || '/images/default_profile.png'} />
-        <AvatarFallback>CN</AvatarFallback>
+        <AvatarFallback>
+          <Image src="/images/default_profile.png" alt="avatar_image" fill />
+        </AvatarFallback>
         <div className="absolute -bottom-1 right-0">
           {rank ? (
             <Image

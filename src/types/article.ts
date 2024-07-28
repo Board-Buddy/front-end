@@ -18,11 +18,11 @@ export interface Article {
   y?: number;
   maxParticipants: number;
   currentParticipants: number;
-  startTime: string;
-  endTime: string;
+  startDateTime: string;
+  endDateTime: string;
   createdAt: string;
   status: string;
-  participationStatus?: string;
+  participationApplicationStatus?: string;
 }
 
 export interface Author {

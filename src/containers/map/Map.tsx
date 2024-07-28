@@ -8,7 +8,6 @@ import useKakaoMap from '@/hooks/custom/useKakaoMap';
 import useCafesMarkers from '@/hooks/custom/useCafesMarkers';
 import usePanToCafe from '@/hooks/custom/usePanToCafe';
 import ReloadButton from './ReloadButton';
-import MapInfo from './CafeInfo';
 
 declare global {
   interface Window {
@@ -30,7 +29,6 @@ const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
   const { mapRef, mapObject, markersRef, radius, center } = useKakaoMap(
     location,
     setShowInfo,
-    setCafeInfo,
     setShowReloadButton,
   );
 

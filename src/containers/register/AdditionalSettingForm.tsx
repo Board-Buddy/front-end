@@ -144,7 +144,7 @@ const AdditionalSettingForm = () => {
     } else {
       console.log(error);
     }
-  }, [isSuccess, error]);
+  }, [isSuccess, error, router]);
 
   return (
     <Form {...form}>

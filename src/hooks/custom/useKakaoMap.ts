@@ -5,16 +5,16 @@ import {
   MAP_INITIAL_LEVEL,
   MAP_MAX_LEVEL,
 } from '@/constants/map';
-import { Cafe, Location } from '@/types/map';
+import { Location } from '@/types/map';
 
 /** 카카오 지도 로드 및 초기화
  * @param location 초기화 시 center로 지정할 위치({lat: 위도, lng: 경도})
  */
 const useKakaoMap = (
   location: Location,
-  setShowInfo: (show: boolean) => void,
-  setCafeInfo: (cafe: Cafe | null) => void,
-  setShowReloadButton: (show: boolean) => void,
+  setShowInfo?: (show: boolean) => void,
+  setShowReloadButton?: (show: boolean) => void,
+  setStatic?: boolean,
 ) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const [mapObject, setMapObject] = useState<any>(null);
@@ -47,6 +47,8 @@ const useKakaoMap = (
           ),
           level: MAP_INITIAL_LEVEL,
           maxLevel: MAP_MAX_LEVEL,
+          draggable: !setStatic,
+          zoomable: !setStatic,
         };
 
         const map = new window.kakao.maps.Map(container, options);
@@ -54,12 +56,16 @@ const useKakaoMap = (
 
         // 지도 클릭 이벤트 등록
         window.kakao.maps.event.addListener(map, 'click', () => {
-          setShowInfo(false);
+          if (setShowInfo) {
+            setShowInfo(false);
+          }
         });
 
         // 지도 확대/축소 이벤트 등록
         window.kakao.maps.event.addListener(map, 'zoom_changed', () => {
-          setShowReloadButton(true);
+          if (setShowReloadButton) {
+            setShowReloadButton(true);
+          }
           const level = map.getLevel();
           setRadius(LEVEL_TO_RADIUS[level]);
         });
@@ -71,7 +77,9 @@ const useKakaoMap = (
             lat: centerPoint.getLat(),
             lng: centerPoint.getLng(),
           });
-          setShowReloadButton(true);
+          if (setShowReloadButton) {
+            setShowReloadButton(true);
+          }
         });
 
         // 현재 위치 마커 생성
@@ -98,7 +106,13 @@ const useKakaoMap = (
     return () => {
       document.head.removeChild(script);
     };
-  }, [location.latitude, location.longitude, setShowInfo, setShowReloadButton]);
+  }, [
+    location.latitude,
+    location.longitude,
+    setShowInfo,
+    setShowReloadButton,
+    setStatic,
+  ]);
 
   return { mapRef, mapObject, markersRef, radius, center };
 };

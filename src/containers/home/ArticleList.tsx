@@ -53,8 +53,8 @@ const ArticleList = () => {
               meetingLocation={article.meetingLocation}
               maxParticipants={article.maxParticipants}
               currentParticipants={article.currentParticipants}
-              startTime={article.startTime}
-              endTime={article.endTime}
+              startDateTime={article.startDateTime}
+              endDateTime={article.endDateTime}
               createdAt={article.createdAt}
               status={article.status}
             />
