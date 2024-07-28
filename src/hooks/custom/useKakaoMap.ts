@@ -13,7 +13,6 @@ import { Cafe, Location } from '@/types/map';
 const useKakaoMap = (
   location: Location,
   setShowInfo: (show: boolean) => void,
-  setCafeInfo: (cafe: Cafe | null) => void,
   setShowReloadButton: (show: boolean) => void,
 ) => {
   const mapRef = useRef<HTMLDivElement>(null);
