@@ -27,6 +27,8 @@ const ArticleDetail = ({ id }: { id: number }) => {
     return <span>Error: {error.message}</span>;
   }
 
+  const isAuthor = article.author.nickname === nickname;
+
   return (
     <div>
       <Profile author={article.author} />
@@ -48,23 +50,25 @@ const ArticleDetail = ({ id }: { id: number }) => {
         status={article.status}
         isAuthor={nickname === article.author.nickname}
       />
-      {article.author.nickname === nickname && (
-        <ApplicantsListButton articleId={id} />
+      {isAuthor && <ApplicantsListButton articleId={id} />}
+      {!isAuthor && (
+        <>
+          {(article.participationApplicationStatus === 'none' ||
+            article.participationApplicationStatus === 'canceled') && (
+            <ApplyButton articleId={id} />
+          )}
+          {article.participationApplicationStatus === 'pending' && (
+            <CancelButton articleId={id} />
+          )}
+          {article.participationApplicationStatus === 'approved' && (
+            <CancelButtonForApproved articleId={id} />
+          )}
+          {article.participationApplicationStatus === 'rejected' && (
+            <DisabledButton />
+          )}
+        </>
       )}
-      {(article.participationApplicationStatus === 'none' ||
-        article.participationApplicationStatus === 'canceled') && (
-        <ApplyButton articleId={id} />
-      )}
-      {article.participationApplicationStatus === 'pending' && (
-        <CancelButton articleId={id} />
-      )}
-      {article.author.nickname !== nickname &&
-        article.participationApplicationStatus === 'approved' && (
-          <CancelButtonForApproved articleId={id} />
-        )}
-      {article.participationApplicationStatus === 'rejected' && (
-        <DisabledButton />
-      )}
+
       <CommentList articleId={id} />
     </div>
   );
