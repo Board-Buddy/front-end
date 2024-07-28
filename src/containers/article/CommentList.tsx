@@ -35,7 +35,7 @@ const CommentList = ({ articleId }: { articleId: number }) => {
     <div className="p-4">
       <span className="text-gray-700 text-lg font-bold">댓글</span>
       {commentList.map((comment) => (
-        <>
+        <div key={comment.id}>
           <div
             key={comment.id}
             className="p-4 my-2 last-of-type:border-none border-b-[1px] border-gray-200"
@@ -68,7 +68,7 @@ const CommentList = ({ articleId }: { articleId: number }) => {
             </p>
           </div>
           <div>
-            {comment.replies.map((reply) => (
+            {comment.children?.map((reply) => (
               <div key={reply.id} className="p-4 my-2 bg-gray-100 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
                   <CornerDownRight size={16} className="text-gray-700" />
@@ -102,7 +102,7 @@ const CommentList = ({ articleId }: { articleId: number }) => {
               </div>
             ))}
           </div>
-        </>
+        </div>
       ))}
       <div className="mt-4 flex gap-2">
         <Input placeholder="댓글 입력" />

@@ -11,22 +11,22 @@ export const getComments = http.get(
           {
             id: 1,
             author: {
-              nickname: '김구구',
+              nickname: '김한량',
               rank: 0,
               profileImageS3SavedURL: '',
             },
             content: '댓글 내용 어쩌구',
-            createdAt: '2024-06-20 13:21',
-            replies: [
+            createdAt: '2024-07-20 11:00',
+            children: [
               {
                 id: 4,
                 author: {
-                  nickname: 'yubin',
+                  nickname: '이한량',
                   rank: 1,
                   profileImageS3SavedURL: '',
                 },
                 content: '대댓글 내용 어쩌구',
-                createdAt: '2024-06-20 13:21',
+                createdAt: '2024-07-20 11:00',
               },
               {
                 id: 6,
@@ -36,7 +36,7 @@ export const getComments = http.get(
                   profileImageS3SavedURL: '',
                 },
                 content: '대댓글 내용 어쩌구',
-                createdAt: '2024-06-20 13:21',
+                createdAt: '2024-07-20 11:00',
               },
             ],
           },
@@ -48,8 +48,7 @@ export const getComments = http.get(
               profileImageS3SavedURL: '',
             },
             content: '댓글 내용 어쩌구',
-            createdAt: '2024-06-20 13:21',
-            replies: [],
+            createdAt: '2024-07-20 11:00',
           },
         ],
       },

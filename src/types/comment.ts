@@ -8,5 +8,5 @@ export interface Reply {
 }
 
 export interface Comment extends Reply {
-  replies: Reply[];
+  children?: Reply[];
 }
