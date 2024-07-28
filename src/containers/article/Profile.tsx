@@ -5,21 +5,23 @@ import Link from 'next/link';
 
 const Profile = ({ author }: { author: Author }) => {
   return (
-    <Link href={`/profile/${author.nickname}`}>
-      <div className="flex items-center border-b-[1px] border-gray-200 p-4">
-        <CustomAvatar
-          src={author.profileImageS3SavedURL || ''}
-          rank={author.rank}
-          nickname={author.nickname}
-          avatarSize="md"
-        />
-        <div className="ml-3">
-          <span className="text-lg font-bold">{author.nickname}</span>
-          <p className="text-sm text-gray-600">{author.description}</p>
-        </div>
-        <ChevronRight className="ml-auto w-5 h-5 text-gray-700" />
+    <div className="flex items-center border-b-[1px] border-gray-200 p-4">
+      <CustomAvatar
+        src={author.profileImageS3SavedURL || null}
+        rank={author.rank}
+        nickname={author.nickname}
+        avatarSize="md"
+      />
+      <div className="ml-3">
+        <span className="text-lg font-bold">{author.nickname}</span>
+        <p className="text-sm text-gray-600">{author.description}</p>
       </div>
-    </Link>
+      <div className="ml-auto">
+        <Link href={`/profile/${author.nickname}`}>
+          <ChevronRight className="w-5 h-5 text-gray-700" />
+        </Link>
+      </div>
+    </div>
   );
 };
 
