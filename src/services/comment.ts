@@ -44,3 +44,15 @@ export const editComment = ({
       content,
     })
     .then((response) => response.data.status);
+
+/** 댓글 삭제 API */
+export const deleteComment = ({
+  gatherArticleId,
+  commentId,
+}: {
+  gatherArticleId: number;
+  commentId: string;
+}) =>
+  api
+    .delete(`/api/gatherArticles/${gatherArticleId}/comments/${commentId}`)
+    .then((response) => response.data.status);

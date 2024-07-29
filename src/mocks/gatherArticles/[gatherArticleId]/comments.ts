@@ -108,3 +108,25 @@ export const editComment = http.put<any, { content: string }>(
     });
   },
 );
+
+export const deleteComment = http.delete<any>(
+  `${API_BASE_URL}/api/gatherArticles/:articleId([0-9]+)/comments/:commentId([0-9]+)`,
+  async ({ params }) => {
+    const { commentId } = params;
+
+    if (comments.has(parseInt(commentId, 10))) {
+      comments.delete(parseInt(commentId, 10));
+
+      return HttpResponse.json({
+        status: 'success',
+        data: null,
+        message: '댓글 삭제에 성공하였습니다.',
+      });
+    }
+    return HttpResponse.json({
+      status: 'error',
+      data: null,
+      message: '댓글을 찾을 수 없습니다.',
+    });
+  },
+);

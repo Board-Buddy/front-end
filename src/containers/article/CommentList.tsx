@@ -7,8 +7,14 @@ import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
 import { CornerDownRight, Ellipsis, MessageSquare } from 'lucide-react';
 import { commentTime } from '@/utils/date';
-import { useGetComments } from '@/hooks/useComment';
+import { useDeleteComment, useGetComments } from '@/hooks/useComment';
 import { useState } from 'react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import CommentInput from './CommentInput';
 
 const CommentList = ({ articleId }: { articleId: number }) => {
@@ -25,6 +31,8 @@ const CommentList = ({ articleId }: { articleId: number }) => {
     id: string;
     content: string;
   } | null>(null);
+
+  const deleteCommentMutation = useDeleteComment(articleId);
 
   const {
     data: commentList,
@@ -52,6 +60,12 @@ const CommentList = ({ articleId }: { articleId: number }) => {
   const handleEditButtonClick = (id: string, content: string) => {
     setParentComment(null);
     setEditingComment({ id, content });
+  };
+
+  const handleRemoveButtonClick = (id: string) => {
+    if (window.confirm('정말 삭제하시겠습니까?')) {
+      deleteCommentMutation.mutate(id);
+    }
   };
 
   return (
@@ -83,20 +97,39 @@ const CommentList = ({ articleId }: { articleId: number }) => {
                     }
                   />
                 </Button>
-                <Button
-                  className={cn(
-                    nickname === comment.author.nickname ? 'visible' : 'hidden',
-                    'bg-transparent p-0',
-                  )}
-                  onClick={() =>
-                    handleEditButtonClick(
-                      comment.id.toString(),
-                      comment.content,
-                    )
-                  }
-                >
-                  <Ellipsis className="text-gray-400 size-4" />
-                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger
+                    className={cn(
+                      nickname === comment.author.nickname
+                        ? 'visible'
+                        : 'hidden',
+                      'ml-auto cursor-pointer',
+                    )}
+                  >
+                    <Ellipsis className="text-gray-400 size-4" />
+                    <DropdownMenuContent className="bg-white -mt-2 -ml-8 w-16">
+                      <DropdownMenuItem
+                        className="hover:bg-slate-50 transition-all"
+                        onClick={() =>
+                          handleEditButtonClick(
+                            comment.id.toString(),
+                            comment.content,
+                          )
+                        }
+                      >
+                        수정
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        className="hover:bg-slate-50 transition-all"
+                        onClick={() =>
+                          handleRemoveButtonClick(comment.id.toString())
+                        }
+                      >
+                        삭제
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenuTrigger>
+                </DropdownMenu>
               </div>
             </div>
             <p className="text-sm">{comment.content}</p>
@@ -128,22 +161,39 @@ const CommentList = ({ articleId }: { articleId: number }) => {
                         }
                       />
                     </Button>
-                    <Button
-                      className={cn(
-                        nickname === reply.author.nickname
-                          ? 'visible'
-                          : 'hidden',
-                        'bg-transparent p-0',
-                      )}
-                      onClick={() =>
-                        handleEditButtonClick(
-                          reply.id.toString(),
-                          reply.content,
-                        )
-                      }
-                    >
-                      <Ellipsis className="text-gray-400 size-4" />
-                    </Button>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger
+                        className={cn(
+                          nickname === reply.author.nickname
+                            ? 'visible'
+                            : 'hidden',
+                          'bg-transparent p-0',
+                        )}
+                      >
+                        <Ellipsis className="text-gray-400 size-4" />
+                        <DropdownMenuContent className="bg-white -mt-2 -ml-8 w-16">
+                          <DropdownMenuItem
+                            className="hover:bg-slate-50 transition-all"
+                            onClick={() =>
+                              handleEditButtonClick(
+                                reply.id.toString(),
+                                reply.content,
+                              )
+                            }
+                          >
+                            수정
+                          </DropdownMenuItem>
+                          <DropdownMenuItem
+                            className="hover:bg-slate-50 transition-all"
+                            onClick={() =>
+                              handleRemoveButtonClick(reply.id.toString())
+                            }
+                          >
+                            삭제
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenuTrigger>
+                    </DropdownMenu>
                   </div>
                 </div>
                 <p className="text-sm pl-6">{reply.content}</p>
