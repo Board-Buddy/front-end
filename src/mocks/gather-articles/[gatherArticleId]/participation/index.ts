@@ -51,7 +51,6 @@ export const applyParticipation = http.post(
   `${API_BASE_URL}/api/gather-articles/:articleId([0-9]+)/participation`,
   ({ params }) => {
     const { articleId } = params;
-
     const participants = participationMap.get(Number(articleId)) || [];
 
     const newParticipation = {
@@ -68,6 +67,26 @@ export const applyParticipation = http.post(
       status: 'success',
       data: null,
       message: '해당 모집글에 참가 신청이 완료되었습니다.',
+    });
+  },
+);
+
+export const cancelParticipation = http.put(
+  `${API_BASE_URL}/api/gather-articles/:articleId([0-9]+)/participation`,
+  ({ params }) => {
+    const { articleId } = params;
+    const participants = participationMap.get(Number(articleId)) || [];
+
+    const updatedParticipants = participants.filter(
+      (participation) => participation.nickname !== 'yubin',
+    );
+
+    participationMap.set(Number(articleId), updatedParticipants);
+
+    return HttpResponse.json({
+      status: 'success',
+      data: null,
+      message: '해당 모집글의 참가 신청을 취소했습니다.',
     });
   },
 );
@@ -127,4 +146,5 @@ export const participationHandlers = [
   applyParticipation,
   approveParticipation,
   rejectParticipation,
+  cancelParticipation,
 ];

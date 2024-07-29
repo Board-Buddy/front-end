@@ -1,6 +1,7 @@
 import {
   applyParticipation,
   approveParticipation,
+  cancelParticipation,
   getParticipants,
   rejectParticipation,
 } from '@/services/participation';
@@ -21,6 +22,20 @@ export const useApplyParticipation = (articleId: string) => {
 
   return useMutation({
     mutationFn: () => applyParticipation({ articleId }),
+    onSuccess: () => {
+      // 성공 시 모집글 상세 쿼리 무효화
+      queryClient.invalidateQueries({
+        queryKey: ['article', { articleId }],
+      });
+    },
+  });
+};
+
+export const useCancelParticipation = (articleId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: () => cancelParticipation({ articleId }),
     onSuccess: () => {
       // 성공 시 모집글 상세 쿼리 무효화
       queryClient.invalidateQueries({

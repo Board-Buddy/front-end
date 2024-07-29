@@ -12,6 +12,12 @@ export const applyParticipation = ({ articleId }: { articleId: string }) =>
     .post(`/api/gather-articles/${articleId}/participation`)
     .then((response) => response.data.status);
 
+/** 참가 신청 취소 API */
+export const cancelParticipation = ({ articleId }: { articleId: string }) =>
+  api
+    .put(`/api/gather-articles/${articleId}/participation`)
+    .then((response) => response.data.status);
+
 /** 참가 신청 승인 API */
 export const approveParticipation = ({
   articleId,

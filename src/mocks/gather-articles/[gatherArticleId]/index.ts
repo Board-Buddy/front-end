@@ -63,7 +63,7 @@ export const getArticle = http.get(
             emd: '신림동',
             createdAt: '2024-07-19 13:09',
             status: 'open',
-            participationApplicationStatus: 'none',
+            participationApplicationStatus: 'pending',
           },
         },
         message: '성공적으로 조회되었습니다.',
