@@ -9,12 +9,6 @@ import useCafesMarkers from '@/hooks/custom/useCafesMarkers';
 import usePanToCafe from '@/hooks/custom/usePanToCafe';
 import ReloadButton from './ReloadButton';
 
-declare global {
-  interface Window {
-    kakao: any;
-  }
-}
-
 interface Props {
   location: Location;
   children?: ReactNode;

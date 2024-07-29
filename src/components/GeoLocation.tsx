@@ -6,15 +6,9 @@ import { useState } from 'react';
 import { Cafe } from '@/types/map';
 import { usePathname, useRouter } from 'next/navigation';
 import { useWriteFormContext } from '@/context/WriteFormContext';
+import { GEOLOCATION_OPTIONS } from '@/constants/map';
 import CafeInfo from '../containers/map/CafeInfo';
 import Map from '../containers/map/Map';
-import { GEOLOCATION_OPTIONS } from '@/constants/map';
-
-declare global {
-  interface Window {
-    kakao: any;
-  }
-}
 
 interface Props {
   redirectionURL?: string;
