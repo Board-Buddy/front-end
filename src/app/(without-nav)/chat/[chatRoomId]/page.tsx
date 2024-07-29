@@ -1,5 +1,13 @@
-const page = () => {
-  return <div>채팅방 페이지</div>;
+'use client';
+
+import ArticleInfo from '@/containers/chat/ArticleInfo';
+
+const Page = () => {
+  return (
+    <>
+      <ArticleInfo />
+    </>
+  );
 };
 
-export default page;
+export default Page;

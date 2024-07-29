@@ -69,6 +69,11 @@ const Header = () => {
     leftArrow = true;
   }
 
+  if (pathname.split('/').length >= 3) {
+    title = '채팅';
+    leftArrow = true;
+  }
+
   return (
     <div className="flex items-center border-b py-3 px-2 border-gray-200">
       <div className="left-section basis-1/3">
