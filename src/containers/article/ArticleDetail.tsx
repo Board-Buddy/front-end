@@ -10,7 +10,7 @@ import CommentList from './CommentList';
 import CancelButton from './CancelButton';
 import DisabledButton from './DisabledButton';
 import CancelButtonForApproved from './CancelButtonForApproved';
-import ApplicantsListButton from './ApplicantsListButton';
+import ParticipantsListButton from './ParticipantsListButton';
 
 const ArticleDetail = ({ id }: { id: number }) => {
   const cache = useQueryClient();
@@ -50,7 +50,7 @@ const ArticleDetail = ({ id }: { id: number }) => {
         status={article.status}
         isAuthor={nickname === article.author.nickname}
       />
-      {isAuthor && <ApplicantsListButton articleId={id} />}
+      {isAuthor && <ParticipantsListButton articleId={id} />}
       {!isAuthor && (
         <>
           {(article.participationApplicationStatus === 'none' ||
@@ -61,7 +61,10 @@ const ArticleDetail = ({ id }: { id: number }) => {
             <CancelButton articleId={id} />
           )}
           {article.participationApplicationStatus === 'approved' && (
-            <CancelButtonForApproved articleId={id} />
+            <CancelButtonForApproved
+              articleId={id}
+              startDateTime={article.startDateTime}
+            />
           )}
           {article.participationApplicationStatus === 'rejected' && (
             <DisabledButton />
