@@ -64,7 +64,7 @@ const Header = () => {
     }
   }
 
-  if (pathname.includes('applicants')) {
+  if (pathname.includes('participants')) {
     title = '참가 신청 목록';
     leftArrow = true;
   }

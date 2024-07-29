@@ -8,6 +8,7 @@ import {
   editComment,
   getComments,
 } from './[gatherArticleId]/comments';
+import { getParticipants } from './[gatherArticleId]/participation';
 
 export const getArticles = http.get(
   `${API_BASE_URL}/api/gather-articles`,
@@ -149,4 +150,5 @@ export const articleHandlers = [
   addReply,
   editComment,
   deleteComment,
+  getParticipants,
 ];

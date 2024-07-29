@@ -1,6 +1,6 @@
 'use client';
 
-import { ParticipantInfo } from '@/types/article';
+import { useGetParticipationList } from '@/hooks/useParticipation';
 import ParticipantItem from './ParticipantItem';
 
 interface Props {
@@ -8,36 +8,35 @@ interface Props {
 }
 
 const ParticipantList = ({ articleId }: Props) => {
-  const applicants: ParticipantInfo[] = [
-    {
-      id: 1,
-      nickname: 'kong1',
-      profileImageS3SavedURL: null,
-      rank: 1,
-    },
-    {
-      id: 2,
-      nickname: 'kong2',
-      profileImageS3SavedURL: null,
-      rank: 2,
-    },
-    {
-      id: 3,
-      nickname: 'kong3',
-      profileImageS3SavedURL: null,
-      rank: null,
-    },
-  ];
+  const {
+    data: participants,
+    isPending,
+    isError,
+    error,
+  } = useGetParticipationList(articleId);
+
+  if (isPending) {
+    return <p>Loading...</p>;
+  }
+
+  if (isError) {
+    return <p>Error: {error.message}</p>;
+  }
 
   return (
     <div>
-      {applicants.map((applicant) => (
+      {participants.length === 0 && (
+        <div className="flex justify-center pt-4 text-slate-600">
+          참가 신청자가 없습니다.
+        </div>
+      )}
+      {participants.map((participant) => (
         <ParticipantItem
-          key={applicant.id}
-          id={applicant.id}
-          nickname={applicant.nickname}
-          profileImageS3SavedURL={applicant.profileImageS3SavedURL}
-          rank={applicant.rank}
+          key={participant.id}
+          id={participant.id}
+          nickname={participant.nickname}
+          profileImageS3SavedURL={participant.profileImageS3SavedURL}
+          rank={participant.rank}
         />
       ))}
     </div>
