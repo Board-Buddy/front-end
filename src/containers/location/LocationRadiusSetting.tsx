@@ -29,7 +29,7 @@ const LocationRadiusSetting = () => {
 
   const cache = useQueryClient();
   const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
-  const locationString = `${userInfo.sido} ${userInfo.sigu} ${userInfo.dong}`;
+  const locationString = `${userInfo.sido} ${userInfo.sgg} ${userInfo.emd}`;
 
   const [location, setLocation] = useState(locationString);
   const [value, setValue] = useState(0);
@@ -41,8 +41,8 @@ const LocationRadiusSetting = () => {
     const selectedLocation = loc.split(' ');
     locationMutation.mutate({
       sido: selectedLocation[0],
-      sigu: selectedLocation[1],
-      dong: selectedLocation[2],
+      sgg: selectedLocation[1],
+      emd: selectedLocation[2],
     });
   };
 
@@ -65,8 +65,7 @@ const LocationRadiusSetting = () => {
               <div className="flex items-center text-md font-bold text-white">
                 <span>
                   {location
-                    ? locationList.find((dong) => dong.label === location)
-                        ?.value
+                    ? locationList.find((emd) => emd.label === location)?.value
                     : '동네 설정 필요'}
                 </span>
                 <ChevronDown className="ml-1 h-4 w-4 shrink-0" />
@@ -82,10 +81,10 @@ const LocationRadiusSetting = () => {
               <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
               <CommandList>
                 <CommandGroup>
-                  {locationList.map((dong) => (
+                  {locationList.map((emd) => (
                     <CommandItem
-                      key={dong.label}
-                      value={dong.label}
+                      key={emd.label}
+                      value={emd.label}
                       onSelect={(currentValue) => {
                         setLocation(currentValue);
                         onSelect(currentValue);
@@ -95,10 +94,10 @@ const LocationRadiusSetting = () => {
                       <Check
                         className={cn(
                           'mr-2 h-4 w-4',
-                          location === dong.label ? 'opacity-100' : 'opacity-0',
+                          location === emd.label ? 'opacity-100' : 'opacity-0',
                         )}
                       />
-                      {dong.label}
+                      {emd.label}
                     </CommandItem>
                   ))}
                 </CommandGroup>

@@ -8,49 +8,49 @@ export const location = http.post(`${API_BASE_URL}/api/locations`, async () => {
       '2': [
         {
           sido: '서울특별시',
-          sigu: '종로구',
-          dong: '청운동',
+          sgg: '종로구',
+          emd: '청운동',
         },
         {
           sido: '서울특별시',
-          sigu: '종로구',
-          dong: '신교동',
+          sgg: '종로구',
+          emd: '신교동',
         },
       ],
       '5': [
         {
           sido: '서울특별시',
-          sigu: '종로구',
-          dong: '청운동',
+          sgg: '종로구',
+          emd: '청운동',
         },
         {
           sido: '서울특별시',
-          sigu: '종로구',
-          dong: '신교동',
+          sgg: '종로구',
+          emd: '신교동',
         },
       ],
       '7': [
         {
           sido: '서울특별시',
-          sigu: '종로구',
-          dong: '청운동',
+          sgg: '종로구',
+          emd: '청운동',
         },
         {
           sido: '서울특별시',
-          sigu: '종로구',
-          dong: '신교동',
+          sgg: '종로구',
+          emd: '신교동',
         },
       ],
       '10': [
         {
           sido: '서울특별시',
-          sigu: '종로구',
-          dong: '청운동',
+          sgg: '종로구',
+          emd: '청운동',
         },
         {
           sido: '서울특별시',
-          sigu: '종로구',
-          dong: '신교동',
+          sgg: '종로구',
+          emd: '신교동',
         },
       ],
     },

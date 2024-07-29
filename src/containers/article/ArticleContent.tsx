@@ -29,9 +29,9 @@ const ArticleContent = ({
   title,
   description,
   meetingLocation,
-  sigu,
   sido,
-  dong,
+  sgg,
+  emd,
   x,
   y,
   maxParticipants,
@@ -62,8 +62,8 @@ const ArticleContent = ({
       y: y!.toString(),
       date: new Date(startDateTime),
       sido: sido!,
-      sigu: sigu!,
-      dong: dong!,
+      sgg: sgg!,
+      emd: emd!,
     });
 
     router.push(`/article/${id}/edit`);

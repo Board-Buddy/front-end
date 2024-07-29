@@ -124,8 +124,8 @@ export const register = async (data: {
   nickname: string;
   phoneNumber: string;
   sido: string;
-  sigu: string;
-  dong: string;
+  sgg: string;
+  emd: string;
 }) => {
   try {
     const response = await api.post('/api/auth/register', data);
@@ -163,8 +163,8 @@ export const checkUserLogin = () =>
 export const oauthRegister = async (data: {
   phoneNumber: string;
   sido: string;
-  sigu: string;
-  dong: string;
+  sgg: string;
+  emd: string;
 }) => {
   try {
     const response = await api.post('/api/auth/oauth2/register', data);

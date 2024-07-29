@@ -1,8 +1,8 @@
 export interface UserInfo {
   nickname: string;
   sido: string;
-  sigu: string;
-  dong: string;
+  sgg: string;
+  emd: string;
   isPhoneNumberVerified: boolean;
   awsS3SavedFileURL: string | null;
 }

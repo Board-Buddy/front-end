@@ -15,7 +15,7 @@ const ArticleList = () => {
 
   const cache = useQueryClient();
   const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
-  const locationString = `${userInfo.sido} ${userInfo.sigu} ${userInfo.dong}`;
+  const locationString = `${userInfo.sido} ${userInfo.sgg} ${userInfo.emd}`;
 
   const [filter, setFilter] = useState<Omit<SearchParams, 'location'>>({
     status: null,

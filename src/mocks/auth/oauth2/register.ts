@@ -4,8 +4,8 @@ import { http, HttpResponse } from 'msw';
 interface RequestBody {
   phoneNumber: string;
   sido: string;
-  sigu: string;
-  dong: string;
+  sgg: string;
+  emd: string;
 }
 
 interface ResponseBody {
