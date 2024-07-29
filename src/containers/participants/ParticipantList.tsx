@@ -1,6 +1,9 @@
 'use client';
 
-import { useGetParticipationList } from '@/hooks/useParticipation';
+import {
+  useApproveParticipation,
+  useGetParticipationList,
+} from '@/hooks/useParticipation';
 import ParticipantItem from './ParticipantItem';
 
 interface Props {
@@ -15,6 +18,8 @@ const ParticipantList = ({ articleId }: Props) => {
     error,
   } = useGetParticipationList(articleId);
 
+  const approveMutation = useApproveParticipation(articleId);
+
   if (isPending) {
     return <p>Loading...</p>;
   }
@@ -22,6 +27,16 @@ const ParticipantList = ({ articleId }: Props) => {
   if (isError) {
     return <p>Error: {error.message}</p>;
   }
+
+  const onApproveButtonClick = (
+    participationId: string,
+    applicantNickname: string,
+  ) => {
+    approveMutation.mutate({
+      participationId,
+      applicantNickname,
+    });
+  };
 
   return (
     <div>
@@ -37,6 +52,7 @@ const ParticipantList = ({ articleId }: Props) => {
           nickname={participant.nickname}
           profileImageS3SavedURL={participant.profileImageS3SavedURL}
           rank={participant.rank}
+          onApproveButtonClick={onApproveButtonClick}
         />
       ))}
     </div>
