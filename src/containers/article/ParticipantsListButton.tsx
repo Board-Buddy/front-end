@@ -2,10 +2,10 @@ import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/tailwind';
 import Link from 'next/link';
 
-const ApplicantsListButton = ({ articleId }: { articleId: number }) => {
+const ParticipantsListButton = ({ articleId }: { articleId: number }) => {
   return (
     <div className="px-4 mb-8">
-      <Link href={`${articleId}/applicants`}>
+      <Link href={`${articleId}/participants`}>
         <Button
           className={cn('w-full text-white font-bold text-md h-12 shadow-md')}
         >
@@ -16,4 +16,4 @@ const ApplicantsListButton = ({ articleId }: { articleId: number }) => {
   );
 };
 
-export default ApplicantsListButton;
+export default ParticipantsListButton;

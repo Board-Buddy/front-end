@@ -1,12 +1,12 @@
 import CustomAvatar from '@/components/CustomAvatar';
 import { Button } from '@/components/ui/button';
-import { ApplicantInfo } from '@/types/article';
+import { ParticipantInfo } from '@/types/article';
 
-const ApplicantItem = ({
+const ParticipantItem = ({
   nickname,
   profileImageS3SavedURL,
   rank,
-}: ApplicantInfo) => {
+}: ParticipantInfo) => {
   return (
     <div className="px-4 py-2 flex items-center gap-3 border-b border-b-slate-100">
       <CustomAvatar
@@ -26,4 +26,4 @@ const ApplicantItem = ({
   );
 };
 
-export default ApplicantItem;
+export default ParticipantItem;

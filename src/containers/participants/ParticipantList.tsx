@@ -1,14 +1,14 @@
 'use client';
 
-import { ApplicantInfo } from '@/types/article';
-import ApplicantItem from './ApplicantItem';
+import { ParticipantInfo } from '@/types/article';
+import ParticipantItem from './ParticipantItem';
 
 interface Props {
   articleId: string;
 }
 
-const ApplicantList = ({ articleId }: Props) => {
-  const applicants: ApplicantInfo[] = [
+const ParticipantList = ({ articleId }: Props) => {
+  const applicants: ParticipantInfo[] = [
     {
       id: 1,
       nickname: 'kong1',
@@ -32,7 +32,7 @@ const ApplicantList = ({ articleId }: Props) => {
   return (
     <div>
       {applicants.map((applicant) => (
-        <ApplicantItem
+        <ParticipantItem
           key={applicant.id}
           id={applicant.id}
           nickname={applicant.nickname}
@@ -44,4 +44,4 @@ const ApplicantList = ({ articleId }: Props) => {
   );
 };
 
-export default ApplicantList;
+export default ParticipantList;

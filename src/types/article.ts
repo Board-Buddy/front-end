@@ -61,7 +61,7 @@ export interface NewArticle {
   endDateTime: string;
 }
 
-export interface ApplicantInfo {
+export interface ParticipantInfo {
   id: number;
   rank: number | null;
   nickname: string;
