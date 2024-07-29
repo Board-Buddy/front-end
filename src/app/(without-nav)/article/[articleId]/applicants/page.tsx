@@ -1,5 +1,7 @@
-const page = () => {
-  return <div>참여자 목록 페이지</div>;
+import ApplicantList from '@/containers/applicants/ApplicantList';
+
+const page = ({ params }: { params: { articleId: string } }) => {
+  return <ApplicantList articleId={params.articleId} />;
 };
 
 export default page;
