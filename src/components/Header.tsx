@@ -64,6 +64,11 @@ const Header = () => {
     }
   }
 
+  if (pathname.includes('applicants')) {
+    title = '참가 신청 목록';
+    leftArrow = true;
+  }
+
   return (
     <div className="flex items-center border-b py-3 px-2 border-gray-200">
       <div className="left-section basis-1/3">

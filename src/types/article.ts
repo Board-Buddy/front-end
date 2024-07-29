@@ -30,7 +30,7 @@ export interface Article {
 
 export interface Author {
   nickname: string;
-  rank: number;
+  rank: number | null;
   profileImageS3SavedURL?: string;
   description?: string;
 }
@@ -59,4 +59,11 @@ export interface NewArticle {
   maxParticipants: number;
   startDateTime: string;
   endDateTime: string;
+}
+
+export interface ApplicantInfo {
+  id: number;
+  rank: number | null;
+  nickname: string;
+  profileImageS3SavedURL: string | null;
 }
