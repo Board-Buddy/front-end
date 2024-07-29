@@ -46,11 +46,6 @@ const LocationRadiusSetting = () => {
     });
   };
 
-  const onValueChange = () => {
-    const radiusOptions = [2, 5, 7, 10] as const;
-    radiusMutation.mutate({ radius: radiusOptions[value] });
-  };
-
   return (
     <div className="bg-white rounded-t-2xl shadow-[0_-2px_10px_0_rgba(48,48,48,0.1)]">
       <div className="flex flex-col p-4 gap-4">
@@ -108,9 +103,10 @@ const LocationRadiusSetting = () => {
         <Slider
           defaultValue={[0]}
           value={[value]}
-          onValueChange={() => {
+          onValueChange={([value]) => {
             setValue(value);
-            onValueChange();
+            const radiusOptions = [2, 5, 7, 10] as const;
+            radiusMutation.mutate({ radius: radiusOptions[value] });
           }}
           min={0}
           max={3}
