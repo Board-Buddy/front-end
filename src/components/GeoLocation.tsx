@@ -8,18 +8,13 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useWriteFormContext } from '@/context/WriteFormContext';
 import CafeInfo from '../containers/map/CafeInfo';
 import Map from '../containers/map/Map';
+import { GEOLOCATION_OPTIONS } from '@/constants/map';
 
 declare global {
   interface Window {
     kakao: any;
   }
 }
-
-const geolocationOptions = {
-  enableHighAccuracy: true,
-  timeout: 1000 * 10,
-  maximumAge: 1000 * 3600 * 24,
-};
 
 interface Props {
   redirectionURL?: string;
@@ -30,7 +25,7 @@ const GeoLocation = ({ redirectionURL }: Props) => {
   const router = useRouter();
 
   const { formState, setFormState } = useWriteFormContext();
-  const { location, error } = useGeoLocation(geolocationOptions);
+  const { location, error } = useGeoLocation(GEOLOCATION_OPTIONS);
 
   const [cafeInfo, setCafeInfo] = useState<Cafe | null>(null);
 
