@@ -4,7 +4,7 @@ import { ArticleRequest, NewArticle } from '@/types/article';
 /** 모집글 리스트 조회 API */
 export const getArticles = ({ pageParam, status, sort }: ArticleRequest) =>
   api
-    .get('/api/gatherArticles', {
+    .get('/api/gather-articles', {
       params: { page: pageParam, status, sort },
     })
     .then((response) => response.data.data);
@@ -12,13 +12,13 @@ export const getArticles = ({ pageParam, status, sort }: ArticleRequest) =>
 /** 모집글 상세 조회 API */
 export const getArticle = ({ gatherArticleId }: { gatherArticleId: number }) =>
   api
-    .get(`/api/gatherArticles/${gatherArticleId}`)
+    .get(`/api/gather-articles/${gatherArticleId}`)
     .then((response) => response.data.data.post);
 
 /** 모집글 작성 API */
 export const addArticle = async (data: NewArticle) => {
   try {
-    const response = await api.post('/api/gatherArticles', data);
+    const response = await api.post('/api/gather-articles', data);
 
     return {
       status: 'success',
@@ -44,7 +44,7 @@ export const addArticle = async (data: NewArticle) => {
 /** 모집글 수정 API */
 export const editArticle = async (data: NewArticle, articleId: number) => {
   try {
-    const response = await api.put(`/api/gatherArticles/${articleId}`, data);
+    const response = await api.put(`/api/gather-articles/${articleId}`, data);
 
     return {
       status: 'success',
@@ -70,7 +70,7 @@ export const editArticle = async (data: NewArticle, articleId: number) => {
 /** 모집글 삭제 API */
 export const deleteArticle = async (articleId: number) => {
   try {
-    const response = await api.delete(`/api/gatherArticles/${articleId}`);
+    const response = await api.delete(`/api/gather-articles/${articleId}`);
 
     return {
       status: 'success',

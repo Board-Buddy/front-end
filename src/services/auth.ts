@@ -3,7 +3,7 @@ import api from '@/services';
 /** 아이디 중복 검사 API */
 export const checkIdDuplicate = async (id: string) => {
   try {
-    const response = await api.post(`/api/auth/check-username`, {
+    const response = await api.post(`/api/auth/username/check`, {
       username: id,
     });
 
@@ -31,7 +31,7 @@ export const checkIdDuplicate = async (id: string) => {
 /** 닉네임 중복 검사 API  */
 export const checkNicknameDuplicate = async (nickname: string) => {
   try {
-    const response = await api.post(`/api/auth/check-nickname`, {
+    const response = await api.post(`/api/auth/nickname/check`, {
       nickname,
     });
 
@@ -124,8 +124,8 @@ export const register = async (data: {
   nickname: string;
   phoneNumber: string;
   sido: string;
-  sigu: string;
-  dong: string;
+  sgg: string;
+  emd: string;
 }) => {
   try {
     const response = await api.post('/api/auth/register', data);
@@ -163,8 +163,8 @@ export const checkUserLogin = () =>
 export const oauthRegister = async (data: {
   phoneNumber: string;
   sido: string;
-  sigu: string;
-  dong: string;
+  sgg: string;
+  emd: string;
 }) => {
   try {
     const response = await api.post('/api/auth/oauth2/register', data);

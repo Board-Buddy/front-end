@@ -38,8 +38,8 @@ const ArticleDetail = ({ id }: { id: number }) => {
         description={article.description}
         meetingLocation={article.meetingLocation}
         sido={article.sido}
-        sigu={article.sigu}
-        dong={article.dong}
+        sgg={article.sgg}
+        emd={article.emd}
         x={article.x}
         y={article.y}
         maxParticipants={article.maxParticipants}

@@ -93,8 +93,8 @@ const ArticleWriteForm = () => {
         maxParticipants: parseInt(values.maxParticipants, 10),
         meetingLocation: values.meetingLocation,
         sido: values.sido,
-        sigu: values.sigu,
-        dong: values.dong,
+        sgg: values.sgg,
+        emd: values.emd,
         x: values.x,
         y: values.y,
       });

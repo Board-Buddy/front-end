@@ -13,7 +13,7 @@ const LocationSettingButton = () => {
 
   const cache = useQueryClient();
   const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
-  const location = `${userInfo.sido} ${userInfo.sigu} ${userInfo.dong}`;
+  const location = `${userInfo.sido} ${userInfo.sgg} ${userInfo.emd}`;
 
   const onClick = () => {
     router.push('/setting/location');
@@ -30,7 +30,7 @@ const LocationSettingButton = () => {
       <div className="flex items-center p-0 bg-transparent w-[300px]">
         <span className="text-lg font-bold text-gray-800">
           {location
-            ? locationList.find((dong) => dong.label === location)?.value
+            ? locationList.find((emd) => emd.label === location)?.value
             : '동네 설정 필요'}
         </span>
         <ChevronDown className="ml-1 h-4 w-4 shrink-0" />

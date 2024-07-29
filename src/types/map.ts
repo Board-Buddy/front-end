@@ -7,8 +7,8 @@ export interface Cafe {
   place_url: string;
   road_address_name: string;
   sido: string;
-  sigu: string;
-  dong: string;
+  sgg: string;
+  emd: string;
   x: string;
   y: string;
 }

@@ -7,8 +7,8 @@ interface RequestBody {
   nickname: string;
   phoneNumber: string;
   sido: string;
-  sigu: string;
-  dong: string;
+  sgg: string;
+  emd: string;
 }
 
 interface ResponseBody {

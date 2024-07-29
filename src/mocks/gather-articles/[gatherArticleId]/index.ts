@@ -2,7 +2,7 @@ import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 
 export const getArticle = http.get(
-  `${API_BASE_URL}/api/gatherArticles/:id([0-9]+)`,
+  `${API_BASE_URL}/api/gather-articles/:id([0-9]+)`,
   () => {
     return HttpResponse.json({
       status: 'success',
@@ -24,8 +24,8 @@ export const getArticle = http.get(
           startDateTime: '2024-07-20 11:00',
           endDateTime: '2024-07-20 13:00',
           sido: '서울특별시',
-          sigu: '관악구',
-          dong: '신림동',
+          sgg: '관악구',
+          emd: '신림동',
           createdAt: '2024-07-19 13:09',
           status: 'open',
           participationApplicationStatus: 'approved',
@@ -37,7 +37,7 @@ export const getArticle = http.get(
 );
 
 export const editArticle = http.put(
-  `${API_BASE_URL}/api/gatherArticles/:id([0-9]+)`,
+  `${API_BASE_URL}/api/gather-articles/:id([0-9]+)`,
   () => {
     return HttpResponse.json({
       status: 'success',
@@ -52,7 +52,7 @@ export const editArticle = http.put(
 );
 
 export const deleteArticle = http.delete(
-  `${API_BASE_URL}/api/gatherArticles/:id([0-9]+)`,
+  `${API_BASE_URL}/api/gather-articles/:id([0-9]+)`,
   () => {
     return HttpResponse.json({
       status: 'success',

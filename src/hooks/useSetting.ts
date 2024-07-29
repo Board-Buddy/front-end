@@ -6,7 +6,7 @@ export const useLocation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: { sido: string; sigu: string; dong: string }) =>
+    mutationFn: (data: { sido: string; sgg: string; emd: string }) =>
       setLocation(data),
     onSuccess: (_, variables) => {
       console.log('here');
@@ -14,8 +14,8 @@ export const useLocation = () => {
         return {
           ...old,
           sido: variables.sido,
-          sigu: variables.sigu,
-          dong: variables.dong,
+          sgg: variables.sgg,
+          emd: variables.emd,
         };
       });
     },

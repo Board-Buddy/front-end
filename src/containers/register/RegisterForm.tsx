@@ -160,8 +160,8 @@ const RegisterForm = () => {
       nickname: values.nickname,
       phoneNumber: values.phone,
       sido: values.location.split(' ')[0],
-      sigu: values.location.split(' ')[1],
-      dong: values.location.split(' ')[2],
+      sgg: values.location.split(' ')[1],
+      emd: values.location.split(' ')[2],
     });
 
     if (status === 'success') {
@@ -389,7 +389,7 @@ const RegisterForm = () => {
                         >
                           {field.value
                             ? locationList.find(
-                                (dong) => dong.label === field.value,
+                                (emd) => emd.label === field.value,
                               )?.value
                             : '동네 선택'}
                         </span>
@@ -411,10 +411,10 @@ const RegisterForm = () => {
                       <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
                       <CommandList>
                         <CommandGroup>
-                          {locationList.map((dong) => (
+                          {locationList.map((emd) => (
                             <CommandItem
-                              key={dong.label}
-                              value={dong.label}
+                              key={emd.label}
+                              value={emd.label}
                               onSelect={(currentValue) => {
                                 field.onChange(currentValue);
                                 setOpen(false);
@@ -423,12 +423,12 @@ const RegisterForm = () => {
                               <Check
                                 className={cn(
                                   'mr-2 h-4 w-4',
-                                  field.value === dong.label
+                                  field.value === emd.label
                                     ? 'opacity-100'
                                     : 'opacity-0',
                                 )}
                               />
-                              {dong.label}
+                              {emd.label}
                             </CommandItem>
                           ))}
                         </CommandGroup>

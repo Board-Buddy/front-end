@@ -8,8 +8,8 @@ export const status = http.get(`${API_BASE_URL}/api/auth/status`, () => {
       profileDTO: {
         nickname: 'kong',
         sido: '서울특별시',
-        sigu: '송파구',
-        dong: '잠실동',
+        sgg: '송파구',
+        emd: '잠실동',
         isPhoneNumberVerified: true,
         profileImageS3SavedURL: null,
       },

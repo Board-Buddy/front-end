@@ -15,8 +15,8 @@ export interface Article {
   author: Author;
   meetingLocation: string;
   sido?: string;
-  sigu?: string;
-  dong?: string;
+  sgg?: string;
+  emd?: string;
   x?: number;
   y?: number;
   maxParticipants: number;
@@ -52,8 +52,8 @@ export interface NewArticle {
   description: string;
   meetingLocation: string;
   sido: string;
-  sigu: string;
-  dong: string;
+  sgg: string;
+  emd: string;
   x: string;
   y: string;
   maxParticipants: number;

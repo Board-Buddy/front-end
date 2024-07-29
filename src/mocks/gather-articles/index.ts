@@ -10,7 +10,7 @@ import {
 } from './[gatherArticleId]/comments';
 
 export const getArticles = http.get(
-  `${API_BASE_URL}/api/gatherArticles`,
+  `${API_BASE_URL}/api/gather-articles`,
   ({ request }) => {
     const url = new URL(request.url);
     const page = url.searchParams.get('page');
@@ -124,7 +124,7 @@ export const getArticles = http.get(
 );
 
 export const addArticle = http.post(
-  `${API_BASE_URL}/api/gatherArticles`,
+  `${API_BASE_URL}/api/gather-articles`,
   () => {
     return HttpResponse.json({
       status: 'success',

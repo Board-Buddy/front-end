@@ -41,8 +41,8 @@ const GeoLocation = ({ redirectionURL }: Props) => {
       ...formState,
       meetingLocation: cafeInfo!.place_name,
       sido: cafeInfo!.sido,
-      sigu: cafeInfo!.sigu,
-      dong: cafeInfo!.dong,
+      sgg: cafeInfo!.sgg,
+      emd: cafeInfo!.emd,
       x: cafeInfo!.x,
       y: cafeInfo!.y,
     });

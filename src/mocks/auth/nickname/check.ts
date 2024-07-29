@@ -2,7 +2,7 @@ import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 
 interface RequestBody {
-  nickname: string;
+  username: string;
 }
 
 interface ResponseBody {
@@ -11,16 +11,16 @@ interface ResponseBody {
   message: string;
 }
 
-export const checkNickname = http.post<any, RequestBody, ResponseBody>(
-  `${API_BASE_URL}/api/auth/check-nickname`,
+export const checkUsername = http.post<any, RequestBody, ResponseBody>(
+  `${API_BASE_URL}/api/auth/nickname/check`,
   async ({ request }) => {
-    const { nickname } = await request.json();
+    const requestBody = await request.json();
 
-    if (nickname === 'nickname') {
+    if (requestBody.username === 'username') {
       const result = {
         status: 'failure',
         data: null,
-        message: '동일한 닉네임이 이미 존재합니다.',
+        message: '동일한 아이디가 이미 존재합니다.',
       };
       return HttpResponse.json(result, { status: 409 });
     }
@@ -28,7 +28,7 @@ export const checkNickname = http.post<any, RequestBody, ResponseBody>(
     const result = {
       status: 'success',
       data: null,
-      message: '사용 가능한 닉네임 입니다.',
+      message: '사용가능한 아이디 입니다.',
     };
 
     return HttpResponse.json(result, { status: 200 });
