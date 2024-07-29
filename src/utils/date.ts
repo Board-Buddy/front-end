@@ -20,11 +20,12 @@ export const formatMeetingTime = (startTime: string, endTime: string) => {
   return formattedDate;
 };
 
+/** 상대 시간 반환 함수(모집글) */
 export const formatRelativeTime = (createdAt: string) => {
   const now = new Date();
   const createdDate = new Date(createdAt);
 
-  const diffInMilliseconds = Number(now) - Number(createdDate);
+  const diffInMilliseconds = now.getTime() - createdDate.getTime();
   const diffInMinutes = Math.floor(diffInMilliseconds / (1000 * 60));
   const diffInHours = Math.floor(diffInMilliseconds / (1000 * 60 * 60));
 
@@ -146,4 +147,32 @@ export const getTimeFormParameters = (
   const endMinute = endDate.getMinutes().toString();
 
   return { startHour, startMinute, endHour, endMinute };
+};
+
+/** 상대 시간 반환 함수(채팅) */
+export const getLastMessageSentTime = (sentTime: string) => {
+  const date = new Date(sentTime);
+  const now = new Date();
+
+  const diffInMilliseconds = now.getTime() - date.getTime();
+  const diffInMinutes = Math.floor(diffInMilliseconds / (1000 * 60));
+  const diffInHours = Math.floor(diffInMilliseconds / (1000 * 60 * 60));
+  const diffInDays = Math.floor(diffInMilliseconds / (1000 * 60 * 60 * 24));
+  const diffInWeeks = Math.floor(
+    diffInMilliseconds / (1000 * 60 * 60 * 24 * 7),
+  );
+
+  if (diffInMinutes < 1) {
+    return '방금 전';
+  }
+  if (diffInMinutes < 60) {
+    return `${diffInMinutes}분 전`;
+  }
+  if (diffInHours < 24) {
+    return `${diffInHours}시간 전`;
+  }
+  if (diffInDays < 7) {
+    return `${diffInDays}일 전`;
+  }
+  return `${diffInWeeks}주 전`;
 };

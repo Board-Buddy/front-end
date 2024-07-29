@@ -1,5 +1,11 @@
+import ChatList from '@/containers/chat/ChatList';
+
 const page = () => {
-  return <div>채팅 목록 페이지</div>;
+  return (
+    <>
+      <ChatList />
+    </>
+  );
 };
 
 export default page;
