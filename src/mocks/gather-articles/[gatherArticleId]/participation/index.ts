@@ -66,10 +66,39 @@ export const approveParticipation = http.put(
       return HttpResponse.json({
         status: 'success',
         data: null,
-        message: `${applicantNickname}의 참가 신청을 성공적으로 승인하였습니다.`,
+        message: `${applicantNickname}님의 참가 신청을 승인했습니다.`,
       });
     }
   },
 );
 
-export const participationHandlers = [getParticipants, approveParticipation];
+export const rejectParticipation = http.put(
+  `${API_BASE_URL}/api/gather-articles/:articleId([0-9]+)/participation/:participationId([0-9]+)/rejection`,
+  ({ request, params }) => {
+    const url = new URL(request.url);
+    const applicantNickname = url.searchParams.get('applicantNickname');
+
+    const { articleId } = params;
+
+    const participants = participationMap.get(Number(articleId)) || [];
+
+    if (participants) {
+      const updatedParticipants = participants.filter(
+        (member) => member.nickname !== applicantNickname,
+      );
+      participationMap.set(Number(articleId), updatedParticipants);
+
+      return HttpResponse.json({
+        status: 'success',
+        data: null,
+        message: `${applicantNickname}님의 참가 신청을 거절 했습니다.`,
+      });
+    }
+  },
+);
+
+export const participationHandlers = [
+  getParticipants,
+  approveParticipation,
+  rejectParticipation,
+];

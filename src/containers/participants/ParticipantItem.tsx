@@ -7,6 +7,10 @@ interface Props extends ParticipantInfo {
     participationId: string,
     applicantNickname: string,
   ) => void;
+  onRejectButtonClick: (
+    participationId: string,
+    applicantNickname: string,
+  ) => void;
 }
 
 const ParticipantItem = ({
@@ -15,6 +19,7 @@ const ParticipantItem = ({
   profileImageS3SavedURL,
   rank,
   onApproveButtonClick,
+  onRejectButtonClick,
 }: Props) => {
   return (
     <div className="px-4 py-2 flex items-center gap-3 border-b border-b-slate-100">
@@ -32,7 +37,10 @@ const ParticipantItem = ({
         >
           승인
         </Button>
-        <Button className="shadow-[inset_0_0_0_1px] text-primary bg-white rounded-lg h-8">
+        <Button
+          className="shadow-[inset_0_0_0_1px] text-primary bg-white rounded-lg h-8"
+          onClick={() => onRejectButtonClick(id.toString(), nickname)}
+        >
           거절
         </Button>
       </div>

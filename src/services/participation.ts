@@ -7,7 +7,7 @@ export const getParticipants = ({ articleId }: { articleId: string }) =>
     .then((response) => response.data.data.participationAppliedMemberList);
 
 /** 참가 신청 승인 API */
-export const approveParticipant = ({
+export const approveParticipation = ({
   articleId,
   participationId,
   applicantNickname,
@@ -19,5 +19,21 @@ export const approveParticipant = ({
   api
     .put(
       `/api/gather-articles/${articleId}/participation/${participationId}/approval?applicantNickname=${applicantNickname}`,
+    )
+    .then((response) => response.data.status);
+
+/** 참가 신청 거절 API */
+export const rejectParticipation = ({
+  articleId,
+  participationId,
+  applicantNickname,
+}: {
+  articleId: string;
+  participationId: string;
+  applicantNickname: string;
+}) =>
+  api
+    .put(
+      `/api/gather-articles/${articleId}/participation/${participationId}/rejection?applicantNickname=${applicantNickname}`,
     )
     .then((response) => response.data.status);

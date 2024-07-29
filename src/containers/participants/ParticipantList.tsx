@@ -3,6 +3,7 @@
 import {
   useApproveParticipation,
   useGetParticipationList,
+  useRejectParticipation,
 } from '@/hooks/useParticipation';
 import ParticipantItem from './ParticipantItem';
 
@@ -19,6 +20,7 @@ const ParticipantList = ({ articleId }: Props) => {
   } = useGetParticipationList(articleId);
 
   const approveMutation = useApproveParticipation(articleId);
+  const rejectMutation = useRejectParticipation(articleId);
 
   if (isPending) {
     return <p>Loading...</p>;
@@ -33,6 +35,16 @@ const ParticipantList = ({ articleId }: Props) => {
     applicantNickname: string,
   ) => {
     approveMutation.mutate({
+      participationId,
+      applicantNickname,
+    });
+  };
+
+  const onRejectButtonClick = (
+    participationId: string,
+    applicantNickname: string,
+  ) => {
+    rejectMutation.mutate({
       participationId,
       applicantNickname,
     });
@@ -53,6 +65,7 @@ const ParticipantList = ({ articleId }: Props) => {
           profileImageS3SavedURL={participant.profileImageS3SavedURL}
           rank={participant.rank}
           onApproveButtonClick={onApproveButtonClick}
+          onRejectButtonClick={onRejectButtonClick}
         />
       ))}
     </div>
