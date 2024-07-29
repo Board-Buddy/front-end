@@ -1,4 +1,5 @@
 import {
+  applyParticipation,
   approveParticipation,
   getParticipants,
   rejectParticipation,
@@ -12,6 +13,20 @@ export const useGetParticipationList = (articleId: string) => {
     queryFn: () => getParticipants({ articleId }),
     staleTime: 0,
     gcTime: 0,
+  });
+};
+
+export const useApplyParticipation = (articleId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: () => applyParticipation({ articleId }),
+    onSuccess: () => {
+      // 성공 시 모집글 상세 쿼리 무효화
+      queryClient.invalidateQueries({
+        queryKey: ['article', { articleId }],
+      });
+    },
   });
 };
 

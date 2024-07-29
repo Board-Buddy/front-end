@@ -6,6 +6,12 @@ export const getParticipants = ({ articleId }: { articleId: string }) =>
     .get(`/api/gather-articles/${articleId}/participation`)
     .then((response) => response.data.data.participationAppliedMemberList);
 
+/** 참가 신청 API */
+export const applyParticipation = ({ articleId }: { articleId: string }) =>
+  api
+    .post(`/api/gather-articles/${articleId}/participation`)
+    .then((response) => response.data.status);
+
 /** 참가 신청 승인 API */
 export const approveParticipation = ({
   articleId,
