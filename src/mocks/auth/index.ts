@@ -1,5 +1,5 @@
-import { checkNickname } from './check-nickname';
-import { checkUsername } from './check-username';
+import { checkNickname } from './username/check';
+import { checkUsername } from './nickname/check';
 import { login } from './login';
 import { oauthRegister } from './oauth2/register';
 import { register } from './register';
