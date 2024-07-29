@@ -68,7 +68,6 @@ const ArticleDetail = ({ id }: { id: number }) => {
           )}
         </>
       )}
-
       <CommentList articleId={id} />
     </div>
   );
