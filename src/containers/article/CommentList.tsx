@@ -21,6 +21,11 @@ const CommentList = ({ articleId }: { articleId: number }) => {
     authorNickname: string;
   } | null>(null);
 
+  const [editingComment, setEditingComment] = useState<{
+    id: string;
+    content: string;
+  } | null>(null);
+
   const {
     data: commentList,
     isPending,
@@ -37,10 +42,16 @@ const CommentList = ({ articleId }: { articleId: number }) => {
   }
 
   const handleReplyButtonClick = (parentId: string, authorNickname: string) => {
+    setEditingComment(null);
     setParentComment({
       parentId,
       authorNickname,
     });
+  };
+
+  const handleEditButtonClick = (id: string, content: string) => {
+    setParentComment(null);
+    setEditingComment({ id, content });
   };
 
   return (
@@ -77,6 +88,12 @@ const CommentList = ({ articleId }: { articleId: number }) => {
                     nickname === comment.author.nickname ? 'visible' : 'hidden',
                     'bg-transparent p-0',
                   )}
+                  onClick={() =>
+                    handleEditButtonClick(
+                      comment.id.toString(),
+                      comment.content,
+                    )
+                  }
                 >
                   <Ellipsis className="text-gray-400 size-4" />
                 </Button>
@@ -118,6 +135,12 @@ const CommentList = ({ articleId }: { articleId: number }) => {
                           : 'hidden',
                         'bg-transparent p-0',
                       )}
+                      onClick={() =>
+                        handleEditButtonClick(
+                          reply.id.toString(),
+                          reply.content,
+                        )
+                      }
                     >
                       <Ellipsis className="text-gray-400 size-4" />
                     </Button>
@@ -136,6 +159,8 @@ const CommentList = ({ articleId }: { articleId: number }) => {
         articleId={articleId}
         parentComment={parentComment}
         setParentComment={setParentComment}
+        editingComment={editingComment}
+        setEditingComment={setEditingComment}
       />
     </div>
   );

@@ -83,3 +83,28 @@ export const addReply = http.post<any, { content: string }>(
     });
   },
 );
+
+export const editComment = http.put<any, { content: string }>(
+  `${API_BASE_URL}/api/gatherArticles/:articleId([0-9]+)/comments/:commentId([0-9]+)`,
+  async ({ request, params }) => {
+    const { content } = await request.json();
+    const { commentId } = params;
+
+    const existingComment = comments.get(parseInt(commentId, 10));
+    if (existingComment) {
+      existingComment.content = content;
+      comments.set(parseInt(commentId, 10), existingComment);
+
+      return HttpResponse.json({
+        status: 'success',
+        data: null,
+        message: '댓글 수정을 성공하였습니다.',
+      });
+    }
+    return HttpResponse.json({
+      status: 'error',
+      data: null,
+      message: '댓글을 찾을 수 없습니다.',
+    });
+  },
+);

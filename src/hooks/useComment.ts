@@ -1,4 +1,4 @@
-import { addComment, getComments } from '@/services/comment';
+import { addComment, editComment, getComments } from '@/services/comment';
 import { Comment } from '@/types/comment';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -26,6 +26,30 @@ export const useAddComment = (articleId: number) => {
         gatherArticleId: articleId,
         content,
         parentId,
+      }),
+    onSuccess: () => {
+      // 성공 시 댓글 쿼리 무효화
+      queryClient.invalidateQueries({ queryKey: ['comments', { articleId }] });
+    },
+    retry: 0,
+  });
+};
+
+export const useEditComment = (articleId: number) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({
+      content,
+      commentId,
+    }: {
+      content: string;
+      commentId: string;
+    }) =>
+      editComment({
+        gatherArticleId: articleId,
+        content,
+        commentId,
       }),
     onSuccess: () => {
       // 성공 시 댓글 쿼리 무효화

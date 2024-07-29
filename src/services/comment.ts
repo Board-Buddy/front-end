@@ -28,3 +28,19 @@ export const addComment = ({
         })
         .then((response) => response.data.status);
 };
+
+/** 댓글 수정 API */
+export const editComment = ({
+  gatherArticleId,
+  content,
+  commentId,
+}: {
+  gatherArticleId: number;
+  content: string;
+  commentId: string;
+}) =>
+  api
+    .put(`/api/gatherArticles/${gatherArticleId}/comments/${commentId}`, {
+      content,
+    })
+    .then((response) => response.data.status);

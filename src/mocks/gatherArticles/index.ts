@@ -4,6 +4,7 @@ import { deleteArticle, editArticle, getArticle } from './[gatherArticleId]';
 import {
   addComment,
   addReply,
+  editComment,
   getComments,
 } from './[gatherArticleId]/comments';
 
@@ -145,4 +146,5 @@ export const articleHandlers = [
   getComments,
   addComment,
   addReply,
+  editComment,
 ];
