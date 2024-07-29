@@ -61,7 +61,10 @@ const ArticleDetail = ({ id }: { id: number }) => {
             <CancelButton articleId={id} />
           )}
           {article.participationApplicationStatus === 'approved' && (
-            <CancelButtonForApproved articleId={id} />
+            <CancelButtonForApproved
+              articleId={id}
+              startDateTime={article.startDateTime}
+            />
           )}
           {article.participationApplicationStatus === 'rejected' && (
             <DisabledButton />
