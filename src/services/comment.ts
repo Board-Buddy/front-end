@@ -23,7 +23,7 @@ export const addComment = ({
         })
         .then((response) => response.data.status)
     : api
-        .post(`/api/gatherArticles/${gatherArticleId}/comments`, {
+        .post(`/api/gather-articles/${gatherArticleId}/comments`, {
           content,
         })
         .then((response) => response.data.status);
