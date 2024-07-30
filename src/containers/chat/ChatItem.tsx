@@ -22,7 +22,7 @@ const ChatItem = ({
   lastMessage,
 }: Props) => {
   return (
-    <Link href={`/chat/${postId}`}>
+    <Link href={`/chat/${postId}/${id}`}>
       <div className="pb-3 border-b border-slate-100">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
