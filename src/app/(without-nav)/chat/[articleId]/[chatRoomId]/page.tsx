@@ -2,7 +2,7 @@
 
 import ArticleInfo from '@/containers/chat/ArticleInfo';
 import WebSocketContainer from '@/containers/chat/WebSocketContainer';
-import { useGetExistingMessages } from '@/hooks/useChat';
+import { useGetArticlePreview, useGetExistingMessages } from '@/hooks/useChat';
 
 const Page = ({
   params,
@@ -11,22 +11,36 @@ const Page = ({
 }) => {
   const {
     data: chatMessages,
-    isPending,
-    isError,
-    error,
+    isPending: isChatMessagesPending,
+    isError: isChatMessagesError,
+    error: chatMessagesError,
   } = useGetExistingMessages(params.chatRoomId);
 
-  if (isPending) {
+  const {
+    data: articlePreview,
+    isPending: isArticlePreviewPending,
+    isError: isArticlePreviewError,
+    error: articlePreviewError,
+  } = useGetArticlePreview(params.chatRoomId, params.articleId);
+
+  if (isChatMessagesPending || isArticlePreviewPending) {
     return <span>Loading...</span>;
   }
 
-  if (isError) {
-    return <span>Error: {error.message}</span>;
+  if (isChatMessagesError) {
+    return <span>Error: {chatMessagesError.message}</span>;
+  }
+
+  if (isArticlePreviewError) {
+    return <span>Error: {articlePreviewError.message}</span>;
   }
 
   return (
     <>
-      <ArticleInfo articleId={params.articleId} />
+      <ArticleInfo
+        articleId={params.articleId}
+        articlePreview={articlePreview}
+      />
       <WebSocketContainer
         chatRoomId={params.chatRoomId}
         chatMessages={chatMessages}
