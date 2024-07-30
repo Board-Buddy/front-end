@@ -1,28 +1,17 @@
+import { ChatRoom } from '@/types/chat';
 import { getLastMessageSentTime } from '@/utils/date';
 import Link from 'next/link';
 
-interface Props {
-  id: number;
-  postId: number;
-  title: string;
-  participants: number;
-  meetingLocation: string;
-  lastMessage: {
-    content: string;
-    sentTime: string;
-  };
-}
-
 const ChatItem = ({
-  id,
-  postId,
+  chatRoomId,
+  gatherArticleId,
   title,
   participants,
   meetingLocation,
   lastMessage,
-}: Props) => {
+}: ChatRoom) => {
   return (
-    <Link href={`/chat/${postId}/${id}`}>
+    <Link href={`/chat/${gatherArticleId}/${chatRoomId}`}>
       <div className="pb-3 border-b border-slate-100">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
@@ -30,7 +19,7 @@ const ChatItem = ({
             <span className="pl-1 text-slate-500">{participants}</span>
           </div>
           <div className="text-sm text-slate-500">
-            {meetingLocation} · {getLastMessageSentTime(lastMessage.sentTime)}
+            {meetingLocation} · {getLastMessageSentTime(lastMessage.sentAt)}
           </div>
         </div>
         <div>
