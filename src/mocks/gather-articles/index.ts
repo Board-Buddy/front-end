@@ -60,7 +60,7 @@ export const getArticles = http.get(
               startDateTime: '2024-07-20 11:00',
               endDateTime: '2024-07-20 12:00',
               createdAt: '2024-07-20 11:00',
-              status: 'open',
+              status: 'completed',
             },
             {
               id: 3,
@@ -92,7 +92,7 @@ export const getArticles = http.get(
           data: {
             posts: [
               {
-                id: 1,
+                id: 4,
                 title: '퇴근 후 보드게임 ㄱㄱ하실분',
                 description: '스플렌더 하실 분~',
                 author: {

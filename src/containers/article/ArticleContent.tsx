@@ -18,6 +18,7 @@ import {
 import { useWriteFormContext } from '@/context/WriteFormContext';
 import { useRouter } from 'next/navigation';
 import { deleteArticle } from '@/services/article';
+import { ARTICLE_STATUS } from '@/constants/article';
 import Map from './Map';
 
 interface Props extends Omit<Article, 'author'> {
@@ -87,7 +88,7 @@ const ArticleContent = ({
         <span
           className={cn(status === 'open' ? 'text-primary' : 'text-gray-500')}
         >
-          {status === 'open' ? '모집중' : '모집마감'}
+          {ARTICLE_STATUS[status]}
         </span>
         <span className="text-gray-800 ">{title}</span>
         <DropdownMenu>
