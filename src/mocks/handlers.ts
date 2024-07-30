@@ -1,5 +1,6 @@
 import { authHandlers } from './auth';
 import { boardCafeHandlers } from './board-cafes';
+import { chatHandlers } from './chat';
 import { articleHandlers } from './gather-articles';
 import { participationHandlers } from './gather-articles/[gatherArticleId]/participation';
 import { locationHandlers } from './locations';
@@ -14,4 +15,5 @@ export const handlers = [
   ...boardCafeHandlers,
   ...rankingHandlers,
   ...participationHandlers,
+  ...chatHandlers,
 ];

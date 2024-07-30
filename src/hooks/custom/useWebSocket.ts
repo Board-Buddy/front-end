@@ -49,7 +49,7 @@ const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
       messageType: 'talk',
       nickname,
       content: message,
-      sentAt: formatSentAt(Date.toString()),
+      sentAt: formatSentAt(new Date().toISOString()),
     };
 
     if (client.connected) {
@@ -74,7 +74,7 @@ const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
       // 웹소켓 연결 해제
       client.deactivate();
     };
-  }, [chatRoomId, client]);
+  }, []);
 
   return { messages, handleSendMessage };
 };
