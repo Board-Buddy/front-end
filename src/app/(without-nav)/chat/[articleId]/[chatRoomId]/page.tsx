@@ -1,17 +1,36 @@
+'use client';
+
 import ArticleInfo from '@/containers/chat/ArticleInfo';
-import ChatInput from '@/containers/chat/ChatInput';
-import ChatSection from '@/containers/chat/ChatSection';
+import WebSocketContainer from '@/containers/chat/WebSocketContainer';
+import { useGetExistingMessages } from '@/hooks/useChat';
 
 const Page = ({
   params,
 }: {
-  params: { articleId: string; chatId: string };
+  params: { articleId: string; chatRoomId: string };
 }) => {
+  const {
+    data: chatMessages,
+    isPending,
+    isError,
+    error,
+  } = useGetExistingMessages(params.chatRoomId);
+
+  if (isPending) {
+    return <span>Loading...</span>;
+  }
+
+  if (isError) {
+    return <span>Error: {error.message}</span>;
+  }
+
   return (
     <>
       <ArticleInfo articleId={params.articleId} />
-      <ChatSection />
-      <ChatInput />
+      <WebSocketContainer
+        chatRoomId={params.chatRoomId}
+        chatMessages={chatMessages}
+      />
     </>
   );
 };
