@@ -69,7 +69,7 @@ const Header = () => {
     leftArrow = true;
   }
 
-  if (pathname.split('/').length >= 3) {
+  if (pathname.includes('chat') && pathname.split('/').length >= 3) {
     title = '채팅';
     leftArrow = true;
   }
