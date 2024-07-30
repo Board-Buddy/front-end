@@ -1,8 +1,8 @@
-import { setLocation, setRadius } from '@/services/setting';
+import { setLocation, setRadius } from '@/services/location';
 import { UserInfo } from '@/types/user';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-export const useLocation = () => {
+export const useSetLocation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -22,7 +22,7 @@ export const useLocation = () => {
   });
 };
 
-export const useRadius = () => {
+export const useSetRadius = () => {
   return useMutation({
     mutationFn: (data: { radius: 2 | 5 | 7 | 10 }) => setRadius(data),
   });

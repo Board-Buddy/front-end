@@ -22,7 +22,7 @@ import { Slider } from '@/components/ui/slider';
 import { UserInfo } from '@/types/user';
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import { useLocation, useRadius } from '@/hooks/useSetting';
+import { useSetLocation, useSetRadius } from '@/hooks/useLocation';
 
 const LocationRadiusSetting = () => {
   const [open, setOpen] = useState(false);
@@ -34,8 +34,8 @@ const LocationRadiusSetting = () => {
   const [location, setLocation] = useState(locationString);
   const [value, setValue] = useState(0);
 
-  const locationMutation = useLocation();
-  const radiusMutation = useRadius();
+  const locationMutation = useSetLocation();
+  const radiusMutation = useSetRadius();
 
   const onSelect = (loc: string) => {
     const selectedLocation = loc.split(' ');
