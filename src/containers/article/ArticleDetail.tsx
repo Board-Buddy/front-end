@@ -11,6 +11,7 @@ import CancelButton from './CancelButton';
 import DisabledButton from './DisabledButton';
 import CancelButtonForApproved from './CancelButtonForApproved';
 import ParticipantsListButton from './ParticipantsListButton';
+import ReviewButton from './ReviewButton';
 
 const ArticleDetail = ({ id }: { id: number }) => {
   const cache = useQueryClient();
@@ -28,6 +29,7 @@ const ArticleDetail = ({ id }: { id: number }) => {
   }
 
   const isAuthor = article.author.nickname === nickname;
+  const isCompleted = article.status === 'completed';
 
   return (
     <div>
@@ -50,8 +52,11 @@ const ArticleDetail = ({ id }: { id: number }) => {
         status={article.status}
         isAuthor={nickname === article.author.nickname}
       />
-      {isAuthor && <ParticipantsListButton articleId={id} />}
-      {!isAuthor && (
+      {isCompleted && article.participationApplicationStatus === 'approved' && (
+        <ReviewButton articleId={id} />
+      )}
+      {!isCompleted && isAuthor && <ParticipantsListButton articleId={id} />}
+      {!isCompleted && !isAuthor && (
         <>
           {(article.participationApplicationStatus === 'none' ||
             article.participationApplicationStatus === 'canceled') && (

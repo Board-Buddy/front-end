@@ -6,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { ARTICLE_STATUS } from '@/constants/article';
 import { Article as ArticleType } from '@/types/article';
 import { formatMeetingTime, formatRelativeTime } from '@/utils/date';
 import { rankBadgeImageSrc } from '@/utils/rankBadge';
@@ -43,7 +44,7 @@ const Article = ({
                 : 'text-gray-600 border-gray-500',
             )}
           >
-            {status === 'open' ? '모집중' : '모집마감'}
+            {ARTICLE_STATUS[status]}
           </div>
           {title}
         </CardTitle>
