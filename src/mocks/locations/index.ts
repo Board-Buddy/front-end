@@ -1,5 +1,6 @@
 import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
+import { searchLocation } from './search';
 
 export const location = http.post(`${API_BASE_URL}/api/locations`, async () => {
   const result = {
@@ -60,4 +61,4 @@ export const location = http.post(`${API_BASE_URL}/api/locations`, async () => {
   return HttpResponse.json(result, { status: 200 });
 });
 
-export const locationHandlers = [location];
+export const locationHandlers = [location, searchLocation];
