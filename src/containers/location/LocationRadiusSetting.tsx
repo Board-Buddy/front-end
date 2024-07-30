@@ -46,15 +46,10 @@ const LocationRadiusSetting = () => {
     });
   };
 
-  const onValueChange = () => {
-    const radiusOptions = [2, 5, 7, 10] as const;
-    radiusMutation.mutate({ radius: radiusOptions[value] });
-  };
-
   return (
     <div className="bg-white rounded-t-2xl shadow-[0_-2px_10px_0_rgba(48,48,48,0.1)]">
       <div className="flex flex-col p-4 gap-4">
-        <span>내 동네 설정</span>
+        <span className="font-semibold">내 동네 설정</span>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <Button
@@ -108,19 +103,18 @@ const LocationRadiusSetting = () => {
         <Slider
           defaultValue={[0]}
           value={[value]}
-          onValueChange={() => {
+          onValueChange={([value]) => {
             setValue(value);
-            onValueChange();
+            const radiusOptions = [2, 5, 7, 10] as const;
+            radiusMutation.mutate({ radius: radiusOptions[value] });
           }}
           min={0}
           max={3}
           step={1}
         />
         <div className="flex justify-between text-sm text-gray-800">
-          <div>2km</div>
-          <div>5km</div>
-          <div>7km</div>
-          <div>10km</div>
+          <div>가까운 동네</div>
+          <div>먼 동네</div>
         </div>
       </div>
     </div>
