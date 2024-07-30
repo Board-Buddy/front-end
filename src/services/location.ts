@@ -7,3 +7,9 @@ export const setLocation = ({ sido, sgg, emd }: { [key: string]: string }) =>
 /** 위치 반경 설정 API */
 export const setRadius = ({ radius }: { radius: 2 | 5 | 7 | 10 }) =>
   api.post('/api/radius', { radius });
+
+/** 위치 검색 API */
+export const searchLocation = ({ keyword }: { keyword: string }) => {
+  const uri = encodeURI(`/api/locations?emd=${encodeURIComponent(keyword)}`);
+  return api.get(uri);
+};
