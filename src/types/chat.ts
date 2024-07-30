@@ -18,3 +18,12 @@ export interface ChatRoom {
     sentAt: string;
   };
 }
+
+export interface ArticlePreview {
+  title: string;
+  meetingLocation: string;
+  maxParticipants: number;
+  currentParticipants: number;
+  startDateTime: string;
+  endDateTime: string;
+}

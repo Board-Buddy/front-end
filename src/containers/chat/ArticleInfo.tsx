@@ -1,3 +1,4 @@
+import { ArticlePreview } from '@/types/chat';
 import { formatMeetingTime } from '@/utils/date';
 import { UsersRoundIcon } from 'lucide-react';
 import Image from 'next/image';
@@ -5,14 +6,10 @@ import Link from 'next/link';
 
 interface Props {
   articleId: string;
+  articlePreview: ArticlePreview;
 }
-const ArticleInfo = ({ articleId }: Props) => {
-  const startDateTime = '2024-07-20 11:00';
-  const endDateTime = '2024-07-20 12:00';
-  const meetingLocation = '레드버튼 신림점';
-  const maxParticipants = 4;
-  const currentParticipants = 2;
 
+const ArticleInfo = ({ articleId, articlePreview }: Props) => {
   return (
     <Link href={`/article/${articleId}`}>
       <div className="px-4 py-3 border-b border-slate-200">
@@ -30,7 +27,10 @@ const ArticleInfo = ({ articleId }: Props) => {
                   height={12}
                   className="mr-1"
                 />
-                {formatMeetingTime(startDateTime, endDateTime)}
+                {formatMeetingTime(
+                  articlePreview.startDateTime,
+                  articlePreview.endDateTime,
+                )}
               </div>
             </div>
             <div className="flex items-center mt-1">
@@ -41,10 +41,11 @@ const ArticleInfo = ({ articleId }: Props) => {
                 height={12}
                 className="mr-1"
               />
-              {meetingLocation}
+              {articlePreview.meetingLocation}
               <div className="flex ml-auto items-center gap-1">
                 <UsersRoundIcon size={16} className="text-gray-700" />
-                {currentParticipants}/{maxParticipants}
+                {articlePreview.currentParticipants}/
+                {articlePreview.maxParticipants}
               </div>
             </div>
           </div>
