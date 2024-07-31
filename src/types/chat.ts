@@ -9,21 +9,21 @@ export interface Message {
 
 export interface ChatRoom {
   chatRoomId: number;
-  gatherArticleId: number;
-  title: string;
-  participants: number;
-  meetingLocation: string;
-  lastMessage: {
-    content: string;
-    sentAt: string;
-  };
+  gatherArticleSimpleInfo: ArticleSimpleInfo;
+  lastChatMessageInfo: LastChatMessageInfo;
 }
 
-export interface ArticlePreview {
+export interface ArticleSimpleInfo {
+  gatherArticleId?: number;
   title: string;
   meetingLocation: string;
-  maxParticipants: number;
+  maxParticipants?: number;
   currentParticipants: number;
-  startDateTime: string;
-  endDateTime: string;
+  startDateTime?: string;
+  endDateTime?: string;
+}
+
+export interface LastChatMessageInfo {
+  content: string;
+  sentAt: string;
 }
