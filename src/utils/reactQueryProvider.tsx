@@ -1,8 +1,13 @@
 'use client';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import {
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 
 export default function ReactQueryProviders({
   children,
@@ -15,6 +20,11 @@ export default function ReactQueryProviders({
           gcTime: Infinity,
         },
       },
+      queryCache: new QueryCache({
+        onError: (error, query) => {
+          if (query.meta?.showErrorMessage) toast.error(error.message);
+        },
+      }),
     }),
   );
 

@@ -39,13 +39,15 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useRouter } from 'next/navigation';
-import { editArticle } from '@/services/article';
+import { useEditArticle } from '@/hooks/useArticle';
 
 const ArticleEditForm = ({ articleId }: { articleId: number }) => {
   const router = useRouter();
 
   const { formState, setFormState } = useWriteFormContext();
   const [showTimeErrorMessage, setShowTimeErrorMessage] = useState(false);
+
+  const mutation = useEditArticle(articleId);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -77,37 +79,27 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
     } else {
       setShowTimeErrorMessage(false);
 
-      const { status, message } = await editArticle(
-        {
-          title: values.title,
-          description: values.description,
-          startDateTime: formatDateTime(
-            values.date,
-            values.startHour,
-            values.startMinute,
-          ),
-          endDateTime: formatDateTime(
-            values.date,
-            values.endHour,
-            values.endMinute,
-          ),
-          maxParticipants: parseInt(values.maxParticipants, 10),
-          meetingLocation: values.meetingLocation,
-          sido: values.sido,
-          sgg: values.sgg,
-          emd: values.emd,
-          x: values.x,
-          y: values.y,
-        },
-        articleId,
-      );
-
-      if (status === 'success') {
-        alert('모집글이 수정되었습니다.');
-        router.push('/home');
-      } else {
-        alert(message);
-      }
+      mutation.mutate({
+        title: values.title,
+        description: values.description,
+        startDateTime: formatDateTime(
+          values.date,
+          values.startHour,
+          values.startMinute,
+        ),
+        endDateTime: formatDateTime(
+          values.date,
+          values.endHour,
+          values.endMinute,
+        ),
+        maxParticipants: parseInt(values.maxParticipants, 10),
+        meetingLocation: values.meetingLocation,
+        sido: values.sido,
+        sgg: values.sgg,
+        emd: values.emd,
+        x: values.x,
+        y: values.y,
+      });
     }
   };
 

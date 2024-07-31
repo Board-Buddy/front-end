@@ -1,25 +1,46 @@
 import api from '@/services';
+import { handleApiError } from '@/utils/handleApiError';
 
 /** 참가 신청 리스트 조회 API */
-export const getParticipants = ({ articleId }: { articleId: string }) =>
-  api
-    .get(`/api/gather-articles/${articleId}/participation`)
-    .then((response) => response.data.data.participationAppliedMemberList);
+export const getParticipants = async ({ articleId }: { articleId: string }) => {
+  try {
+    const response = await api.get(
+      `/api/gather-articles/${articleId}/participation`,
+    );
+    return response.data.data.participationAppliedMemberList;
+  } catch (error: unknown) {
+    handleApiError(error);
+  }
+};
 
 /** 참가 신청 API */
-export const applyParticipation = ({ articleId }: { articleId: string }) =>
-  api
-    .post(`/api/gather-articles/${articleId}/participation`)
-    .then((response) => response.data.status);
+export const applyParticipation = async ({
+  articleId,
+}: {
+  articleId: string;
+}) => {
+  try {
+    await api.post(`/api/gather-articles/${articleId}/participation`);
+  } catch (error: unknown) {
+    handleApiError(error);
+  }
+};
 
 /** 참가 신청 취소 API */
-export const cancelParticipation = ({ articleId }: { articleId: string }) =>
-  api
-    .put(`/api/gather-articles/${articleId}/participation`)
-    .then((response) => response.data.status);
+export const cancelParticipation = async ({
+  articleId,
+}: {
+  articleId: string;
+}) => {
+  try {
+    await api.put(`/api/gather-articles/${articleId}/participation`);
+  } catch (error: unknown) {
+    handleApiError(error);
+  }
+};
 
 /** 참가 신청 승인 API */
-export const approveParticipation = ({
+export const approveParticipation = async ({
   articleId,
   participationId,
   applicantNickname,
@@ -27,15 +48,18 @@ export const approveParticipation = ({
   articleId: string;
   participationId: string;
   applicantNickname: string;
-}) =>
-  api
-    .put(
+}) => {
+  try {
+    await api.put(
       `/api/gather-articles/${articleId}/participation/${participationId}/approval?applicantNickname=${applicantNickname}`,
-    )
-    .then((response) => response.data.status);
+    );
+  } catch (error: unknown) {
+    handleApiError(error);
+  }
+};
 
 /** 참가 신청 거절 API */
-export const rejectParticipation = ({
+export const rejectParticipation = async ({
   articleId,
   participationId,
   applicantNickname,
@@ -43,9 +67,12 @@ export const rejectParticipation = ({
   articleId: string;
   participationId: string;
   applicantNickname: string;
-}) =>
-  api
-    .put(
+}) => {
+  try {
+    await api.put(
       `/api/gather-articles/${articleId}/participation/${participationId}/rejection?applicantNickname=${applicantNickname}`,
-    )
-    .then((response) => response.data.status);
+    );
+  } catch (error: unknown) {
+    handleApiError(error);
+  }
+};

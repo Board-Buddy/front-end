@@ -28,6 +28,9 @@ export const useApplyParticipation = (articleId: string) => {
         queryKey: ['article', { articleId }],
       });
     },
+    meta: {
+      showErrorMessage: true,
+    },
   });
 };
 
@@ -41,6 +44,9 @@ export const useCancelParticipation = (articleId: string) => {
       queryClient.invalidateQueries({
         queryKey: ['article', { articleId }],
       });
+    },
+    meta: {
+      showErrorMessage: true,
     },
   });
 };
@@ -62,6 +68,9 @@ export const useApproveParticipation = (articleId: string) => {
       queryClient.invalidateQueries({
         queryKey: ['participation', { articleId }],
       });
+    },
+    meta: {
+      showErrorMessage: true,
     },
   });
 };

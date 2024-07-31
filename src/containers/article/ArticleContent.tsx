@@ -17,8 +17,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useWriteFormContext } from '@/context/WriteFormContext';
 import { useRouter } from 'next/navigation';
-import { deleteArticle } from '@/services/article';
 import { ARTICLE_STATUS } from '@/constants/article';
+import { useDeleteArticle } from '@/hooks/useArticle';
 import Map from './Map';
 
 interface Props extends Omit<Article, 'author'> {
@@ -46,6 +46,8 @@ const ArticleContent = ({
   const { setFormState } = useWriteFormContext();
   const router = useRouter();
 
+  const mutation = useDeleteArticle(id);
+
   const handleEditButtonClick = () => {
     const { startHour, startMinute, endHour, endMinute } =
       getTimeFormParameters(startDateTime, endDateTime);
@@ -70,15 +72,9 @@ const ArticleContent = ({
     router.push(`/article/${id}/edit`);
   };
 
-  const handleRemoveButtonClick = async () => {
+  const handleRemoveButtonClick = () => {
     if (window.confirm('정말 삭제하시겠습니까?')) {
-      const { status: responseStatus, message } = await deleteArticle(id);
-      if (responseStatus === 'success') {
-        alert('글이 삭제되었습니다.');
-        router.push('/home');
-      } else {
-        alert(message);
-      }
+      mutation.mutate();
     }
   };
 
