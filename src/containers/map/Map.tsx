@@ -53,7 +53,7 @@ const Map = ({ location, redirectionURL }: Props) => {
     setShowReloadButton,
   );
 
-  // usePanToCafe(cafeInfo, mapObject, showInfo, clickListener);
+  usePanToCafe(cafeInfo, mapObject, showInfo, clickListener);
 
   const onReloadButtonClick = () => {
     // 보드게임 카페 조회 요청
@@ -70,7 +70,7 @@ const Map = ({ location, redirectionURL }: Props) => {
   const handleSelectButtonClick = () => {
     setFormState({
       ...formState,
-      meetingLocation: cafeInfo!.place_name,
+      meetingLocation: cafeInfo!.placeName,
       sido: cafeInfo!.sido,
       sgg: cafeInfo!.sgg,
       emd: cafeInfo!.emd,

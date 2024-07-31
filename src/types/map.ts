@@ -1,11 +1,11 @@
 export interface Cafe {
-  address_name: string;
+  addressName: string;
   distance: string;
   id: string;
   phone: string;
-  place_name: string;
-  place_url: string;
-  road_address_name: string;
+  placeName: string;
+  placeUrl: string;
+  roadAddressName: string;
   sido: string;
   sgg: string;
   emd: string;
