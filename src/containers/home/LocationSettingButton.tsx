@@ -12,7 +12,7 @@ const LocationSettingButton = () => {
 
   const cache = useQueryClient();
   const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
-  const emd = userInfo.emd;
+  const { emd } = userInfo;
 
   const onClick = () => {
     router.push('/setting/location');
