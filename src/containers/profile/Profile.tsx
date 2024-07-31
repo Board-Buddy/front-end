@@ -5,7 +5,7 @@ import { ChevronRight } from 'lucide-react';
 
 const Profile = () => {
   return (
-    <div className="flex items-center p-4">
+    <div className="flex items-center p-2">
       <CustomAvatar
         src={sampleImageURL || null}
         rank="1"
