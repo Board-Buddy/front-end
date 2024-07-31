@@ -31,10 +31,11 @@ const useCafesMarkers = (
         // 상세 정보를 표시하는 클로저를 만드는 함수
         function makeClickListener() {
           return function () {
-            setShowInfo(true);
-            setCafeInfo(cafe);
-            setClickListener((old) => !old);
-            setShowReloadButton(false);
+            console.log('click');
+            // setShowInfo(true);
+            // setCafeInfo(cafe);
+            // setClickListener((old) => !old);
+            // setShowReloadButton(false);
           };
         }
 
