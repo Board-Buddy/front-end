@@ -8,16 +8,23 @@ import useKakaoMap from '@/hooks/custom/useKakaoMap';
 import useCafesMarkers from '@/hooks/custom/useCafesMarkers';
 import usePanToCafe from '@/hooks/custom/usePanToCafe';
 import ReloadButton from './ReloadButton';
+import { usePathname, useRouter } from 'next/navigation';
+import { useWriteFormContext } from '@/context/WriteFormContext';
+import CafeInfo from './CafeInfo';
 
 interface Props {
   location: Location;
-  children?: ReactNode;
-  cafeInfo: Cafe | null;
-  setCafeInfo: (cafe: Cafe | null) => void;
+  redirectionURL?: string;
 }
 
-const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
+const Map = ({ location, redirectionURL }: Props) => {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const { formState, setFormState } = useWriteFormContext();
+
   const [showInfo, setShowInfo] = useState(false);
+  const [cafeInfo, setCafeInfo] = useState<Cafe | null>(null);
   const [showReloadButton, setShowReloadButton] = useState(false);
 
   const { mapRef, mapObject, markersRef, radius, center } = useKakaoMap(
@@ -58,6 +65,22 @@ const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
     }
   };
 
+  const handleDirectionButtonClick = () => {};
+
+  const handleSelectButtonClick = () => {
+    setFormState({
+      ...formState,
+      meetingLocation: cafeInfo!.place_name,
+      sido: cafeInfo!.sido,
+      sgg: cafeInfo!.sgg,
+      emd: cafeInfo!.emd,
+      x: cafeInfo!.x,
+      y: cafeInfo!.y,
+    });
+
+    router.push(redirectionURL!);
+  };
+
   return (
     <div className="relative">
       <div
@@ -72,7 +95,20 @@ const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
         onClick={onReloadButtonClick}
         isPending={isPending}
       />
-      {children}
+      {pathname.includes('map') && (
+        <CafeInfo
+          cafe={cafeInfo}
+          onClick={handleDirectionButtonClick}
+          buttonTitle="길찾기"
+        />
+      )}
+      {pathname.includes('locationSetting') && (
+        <CafeInfo
+          cafe={cafeInfo}
+          onClick={handleSelectButtonClick}
+          buttonTitle="이곳에서 만날게요"
+        />
+      )}
     </div>
   );
 };
