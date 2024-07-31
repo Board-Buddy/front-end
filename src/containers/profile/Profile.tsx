@@ -8,7 +8,7 @@ const Profile = () => {
     <div className="flex items-center p-2">
       <CustomAvatar
         src={sampleImageURL || null}
-        rank="1"
+        rank={1}
         nickname="asdf"
         avatarSize="lg"
       />

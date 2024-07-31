@@ -14,7 +14,7 @@ export const checkIdDuplicate = async (id: string) => {
       message: response.data.message,
     };
   } catch (error: unknown) {
-    handleApiError(error);
+    return handleApiError(error);
   }
 };
 
@@ -31,7 +31,7 @@ export const checkNicknameDuplicate = async (nickname: string) => {
       message: response.data.message,
     };
   } catch (error: unknown) {
-    handleApiError(error);
+    return handleApiError(error);
   }
 };
 
@@ -48,7 +48,7 @@ export const smsCertificationSend = async (phoneNumber: string) => {
       message: response.data.message,
     };
   } catch (error: unknown) {
-    handleApiError(error);
+    return handleApiError(error);
   }
 };
 
@@ -69,7 +69,7 @@ export const smsCertificationVerify = async (data: {
       message: response.data.message,
     };
   } catch (error: unknown) {
-    handleApiError(error);
+    return handleApiError(error);
   }
 };
 
@@ -93,7 +93,7 @@ export const register = async (data: {
       message: response.data.message,
     };
   } catch (error: unknown) {
-    handleApiError(error);
+    return handleApiError(error);
   }
 };
 
@@ -133,6 +133,6 @@ export const oauthRegister = async (data: {
       message: response.data.message,
     };
   } catch (error: unknown) {
-    handleApiError(error);
+    return handleApiError(error);
   }
 };

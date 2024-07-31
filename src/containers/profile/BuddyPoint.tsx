@@ -18,9 +18,6 @@ const BuddyPoint = () => {
             max={100}
             min={0}
             minStepsBetweenThumbs={0}
-            style={{
-              '--thumb-display': 'none',
-            }}
           />
         </div>
         <div className="w-full text-center">
