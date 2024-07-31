@@ -43,7 +43,7 @@ const ReviewList = () => {
             <Image
               src="/images/icon/bad_icon.png"
               alt="별로"
-              width={36}
+              width={40}
               height={40}
               className="item-center"
             />
