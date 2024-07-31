@@ -12,10 +12,11 @@ export const setRadius = ({ radius }: { radius: 2 | 5 | 7 | 10 }) =>
 /** 위치 검색 API */
 export const searchLocation = async (keyword: string) => {
   try {
-    const uri = encodeURI(
-      `/api/locations/search?emd=${encodeURIComponent(keyword)}`,
-    );
-    const response = await api.get(uri);
+    // const uri = encodeURI(
+    //   `/api/locations/search?emd=${encodeURIComponent(keyword)}`,
+    // );
+    // const response = await api.get(uri);
+    const response = await api.get(`/api/locations/search?emd=${keyword}`);
     return response.data.data.locations;
   } catch (error: unknown) {
     handleApiError(error);
