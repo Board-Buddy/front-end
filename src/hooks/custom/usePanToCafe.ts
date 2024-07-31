@@ -9,7 +9,7 @@ const usePanToCafe = (
   clickListener: boolean,
 ) => {
   useEffect(() => {
-    if (cafeInfo) {
+    if (cafeInfo && mapObject) {
       setTimeout(() => {
         mapObject.relayout();
 
