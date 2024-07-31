@@ -31,15 +31,15 @@ const useCafesMarkers = (
         });
 
         // 상세 정보를 표시하는 클로저를 만드는 함수
-        function makeClickListener() {
-          return function () {
-            console.log(cafe);
-            setCafeInfo(cafe);
-            // setShowInfo(true);
-            // setClickListener((old) => !old);
-            // setShowReloadButton(false);
-          };
-        }
+        // function makeClickListener() {
+        //   return function () {
+        //     console.log(cafe);
+        //     setCafeInfo(cafe);
+        //     // setShowInfo(true);
+        //     // setClickListener((old) => !old);
+        //     // setShowReloadButton(false);
+        //   };
+        // }
 
         // 마커에 click 이벤트 등록
         // 이벤트 리스너로는 클로저를 만들어 등록합니다
@@ -47,7 +47,14 @@ const useCafesMarkers = (
         window.kakao.maps.event.addListener(
           marker,
           'click',
-          makeClickListener(),
+          // makeClickListener(),
+          () => {
+            console.log('click');
+            setCafeInfo(cafe);
+            setShowInfo(true);
+            setClickListener((old) => !old);
+            setShowReloadButton(false);
+          },
         );
 
         markersRef.current.push(marker); // 마커를 배열에 저장
