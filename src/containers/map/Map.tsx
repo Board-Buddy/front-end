@@ -172,7 +172,7 @@ const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
         // 상세 정보를 표시하는 클로저를 만드는 함수
         function makeClickListener() {
           return function () {
-            setCafeInfo(cafe);
+            // setCafeInfo(cafe);
             setShowInfo(true);
             setClickListener((old) => !old);
             setShowReloadButton(false);
