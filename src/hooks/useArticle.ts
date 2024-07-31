@@ -29,9 +29,6 @@ export const useGetArticles = (
       }
       return lastPageParam + 1;
     },
-    meta: {
-      showErrorMessage: true,
-    },
   });
 };
 
@@ -41,9 +38,6 @@ export const useGetArticle = (articleId: number) => {
     queryFn: () => getArticle({ gatherArticleId: articleId }),
     staleTime: 0,
     gcTime: 0,
-    meta: {
-      showErrorMessage: true,
-    },
   });
 };
 

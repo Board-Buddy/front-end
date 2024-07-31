@@ -9,8 +9,5 @@ export const useSearchLocation = (enabled: boolean, debouncedQuery: string) => {
     queryFn: () => searchLocation(debouncedQuery),
     enabled,
     retry: 1,
-    meta: {
-      showErrorMessage: false,
-    },
   });
 };

@@ -13,9 +13,6 @@ export const useGetComments = (articleId: number) => {
     queryFn: () => getComments({ gatherArticleId: articleId }),
     staleTime: 0,
     gcTime: 0,
-    meta: {
-      showErrorMessage: true,
-    },
   });
 };
 

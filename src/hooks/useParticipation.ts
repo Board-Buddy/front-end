@@ -14,9 +14,6 @@ export const useGetParticipationList = (articleId: string) => {
     queryFn: () => getParticipants({ articleId }),
     staleTime: 0,
     gcTime: 0,
-    meta: {
-      showErrorMessage: true,
-    },
   });
 };
 
