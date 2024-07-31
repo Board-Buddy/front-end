@@ -1,11 +1,11 @@
 'use client';
 
 import {
-  getArticlePreview,
+  getArticleSimpleInfo,
   getChatList,
   getExistingMessages,
 } from '@/services/chat';
-import { ArticlePreview, ChatRoom, Message } from '@/types/chat';
+import { ArticleSimpleInfo, ChatRoom, Message } from '@/types/chat';
 import { useQuery } from '@tanstack/react-query';
 
 export const useGetExistingMessages = (chatRoomId: number | string) => {
@@ -26,13 +26,13 @@ export const useGetChatList = () => {
   });
 };
 
-export const useGetArticlePreview = (
+export const useGetArticleSimpleInfo = (
   chatRoomId: number | string,
   articleId: number | string,
 ) => {
-  return useQuery<ArticlePreview>({
+  return useQuery<ArticleSimpleInfo>({
     queryKey: ['articlePreview', { chatRoomId, articleId }],
-    queryFn: () => getArticlePreview(chatRoomId, articleId),
+    queryFn: () => getArticleSimpleInfo(chatRoomId, articleId),
     staleTime: 0,
     gcTime: 0,
   });
