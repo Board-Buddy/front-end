@@ -39,13 +39,15 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useRouter } from 'next/navigation';
-import { addArticle } from '@/services/article';
+import { useAddArticle } from '@/hooks/useArticle';
 
 const ArticleWriteForm = () => {
   const router = useRouter();
 
   const { formState, setFormState } = useWriteFormContext();
   const [showTimeErrorMessage, setShowTimeErrorMessage] = useState(false);
+
+  const mutation = useAddArticle();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -77,7 +79,7 @@ const ArticleWriteForm = () => {
     } else {
       setShowTimeErrorMessage(false);
 
-      const { status, message } = await addArticle({
+      mutation.mutate({
         title: values.title,
         description: values.description,
         startDateTime: formatDateTime(
@@ -98,13 +100,6 @@ const ArticleWriteForm = () => {
         x: values.x,
         y: values.y,
       });
-
-      if (status === 'success') {
-        alert('모집글이 업로드되었습니다.');
-        router.push('/home');
-      } else {
-        alert(message);
-      }
     }
   };
 

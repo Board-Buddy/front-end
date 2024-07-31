@@ -1,94 +1,60 @@
 import api from '@/services';
 import { ArticleRequest, NewArticle } from '@/types/article';
+import { handleApiError } from '@/utils/handleApiError';
 
 /** 모집글 리스트 조회 API */
-export const getArticles = ({ pageParam, status, sort }: ArticleRequest) =>
-  api
-    .get('/api/gather-articles', {
+export const getArticles = async ({
+  pageParam,
+  status,
+  sort,
+}: ArticleRequest) => {
+  try {
+    const response = await api.get('/api/gather-articles', {
       params: { page: pageParam, status, sort },
-    })
-    .then((response) => response.data.data);
+    });
+    return response.data.data;
+  } catch (error: unknown) {
+    handleApiError(error);
+  }
+};
 
 /** 모집글 상세 조회 API */
-export const getArticle = ({ gatherArticleId }: { gatherArticleId: number }) =>
-  api
-    .get(`/api/gather-articles/${gatherArticleId}`)
-    .then((response) => response.data.data.post);
+export const getArticle = async ({
+  gatherArticleId,
+}: {
+  gatherArticleId: number;
+}) => {
+  try {
+    const response = await api.get(`/api/gather-articles/${gatherArticleId}`);
+    return response.data.data.post;
+  } catch (error: unknown) {
+    handleApiError(error);
+  }
+};
 
 /** 모집글 작성 API */
 export const addArticle = async (data: NewArticle) => {
   try {
-    const response = await api.post('/api/gather-articles', data);
-
-    return {
-      status: 'success',
-      data: response.data.data,
-      message: response.data.message,
-    };
-  } catch (error: any) {
-    if (error.response) {
-      // 서버 응답 오류 처리
-      return {
-        status: 'error',
-        message: error.response.data.message || '서버 오류가 발생했습니다.',
-      };
-    }
-    // 기타 오류 처리
-    return {
-      status: 'error',
-      message: '알 수 없는 오류가 발생했습니다. 다시 시도해주세요.',
-    };
+    await api.post('/api/gather-articles', data);
+  } catch (error: unknown) {
+    handleApiError(error);
   }
 };
 
 /** 모집글 수정 API */
 export const editArticle = async (data: NewArticle, articleId: number) => {
   try {
-    const response = await api.put(`/api/gather-articles/${articleId}`, data);
-
-    return {
-      status: 'success',
-      data: response.data.data,
-      message: response.data.message,
-    };
-  } catch (error: any) {
-    if (error.response) {
-      // 서버 응답 오류 처리
-      return {
-        status: 'error',
-        message: error.response.data.message || '서버 오류가 발생했습니다.',
-      };
-    }
-    // 기타 오류 처리
-    return {
-      status: 'error',
-      message: '알 수 없는 오류가 발생했습니다. 다시 시도해주세요.',
-    };
+    await api.put(`/api/gather-articles/${articleId}`, data);
+  } catch (error: unknown) {
+    handleApiError(error);
   }
 };
 
 /** 모집글 삭제 API */
 export const deleteArticle = async (articleId: number) => {
   try {
-    const response = await api.delete(`/api/gather-articles/${articleId}`);
-
-    return {
-      status: 'success',
-      data: response.data.data,
-      message: response.data.message,
-    };
+    await api.delete(`/api/gather-articles/${articleId}`);
   } catch (error: any) {
-    if (error.response) {
-      // 서버 응답 오류 처리
-      return {
-        status: 'error',
-        message: error.response.data.message || '서버 오류가 발생했습니다.',
-      };
-    }
-    // 기타 오류 처리
-    return {
-      status: 'error',
-      message: '알 수 없는 오류가 발생했습니다. 다시 시도해주세요.',
-    };
+    handleApiError(error);
   }
 };

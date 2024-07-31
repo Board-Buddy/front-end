@@ -1,6 +1,18 @@
-import { getArticle, getArticles } from '@/services/article';
-import { Article } from '@/types/article';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import {
+  addArticle,
+  deleteArticle,
+  editArticle,
+  getArticle,
+  getArticles,
+} from '@/services/article';
+import { Article, NewArticle } from '@/types/article';
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 export const useGetArticles = (
   location: string,
@@ -17,6 +29,9 @@ export const useGetArticles = (
       }
       return lastPageParam + 1;
     },
+    meta: {
+      showErrorMessage: true,
+    },
   });
 };
 
@@ -26,5 +41,70 @@ export const useGetArticle = (articleId: number) => {
     queryFn: () => getArticle({ gatherArticleId: articleId }),
     staleTime: 0,
     gcTime: 0,
+    meta: {
+      showErrorMessage: true,
+    },
+  });
+};
+
+export const useAddArticle = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: (data: NewArticle) => addArticle(data),
+    onSuccess: () => {
+      router.push('/home');
+      // 성공 시 모집글 리스트 쿼리 무효화
+      // TODO queryKey 확인
+      queryClient.invalidateQueries({
+        queryKey: ['articles'],
+      });
+    },
+    retry: 0,
+    meta: {
+      showErrorMessage: true,
+    },
+  });
+};
+
+export const useEditArticle = (articleId: number) => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: (data: NewArticle) => editArticle(data, articleId),
+    onSuccess: () => {
+      router.push('/home');
+      // 성공 시 모집글 쿼리 무효화
+      queryClient.invalidateQueries({
+        queryKey: ['article', { articleId }],
+      });
+    },
+    retry: 0,
+    meta: {
+      showErrorMessage: true,
+    },
+  });
+};
+
+export const useDeleteArticle = (articleId: number) => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: () => deleteArticle(articleId),
+    onSuccess: () => {
+      router.push('/home');
+      // 성공 시 모집글 리스트 쿼리 무효화
+      // TODO queryKey 확인
+      queryClient.invalidateQueries({
+        queryKey: ['articles'],
+      });
+    },
+    retry: 0,
+    meta: {
+      showErrorMessage: true,
+    },
   });
 };
