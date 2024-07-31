@@ -21,5 +21,8 @@ export const useGetBoardCafes = ({
     staleTime: 0,
     gcTime: 0,
     retry: 0,
+    meta: {
+      showErrorMessage: true,
+    },
   });
 };
