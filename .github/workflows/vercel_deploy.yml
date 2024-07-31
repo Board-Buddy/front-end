@@ -21,7 +21,8 @@ jobs:
         env:
           BACKEND_SERVER_URL: ${{ secrets.BACKEND_SERVER_URL }}
         run: |
-          echo "NEXT_PUBLIC_API_SERVER_URL=${{ secrets.BACKEND_SERVER_URL }}" >> .env.production
+          echo "NEXT_PUBLIC_API_SERVER_URL=${{ secrets.SERVER_URL }}" >> .env.production
+          echo "NEXT_PUBLIC_WS_SERVER_URL=${{ secrets.WS_SERVER_URL }}" >> .env.production
           echo "NEXT_PUBLIC_KAKAO_APP_KEY=${{ secrets.KAKAO_APP_KEY }}" >> .env.production
           vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
