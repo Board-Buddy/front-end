@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect } from 'react';
 import { Cafe } from '@/types/map';
 
@@ -10,6 +12,7 @@ const usePanToCafe = (
 ) => {
   useEffect(() => {
     if (cafeInfo && mapObject) {
+      console.log(cafeInfo);
       setTimeout(() => {
         mapObject.relayout();
 

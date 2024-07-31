@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useRef, useState } from 'react';
 import { KAKAO_APP_KEY } from '@/constants/env';
 import {
