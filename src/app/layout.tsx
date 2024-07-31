@@ -5,6 +5,7 @@ import '../styles/globals.css';
 import { MSWComponent } from '@/mocks/MSWComponent';
 import ReactQueryProviders from '@/utils/reactQueryProvider';
 import Header from '@/components/Header';
+import { Toaster } from 'react-hot-toast';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -36,6 +37,7 @@ export default function RootLayout({
         >
           <MSWComponent>
             <ReactQueryProviders>
+              <Toaster />
               <Header />
               {children}
             </ReactQueryProviders>
