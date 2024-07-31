@@ -21,12 +21,14 @@ const CustomAvatar = ({ src, rank, nickname, avatarSize }: Props) => {
     xs: 'size-8',
     sm: 'size-12',
     md: 'size-16',
+    lg: 'size-24',
   };
 
   const badgeSizeTW: { [key: string]: number } = {
     xs: 14,
     sm: 17,
     md: 22,
+    lg: 34,
   };
 
   return (
