@@ -7,6 +7,9 @@ export const useUserLoginCheck = ({ isReady }: { isReady: boolean }) => {
     queryKey: ['userInfo'],
     queryFn: checkUserLogin,
     enabled: isReady,
+    meta: {
+      showErrorMessage: true,
+    },
   });
 };
 
@@ -17,12 +20,12 @@ export const useUserLogin = () => {
   return useMutation({
     mutationFn: (data: { username: string; password: string }) => login(data),
     onSuccess: (data) => {
-      const userInfo = data.data.data.profileDTO;
+      const userInfo = data;
       queryClient.setQueryData(['userInfo'], userInfo);
       router.push('/home');
     },
-    onError: (error: any) => {
-      alert(error.response.data.message);
+    meta: {
+      showErrorMessage: true,
     },
   });
 };

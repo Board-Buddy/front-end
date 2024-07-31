@@ -54,7 +54,7 @@ export const editArticle = async (data: NewArticle, articleId: number) => {
 export const deleteArticle = async (articleId: number) => {
   try {
     await api.delete(`/api/gather-articles/${articleId}`);
-  } catch (error: any) {
+  } catch (error: unknown) {
     handleApiError(error);
   }
 };
