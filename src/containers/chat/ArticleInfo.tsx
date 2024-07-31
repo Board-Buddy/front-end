@@ -1,4 +1,4 @@
-import { ArticlePreview } from '@/types/chat';
+import { ArticleSimpleInfo } from '@/types/chat';
 import { formatMeetingTime } from '@/utils/date';
 import { UsersRoundIcon } from 'lucide-react';
 import Image from 'next/image';
@@ -6,10 +6,10 @@ import Link from 'next/link';
 
 interface Props {
   articleId: string;
-  articlePreview: ArticlePreview;
+  articleSimpleInfo: ArticleSimpleInfo;
 }
 
-const ArticleInfo = ({ articleId, articlePreview }: Props) => {
+const ArticleInfo = ({ articleId, articleSimpleInfo }: Props) => {
   return (
     <Link href={`/article/${articleId}`}>
       <div className="px-4 py-3 border-b border-slate-200">
@@ -28,8 +28,8 @@ const ArticleInfo = ({ articleId, articlePreview }: Props) => {
                   className="mr-1"
                 />
                 {formatMeetingTime(
-                  articlePreview.startDateTime,
-                  articlePreview.endDateTime,
+                  articleSimpleInfo.startDateTime!,
+                  articleSimpleInfo.endDateTime!,
                 )}
               </div>
             </div>
@@ -41,11 +41,11 @@ const ArticleInfo = ({ articleId, articlePreview }: Props) => {
                 height={12}
                 className="mr-1"
               />
-              {articlePreview.meetingLocation}
+              {articleSimpleInfo.meetingLocation}
               <div className="flex ml-auto items-center gap-1">
                 <UsersRoundIcon size={16} className="text-gray-700" />
-                {articlePreview.currentParticipants}/
-                {articlePreview.maxParticipants}
+                {articleSimpleInfo.currentParticipants}/
+                {articleSimpleInfo.maxParticipants}
               </div>
             </div>
           </div>

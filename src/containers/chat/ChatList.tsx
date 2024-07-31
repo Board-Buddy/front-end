@@ -20,11 +20,8 @@ const ChatList = () => {
         <ChatItem
           key={chat.chatRoomId}
           chatRoomId={chat.chatRoomId}
-          gatherArticleId={chat.gatherArticleId}
-          title={chat.title}
-          participants={chat.participants}
-          meetingLocation={chat.meetingLocation}
-          lastMessage={chat.lastMessage}
+          gatherArticleSimpleInfo={chat.gatherArticleSimpleInfo}
+          lastChatMessageInfo={chat.lastChatMessageInfo}
         />
       ))}
     </div>

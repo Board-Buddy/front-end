@@ -4,26 +4,32 @@ import Link from 'next/link';
 
 const ChatItem = ({
   chatRoomId,
-  gatherArticleId,
-  title,
-  participants,
-  meetingLocation,
-  lastMessage,
+  gatherArticleSimpleInfo,
+  lastChatMessageInfo,
 }: ChatRoom) => {
   return (
-    <Link href={`/chat/${gatherArticleId}/${chatRoomId}`}>
+    <Link
+      href={`/chat/${gatherArticleSimpleInfo.gatherArticleId}/${chatRoomId}`}
+    >
       <div className="pb-3 border-b border-slate-100">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
-            <span className="block font-bold max-w-52 truncate">{title}</span>
-            <span className="pl-1 text-slate-500">{participants}</span>
+            <span className="block font-bold max-w-52 truncate">
+              {gatherArticleSimpleInfo.title}
+            </span>
+            <span className="pl-1 text-slate-500">
+              {gatherArticleSimpleInfo.currentParticipants}
+            </span>
           </div>
           <div className="text-sm text-slate-500">
-            {meetingLocation} · {getLastMessageSentTime(lastMessage.sentAt)}
+            {gatherArticleSimpleInfo.meetingLocation} ·{' '}
+            {getLastMessageSentTime(lastChatMessageInfo.sentAt)}
           </div>
         </div>
         <div>
-          <div className="text-md mt-0.5 truncate">{lastMessage.content}</div>
+          <div className="text-md mt-0.5 truncate">
+            {lastChatMessageInfo.content}
+          </div>
         </div>
       </div>
     </Link>
