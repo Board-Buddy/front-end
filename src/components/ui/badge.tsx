@@ -31,7 +31,7 @@ function Badge({ className, variant, ...props }: BadgeProps) {
     <div
       className={cn(
         badgeVariants({ variant }),
-        className,
+        className!,
         'flex justify-center items-center',
       )}
       {...props}
