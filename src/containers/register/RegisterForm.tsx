@@ -21,22 +21,8 @@ import {
   smsCertificationSend,
   smsCertificationVerify,
 } from '@/services/auth';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import { Check, ChevronDown } from 'lucide-react';
-import locationList from '@/containers/location/locationList.json';
 import { useRouter } from 'next/navigation';
+import LocationSettingComboBox from '@/components/LocationSettingComboBox';
 
 const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
 const phoneRegex = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
@@ -49,8 +35,6 @@ const RegisterForm = () => {
   const [verifiedPhone, setVerifiedPhone] = useState(false);
 
   const router = useRouter();
-
-  const [open, setOpen] = useState(false);
 
   const formSchema = z
     .object({
@@ -374,68 +358,12 @@ const RegisterForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Popover open={open} onOpenChange={setOpen}>
-                  <PopoverTrigger asChild>
-                    <Button
-                      role="combobox"
-                      aria-expanded={open}
-                      className="flex items-center justify-start p-0 bg-transparent border-gray-200 border w-[408px]"
-                    >
-                      <div className="flex items-center text-md px-3">
-                        <span
-                          className={cn(
-                            !field.value ? 'text-gray-400' : 'text-black',
-                          )}
-                        >
-                          {field.value
-                            ? locationList.find(
-                                (emd) => emd.label === field.value,
-                              )?.value
-                            : '동네 선택'}
-                        </span>
-                        <ChevronDown
-                          className={cn(
-                            !field.value ? 'text-gray-400' : 'text-black',
-                            'ml-1 h-4 w-4 shrink-0',
-                          )}
-                        />
-                      </div>
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-[408px] p-0 bg-white border-gray-500">
-                    <Command>
-                      <CommandInput
-                        placeholder="동명으로 검색(ex. 서초동)"
-                        className="border-gray-500"
-                      />
-                      <CommandEmpty>검색 결과가 없습니다.</CommandEmpty>
-                      <CommandList>
-                        <CommandGroup>
-                          {locationList.map((emd) => (
-                            <CommandItem
-                              key={emd.label}
-                              value={emd.label}
-                              onSelect={(currentValue) => {
-                                field.onChange(currentValue);
-                                setOpen(false);
-                              }}
-                            >
-                              <Check
-                                className={cn(
-                                  'mr-2 h-4 w-4',
-                                  field.value === emd.label
-                                    ? 'opacity-100'
-                                    : 'opacity-0',
-                                )}
-                              />
-                              {emd.label}
-                            </CommandItem>
-                          ))}
-                        </CommandGroup>
-                      </CommandList>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
+                <LocationSettingComboBox
+                  popOverWidth={408}
+                  onSelect={(sido, sgg, emd) => {
+                    field.onChange(`${sido} ${sgg} ${emd}`);
+                  }}
+                />
               </FormControl>
               <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
             </FormItem>
