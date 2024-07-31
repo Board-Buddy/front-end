@@ -33,9 +33,9 @@ const useCafesMarkers = (
           return function () {
             console.log('click');
             setCafeInfo(cafe);
-            setShowInfo(true);
-            setClickListener((old) => !old);
-            setShowReloadButton(false);
+            // setShowInfo(true);
+            // setClickListener((old) => !old);
+            // setShowReloadButton(false);
           };
         }
 
