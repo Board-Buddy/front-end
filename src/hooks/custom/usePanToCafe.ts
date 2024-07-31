@@ -12,7 +12,6 @@ const usePanToCafe = (
 ) => {
   useEffect(() => {
     if (cafeInfo && mapObject) {
-      console.log(cafeInfo);
       setTimeout(() => {
         mapObject.relayout();
 
