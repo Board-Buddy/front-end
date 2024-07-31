@@ -9,7 +9,6 @@ export const useSetLocation = () => {
     mutationFn: (data: { sido: string; sgg: string; emd: string }) =>
       setLocation(data),
     onSuccess: (_, variables) => {
-      console.log('here');
       queryClient.setQueryData(['userInfo'], (old: UserInfo) => {
         return {
           ...old,
