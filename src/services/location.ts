@@ -1,4 +1,6 @@
 import api from '@/services';
+import { CustomError } from '@/types/api';
+import axios from 'axios';
 
 /** 유저 위치 설정 API */
 export const setLocation = ({ sido, sgg, emd }: { [key: string]: string }) =>
@@ -14,21 +16,21 @@ export const searchLocation = async (keyword: string) => {
     const uri = encodeURI(
       `/api/locations/search?emd=${encodeURIComponent(keyword)}`,
     );
-    const response = await api.get(uri).then((res) => res.data.data.locations);
-    return response;
-  } catch (error: any) {
-    if (error.response) {
-      throw Object.assign(new Error(), {
+    const response = await api.get(uri);
+    return response.data.data.locations;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error) && error.response) {
+      throw {
         status: error.response.status,
         message: error.response.data.message || 'Something went wrong',
         data: error.response.data,
-      });
+      } as CustomError;
     } else {
-      throw Object.assign(new Error(), {
+      throw {
         status: 'error',
         message: 'Network Error',
         data: null,
-      });
+      } as CustomError;
     }
   }
 };

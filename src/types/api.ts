@@ -1,5 +1,5 @@
-export interface CustomError {
-  status: string;
+export interface CustomError extends Error {
+  status: string | number;
   data: null;
   message: string;
 }
