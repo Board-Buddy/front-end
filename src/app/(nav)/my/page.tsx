@@ -4,17 +4,23 @@ import BadgeList from '@/containers/profile/BadgeList';
 import MyParticipation from '@/containers/profile/MyParticipation';
 import ReviewList from '@/containers/profile/ReviewList';
 import MyArticle from '@/containers/profile/MyArticle';
+import LogoutButton from '@/containers/profile/LogoutButton';
+import DeleteAccountButton from '@/containers/profile/DeleteAccountButton';
 
 const page = () => {
   return (
     <>
       <div className="items-center">
-        <Profile />
-        <BuddyPoint />
-        <BadgeList />
-        <ReviewList />
-        <MyParticipation />
-        <MyArticle />
+        <div className="mb-4">
+          <Profile />
+          <BuddyPoint />
+          <BadgeList />
+          <ReviewList />
+          <MyParticipation />
+          <MyArticle />
+        </div>
+        <LogoutButton />
+        <DeleteAccountButton />
       </div>
     </>
   );
