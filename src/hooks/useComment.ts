@@ -13,6 +13,9 @@ export const useGetComments = (articleId: number) => {
     queryFn: () => getComments({ gatherArticleId: articleId }),
     staleTime: 0,
     gcTime: 0,
+    meta: {
+      showErrorMessage: true,
+    },
   });
 };
 
@@ -37,6 +40,9 @@ export const useAddComment = (articleId: number) => {
       queryClient.invalidateQueries({ queryKey: ['comments', { articleId }] });
     },
     retry: 0,
+    meta: {
+      showErrorMessage: true,
+    },
   });
 };
 
@@ -61,6 +67,9 @@ export const useEditComment = (articleId: number) => {
       queryClient.invalidateQueries({ queryKey: ['comments', { articleId }] });
     },
     retry: 0,
+    meta: {
+      showErrorMessage: true,
+    },
   });
 };
 
@@ -78,5 +87,8 @@ export const useDeleteComment = (articleId: number) => {
       queryClient.invalidateQueries({ queryKey: ['comments', { articleId }] });
     },
     retry: 0,
+    meta: {
+      showErrorMessage: true,
+    },
   });
 };

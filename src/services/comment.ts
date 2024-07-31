@@ -1,13 +1,24 @@
 import api from '@/services';
+import { handleApiError } from '@/utils/handleApiError';
 
 /** 댓글 리스트 조회 API */
-export const getComments = ({ gatherArticleId }: { gatherArticleId: number }) =>
-  api
-    .get(`/api/gather-articles/${gatherArticleId}/comments`)
-    .then((response) => response.data.data.comments);
+export const getComments = async ({
+  gatherArticleId,
+}: {
+  gatherArticleId: number;
+}) => {
+  try {
+    const response = await api.get(
+      `/api/gather-articles/${gatherArticleId}/comments`,
+    );
+    return response.data.data.comments;
+  } catch (error: unknown) {
+    handleApiError(error);
+  }
+};
 
 /** 댓글 작성 API */
-export const addComment = ({
+export const addComment = async ({
   gatherArticleId,
   content,
   parentId,
@@ -16,21 +27,33 @@ export const addComment = ({
   content: string;
   parentId?: string;
 }) => {
-  return parentId
-    ? api
-        .post(`/api/gather-articles/${gatherArticleId}/comments/${parentId}`, {
+  try {
+    let response;
+
+    if (parentId) {
+      response = await api.post(
+        `/api/gather-articles/${gatherArticleId}/comments/${parentId}`,
+        {
           content,
-        })
-        .then((response) => response.data.status)
-    : api
-        .post(`/api/gather-articles/${gatherArticleId}/comments`, {
+        },
+      );
+    } else {
+      response = await api.post(
+        `/api/gather-articles/${gatherArticleId}/comments`,
+        {
           content,
-        })
-        .then((response) => response.data.status);
+        },
+      );
+    }
+
+    return response.data.status;
+  } catch (error: unknown) {
+    handleApiError(error);
+  }
 };
 
 /** 댓글 수정 API */
-export const editComment = ({
+export const editComment = async ({
   gatherArticleId,
   content,
   commentId,
@@ -38,21 +61,34 @@ export const editComment = ({
   gatherArticleId: number;
   content: string;
   commentId: string;
-}) =>
-  api
-    .put(`/api/gather-articles/${gatherArticleId}/comments/${commentId}`, {
-      content,
-    })
-    .then((response) => response.data.status);
+}) => {
+  try {
+    const response = await api.put(
+      `/api/gather-articles/${gatherArticleId}/comments/${commentId}`,
+      {
+        content,
+      },
+    );
+    return response.data.status;
+  } catch (error: unknown) {
+    handleApiError(error);
+  }
+};
 
 /** 댓글 삭제 API */
-export const deleteComment = ({
+export const deleteComment = async ({
   gatherArticleId,
   commentId,
 }: {
   gatherArticleId: number;
   commentId: string;
-}) =>
-  api
-    .delete(`/api/gather-articles/${gatherArticleId}/comments/${commentId}`)
-    .then((response) => response.data.status);
+}) => {
+  try {
+    const response = await api.delete(
+      `/api/gather-articles/${gatherArticleId}/comments/${commentId}`,
+    );
+    return response.data.status;
+  } catch (error: unknown) {
+    handleApiError(error);
+  }
+};
