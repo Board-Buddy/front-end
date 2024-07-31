@@ -1,7 +1,7 @@
-const sampleImageURL = '/images/default_profile.png';
-
 import CustomAvatar from '@/components/CustomAvatar';
 import { ChevronRight } from 'lucide-react';
+
+const sampleImageURL = '/images/default_profile.png';
 
 const Profile = () => {
   return (

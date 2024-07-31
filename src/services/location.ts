@@ -1,5 +1,4 @@
 import api from '@/services';
-import { CustomError } from '@/types/api';
 import { handleApiError } from '@/utils/handleApiError';
 
 /** 유저 위치 설정 API */

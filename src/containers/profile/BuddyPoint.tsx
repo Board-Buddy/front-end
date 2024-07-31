@@ -10,10 +10,10 @@ const BuddyPoint = () => {
             <p className="ml-auto">😀</p>
           </div>
         </div>
-        <div></div>
+        <div />
         <div className="flex items-center gap-4">
           <Slider
-            disabled={true}
+            disabled
             defaultValue={[50]}
             max={100}
             min={0}

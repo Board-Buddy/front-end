@@ -14,7 +14,7 @@ export const getChatRooms = http.get(`${API_BASE_URL}/api/chat/rooms`, () => {
             currentParticipants: 3,
             meetingLocation: '레드버튼 신림점',
           },
-          lastChatMessageInfo: {
+          latestChatMessageInfoDTO: {
             content: '확인했습니다. 감사합니다 :)',
             sentAt: '2024-07-19 13:09',
           },
@@ -27,7 +27,7 @@ export const getChatRooms = http.get(`${API_BASE_URL}/api/chat/rooms`, () => {
             currentParticipants: 3,
             meetingLocation: '레드버튼 신림점',
           },
-          lastChatMessageInfo: {
+          latestChatMessageInfoDTO: {
             content: '확인했습니다. 감사합니다 :)',
             sentAt: '2024-07-19 13:09',
           },
@@ -40,7 +40,7 @@ export const getChatRooms = http.get(`${API_BASE_URL}/api/chat/rooms`, () => {
             currentParticipants: 3,
             meetingLocation: '레드버튼 신림점',
           },
-          lastChatMessageInfo: {
+          latestChatMessageInfoDTO: {
             content: '확인했습니다. 감사합니다 :)',
             sentAt: '2024-07-19 13:09',
           },
