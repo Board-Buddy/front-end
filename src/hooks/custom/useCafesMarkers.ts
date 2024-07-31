@@ -32,10 +32,10 @@ const useCafesMarkers = (
         function makeClickListener() {
           return function () {
             console.log('click');
-            // setShowInfo(true);
-            // setCafeInfo(cafe);
-            // setClickListener((old) => !old);
-            // setShowReloadButton(false);
+            setCafeInfo(cafe);
+            setShowInfo(true);
+            setClickListener((old) => !old);
+            setShowReloadButton(false);
           };
         }
 
