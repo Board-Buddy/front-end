@@ -37,7 +37,10 @@ const LocationSettingComboBox = ({ popOverWidth, onSelect }: Props) => {
       ? userInfo.emd
       : '동네 선택';
 
-  const popOverWidthTW = `w-[${popOverWidth}px]`;
+  const popOverWidthTW: { [key: number]: string } = {
+    408: 'w-[408px]',
+    416: 'w-[416px]',
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -47,7 +50,7 @@ const LocationSettingComboBox = ({ popOverWidth, onSelect }: Props) => {
           role="combobox"
           className={cn(
             'justify-between px-3 py-2',
-            popOverWidthTW,
+            popOverWidthTW[popOverWidth],
             displayName === '동네 선택' && 'text-muted',
           )}
         >
@@ -57,7 +60,7 @@ const LocationSettingComboBox = ({ popOverWidth, onSelect }: Props) => {
       </PopoverTrigger>
       <PopoverContent
         side="bottom"
-        className={cn('p-0 bg-white', popOverWidthTW)}
+        className={cn('p-0 bg-white', popOverWidthTW[popOverWidth])}
       >
         <Search selectedResult={selected} onSelectResult={handleSetActive} />
       </PopoverContent>
