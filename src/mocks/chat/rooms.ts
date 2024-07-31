@@ -5,25 +5,42 @@ export const getChatRooms = http.get(`${API_BASE_URL}/api/chat/rooms`, () => {
   return HttpResponse.json({
     status: 'success',
     data: {
-      chatRooms: [
+      chatRoomDetailsList: [
         {
           chatRoomId: 1,
-          gatherArticleId: 30,
-          title: '스플렌더 같이 하실 분 ㄱㄱ',
-          participants: 8,
-          meetingLocation: '레드버튼 신림점',
-          lastMessage: {
+          gatherArticleSimpleInfo: {
+            gatherArticleId: 30,
+            title: '스플렌더 같이 하실 분 ㄱㄱ',
+            currentParticipants: 3,
+            meetingLocation: '레드버튼 신림점',
+          },
+          lastChatMessageInfo: {
             content: '확인했습니다. 감사합니다 :)',
             sentAt: '2024-07-19 13:09',
           },
         },
         {
           chatRoomId: 2,
-          gatherArticleId: 31,
-          title: '스플렌더 같이 하실 분 ㄱㄱ',
-          participants: 8,
-          meetingLocation: '레드버튼 신림점',
-          lastMessage: {
+          gatherArticleSimpleInfo: {
+            gatherArticleId: 30,
+            title: '스플렌더 같이 하실 분 ㄱㄱ',
+            currentParticipants: 3,
+            meetingLocation: '레드버튼 신림점',
+          },
+          lastChatMessageInfo: {
+            content: '확인했습니다. 감사합니다 :)',
+            sentAt: '2024-07-19 13:09',
+          },
+        },
+        {
+          chatRoomId: 3,
+          gatherArticleSimpleInfo: {
+            gatherArticleId: 30,
+            title: '스플렌더 같이 하실 분 ㄱㄱ',
+            currentParticipants: 3,
+            meetingLocation: '레드버튼 신림점',
+          },
+          lastChatMessageInfo: {
             content: '확인했습니다. 감사합니다 :)',
             sentAt: '2024-07-19 13:09',
           },

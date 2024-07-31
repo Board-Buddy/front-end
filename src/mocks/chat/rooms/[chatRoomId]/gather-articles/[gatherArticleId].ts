@@ -1,13 +1,13 @@
 import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 
-export const getArticlePreview = http.get(
+export const getArticleSimpleInfo = http.get(
   `${API_BASE_URL}/api/chat/rooms/:chatRoomId([0-9]+)/gather-articles/:gatherArticleId([0-9]+)`,
   () => {
     return HttpResponse.json({
       status: 'success',
       data: {
-        article: {
+        gatherArticleSimpleInfo: {
           title: '퇴근 후 보드게임 ㄱㄱ하실분',
           meetingLocation: '레드버튼 건대입구점',
           maxParticipants: 4,
