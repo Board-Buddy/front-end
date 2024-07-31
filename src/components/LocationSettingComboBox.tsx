@@ -10,13 +10,12 @@ import { Search } from './LocationSearch';
 import { Button } from './ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 
-const POPOVER_WIDTH = 'w-[416px]';
-
 interface Props {
+  popOverWidth: number;
   onSelect: (sido: string, sgg: string, emd: string) => void;
 }
 
-const LocationSettingComboBox = ({ onSelect }: Props) => {
+const LocationSettingComboBox = ({ popOverWidth, onSelect }: Props) => {
   const cache = useQueryClient();
   const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
 
@@ -34,9 +33,11 @@ const LocationSettingComboBox = ({ onSelect }: Props) => {
 
   const displayName = selected
     ? selected.emd
-    : userInfo.emd
+    : userInfo
       ? userInfo.emd
       : '동네 선택';
+
+  const popOverWidthTW = `w-[${popOverWidth}px]`;
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -44,7 +45,11 @@ const LocationSettingComboBox = ({ onSelect }: Props) => {
         <Button
           variant="outline"
           role="combobox"
-          className={cn('justify-between', POPOVER_WIDTH)}
+          className={cn(
+            'justify-between px-3 py-2',
+            popOverWidthTW,
+            displayName === '동네 선택' && 'text-muted',
+          )}
         >
           {displayName}
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -52,7 +57,7 @@ const LocationSettingComboBox = ({ onSelect }: Props) => {
       </PopoverTrigger>
       <PopoverContent
         side="bottom"
-        className={cn('p-0 bg-white', POPOVER_WIDTH)}
+        className={cn('p-0 bg-white', popOverWidthTW)}
       >
         <Search selectedResult={selected} onSelectResult={handleSetActive} />
       </PopoverContent>

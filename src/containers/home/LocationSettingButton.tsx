@@ -3,7 +3,6 @@
 import { ChevronDown } from 'lucide-react';
 
 import Image from 'next/image';
-import locationList from '@/containers/location/locationList.json';
 import { useRouter } from 'next/navigation';
 import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
@@ -13,7 +12,7 @@ const LocationSettingButton = () => {
 
   const cache = useQueryClient();
   const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
-  const location = `${userInfo.sido} ${userInfo.sgg} ${userInfo.emd}`;
+  const emd = userInfo.emd;
 
   const onClick = () => {
     router.push('/setting/location');
@@ -28,11 +27,7 @@ const LocationSettingButton = () => {
         height={28}
       />
       <div className="flex items-center p-0 bg-transparent w-[300px]">
-        <span className="text-lg font-bold text-gray-800">
-          {location
-            ? locationList.find((emd) => emd.label === location)?.value
-            : '동네 설정 필요'}
-        </span>
+        <span className="text-lg font-bold text-gray-800">{emd}</span>
         <ChevronDown className="ml-1 h-4 w-4 shrink-0" />
       </div>
     </div>
