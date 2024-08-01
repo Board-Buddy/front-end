@@ -7,9 +7,6 @@ export const useUserLoginCheck = ({ isReady }: { isReady: boolean }) => {
     queryKey: ['userInfo'],
     queryFn: checkUserLogin,
     enabled: isReady,
-    meta: {
-      showErrorMessage: true,
-    },
   });
 };
 
@@ -23,9 +20,6 @@ export const useUserLogin = () => {
       const userInfo = data;
       queryClient.setQueryData(['userInfo'], userInfo);
       router.push('/home');
-    },
-    meta: {
-      showErrorMessage: true,
     },
   });
 };

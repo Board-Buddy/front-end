@@ -1,5 +1,5 @@
 import api from '@/services';
-import { handleApiError } from '@/utils/handleApiError';
+import handleApiError from '@/utils/handleApiError';
 
 /** 아이디 중복 검사 API */
 export const checkIdDuplicate = async (id: string) => {
@@ -14,7 +14,7 @@ export const checkIdDuplicate = async (id: string) => {
       message: response.data.message,
     };
   } catch (error: unknown) {
-    return handleApiError(error);
+    handleApiError(error);
   }
 };
 
@@ -98,24 +98,14 @@ export const register = async (data: {
 };
 
 /** 로그인 API */
-export const login = async (data: { username: string; password: string }) => {
-  try {
-    const response = await api.post('/api/auth/login', data);
-    return response.data.data.profileDTO;
-  } catch (error: unknown) {
-    handleApiError(error);
-  }
-};
+export const login = (data: { username: string; password: string }) =>
+  api
+    .post('/api/auth/login', data)
+    .then((response) => response.data.data.profileDTO);
 
 /** 로그인 확인 API */
-export const checkUserLogin = async () => {
-  try {
-    const response = await api.get('/api/auth/status');
-    return response.data.data.profileDTO;
-  } catch (error: unknown) {
-    handleApiError(error);
-  }
-};
+export const checkUserLogin = () =>
+  api.get('/api/auth/status').then((response) => response.data.data.profileDTO);
 
 /** 소셜 로그인 추가 인증 API */
 export const oauthRegister = async (data: {
