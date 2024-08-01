@@ -1,16 +1,12 @@
 'use client';
 
 import { WS_BASE_URL } from '@/constants/env';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Client, IMessage } from '@stomp/stompjs';
-import { WebSocketServer } from 'ws';
 import { Message } from '@/types/chat';
 import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
 import { formatSentAt } from '@/utils/date';
-
-// Node.js 환경에서 WebSocketServer 객체를 전역으로 사용 가능하게 하기 위해 사용
-Object.assign(global, { WebSocketServer });
 
 const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
   const cache = useQueryClient();
@@ -19,19 +15,12 @@ const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
 
   const [messages, setMessages] = useState<Message[]>(existingMessages);
 
-  const client = new Client({
-    brokerURL: `${WS_BASE_URL}/api/chat/connection`,
-    onConnect: () => handleWebSocketConnect(),
-    onDisconnect: () => console.log('WebSocket Disconnected'),
-    reconnectDelay: 5000,
-    heartbeatIncoming: 4000,
-    heartbeatOutgoing: 4000,
-  });
+  const clientRef = useRef<Client | null>(null);
 
   const handleWebSocketConnect = () => {
     console.log('WebSocket Connected');
 
-    client.subscribe(
+    clientRef.current?.subscribe(
       `/api/chat/reception/${chatRoomId}`,
       (message: IMessage) => {
         try {
@@ -52,8 +41,8 @@ const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
       sentAt: formatSentAt(new Date().toISOString()),
     };
 
-    if (client.connected) {
-      client.publish({
+    if (clientRef.current?.connected) {
+      clientRef.current?.publish({
         destination: `/api/chat/publication/${chatRoomId}`,
         body: JSON.stringify({
           content: message,
@@ -67,12 +56,22 @@ const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
   };
 
   useEffect(() => {
+    clientRef.current = new Client({
+      brokerURL: `${WS_BASE_URL}/api/chat/connection`,
+      onConnect: () => handleWebSocketConnect(),
+      onDisconnect: () => console.log('WebSocket Disconnected'),
+      reconnectDelay: 5000,
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000,
+    });
+
     // 웹소켓 연결
-    client.activate();
+    clientRef.current.activate();
 
     return () => {
       // 웹소켓 연결 해제
-      client.deactivate();
+      clientRef.current?.deactivate();
+      clientRef.current = null;
     };
   }, []);
 
