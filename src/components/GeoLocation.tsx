@@ -6,9 +6,9 @@ import { Cafe } from '@/types/map';
 import { usePathname, useRouter } from 'next/navigation';
 import { useWriteFormContext } from '@/context/WriteFormContext';
 import { GEOLOCATION_OPTIONS } from '@/constants/map';
+import useGeoLocation from '@/hooks/custom/useGeoLocation';
 import CafeInfo from '../containers/map/CafeInfo';
 import Map from '../containers/map/Map';
-import useGeoLocation from '@/hooks/custom/useGeoLocation';
 
 interface Props {
   redirectionURL?: string;
