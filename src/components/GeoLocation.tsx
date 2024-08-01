@@ -1,6 +1,5 @@
 'use client';
 
-import useGeoLocation from '@/hooks/useGeoLocation';
 import { LoaderCircleIcon } from 'lucide-react';
 import { useState } from 'react';
 import { Cafe } from '@/types/map';
@@ -9,6 +8,7 @@ import { useWriteFormContext } from '@/context/WriteFormContext';
 import { GEOLOCATION_OPTIONS } from '@/constants/map';
 import CafeInfo from '../containers/map/CafeInfo';
 import Map from '../containers/map/Map';
+import useGeoLocation from '@/hooks/custom/useGeoLocation';
 
 interface Props {
   redirectionURL?: string;
