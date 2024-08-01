@@ -190,56 +190,6 @@ export const formatSentAt = (sentAt: string) => {
   return `${ampm} ${hours}:${minutes}`;
 };
 
-// export const isValidTimeRange = (
-//   date: Date,
-//   startHour: string,
-//   startMinute: string,
-//   endHour: string,
-//   endMinute: string,
-// ) => {
-//   if (
-//     startHour === '' ||
-//     startMinute === '' ||
-//     endHour === '' ||
-//     endMinute === ''
-//   )
-//     return '시간을 모두 입력해주세요.';
-
-//   const startHourValue = parseInt(startHour, 10);
-//   const endHourValue = parseInt(endHour, 10);
-//   const startMinuteValue = parseInt(startMinute, 10);
-//   const endMinuteValue = parseInt(endMinute, 10);
-
-//   // 시작 시간이 종료 시간보다 느린 경우
-//   if (
-//     startHourValue > endHourValue ||
-//     (startHourValue === endHourValue && startMinuteValue >= endMinuteValue)
-//   ) {
-//     return '모임 시작 예상 시간이 종료 시간보다 느립니다.';
-//   }
-
-//   // 현재 시각보다 시작 시간이 빠른 경우
-//   const setDay = date.getDay();
-
-//   const now = new Date();
-//   const nowDay = now.getDay();
-//   const nowHour = now.getHours();
-//   const nowMinute = now.getMinutes();
-
-//   if (setDay === nowDay && nowHour > startHourValue) {
-//     return '모임 시작 예상 시간이 이미 시작하��습니다.';
-//   }
-
-//   if (
-//     nowHour > startHourValue ||
-//     (nowHour === startHourValue && nowMinute >= startMinuteValue)
-//   ) {
-//     return '모임 시작 예상 시간이 현재 시간보다 빠릅니다.';
-//   }
-
-//   return null;
-// };
-
 /** 예상 시작 시간과 종료 시간이 올바르게 입력되었는지 확인 */
 export const isValidTimeRange = (
   date: Date,
