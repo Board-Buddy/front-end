@@ -66,22 +66,26 @@ const ArticleWriteForm = () => {
   };
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
+    console.log('Submitted values:', values);
+    console.log('Form errors:', form.formState.errors);
+
+    if (Object.keys(form.formState.errors).length > 0) {
+      console.log('Form has errors');
+      return;
+    }
+
     const startHourValue = values.startHour;
     const endHourValue = values.endHour;
     const startMinuteValue = values.startMinute;
     const endMinuteValue = values.endMinute;
-
-    console.log('onSubmit');
 
     if (
       startHourValue > endHourValue ||
       (startHourValue === endHourValue && startMinuteValue >= endMinuteValue)
     ) {
       setShowTimeErrorMessage(true);
-      console.log('Time Error');
     } else {
       setShowTimeErrorMessage(false);
-      console.log('mutation 전');
 
       mutation.mutate({
         title: values.title,
