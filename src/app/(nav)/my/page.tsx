@@ -4,6 +4,7 @@ import BadgeList from '@/containers/profile/BadgeList';
 import MyParticipation from '@/containers/profile/MyParticipation';
 import ReviewList from '@/containers/profile/ReviewList';
 import MyArticle from '@/containers/profile/MyArticle';
+import LocationSetting from '@/containers/profile/LocationSetting';
 import LogoutButton from '@/containers/profile/LogoutButton';
 import DeleteAccountButton from '@/containers/profile/DeleteAccountButton';
 
@@ -16,6 +17,7 @@ const page = () => {
           <BuddyPoint />
           <BadgeList />
           <ReviewList />
+          <LocationSetting />
           <MyParticipation />
           <MyArticle />
         </div>
