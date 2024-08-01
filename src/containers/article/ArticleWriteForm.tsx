@@ -65,7 +65,7 @@ const ArticleWriteForm = () => {
     router.push('/write/locationSetting');
   };
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
     const startHourValue = values.startHour;
     const endHourValue = values.endHour;
     const startMinuteValue = values.startMinute;
