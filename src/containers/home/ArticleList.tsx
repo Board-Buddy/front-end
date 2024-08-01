@@ -5,7 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { Article as IArticle, SearchParams } from '@/types/article';
 import { UserInfo } from '@/types/user';
 import { useRouter } from 'next/navigation';
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
+import { useIntersectionObserver } from '@/hooks/custom/useIntersectionObserver';
 import { useGetArticles } from '@/hooks/useArticle';
 import Selectors from './Selectors';
 import Article from './Article';
