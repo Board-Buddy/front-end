@@ -29,6 +29,8 @@ export const useGetArticles = (
       }
       return lastPageParam + 1;
     },
+    staleTime: 0,
+    gcTime: 0,
   });
 };
 
