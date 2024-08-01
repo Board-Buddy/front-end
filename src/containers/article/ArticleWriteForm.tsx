@@ -370,10 +370,11 @@ const ArticleWriteForm = () => {
           control={form.control}
           name="x"
           render={({ field }) => (
-            <FormItem className="!mt-0 invisible">
+            <FormItem className="!mt-0">
               <FormControl>
                 <Input {...field} placeholder="x" className="h-0 p-0" />
               </FormControl>
+              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
             </FormItem>
           )}
         />
@@ -381,10 +382,11 @@ const ArticleWriteForm = () => {
           control={form.control}
           name="y"
           render={({ field }) => (
-            <FormItem className="!mt-0 invisible">
+            <FormItem className="!mt-0">
               <FormControl>
                 <Input {...field} placeholder="y" className="h-0 p-0" />
               </FormControl>
+              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
             </FormItem>
           )}
         />
