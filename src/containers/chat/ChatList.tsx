@@ -21,7 +21,7 @@ const ChatList = () => {
           key={chat.chatRoomId}
           chatRoomId={chat.chatRoomId}
           gatherArticleSimpleInfo={chat.gatherArticleSimpleInfo}
-          latestChatMessageInfoDTO={chat.latestChatMessageInfoDTO}
+          latestChatMessageInfo={chat.latestChatMessageInfo}
         />
       ))}
     </div>

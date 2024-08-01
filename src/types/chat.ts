@@ -10,7 +10,7 @@ export interface Message {
 export interface ChatRoom {
   chatRoomId: number;
   gatherArticleSimpleInfo: ArticleSimpleInfo;
-  latestChatMessageInfoDTO: LatestChatMessageInfoDTO;
+  latestChatMessageInfo: LatestChatMessageInfo;
 }
 
 export interface ArticleSimpleInfo {
@@ -23,7 +23,7 @@ export interface ArticleSimpleInfo {
   endDateTime?: string;
 }
 
-export interface LatestChatMessageInfoDTO {
+export interface LatestChatMessageInfo {
   content: string;
   sentAt: string;
 }

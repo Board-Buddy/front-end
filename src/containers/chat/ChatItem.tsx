@@ -5,7 +5,7 @@ import Link from 'next/link';
 const ChatItem = ({
   chatRoomId,
   gatherArticleSimpleInfo,
-  latestChatMessageInfoDTO,
+  latestChatMessageInfo,
 }: ChatRoom) => {
   return (
     <Link
@@ -22,12 +22,12 @@ const ChatItem = ({
             </span>
           </div>
           <div className="text-sm text-slate-500">
-            {`${gatherArticleSimpleInfo.meetingLocation} · ${getLastMessageSentTime(latestChatMessageInfoDTO.sentAt)}`}
+            {`${gatherArticleSimpleInfo.meetingLocation} · ${getLastMessageSentTime(latestChatMessageInfo.sentAt)}`}
           </div>
         </div>
         <div>
           <div className="text-md mt-0.5 truncate">
-            {latestChatMessageInfoDTO.content}
+            {latestChatMessageInfo.content}
           </div>
         </div>
       </div>
