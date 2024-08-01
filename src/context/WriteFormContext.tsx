@@ -16,6 +16,9 @@ export const formSchema = z.object({
   maxParticipants: z.string({ required_error: '인원을 선택해주세요.' }),
   meetingLocation: z.string({ required_error: '위치를 선택해주세요.' }),
   description: z.string().min(1, { message: '내용을 입력해주세요.' }),
+  sido: z.string(),
+  sgg: z.string(),
+  emd: z.string(),
   x: z.string(),
   y: z.string(),
 });
@@ -40,6 +43,9 @@ export const WriteFormProvider = ({ children }: { children: ReactNode }) => {
     maxParticipants: '',
     meetingLocation: '',
     description: '',
+    sido: '',
+    sgg: '',
+    emd: '',
     x: '',
     y: '',
   });

@@ -29,6 +29,9 @@ const GeoLocation = ({ redirectionURL }: Props) => {
     setFormState({
       ...formState,
       meetingLocation: cafeInfo!.placeName,
+      sido: cafeInfo!.sido,
+      sgg: cafeInfo!.sgg,
+      emd: cafeInfo!.emd,
       x: cafeInfo!.x.toString(),
       y: cafeInfo!.y.toString(),
     });

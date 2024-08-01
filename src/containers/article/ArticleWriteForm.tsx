@@ -102,9 +102,9 @@ const ArticleWriteForm = () => {
         ),
         maxParticipants: parseInt(values.maxParticipants, 10),
         meetingLocation: values.meetingLocation,
-        sido: values.meetingLocation.split(' ')[0],
-        sgg: values.meetingLocation.split(' ')[1],
-        emd: values.meetingLocation.split(' ')[2],
+        sido: values.sido!,
+        sgg: values.sgg!,
+        emd: values.emd!,
         x: values.x!,
         y: values.y!,
       });
@@ -361,6 +361,57 @@ const ArticleWriteForm = () => {
               <FormLabel className="font-semibold">내용</FormLabel>
               <FormControl className="w-full h-40 resize-none mt-2">
                 <Textarea {...field} placeholder="모집글 내용을 입력하세요." />
+              </FormControl>
+              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="sido"
+          render={({ field }) => (
+            <FormItem className="!mt-0">
+              <FormControl>
+                <Input
+                  {...field}
+                  type="text"
+                  placeholder="x"
+                  className="h-0 p-0 border-none"
+                />
+              </FormControl>
+              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="sgg"
+          render={({ field }) => (
+            <FormItem className="!mt-0">
+              <FormControl>
+                <Input
+                  {...field}
+                  type="text"
+                  placeholder="x"
+                  className="h-0 p-0 border-none"
+                />
+              </FormControl>
+              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="emd"
+          render={({ field }) => (
+            <FormItem className="!mt-0">
+              <FormControl>
+                <Input
+                  {...field}
+                  type="text"
+                  placeholder="x"
+                  className="h-0 p-0 border-none"
+                />
               </FormControl>
               <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
             </FormItem>
