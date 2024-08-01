@@ -66,14 +66,6 @@ const ArticleWriteForm = () => {
   };
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log('Submitted values:', values);
-    console.log('Form errors:', form.formState.errors);
-
-    if (Object.keys(form.formState.errors).length > 0) {
-      console.log('Form has errors');
-      return;
-    }
-
     const startHourValue = parseInt(values.startHour, 10);
     const endHourValue = parseInt(values.endHour, 10);
     const startMinuteValue = parseInt(values.startMinute, 10);
