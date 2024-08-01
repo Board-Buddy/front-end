@@ -99,8 +99,6 @@ const ArticleWriteForm = () => {
         x: values.x!,
         y: values.y!,
       });
-    } else {
-      return;
     }
   };
 

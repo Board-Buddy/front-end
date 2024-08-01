@@ -99,8 +99,6 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
         x: values.x!,
         y: values.y!,
       });
-    } else {
-      return;
     }
   };
 
