@@ -97,8 +97,8 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
         sido: values.meetingLocation.split(' ')[0],
         sgg: values.meetingLocation.split(' ')[1],
         emd: values.meetingLocation.split(' ')[2],
-        x: values.x!.toString(),
-        y: values.y!.toString(),
+        x: values.x!,
+        y: values.y!,
       });
     }
   };
@@ -364,7 +364,12 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
           render={({ field }) => (
             <FormItem className="!mt-0">
               <FormControl>
-                <Input {...field} placeholder="x" className="h-0 p-0" />
+                <Input
+                  {...field}
+                  type="text"
+                  placeholder="x"
+                  className="h-0 p-0 border-none"
+                />
               </FormControl>
               <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
             </FormItem>
@@ -376,7 +381,12 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
           render={({ field }) => (
             <FormItem className="!mt-0">
               <FormControl>
-                <Input {...field} placeholder="y" className="h-0 p-0" />
+                <Input
+                  {...field}
+                  type="text"
+                  placeholder="y"
+                  className="h-0 p-0 border-none"
+                />
               </FormControl>
               <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
             </FormItem>
