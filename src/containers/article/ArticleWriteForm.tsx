@@ -74,10 +74,10 @@ const ArticleWriteForm = () => {
       return;
     }
 
-    const startHourValue = values.startHour;
-    const endHourValue = values.endHour;
-    const startMinuteValue = values.startMinute;
-    const endMinuteValue = values.endMinute;
+    const startHourValue = parseInt(values.startHour, 10);
+    const endHourValue = parseInt(values.endHour, 10);
+    const startMinuteValue = parseInt(values.startMinute, 10);
+    const endMinuteValue = parseInt(values.endMinute, 10);
 
     if (
       startHourValue > endHourValue ||
@@ -370,10 +370,10 @@ const ArticleWriteForm = () => {
           control={form.control}
           name="x"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="hidden">
               <FormLabel className="font-semibold">x</FormLabel>
-              <FormControl className="w-full h-40 resize-none mt-2">
-                <Textarea {...field} placeholder="모집글 내용을 입력하세요." />
+              <FormControl className="w-full mt-2">
+                <Input {...field} placeholder="x" />
               </FormControl>
               <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
             </FormItem>
@@ -383,10 +383,10 @@ const ArticleWriteForm = () => {
           control={form.control}
           name="y"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="hidden">
               <FormLabel className="font-semibold">y</FormLabel>
-              <FormControl className="w-full h-40 resize-none mt-2">
-                <Textarea {...field} placeholder="모집글 내용을 입력하세요." />
+              <FormControl className="w-full mt-2">
+                <Input {...field} placeholder="y" />
               </FormControl>
               <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
             </FormItem>
