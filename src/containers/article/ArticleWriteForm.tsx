@@ -102,9 +102,9 @@ const ArticleWriteForm = () => {
         ),
         maxParticipants: parseInt(values.maxParticipants, 10),
         meetingLocation: values.meetingLocation,
-        sido: values.sido!,
-        sgg: values.sgg!,
-        emd: values.emd!,
+        sido: values.meetingLocation.split(' ')[0],
+        sgg: values.meetingLocation.split(' ')[1],
+        emd: values.meetingLocation.split(' ')[2],
         x: values.x!,
         y: values.y!,
       });
@@ -359,6 +359,32 @@ const ArticleWriteForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel className="font-semibold">내용</FormLabel>
+              <FormControl className="w-full h-40 resize-none mt-2">
+                <Textarea {...field} placeholder="모집글 내용을 입력하세요." />
+              </FormControl>
+              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="x"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="font-semibold">x</FormLabel>
+              <FormControl className="w-full h-40 resize-none mt-2">
+                <Textarea {...field} placeholder="모집글 내용을 입력하세요." />
+              </FormControl>
+              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="y"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="font-semibold">y</FormLabel>
               <FormControl className="w-full h-40 resize-none mt-2">
                 <Textarea {...field} placeholder="모집글 내용을 입력하세요." />
               </FormControl>

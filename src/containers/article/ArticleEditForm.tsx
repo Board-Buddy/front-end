@@ -94,9 +94,9 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
         ),
         maxParticipants: parseInt(values.maxParticipants, 10),
         meetingLocation: values.meetingLocation,
-        sido: values.sido!,
-        sgg: values.sgg!,
-        emd: values.emd!,
+        sido: values.meetingLocation.split(' ')[0],
+        sgg: values.meetingLocation.split(' ')[1],
+        emd: values.meetingLocation.split(' ')[2],
         x: values.x!,
         y: values.y!,
       });
