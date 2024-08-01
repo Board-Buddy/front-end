@@ -1,7 +1,7 @@
 'use client';
 
 import {
-  // QueryCache,
+  QueryCache,
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
@@ -23,9 +23,9 @@ export default function ReactQueryProviders({
           onError: handleApiError,
         },
       },
-      // queryCache: new QueryCache({
-      //   onError: handleApiError,
-      // }),
+      queryCache: new QueryCache({
+        // onSuccess:
+      }),
     }),
   );
 
