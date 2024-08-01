@@ -60,6 +60,7 @@ const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
       brokerURL: `${WS_BASE_URL}/api/chat/connection`,
       onConnect: () => handleWebSocketConnect(),
       onDisconnect: () => console.log('WebSocket Disconnected'),
+      onWebSocketError: (error) => console.log(error),
       reconnectDelay: 5000,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
