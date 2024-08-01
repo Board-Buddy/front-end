@@ -26,7 +26,7 @@ const ChatItem = ({
           </div>
         </div>
         <div>
-          <div className="text-md mt-0.5 truncate">
+          <div className="text-sm mt-0.5 truncate">
             {latestChatMessageInfo.content}
           </div>
         </div>
