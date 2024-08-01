@@ -105,8 +105,8 @@ const ArticleWriteForm = () => {
         sido: values.meetingLocation.split(' ')[0],
         sgg: values.meetingLocation.split(' ')[1],
         emd: values.meetingLocation.split(' ')[2],
-        x: values.x!,
-        y: values.y!,
+        x: values.x!.toString(),
+        y: values.y!.toString(),
       });
     }
   };
