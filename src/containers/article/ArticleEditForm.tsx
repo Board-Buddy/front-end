@@ -362,12 +362,10 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
           control={form.control}
           name="x"
           render={({ field }) => (
-            <FormItem className="hidden">
-              <FormLabel className="font-semibold">x</FormLabel>
-              <FormControl className="w-full mt-2">
-                <Input {...field} placeholder="x" />
+            <FormItem className="!mt-0 invisible">
+              <FormControl>
+                <Input {...field} placeholder="x" className="h-0 p-0" />
               </FormControl>
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
             </FormItem>
           )}
         />
@@ -375,12 +373,10 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
           control={form.control}
           name="y"
           render={({ field }) => (
-            <FormItem className="hidden">
-              <FormLabel className="font-semibold">y</FormLabel>
-              <FormControl className="w-full mt-2">
-                <Input {...field} placeholder="y" />
+            <FormItem className="!mt-0 invisible">
+              <FormControl>
+                <Input {...field} placeholder="y" className="h-0 p-0" />
               </FormControl>
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
             </FormItem>
           )}
         />
