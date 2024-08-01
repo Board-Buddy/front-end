@@ -8,13 +8,13 @@ export const formSchema = z.object({
     .string()
     .min(1, { message: '제목을 입력해주세요.' })
     .max(50, { message: '제목은 50자 이하로 입력 가능합니다.' }),
-  date: z.date({ required_error: '날짜를 선택해주세요.' }),
+  date: z.date(),
   startHour: z.string(),
   endHour: z.string(),
   startMinute: z.string(),
   endMinute: z.string(),
-  maxParticipants: z.string({ required_error: '인원을 선택해주세요.' }),
-  meetingLocation: z.string({ required_error: '위치를 선택해주세요.' }),
+  maxParticipants: z.string().min(1, { message: '인원을 선택해주세요.' }),
+  meetingLocation: z.string().min(1, { message: '위치를 선택해주세요.' }),
   description: z.string().min(1, { message: '내용을 입력해주세요.' }),
   sido: z.string(),
   sgg: z.string(),

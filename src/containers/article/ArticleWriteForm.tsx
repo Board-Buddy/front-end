@@ -25,6 +25,7 @@ import {
   formatDate,
   formatDateTime,
   getYesterday,
+  isValidTimeRange,
   oneMonthLater,
 } from '@/utils/date';
 import { cn } from '@/utils/tailwind';
@@ -45,7 +46,7 @@ const ArticleWriteForm = () => {
   const router = useRouter();
 
   const { formState, setFormState } = useWriteFormContext();
-  const [showTimeErrorMessage, setShowTimeErrorMessage] = useState(false);
+  const [timeErrorMessage, setTimeErrorMessage] = useState<string | null>(null);
 
   const mutation = useAddArticle();
 
@@ -66,19 +67,17 @@ const ArticleWriteForm = () => {
   };
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    const startHourValue = parseInt(values.startHour, 10);
-    const endHourValue = parseInt(values.endHour, 10);
-    const startMinuteValue = parseInt(values.startMinute, 10);
-    const endMinuteValue = parseInt(values.endMinute, 10);
+    const isTimeError = isValidTimeRange(
+      values.date,
+      values.startHour,
+      values.startMinute,
+      values.endHour,
+      values.endMinute,
+    );
 
-    if (
-      startHourValue > endHourValue ||
-      (startHourValue === endHourValue && startMinuteValue >= endMinuteValue)
-    ) {
-      setShowTimeErrorMessage(true);
-    } else {
-      setShowTimeErrorMessage(false);
+    setTimeErrorMessage(isTimeError);
 
+    if (isTimeError === null) {
       mutation.mutate({
         title: values.title,
         description: values.description,
@@ -286,10 +285,10 @@ const ArticleWriteForm = () => {
             <FormMessage
               className={cn(
                 'font-sm text-red-600 ml-1 mt-1',
-                showTimeErrorMessage ? 'opacity-100' : 'opacity-0',
+                timeErrorMessage ? 'opacity-100' : 'opacity-0',
               )}
             >
-              시간을 올바르게 입력해주세요.
+              {timeErrorMessage}
             </FormMessage>
           </div>
         </div>
