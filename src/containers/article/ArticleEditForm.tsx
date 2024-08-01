@@ -330,7 +330,7 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
                 </FormControl>
                 <SelectContent className="bg-white w-20 h-[150px]">
                   {[...Array(9)].map((_, index) => (
-                    <SelectItem key={index} value={index.toString()}>
+                    <SelectItem key={index} value={(index + 2).toString()}>
                       {index + 2}
                     </SelectItem>
                   ))}
