@@ -26,7 +26,6 @@ const GeoLocation = ({ redirectionURL }: Props) => {
   const handleDirectionButtonClick = () => {};
 
   const handleSelectButtonClick = () => {
-    console.log(cafeInfo?.sido, cafeInfo?.sgg, cafeInfo?.emd);
     setFormState({
       ...formState,
       meetingLocation: cafeInfo!.placeName,
