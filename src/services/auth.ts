@@ -13,8 +13,12 @@ export const checkIdDuplicate = async (id: string) => {
       data: response.data.data,
       message: response.data.message,
     };
-  } catch (error: unknown) {
-    handleApiError(error);
+  } catch (error: any) {
+    return {
+      status: error.response.data.status,
+      data: error.response.data.data,
+      message: error.response.data.message,
+    };
   }
 };
 
@@ -30,8 +34,12 @@ export const checkNicknameDuplicate = async (nickname: string) => {
       data: response.data.data,
       message: response.data.message,
     };
-  } catch (error: unknown) {
-    return handleApiError(error);
+  } catch (error: any) {
+    return {
+      status: error.response.data.status,
+      data: error.response.data.data,
+      message: error.response.data.message,
+    };
   }
 };
 
@@ -47,8 +55,12 @@ export const smsCertificationSend = async (phoneNumber: string) => {
       data: response.data.data,
       message: response.data.message,
     };
-  } catch (error: unknown) {
-    return handleApiError(error);
+  } catch (error: any) {
+    return {
+      status: error.response.data.status,
+      data: error.response.data.data,
+      message: error.response.data.message,
+    };
   }
 };
 
@@ -64,12 +76,16 @@ export const smsCertificationVerify = async (data: {
     });
 
     return {
-      status: 'success',
+      status: response.data.status,
       data: response.data.data,
       message: response.data.message,
     };
-  } catch (error: unknown) {
-    return handleApiError(error);
+  } catch (error: any) {
+    return {
+      status: error.response.data.status,
+      data: error.response.data.data,
+      message: error.response.data.message,
+    };
   }
 };
 
@@ -92,8 +108,12 @@ export const register = async (data: {
       data: response.data.data,
       message: response.data.message,
     };
-  } catch (error: unknown) {
-    return handleApiError(error);
+  } catch (error: any) {
+    return {
+      status: error.response.data.status,
+      data: error.response.data.data,
+      message: error.response.data.message,
+    };
   }
 };
 
@@ -122,7 +142,11 @@ export const oauthRegister = async (data: {
       data: response.data.data,
       message: response.data.message,
     };
-  } catch (error: unknown) {
-    return handleApiError(error);
+  } catch (error: any) {
+    return {
+      status: error.response.data.status,
+      data: error.response.data.data,
+      message: error.response.data.message,
+    };
   }
 };
