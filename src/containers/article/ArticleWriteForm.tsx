@@ -71,13 +71,17 @@ const ArticleWriteForm = () => {
     const startMinuteValue = values.startMinute;
     const endMinuteValue = values.endMinute;
 
+    console.log('onSubmit');
+
     if (
       startHourValue > endHourValue ||
       (startHourValue === endHourValue && startMinuteValue >= endMinuteValue)
     ) {
       setShowTimeErrorMessage(true);
+      console.log('Time Error');
     } else {
       setShowTimeErrorMessage(false);
+      console.log('mutation 전');
 
       mutation.mutate({
         title: values.title,
