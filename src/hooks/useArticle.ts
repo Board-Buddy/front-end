@@ -58,9 +58,6 @@ export const useAddArticle = () => {
       });
     },
     retry: 0,
-    meta: {
-      showErrorMessage: true,
-    },
   });
 };
 
@@ -78,9 +75,6 @@ export const useEditArticle = (articleId: number) => {
       });
     },
     retry: 0,
-    meta: {
-      showErrorMessage: true,
-    },
   });
 };
 
@@ -99,8 +93,5 @@ export const useDeleteArticle = (articleId: number) => {
       });
     },
     retry: 0,
-    meta: {
-      showErrorMessage: true,
-    },
   });
 };

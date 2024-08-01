@@ -41,7 +41,7 @@ export function SearchResults({
         {isLoading && <div className="p-4 text-sm">검색 중...</div>}
         {isError && (
           <div className="p-4 text-sm">
-            {error.message || '오류가 발생하였습니다.'}
+            {error.response?.data.message || '오류가 발생하였습니다.'}
           </div>
         )}
         {data?.map(({ sido, sgg, emd, latitude, longitude }) => {

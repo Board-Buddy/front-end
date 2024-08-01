@@ -7,7 +7,7 @@ import {
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import React, { useState } from 'react';
-import toast from 'react-hot-toast';
+import handleApiError from './handleApiError';
 
 export default function ReactQueryProviders({
   children,
@@ -19,11 +19,12 @@ export default function ReactQueryProviders({
           staleTime: Infinity,
           gcTime: Infinity,
         },
+        mutations: {
+          onError: handleApiError,
+        },
       },
       queryCache: new QueryCache({
-        onError: (error, query) => {
-          if (query.meta?.showErrorMessage) toast.error(error.message);
-        },
+        // onSuccess:
       }),
     }),
   );
