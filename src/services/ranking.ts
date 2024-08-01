@@ -1,5 +1,5 @@
 import api from '@/services';
-import { handleApiError } from '@/utils/handleApiError';
+import handleApiError from '@/utils/handleApiError';
 
 /** 랭킹 조회 API */
 export const getRankings = async () => {
