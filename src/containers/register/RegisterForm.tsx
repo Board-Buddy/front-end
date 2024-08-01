@@ -98,13 +98,6 @@ const RegisterForm = () => {
   });
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(
-      uniqueId,
-      uniqueNickname,
-      showPhoneVerifyCodeInput,
-      verifiedPhone,
-    );
-
     if (!uniqueId) {
       form.setError('id', {
         type: 'manual',
