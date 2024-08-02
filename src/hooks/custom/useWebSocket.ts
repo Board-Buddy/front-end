@@ -43,7 +43,7 @@ const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
 
     if (clientRef.current?.connected) {
       clientRef.current?.publish({
-        destination: `/api/ws-stomp/${chatRoomId}`,
+        destination: `/api/ws-stomp/publication/${chatRoomId}`,
         body: JSON.stringify({
           content: message,
         }),
