@@ -11,7 +11,7 @@ export const useSearchLocation = (enabled: boolean, debouncedQuery: string) => {
 
   return useQuery<Location[], AxiosError<CustomError>>({
     queryKey: ['search', debouncedQuery],
-    queryFn: () => searchLocation(debouncedQuery, userInfo ? false : true),
+    queryFn: () => searchLocation(debouncedQuery, !userInfo),
     enabled,
     retry: 1,
   });

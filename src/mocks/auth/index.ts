@@ -6,6 +6,7 @@ import { register } from './register';
 import { smsCertificationSend } from './sms-certifications/send';
 import { smsCertificationVerify } from './sms-certifications/verify';
 import { status } from './status';
+import { searchLocation } from './locations/search';
 
 export const authHandlers = [
   status,
@@ -16,4 +17,5 @@ export const authHandlers = [
   smsCertificationSend,
   smsCertificationVerify,
   oauthRegister,
+  searchLocation,
 ];
