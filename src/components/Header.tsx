@@ -2,10 +2,11 @@
 
 import { cn } from '@/utils/tailwind';
 import { Bell, ChevronLeft, SearchIcon } from 'lucide-react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const Header = () => {
   const pathname = usePathname();
+  const router = useRouter();
 
   if (
     pathname === '/' ||
@@ -46,6 +47,10 @@ const Header = () => {
       title: '모임 위치 선택',
       leftArrow: true,
     },
+    '/notifications': {
+      title: '알림',
+      leftArrow: true,
+    },
   };
 
   let title = headerParams[pathname]?.title || '';
@@ -74,6 +79,10 @@ const Header = () => {
     leftArrow = true;
   }
 
+  const handleNotificationButtonClick = () => {
+    router.push('/notifications');
+  };
+
   return (
     <div className="flex items-center border-b py-3 px-2 border-gray-200">
       <div className="left-section basis-1/3">
@@ -101,6 +110,7 @@ const Header = () => {
             'w-5 h-5 cursor-pointer',
             pathname === '/home' ? 'visible' : 'hidden',
           )}
+          onClick={handleNotificationButtonClick}
         />
       </div>
     </div>
