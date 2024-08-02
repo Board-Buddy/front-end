@@ -1,5 +1,5 @@
 export interface Message {
-  messageType: 'talk' | 'enter' | 'exit';
+  messageType: 'TALK' | 'ENTER' | 'EXIT';
   nickname?: string;
   rank?: number | null;
   profileImageS3SavedURL?: string | null;
