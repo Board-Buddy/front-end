@@ -8,8 +8,13 @@ export const setLocation = ({ sido, sgg, emd }: { [key: string]: string }) =>
 export const setRadius = ({ radius }: { radius: 2 | 5 | 7 | 10 }) =>
   api.post('/api/radius', { radius });
 
-/** 위치 검색 API */
-export const searchLocation = (keyword: string) =>
-  api
-    .get(`/api/locations/search?emd=${keyword}`)
-    .then((response) => response.data.data.locations);
+/** 위치 검색 API) */
+export const searchLocation = (keyword: string, forAuth: boolean) => {
+  return forAuth
+    ? api
+        .get(`/api/auth/locations/search?emd=${keyword}`)
+        .then((response) => response.data.data.locations)
+    : api
+        .get(`/api/locations/search?emd=${keyword}`)
+        .then((response) => response.data.data.locations);
+};
