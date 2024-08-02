@@ -14,7 +14,7 @@ const ArticleInfo = ({ articleId, articleSimpleInfo }: Props) => {
     <Link href={`/article/${articleId}`}>
       <div className="px-4 py-3 border-b border-slate-200">
         <h1 className="text-md mb-2">
-          <span>&quot;퇴근 후 보드게임 ㄱㄱ 하실분&quot;</span> 채팅방입니다.
+          <span>&quot;{articleSimpleInfo.title}&quot;</span> 채팅방입니다.
         </h1>
         <div>
           <div className="text-sm text-gray-700">

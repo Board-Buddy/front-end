@@ -10,12 +10,13 @@ export const formatMeetingTime = (startTime: string, endTime: string) => {
 
   const duration = endHours - startHours;
 
-  const ampm = startHours >= 12 ? '오후' : '오전';
+  const startAmpm = startHours >= 12 ? '오후' : '오전';
+  const endAmpm = endHours >= 12 ? '오후' : '오전';
 
   startHours = startHours % 12 ? startHours % 12 : 12;
   endHours = endHours % 12 ? endHours % 12 : 12;
 
-  const formattedDate = `${month}월 ${day}일 ${ampm} ${startHours}시 - ${endHours}시 (${duration}시간)`;
+  const formattedDate = `${month}월 ${day}일 ${startAmpm} ${startHours}시 - ${endAmpm} ${endHours}시 (${duration}시간)`;
 
   return formattedDate;
 };
