@@ -183,7 +183,7 @@ export const formatSentAt = (sentAt: string) => {
   const date = new Date(sentAt);
 
   let hours = date.getHours();
-  const minutes = date.getMinutes();
+  const minutes = date.getMinutes().toString().padStart(2, '0');
 
   const ampm = hours >= 12 ? '오후' : '오전';
   hours = hours % 12 ? hours % 12 : 12;
