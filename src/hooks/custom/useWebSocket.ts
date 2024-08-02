@@ -46,7 +46,7 @@ const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
         destination: `/api/ws-stomp/publication/${chatRoomId}`,
         body: JSON.stringify({
           content: message,
-          nickname: nickname,
+          nickname,
         }),
       });
 

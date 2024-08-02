@@ -17,7 +17,7 @@ export const getExistingMessages = http.get(
             nickname: 'yubin',
             profileImageS3SavedURL: null,
             rank: 2,
-            messageType: 'talk',
+            messageType: 'TALK',
             sentAt: '2024-07-30 12:33',
           },
           {
@@ -25,7 +25,7 @@ export const getExistingMessages = http.get(
             nickname: 'kong3',
             profileImageS3SavedURL: null,
             rank: 2,
-            messageType: 'talk',
+            messageType: 'TALK',
             sentAt: '2024-07-30 12:33',
           },
           {
@@ -33,12 +33,12 @@ export const getExistingMessages = http.get(
             nickname: 'yubin',
             profileImageS3SavedURL: null,
             rank: 2,
-            messageType: 'talk',
+            messageType: 'TALK',
             sentAt: '2024-07-30 12:33',
           },
           {
             content: '[퇴장] kong1님이 채팅방에서 퇴장했습니다.',
-            messageType: 'exit',
+            messageType: 'EXIT',
           },
           {
             content:
@@ -46,7 +46,7 @@ export const getExistingMessages = http.get(
             nickname: 'kong3',
             profileImageS3SavedURL: null,
             rank: 2,
-            messageType: 'talk',
+            messageType: 'TALK',
             sentAt: '2024-07-30 12:33',
           },
           {
@@ -55,7 +55,7 @@ export const getExistingMessages = http.get(
             nickname: 'kong3',
             profileImageS3SavedURL: null,
             rank: 2,
-            messageType: 'talk',
+            messageType: 'TALK',
             sentAt: '2024-07-30 12:33',
           },
         ],
