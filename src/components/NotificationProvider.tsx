@@ -18,6 +18,10 @@ const NotificationProvider = () => {
   useEffect(() => {
     const eventSource = new EventSource(`${API_BASE_URL}/api/subscribe`);
 
+    eventSource.onopen = () => {
+      console.log('SSE connection established');
+    };
+
     eventSource.onmessage = (event) => {
       console.log('Received notification:', event.data);
 
@@ -25,6 +29,14 @@ const NotificationProvider = () => {
       const newNotificationContent = newNotification.data.notification.content;
 
       notify(newNotificationContent);
+    };
+
+    eventSource.onerror = (error) => {
+      console.log('SSE error:', error);
+    };
+
+    return () => {
+      eventSource.close();
     };
   });
   return <></>;
