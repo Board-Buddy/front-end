@@ -1,5 +1,4 @@
 import api from '@/services';
-import handleApiError from '@/utils/handleApiError';
 
 /** 아이디 중복 검사 API */
 export const checkIdDuplicate = async (id: string) => {
