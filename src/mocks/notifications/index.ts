@@ -1,5 +1,6 @@
 import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
+import { notificationSubscribe } from './subscribe';
 
 export const getNotificationList = http.get(
   `${API_BASE_URL}/api/notifications`,
@@ -28,18 +29,6 @@ export const getNotificationList = http.get(
       },
       { status: 200 },
     );
-  },
-);
-
-export const notificationSubscribe = http.get(
-  `${API_BASE_URL}/api/subscribe`,
-  async () => {
-    return HttpResponse.json('CONNECT', {
-      status: 200,
-      headers: {
-        'Content-Type': 'text/event-stream',
-      },
-    });
   },
 );
 
