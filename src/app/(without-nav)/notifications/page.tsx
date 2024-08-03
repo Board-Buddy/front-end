@@ -1,20 +1,23 @@
-import NotificationItem from '@/containers/notifications/NotificationItem';
+'use client';
 
-const page = () => {
-  const notifications = [
-    {
-      message: "lee 님이 '퇴근 후 보드게임...'의 참가 신청을 취소했습니다.",
-      createdAt: '2024-08-02 16:54',
-    },
-    {
-      message: "lee 님이 '퇴근 후 보드게임...'의 참가 신청을 취소했습니다.",
-      createdAt: '2023-12-02 14:54',
-    },
-    {
-      message: "lee 님이 '퇴근 후 보드게임...'에 참가 신청을 했습니다.",
-      createdAt: '2024-08-02 14:54',
-    },
-  ];
+import NotificationItem from '@/containers/notifications/NotificationItem';
+import { useGetNotificationList } from '@/hooks/useNotifications';
+
+const Page = () => {
+  const {
+    data: notifications,
+    isPending,
+    isError,
+    error,
+  } = useGetNotificationList();
+
+  if (isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div>
@@ -29,4 +32,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
