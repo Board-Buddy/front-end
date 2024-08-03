@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 
 const notify = (id: string, message: string) => {
   toast.error(message, {
-    id: id,
+    id,
     style: {
       fontSize: '14px',
       fontWeight: '600',
