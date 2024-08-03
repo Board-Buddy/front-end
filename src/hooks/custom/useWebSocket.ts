@@ -6,7 +6,6 @@ import { Client, IMessage } from '@stomp/stompjs';
 import { Message } from '@/types/chat';
 import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
-import { formatSentAt, formatDate } from '@/utils/date';
 
 const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
   const cache = useQueryClient();
