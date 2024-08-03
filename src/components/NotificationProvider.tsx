@@ -18,18 +18,82 @@ const NotificationProvider = () => {
   useEffect(() => {
     const eventSource = new EventSource(`${API_BASE_URL}/api/subscribe`);
 
-    eventSource.onopen = () => {
+    eventSource.addEventListener('connect', () => {
       console.log('SSE connection established');
-    };
+    });
 
-    eventSource.onmessage = (event) => {
+    // eventSource.onopen = () => {
+    //   console.log('SSE connection established');
+    // };
+
+    // eventSource.onmessage = (event) => {
+    //   console.log('Received notification:', event.data);
+
+    //   const newNotification = JSON.parse(event.data);
+    //   const newNotificationContent = newNotification.data.notification.content;
+
+    //   notify(newNotificationContent);
+    // };
+
+    // 참가 신청 이벤트 리스너
+    eventSource.addEventListener('applyParticipationApplication', (event) => {
       console.log('Received notification:', event.data);
 
       const newNotification = JSON.parse(event.data);
       const newNotificationContent = newNotification.data.notification.content;
 
       notify(newNotificationContent);
-    };
+    });
+
+    // 참가 신청 승인 이벤트 리스너
+    eventSource.addEventListener('approveParticipationApplication', (event) => {
+      console.log('Received notification:', event.data);
+
+      const newNotification = JSON.parse(event.data);
+      const newNotificationContent = newNotification.data.notification.content;
+
+      notify(newNotificationContent);
+    });
+
+    // 참가 신청 거절 이벤트 리스너
+    eventSource.addEventListener('rejectParticipationApplication', (event) => {
+      console.log('Received notification:', event.data);
+
+      const newNotification = JSON.parse(event.data);
+      const newNotificationContent = newNotification.data.notification.content;
+
+      notify(newNotificationContent);
+    });
+
+    // 참가 신청 거절 이벤트 리스너
+    eventSource.addEventListener('cancelParticipationApplication', (event) => {
+      console.log('Received notification:', event.data);
+
+      const newNotification = JSON.parse(event.data);
+      const newNotificationContent = newNotification.data.notification.content;
+
+      notify(newNotificationContent);
+    });
+
+    // 모집글 후기 요청 이벤트 리스너
+    eventSource.addEventListener('reviewRequest', (event) => {
+      console.log('Received notification:', event.data);
+
+      const newNotification = JSON.parse(event.data);
+      const newNotificationContent = newNotification.data.notification.content;
+
+      notify(newNotificationContent);
+    });
+
+    // 모집글 댓글 작성 이벤트 리스너
+    eventSource.addEventListener('writeComment', (event) => {
+      console.log('Received notification:', event.data);
+
+      const newNotification = JSON.parse(event.data);
+      const newNotificationContent = newNotification.data.notification.content;
+
+      notify(newNotificationContent);
+    });
 
     eventSource.onerror = (error) => {
       console.log('SSE error:', error);
