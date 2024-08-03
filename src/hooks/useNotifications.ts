@@ -6,5 +6,7 @@ export const useGetNotificationList = () => {
   return useQuery<Notification[]>({
     queryKey: ['notifications'],
     queryFn: getNotificationList,
+    staleTime: 0,
+    gcTime: 0,
   });
 };
