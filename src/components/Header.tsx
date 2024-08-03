@@ -3,6 +3,7 @@
 import { cn } from '@/utils/tailwind';
 import { Bell, ChevronLeft, SearchIcon } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
+import NotificationProvider from './NotificationProvider';
 
 const Header = () => {
   const pathname = usePathname();
@@ -84,36 +85,39 @@ const Header = () => {
   };
 
   return (
-    <div className="flex items-center border-b py-3 px-2 border-gray-200">
-      <div className="left-section basis-1/3">
-        {leftArrow && (
-          <ChevronLeft
-            className="w-5 h-5 cursor-pointer"
-            onClick={() => {
-              window.history.back();
-            }}
+    <>
+      <NotificationProvider />
+      <div className="flex items-center border-b py-3 px-2 border-gray-200">
+        <div className="left-section basis-1/3">
+          {leftArrow && (
+            <ChevronLeft
+              className="w-5 h-5 cursor-pointer"
+              onClick={() => {
+                window.history.back();
+              }}
+            />
+          )}
+        </div>
+        <div className="title-section basis-1/3 text-center">
+          <span className="font-bold">{title}</span>
+        </div>
+        <div className="right-section ml-auto flex gap-2 items-center">
+          <SearchIcon
+            className={cn(
+              'w-5 h-5 cursor-pointer',
+              pathname === '/home' ? 'visible' : 'hidden',
+            )}
           />
-        )}
+          <Bell
+            className={cn(
+              'w-5 h-5 cursor-pointer',
+              pathname === '/home' ? 'visible' : 'hidden',
+            )}
+            onClick={handleNotificationButtonClick}
+          />
+        </div>
       </div>
-      <div className="title-section basis-1/3 text-center">
-        <span className="font-bold">{title}</span>
-      </div>
-      <div className="right-section ml-auto flex gap-2 items-center">
-        <SearchIcon
-          className={cn(
-            'w-5 h-5 cursor-pointer',
-            pathname === '/home' ? 'visible' : 'hidden',
-          )}
-        />
-        <Bell
-          className={cn(
-            'w-5 h-5 cursor-pointer',
-            pathname === '/home' ? 'visible' : 'hidden',
-          )}
-          onClick={handleNotificationButtonClick}
-        />
-      </div>
-    </div>
+    </>
   );
 };
 
