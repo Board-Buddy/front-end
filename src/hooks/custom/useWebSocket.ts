@@ -34,13 +34,6 @@ const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
   };
 
   const handleSendMessage = (message: string) => {
-    const newMessage: Message = {
-      messageType: 'TALK',
-      nickname,
-      content: message,
-      sentAt: new Date().toString(),
-    };
-
     if (clientRef.current?.connected) {
       clientRef.current?.publish({
         destination: `/api/ws-stomp/publication/${chatRoomId}`,
