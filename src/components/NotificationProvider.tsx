@@ -16,15 +16,17 @@ const NotificationProvider = () => {
   };
 
   useEffect(() => {
-    const eventSource = new EventSource(`${API_BASE_URL}/api/subscribe`);
-
-    eventSource.addEventListener('connect', () => {
-      console.log('SSE connection established');
+    const eventSource = new EventSource(`${API_BASE_URL}/api/subscribe`, {
+      withCredentials: true,
     });
 
-    // eventSource.onopen = () => {
-    //   console.log('SSE connection established');
-    // };
+    eventSource.onopen = () => {
+      console.log('SSE connection established');
+    };
+
+    eventSource.addEventListener('connect', () => {
+      console.log('SSE connection established(connect)');
+    });
 
     // eventSource.onmessage = (event) => {
     //   console.log('Received notification:', event.data);
