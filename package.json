@@ -44,6 +44,7 @@
     "react-hot-toast": "^2.4.1",
     "react-multi-carousel": "^2.8.5",
     "recharts": "^2.12.7",
+    "sockjs-client": "^1.6.1",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
     "use-debounce": "^10.0.2",
