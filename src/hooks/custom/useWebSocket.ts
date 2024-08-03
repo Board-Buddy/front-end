@@ -38,7 +38,7 @@ const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
       messageType: 'TALK',
       nickname,
       content: message,
-      sentAt: formatSentAt(formatDate(new Date())),
+      sentAt: new Date().toString(),
     };
 
     if (clientRef.current?.connected) {
