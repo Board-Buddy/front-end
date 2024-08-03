@@ -2,7 +2,7 @@
 
 import SockJS from 'sockjs-client';
 import { CompatClient, IMessage, Stomp } from '@stomp/stompjs';
-import { WS_BASE_URL } from '@/constants/env';
+import { API_BASE_URL } from '@/constants/env';
 import { useEffect, useRef, useState } from 'react';
 import { Message } from '@/types/chat';
 import { UserInfo } from '@/types/user';
@@ -19,7 +19,7 @@ const useSockWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
 
   // 웹소켓 연결
   const connectToWebSocket = () => {
-    const socket = new SockJS(`${WS_BASE_URL}/api/ws-stomp/connection`);
+    const socket = new SockJS(`${API_BASE_URL}/api/ws-stomp/connection`);
     const client = Stomp.over(socket);
     clientRef.current = client;
 
