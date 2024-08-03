@@ -16,9 +16,12 @@ const NotificationProvider = () => {
   };
 
   useEffect(() => {
-    const eventSource = new EventSource(`${API_BASE_URL}/api/subscribe`, {
-      withCredentials: true,
-    });
+    const eventSource = new EventSource(
+      `${API_BASE_URL}/api/notifications/subscribe`,
+      {
+        withCredentials: true,
+      },
+    );
 
     eventSource.onopen = () => {
       console.log('SSE connection established');
