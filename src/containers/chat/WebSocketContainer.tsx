@@ -1,6 +1,5 @@
-// import useWebSocket from '@/hooks/custom/useWebSocket';
 import { Message } from '@/types/chat';
-import useSockWebSocket from '@/hooks/custom/useSockJsWebSocket';
+import useWebSocket from '@/hooks/custom/useWebSocket';
 import ChatSection from './ChatSection';
 import ChatInput from './ChatInput';
 
@@ -10,7 +9,7 @@ interface Props {
 }
 
 const WebSocketContainer = ({ chatRoomId, chatMessages }: Props) => {
-  const { messages, handleSendMessage } = useSockWebSocket(
+  const { messages, handleSendMessage } = useWebSocket(
     chatRoomId,
     chatMessages,
   );
