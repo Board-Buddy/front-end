@@ -49,8 +49,6 @@ const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
           nickname,
         }),
       });
-
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
     } else {
       console.error('WebSocket is not connected');
     }
