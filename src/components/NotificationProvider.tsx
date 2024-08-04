@@ -31,14 +31,14 @@ const NotificationProvider = () => {
       console.log('SSE connection established(connect)');
     });
 
-    // eventSource.onmessage = (event) => {
-    //   console.log('Received notification:', event.data);
+    eventSource.onmessage = (event) => {
+      console.log('Received notification:', event.data);
 
-    //   const newNotification = JSON.parse(event.data);
-    //   const newNotificationContent = newNotification.data.notification.content;
+      const newNotification = JSON.parse(event.data);
+      const newNotificationContent = newNotification.data.notification.content;
 
-    //   notify(newNotificationContent);
-    // };
+      notify(newNotificationContent);
+    };
 
     // 참가 신청 이벤트 리스너
     eventSource.addEventListener('applyParticipationApplication', (event) => {
