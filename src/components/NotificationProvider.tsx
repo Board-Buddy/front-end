@@ -35,9 +35,8 @@ const NotificationProvider = () => {
 
     eventSource.onmessage = (event) => {
       const newNotification = JSON.parse(event.data);
-      const newNotificationContent = newNotification;
-
-      notify(newNotificationContent);
+      console.log(newNotification);
+      notify(newNotification);
     };
 
     // 참가 신청 이벤트 리스너
@@ -73,7 +72,6 @@ const NotificationProvider = () => {
     // 모집글 댓글 작성 이벤트 리스너
     eventSource.addEventListener('writeComment', (event) => {
       const newNotification = JSON.parse(event.data);
-      console.log(newNotification);
       notify(newNotification);
     });
 
