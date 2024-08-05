@@ -30,10 +30,47 @@ const NotificationProvider = () => {
       console.log('SSE connection established');
     };
 
-    eventSource.onmessage = (event) => {
+    // 참가 신청 이벤트 리스너
+    eventSource.addEventListener('applyParticipationApplication', (event) => {
       const newNotification = event.data;
       notify(newNotification);
-    };
+    });
+
+    // 참가 신청 승인 이벤트 리스너
+    eventSource.addEventListener('approveParticipationApplication', (event) => {
+      const newNotification = event.data;
+      notify(newNotification);
+    });
+
+    // 참가 신청 거절 이벤트 리스너
+    eventSource.addEventListener('rejectParticipationApplication', (event) => {
+      const newNotification = event.data;
+      notify(newNotification);
+    });
+
+    // 참가 신청 취소 이벤트 리스너
+    eventSource.addEventListener('cancelParticipationApplication', (event) => {
+      const newNotification = event.data;
+      notify(newNotification);
+    });
+
+    // 모집글 후기 요청 이벤트 리스너
+    eventSource.addEventListener('reviewRequest', (event) => {
+      const newNotification = event.data;
+      notify(newNotification);
+    });
+
+    // 모집글 댓글 작성 이벤트 리스너
+    eventSource.addEventListener('writeComment', (event) => {
+      const newNotification = event.data;
+      notify(newNotification);
+    });
+
+    // 설정한 반경 내 동네 모집글 업로드 알림 이벤트 리스너
+    eventSource.addEventListener('writeGatherArticle', (event) => {
+      const newNotification = event.data;
+      notify(newNotification);
+    });
 
     eventSource.onerror = (error) => {
       console.log('SSE error:', error);
