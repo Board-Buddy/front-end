@@ -8,6 +8,12 @@ const notify = (id: string, message: string) => {
     style: {
       fontSize: '14px',
       fontWeight: '600',
+      border: '1px solid var(--main-color)',
+      color: 'var(--main-color)',
+    },
+    iconTheme: {
+      primary: 'var(--main-color)',
+      secondary: '#FFFAEE',
     },
   });
 };
