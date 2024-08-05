@@ -1,42 +1,42 @@
 'use client';
 
-import CustomAvatar from '@/components/CustomAvatar';
-import { UserInfo } from '@/types/user';
+import ProfileInfo from '@/containers/profile/ProfileInfo';
+import BuddyPoint from '@/containers/profile/BuddyPoint';
+import BadgeList from '@/containers/profile/BadgeList';
+import MyParticipation from '@/containers/profile/MyParticipation';
+import ReviewList from '@/containers/profile/ReviewList';
+import MyArticle from '@/containers/profile/MyArticle';
+import LocationSetting from '@/containers/profile/LocationSetting';
+import LogoutButton from '@/containers/profile/LogoutButton';
+import DeleteAccountButton from '@/containers/profile/DeleteAccountButton';
+import { useGetProfile } from '@/hooks/useProfile';
 import { useQueryClient } from '@tanstack/react-query';
-import { ChevronRight } from 'lucide-react';
+import { UserInfo } from '@/types/user';
 
-const sampleImageURL = '/images/default_profile.png';
-
-const Profile = ({
-  description,
-  rank,
-}: {
-  description: string;
-  rank: number | null;
-}) => {
+const Profile = () => {
   const cache = useQueryClient();
   const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
   const { nickname } = userInfo;
 
-  return (
-    <div className="flex items-center">
-      <div className="px-2 py-4">
-        <CustomAvatar
-          src={sampleImageURL || null}
-          rank={rank}
-          nickname="asdf"
-          avatarSize="md"
-        />
-      </div>
+  const { data: profile } = useGetProfile(nickname);
 
-      <div className="ml-3 items-center">
-        <span className="text-lg font-bold">{nickname}</span>
-        <p className="text-sm text-gray-600">{description}</p>
+  return (
+    <div className="items-center">
+      <div className="mb-4">
+        <ProfileInfo description={profile.description} rank={profile.rank} />
+        <BuddyPoint score={profile.buddyScore} />
+        <BadgeList badges={profile.badges} />
+        <ReviewList
+          totalExcellentCount={profile.totalExcellentCount}
+          totalGoodCount={profile.totalGoodCount}
+          totalBadCount={profile.totalBadCount}
+        />
+        <LocationSetting />
+        <MyParticipation joinCount={profile.joinCount} />
+        <MyArticle />
       </div>
-      <div className="flex items-center text-sm text-gray-700 font-bold ml-auto self-start">
-        <p>수정하기</p>
-        <ChevronRight className="w-5 h-5 text-gray-700" />
-      </div>
+      <LogoutButton />
+      <DeleteAccountButton />
     </div>
   );
 };
