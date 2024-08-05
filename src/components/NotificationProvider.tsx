@@ -72,7 +72,7 @@ const NotificationProvider = () => {
       notify(newNotificationContent);
     });
 
-    // 참가 신청 거절 이벤트 리스너
+    // 참가 신청 취소 이벤트 리스너
     eventSource.addEventListener('cancelParticipationApplication', (event) => {
       console.log('Received notification:', event.data);
 
@@ -94,6 +94,26 @@ const NotificationProvider = () => {
 
     // 모집글 댓글 작성 이벤트 리스너
     eventSource.addEventListener('writeComment', (event) => {
+      console.log('Received notification:', event.data);
+
+      const newNotification = JSON.parse(event.data);
+      const newNotificationContent = newNotification.data;
+
+      notify(newNotificationContent);
+    });
+
+    // 모집글 댓글 작성 이벤트 리스너
+    eventSource.addEventListener('writeComment', (event) => {
+      console.log('Received notification:', event.data);
+
+      const newNotification = JSON.parse(event.data);
+      const newNotificationContent = newNotification.data;
+
+      notify(newNotificationContent);
+    });
+
+    // 설정한 반경 내 동네 모집글 업로드 알림 이벤트 리스너
+    eventSource.addEventListener('writeGatherArticle', (event) => {
       console.log('Received notification:', event.data);
 
       const newNotification = JSON.parse(event.data);
