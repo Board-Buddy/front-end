@@ -14,11 +14,11 @@ import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
 
 const Profile = () => {
-  const cache = useQueryClient();
-  const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
-  const { nickname } = userInfo;
+  // const cache = useQueryClient();
+  // const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
+  // const { nickname } = userInfo;
 
-  const { data: profile } = useGetProfile(nickname);
+  const { data: profile } = useGetProfile('nickname');
 
   return (
     <div className="items-center">
