@@ -1,26 +1,26 @@
-import { Badge } from '@/components/ui/badge';
-import { ChevronRight } from 'lucide-react';
+'use client';
 
-const BadgeList = () => {
+import { ChevronRight } from 'lucide-react';
+import Image from 'next/image';
+
+const BadgeList = ({ badges }: { badges: string[] }) => {
   return (
-    <div className="border-b-[1px] border-gray-200 p-4">
-      <div className="flex justify-between items-center text-lg font-bold mb-4">
-        <div className="flex gap-2">뱃지 목록</div>
+    <div className="border-b-[1px] border-gray-200 py-4">
+      <div className="flex justify-between items-center font-bold mb-4">
+        <div className="flex gap-2 px-1">뱃지 목록</div>
         <div className="flex items-center text-sm text-gray-700 font-bold">
           <p>전체보기</p>
-          <ChevronRight className="w-5 h-5 text-gray-700 ml-1" />
+          <ChevronRight className="w-5 h-5 text-gray-700" />
         </div>
       </div>
       <div className="flex justify-center items-center space-x-16 p-4">
-        <div>
-          <Badge variant="default">뱃지</Badge>
-        </div>
-        <div>
-          <Badge variant="default">뱃지</Badge>
-        </div>
-        <div>
-          <Badge variant="default">뱃지</Badge>
-        </div>
+        {badges.length === 0 && <div>획득한 뱃지가 없습니다.</div>}
+        {badges.map(
+          (badge) =>
+            badge && (
+              <Image src={badge} alt="badge image" width={48} height={48} />
+            ),
+        )}
       </div>
     </div>
   );

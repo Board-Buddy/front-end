@@ -1,57 +1,49 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import Image from 'next/image';
+import { Card, CardContent } from '@/components/ui/card';
+import { Sparkles, ThumbsDown, ThumbsUp } from 'lucide-react';
 
-const ReviewList = () => {
+const ReviewList = ({
+  totalExcellentCount,
+  totalGoodCount,
+  totalBadCount,
+}: {
+  totalExcellentCount: number;
+  totalGoodCount: number;
+  totalBadCount: number;
+}) => {
   return (
-    <div className="border-b-[1px] border-gray-200 p-4">
-      <div className="justify-between items-center text-lg font-bold">
-        <div className="flex gap-2 mb-4">받은 후기</div>
+    <div className="border-b-[1px] border-gray-200 py-4">
+      <div className="justify-between items-center font-bold">
+        <div className="flex gap-2 mb-4 px-1">받은 후기</div>
       </div>
-      <Card>
-        <CardContent className="flex flex-col text-md mt-2 font-bold">
-          <div className="text-secondary flex items-center justify-between">
-            <Image
-              src="/images/icon/great_icon.png"
-              alt="최고"
-              width={40}
-              height={40}
-              className="item-center"
-            />
-            <div>최고에요</div>
-            <div>12</div>
-          </div>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardContent className="flex flex-col text-md mt-2 font-bold">
-          <div className="text-secondary flex items-center justify-between">
-            <Image
-              src="/images/icon/good_icon.png"
-              alt="좋아"
-              width={40}
-              height={40}
-              className="item-center"
-            />
-            <div>좋아요</div>
-            <div>3</div>
-          </div>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardContent className="flex flex-col text-md mt-2 font-bold">
-          <div className="text-secondary flex items-center justify-between">
-            <Image
-              src="/images/icon/bad_icon.png"
-              alt="별로"
-              width={40}
-              height={40}
-              className="item-center"
-            />
-            <div>별로에요</div>
-            <div>0</div>
-          </div>
-        </CardContent>
-      </Card>
+      <div className="flex flex-col gap-2">
+        <Card className="border-none shadow-none">
+          <CardContent className="font-bold py-2 px-4 bg-[#FFF3E0] rounded-xl !border-none">
+            <div className="text-primary flex items-center justify-between">
+              <Sparkles />
+              <div>최고에요</div>
+              <div>{totalExcellentCount}</div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="border-none shadow-none">
+          <CardContent className="font-bold py-2 px-4 bg-[#FFF3E0] rounded-xl ">
+            <div className="text-primary flex items-center justify-between">
+              <ThumbsUp />
+              <div>좋아요</div>
+              <div>{totalGoodCount}</div>
+            </div>
+          </CardContent>
+        </Card>
+        <Card className="border-none shadow-none">
+          <CardContent className="font-bold py-2 px-4 bg-[#FFF3E0] rounded-xl ">
+            <div className="text-primary flex items-center justify-between">
+              <ThumbsDown />
+              <div>별로에요</div>
+              <div>{totalBadCount}</div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };
