@@ -1,5 +1,3 @@
-'use client';
-
 import CustomAvatar from '@/components/CustomAvatar';
 import { UserInfo } from '@/types/user';
 import { useQueryClient } from '@tanstack/react-query';
