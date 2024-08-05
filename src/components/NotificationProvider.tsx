@@ -34,10 +34,10 @@ const NotificationProvider = () => {
     });
 
     eventSource.onmessage = (event) => {
-      console.log('Received notification:', event.data);
+      console.log('Received notification(onmessage):', event.data);
 
       const newNotification = JSON.parse(event.data);
-      const newNotificationContent = newNotification.data.notification.content;
+      const newNotificationContent = newNotification.data;
 
       notify(newNotificationContent);
     };
@@ -47,7 +47,7 @@ const NotificationProvider = () => {
       console.log('Received notification:', event.data);
 
       const newNotification = JSON.parse(event.data);
-      const newNotificationContent = newNotification.data.notification.content;
+      const newNotificationContent = newNotification.data;
 
       notify(newNotificationContent);
     });
@@ -57,7 +57,7 @@ const NotificationProvider = () => {
       console.log('Received notification:', event.data);
 
       const newNotification = JSON.parse(event.data);
-      const newNotificationContent = newNotification.data.notification.content;
+      const newNotificationContent = newNotification.data;
 
       notify(newNotificationContent);
     });
@@ -67,7 +67,7 @@ const NotificationProvider = () => {
       console.log('Received notification:', event.data);
 
       const newNotification = JSON.parse(event.data);
-      const newNotificationContent = newNotification.data.notification.content;
+      const newNotificationContent = newNotification.data;
 
       notify(newNotificationContent);
     });
@@ -77,7 +77,7 @@ const NotificationProvider = () => {
       console.log('Received notification:', event.data);
 
       const newNotification = JSON.parse(event.data);
-      const newNotificationContent = newNotification.data.notification.content;
+      const newNotificationContent = newNotification.data;
 
       notify(newNotificationContent);
     });
@@ -87,7 +87,7 @@ const NotificationProvider = () => {
       console.log('Received notification:', event.data);
 
       const newNotification = JSON.parse(event.data);
-      const newNotificationContent = newNotification.data.notification.content;
+      const newNotificationContent = newNotification.data;
 
       notify(newNotificationContent);
     });
@@ -97,7 +97,7 @@ const NotificationProvider = () => {
       console.log('Received notification:', event.data);
 
       const newNotification = JSON.parse(event.data);
-      const newNotificationContent = newNotification.data.notification.content;
+      const newNotificationContent = newNotification.data;
 
       notify(newNotificationContent);
     });

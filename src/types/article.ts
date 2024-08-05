@@ -42,7 +42,7 @@ export interface SearchParams {
 }
 
 export interface ArticleRequest {
-  pageParam: number;
+  pageParam: number | null;
   status: string | null;
   sort: string | null;
 }
