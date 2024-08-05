@@ -21,13 +21,14 @@ export const useGetArticles = (
 ) => {
   return useInfiniteQuery({
     queryKey: ['articles', { location, status, sort }],
-    queryFn: ({ pageParam = 0 }) => getArticles({ pageParam, status, sort }),
-    initialPageParam: 0,
+    queryFn: ({ pageParam = null }) => getArticles({ pageParam, status, sort }),
+    initialPageParam: null,
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
       if (lastPage.last) {
         return undefined;
       }
-      return lastPageParam + 1;
+      // return lastPageParam + 1;
+      return lastPage.posts[2].id;
     },
     staleTime: 0,
     gcTime: 0,
