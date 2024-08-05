@@ -6,4 +6,5 @@ export interface Profile {
   totalExcellentCount: number;
   totalGoodCount: number;
   totalBadCount: number;
+  joinCount: number;
 }
