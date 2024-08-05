@@ -1,10 +1,16 @@
 'use client';
 
 import { API_BASE_URL } from '@/constants/env';
+import { UserInfo } from '@/types/user';
+import { useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 const NotificationProvider = () => {
+  const cache = useQueryClient();
+  const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
+  const { nickname } = userInfo;
+
   const notify = (message: string) => {
     toast(message, {
       icon: '🔔',
@@ -17,7 +23,7 @@ const NotificationProvider = () => {
 
   useEffect(() => {
     const eventSource = new EventSource(
-      `${API_BASE_URL}/api/notifications/subscribe`,
+      `${API_BASE_URL}/api/notifications/subscribe?nickname=${nickname}`,
       {
         withCredentials: true,
       },
