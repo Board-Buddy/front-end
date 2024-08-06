@@ -7,6 +7,7 @@ import { smsCertificationSend } from './sms-certifications/send';
 import { smsCertificationVerify } from './sms-certifications/verify';
 import { status } from './status';
 import { searchLocation } from './locations/search';
+import { passwordCheck } from './password';
 
 export const authHandlers = [
   status,
@@ -18,4 +19,5 @@ export const authHandlers = [
   smsCertificationVerify,
   oauthRegister,
   searchLocation,
+  passwordCheck,
 ];

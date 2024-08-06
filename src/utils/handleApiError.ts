@@ -2,7 +2,7 @@ import { CustomError } from '@/types/api';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-const notify = (id: string, message: string) => {
+export const notify = (id: string, message: string) => {
   toast.error(message, {
     id,
     style: {

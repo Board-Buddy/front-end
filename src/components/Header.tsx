@@ -52,6 +52,10 @@ const Header = () => {
       title: '알림',
       leftArrow: true,
     },
+    '/my/edit': {
+      title: '프로필 수정',
+      leftArrow: true,
+    },
   };
 
   let title = headerParams[pathname]?.title || '';
