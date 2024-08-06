@@ -4,7 +4,6 @@ import { cn } from '@/utils/tailwind';
 import { useQueryClient } from '@tanstack/react-query';
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
-import { useState } from 'react';
 
 interface Props {
   nickname?: string;

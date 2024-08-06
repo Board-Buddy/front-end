@@ -1,21 +1,28 @@
 import { cn } from '@/utils/tailwind';
 import { ChevronRight } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
-const BadgeList = ({ badges }: { badges: string[] }) => {
+interface Props {
+  badges: string[];
+}
+
+const BadgeList = ({ badges }: Props) => {
   return (
     <div className="border-b-[1px] border-gray-200 py-4">
       <div className="flex justify-between items-center font-bold mb-4">
         <div className="flex gap-2 px-1">뱃지 목록</div>
-        <div
-          className={cn(
-            'flex items-center text-sm text-gray-700 font-bold',
-            badges.length === 0 ? 'hidden' : 'visible',
-          )}
-        >
-          <p>전체보기</p>
-          <ChevronRight className="w-5 h-5 text-gray-700" />
-        </div>
+        <Link href="/my/badges">
+          <div
+            className={cn(
+              'flex items-center text-sm text-gray-700 font-bold',
+              badges.length === 0 ? 'hidden' : 'visible',
+            )}
+          >
+            <p>전체보기</p>
+            <ChevronRight className="w-5 h-5 text-gray-700" />
+          </div>
+        </Link>
       </div>
       <div
         className={cn(
