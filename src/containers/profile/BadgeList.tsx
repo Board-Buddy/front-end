@@ -7,7 +7,12 @@ const BadgeList = ({ badges }: { badges: string[] }) => {
     <div className="border-b-[1px] border-gray-200 py-4">
       <div className="flex justify-between items-center font-bold mb-4">
         <div className="flex gap-2 px-1">뱃지 목록</div>
-        <div className="flex items-center text-sm text-gray-700 font-bold">
+        <div
+          className={cn(
+            'flex items-center text-sm text-gray-700 font-bold',
+            badges.length === 0 ? 'hidden' : 'visible',
+          )}
+        >
           <p>전체보기</p>
           <ChevronRight className="w-5 h-5 text-gray-700" />
         </div>
