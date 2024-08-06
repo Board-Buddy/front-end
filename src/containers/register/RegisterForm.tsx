@@ -23,9 +23,7 @@ import {
 } from '@/services/auth';
 import { useRouter } from 'next/navigation';
 import LocationSettingComboBox from '@/components/LocationSettingComboBox';
-
-const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,15}$/;
-const phoneRegex = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
+import { passwordRegex, phoneRegex } from '@/utils/regex';
 
 const RegisterForm = () => {
   const [uniqueId, setUniqueId] = useState(false);
