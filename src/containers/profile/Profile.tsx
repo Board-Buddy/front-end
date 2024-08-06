@@ -39,9 +39,9 @@ const Profile = () => {
           totalGoodCount={profile.totalGoodCount}
           totalBadCount={profile.totalBadCount}
         />
+        <MyArticle />
         <LocationSetting />
         <MyParticipation joinCount={profile.joinCount} />
-        <MyArticle />
       </div>
       <LogoutButton />
       <DeleteAccountButton />
