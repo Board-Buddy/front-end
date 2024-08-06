@@ -1,5 +1,3 @@
-// 'use client';
-
 import Profile from '@/containers/profile/Profile';
 
 export const dynamic = 'force-dynamic';

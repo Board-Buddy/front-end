@@ -9,13 +9,19 @@ import MyArticle from '@/containers/profile/MyArticle';
 import LocationSetting from '@/containers/profile/LocationSetting';
 import LogoutButton from '@/containers/profile/LogoutButton';
 import DeleteAccountButton from '@/containers/profile/DeleteAccountButton';
+
 import { useGetMyProfile } from '@/hooks/useProfile';
+import { LoaderCircleIcon } from 'lucide-react';
 
 const Profile = () => {
   const { data: profile, isPending, isError, error } = useGetMyProfile();
 
   if (isPending) {
-    return <span>Loading...</span>;
+    return (
+      <div className="flex justify-center items-center h-[calc(100vh-100px)]">
+        <LoaderCircleIcon className="animate-spin text-primary" />
+      </div>
+    );
   }
 
   if (isError) {
