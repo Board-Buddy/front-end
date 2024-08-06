@@ -1,4 +1,5 @@
 import { authHandlers } from './auth';
+import { badgeHandlers } from './badges';
 import { boardCafeHandlers } from './board-cafes';
 import { chatHandlers } from './chat';
 import { articleHandlers } from './gather-articles';
@@ -20,4 +21,5 @@ export const handlers = [
   ...chatHandlers,
   ...notificationHandlers,
   ...profileHandlers,
+  ...badgeHandlers,
 ];

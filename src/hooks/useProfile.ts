@@ -1,25 +1,11 @@
-import { editProfile, getProfile } from '@/services/profile';
+import { editProfile, getBadgeList, getProfile } from '@/services/profile';
 import { UserInfo } from '@/types/user';
 import { blobToJson } from '@/utils/blobToJson';
 import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
 
-export const useGetMyProfile = () => {
-  const queryClient = useQueryClient();
-  const userInfo = queryClient.getQueryData(['userInfo']) as UserInfo;
-  const { nickname } = userInfo;
-
-  return useQuery({
-    queryKey: ['profile', { nickname }],
-    queryFn: () => getProfile(nickname),
-    staleTime: 0,
-    gcTime: 0,
-  });
-};
-
-export const useGetOtherUserProfile = (nickname: string) => {
+export const useGetProfile = (nickname: string) => {
   return useQuery({
     queryKey: ['profile', { nickname }],
     queryFn: () => getProfile(nickname),
@@ -50,5 +36,14 @@ export const useEditProfile = () => {
       successToast('profile update', '프로필이 수정되었습니다.');
     },
     retry: 0,
+  });
+};
+
+export const useGetBadgeList = (nickname: string) => {
+  return useQuery<{ badgeImageS3SavedURL: string }[]>({
+    queryKey: ['badgeList', { nickname }],
+    queryFn: () => getBadgeList(nickname),
+    staleTime: 0,
+    gcTime: 0,
   });
 };
