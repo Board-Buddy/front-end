@@ -60,6 +60,10 @@ const Header = () => {
       title: '나의 뱃지 목록',
       leftArrow: true,
     },
+    '/my/activity': {
+      title: '나의 활동',
+      leftArrow: true,
+    },
   };
 
   let title = headerParams[pathname]?.title || '';
