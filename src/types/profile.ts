@@ -1,4 +1,5 @@
 export interface Profile {
+  profileImageS3SavedURL: string | null;
   description: string;
   rank: number | null;
   buddyScore: number;
