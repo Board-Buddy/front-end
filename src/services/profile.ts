@@ -8,6 +8,4 @@ export const getProfile = (nickname: string) =>
 
 /** 프로필 수정 API */
 export const editProfile = (editProfileDTO: FormData) =>
-  api
-    .put(`/api/profiles`, editProfileDTO)
-    .then((response) => response.data.data.message);
+  api.put(`/api/profiles`, editProfileDTO);
