@@ -48,6 +48,7 @@ const PasswordCheckModal = ({ open, setOpen }: Props) => {
               type="password"
               value={value}
               onChange={(e) => setValue(e.target.value)}
+              placeholder="비밀번호 입력"
             />
           </AlertDialogDescription>
         </AlertDialogHeader>
