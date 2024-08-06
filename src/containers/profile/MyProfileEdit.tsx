@@ -7,9 +7,9 @@ import { resizeFile } from '@/utils/image';
 import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { useEditProfile } from '@/hooks/useEditProfile';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useEditProfile } from '@/hooks/useProfile';
 
 const MyProfileEdit = () => {
   const editProfileMutation = useEditProfile();
@@ -107,6 +107,7 @@ const MyProfileEdit = () => {
           <Label className="self-start">닉네임</Label>
           <Input
             value={formData.nickname || ''}
+            placeholder="닉네임 입력"
             className="mt-1"
             onChange={(e) => {
               setFormData({ ...formData, nickname: e.target.value });
@@ -129,7 +130,7 @@ const MyProfileEdit = () => {
           <Input
             value={formData.password || ''}
             type="password"
-            placeholder="변경할 비밀번호"
+            placeholder="변경할 비밀번호 입력"
             className="mt-1"
             onChange={(e) => {
               setFormData({ ...formData, password: e.target.value });

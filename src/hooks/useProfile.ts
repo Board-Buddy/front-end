@@ -1,6 +1,7 @@
-import { getProfile } from '@/services/profile';
+import { editProfile, getProfile } from '@/services/profile';
 import { UserInfo } from '@/types/user';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 export const useGetMyProfile = () => {
   const queryClient = useQueryClient();
@@ -21,5 +22,22 @@ export const useGetOtherUserProfile = (nickname: string) => {
     queryFn: () => getProfile(nickname),
     staleTime: 0,
     gcTime: 0,
+  });
+};
+
+export const useEditProfile = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: (data: FormData) => editProfile(data),
+    onSuccess: () => {
+      router.push('/my');
+      // 성공 시 userInfo 쿼리 무효화
+      queryClient.invalidateQueries({
+        queryKey: ['userInfo'],
+      });
+    },
+    retry: 0,
   });
 };
