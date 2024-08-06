@@ -1,6 +1,7 @@
 import { CustomError } from '@/types/api';
 import axios from 'axios';
 import { errorToast } from './customToast';
+
 const handleApiError = (error: unknown) => {
   if (axios.isAxiosError(error)) {
     // Axios 에러인 경우

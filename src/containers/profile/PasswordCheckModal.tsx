@@ -12,7 +12,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { passwordCheck } from '@/services/auth';
-import { notify } from '@/utils/handleApiError';
+import { errorToast } from '@/utils/customToast';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -31,7 +31,7 @@ const PasswordCheckModal = ({ open, setOpen }: Props) => {
     if (status === 'success') {
       router.push('/my/edit');
     } else {
-      notify('passwordCheck', message);
+      errorToast('passwordCheck', message);
       setValue('');
     }
   };
