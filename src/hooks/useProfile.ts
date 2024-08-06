@@ -1,6 +1,8 @@
-import { getProfile } from '@/services/profile';
+import { editProfile, getProfile } from '@/services/profile';
 import { UserInfo } from '@/types/user';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { blobToJson } from '@/utils/blobToJson';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
 
 export const useGetMyProfile = () => {
   const queryClient = useQueryClient();
@@ -21,5 +23,30 @@ export const useGetOtherUserProfile = (nickname: string) => {
     queryFn: () => getProfile(nickname),
     staleTime: 0,
     gcTime: 0,
+  });
+};
+
+export const useEditProfile = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: (data: FormData) => editProfile(data),
+    onSuccess: async (_, variables) => {
+      const updatedData = variables.get('UpdateProfileDTO') as File;
+      const json = await blobToJson(updatedData);
+      const newNickname = json.nickname;
+
+      // 성공 시 userInfo 업데이트
+      await queryClient.setQueryData(['userInfo'], (old: UserInfo) => {
+        return {
+          ...old,
+          nickname: newNickname ?? old.nickname,
+        };
+      });
+
+      router.push('/my');
+    },
+    retry: 0,
   });
 };
