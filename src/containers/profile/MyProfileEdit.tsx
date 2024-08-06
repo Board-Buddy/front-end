@@ -138,6 +138,7 @@ const MyProfileEdit = () => {
           <Input
             value={formData.description || ''}
             className="mt-1"
+            placeholder="자기소개 입력"
             onChange={(e) => {
               setFormData({ ...formData, description: e.target.value });
             }}
