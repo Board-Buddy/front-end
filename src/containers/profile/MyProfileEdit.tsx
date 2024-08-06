@@ -3,41 +3,22 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { IMAGE_MAX_SIZE } from '@/constants/image';
 import { EditProfileDTO } from '@/types/profile';
-import { UserInfo } from '@/types/user';
 import { resizeFile } from '@/utils/image';
-import { cn } from '@/utils/tailwind';
-import { useQueryClient } from '@tanstack/react-query';
 import { useRef, useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { useEditProfile } from '@/hooks/useEditProfile';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useGetMyProfile } from '@/hooks/useProfile';
-import Loading from '@/components/Loading';
 
 const MyProfileEdit = () => {
-  const cache = useQueryClient();
-  const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
-  const { nickname, awsS3SavedFileURL } = userInfo;
-
-  // const { data: profile, isPending, isError, error } = useGetMyProfile();
-
-  // if (isPending) {
-  //   return <Loading />;
-  // }
-
-  // if (isError) {
-  //   return <span>Error: {error?.message}</span>;
-  // }
-
   const editProfileMutation = useEditProfile();
 
   const imageInputRef = useRef<HTMLInputElement>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
 
   const [formData, setFormData] = useState<EditProfileDTO>({
-    nickname,
+    nickname: '',
     password: '',
     phoneNumber: '',
     description: '',
