@@ -5,6 +5,7 @@ import { chatHandlers } from './chat';
 import { articleHandlers } from './gather-articles';
 import { participationHandlers } from './gather-articles/[gatherArticleId]/participation';
 import { locationHandlers } from './locations';
+import { myActivityHandlers } from './my';
 import { notificationHandlers } from './notifications';
 import { profileHandlers } from './profiles';
 import { radiusHandlers } from './radius';
@@ -22,4 +23,5 @@ export const handlers = [
   ...notificationHandlers,
   ...profileHandlers,
   ...badgeHandlers,
+  ...myActivityHandlers,
 ];

@@ -1,4 +1,10 @@
-import { editProfile, getBadgeList, getProfile } from '@/services/profile';
+import {
+  editProfile,
+  getBadgeList,
+  getJoinedArticles,
+  getMyArticles,
+  getProfile,
+} from '@/services/profile';
 import { UserInfo } from '@/types/user';
 import { blobToJson } from '@/utils/blobToJson';
 import { successToast } from '@/utils/customToast';
@@ -45,5 +51,19 @@ export const useGetBadgeList = (nickname: string) => {
     queryFn: () => getBadgeList(nickname),
     staleTime: 0,
     gcTime: 0,
+  });
+};
+
+export const useGetMyArticles = () => {
+  return useQuery({
+    queryKey: ['myArticles'],
+    queryFn: () => getMyArticles(),
+  });
+};
+
+export const useGetJoinedArticles = () => {
+  return useQuery({
+    queryKey: ['myJoinedArticles'],
+    queryFn: () => getJoinedArticles(),
   });
 };
