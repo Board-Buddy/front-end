@@ -5,14 +5,15 @@ import Link from 'next/link';
 
 interface Props {
   badges: string[];
+  nickname?: string;
 }
 
-const BadgeList = ({ badges }: Props) => {
+const BadgeList = ({ badges, nickname }: Props) => {
   return (
     <div className="border-b-[1px] border-gray-200 py-4">
       <div className="flex justify-between items-center font-bold mb-4">
         <div className="flex gap-2 px-1">뱃지 목록</div>
-        <Link href="/my/badges">
+        <Link href={nickname ? `${nickname}/badges` : '/my/badges'}>
           <div
             className={cn(
               'flex items-center text-sm text-gray-700 font-bold',

@@ -5,20 +5,7 @@ import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
-export const useGetMyProfile = () => {
-  const queryClient = useQueryClient();
-  const userInfo = queryClient.getQueryData(['userInfo']) as UserInfo;
-  const { nickname } = userInfo;
-
-  return useQuery({
-    queryKey: ['profile', { nickname }],
-    queryFn: () => getProfile(nickname),
-    staleTime: 0,
-    gcTime: 0,
-  });
-};
-
-export const useGetOtherUserProfile = (nickname: string) => {
+export const useGetProfile = (nickname: string) => {
   return useQuery({
     queryKey: ['profile', { nickname }],
     queryFn: () => getProfile(nickname),
