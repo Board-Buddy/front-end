@@ -23,7 +23,7 @@ export const getUserProfile = http.get(
           totalBadCount: 0,
         },
       },
-      message: '반경 설정을 성공하였습니다.',
+      message: '프로필이 조회되었습니다.',
     };
 
     return HttpResponse.json(result, { status: 200 });
