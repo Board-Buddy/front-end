@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useEditProfile } from '@/hooks/useProfile';
 
-const MyProfileEdit = () => {
+const MyProfileEditForm = () => {
   const editProfileMutation = useEditProfile();
 
   const imageInputRef = useRef<HTMLInputElement>(null);
@@ -145,4 +145,4 @@ const MyProfileEdit = () => {
   );
 };
 
-export default MyProfileEdit;
+export default MyProfileEditForm;
