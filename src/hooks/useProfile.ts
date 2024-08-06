@@ -1,5 +1,6 @@
 import { editProfile, getProfile } from '@/services/profile';
 import { UserInfo } from '@/types/user';
+import { blobToJson } from '@/utils/blobToJson';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
@@ -31,12 +32,20 @@ export const useEditProfile = () => {
 
   return useMutation({
     mutationFn: (data: FormData) => editProfile(data),
-    onSuccess: () => {
-      router.push('/my');
-      // 성공 시 userInfo 쿼리 무효화
-      queryClient.invalidateQueries({
-        queryKey: ['userInfo'],
+    onSuccess: async (_, variables) => {
+      const updatedData = variables.get('UpdateProfileDTO') as File;
+      const json = await blobToJson(updatedData);
+      const newNickname = json.nickname;
+
+      // 성공 시 userInfo 업데이트
+      await queryClient.setQueryData(['userInfo'], (old: UserInfo) => {
+        return {
+          ...old,
+          nickname: newNickname ?? old.nickname,
+        };
       });
+
+      router.push('/my');
     },
     retry: 0,
   });
