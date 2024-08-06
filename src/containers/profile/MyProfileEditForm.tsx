@@ -340,6 +340,7 @@ const MyProfileEditForm = () => {
                     <div className="flex items-center gap-2 mt-1">
                       <FormControl>
                         <Input
+                          type="password"
                           placeholder="기존 비밀번호 입력"
                           {...field}
                           onChange={(e) => {
