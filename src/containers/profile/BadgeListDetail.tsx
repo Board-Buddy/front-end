@@ -1,26 +1,35 @@
 'use client';
 
+import Loading from '@/components/Loading';
+import { useGetBadgeList } from '@/hooks/useProfile';
+import { UserInfo } from '@/types/user';
 import { cn } from '@/utils/tailwind';
+import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 
-const BadgeListDetail = () => {
-  const badges = [
-    {
-      badgeImageS3SavedURL: '',
-    },
-    {
-      badgeImageS3SavedURL: '',
-    },
-    {
-      badgeImageS3SavedURL: '',
-    },
-    {
-      badgeImageS3SavedURL: '',
-    },
-    {
-      badgeImageS3SavedURL: '',
-    },
-  ];
+interface Props {
+  nickname?: string;
+}
+
+const BadgeListDetail = ({ nickname }: Props) => {
+  const cache = useQueryClient();
+  const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
+  const { nickname: myNickname } = userInfo;
+
+  const {
+    data: badges,
+    isPending,
+    isError,
+    error,
+  } = useGetBadgeList(nickname || myNickname);
+
+  if (isPending) {
+    return <Loading />;
+  }
+
+  if (isError) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div className="px-4 py-8">
