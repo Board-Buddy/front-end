@@ -9,16 +9,24 @@ import MyArticle from '@/containers/profile/MyArticle';
 import LocationSetting from '@/containers/profile/LocationSetting';
 import LogoutButton from '@/containers/profile/LogoutButton';
 import DeleteAccountButton from '@/containers/profile/DeleteAccountButton';
-import { useGetProfile } from '@/hooks/useProfile';
-import { useQueryClient } from '@tanstack/react-query';
-import { UserInfo } from '@/types/user';
+
+import { useGetMyProfile } from '@/hooks/useProfile';
+import { LoaderCircleIcon } from 'lucide-react';
 
 const Profile = () => {
-  // const cache = useQueryClient();
-  // const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
-  // const { nickname } = userInfo;
+  const { data: profile, isPending, isError, error } = useGetMyProfile();
 
-  const { data: profile } = useGetProfile('nickname');
+  if (isPending) {
+    return (
+      <div className="flex justify-center items-center h-[calc(100vh-100px)]">
+        <LoaderCircleIcon className="animate-spin text-primary" />
+      </div>
+    );
+  }
+
+  if (isError) {
+    return <span>Error: {error?.message}</span>;
+  }
 
   return (
     <div className="items-center">
