@@ -1,5 +1,4 @@
 import { API_BASE_URL } from '@/constants/env';
-import { UserInfo } from '@/types/user';
 import { http, HttpResponse } from 'msw';
 
 interface RequestBody {
@@ -7,15 +6,7 @@ interface RequestBody {
   password: string;
 }
 
-interface ResponseBody {
-  status: string;
-  data: {
-    profileDTO: UserInfo;
-  } | null;
-  message: string;
-}
-
-export const login = http.post<any, RequestBody, ResponseBody>(
+export const login = http.post<any, RequestBody>(
   `${API_BASE_URL}/api/auth/login`,
   async ({ request }) => {
     const { username, password } = await request.json();
@@ -44,6 +35,7 @@ export const login = http.post<any, RequestBody, ResponseBody>(
       data: {
         profileDTO: {
           nickname: 'yubin',
+          memberType: 'SOCIAL',
           sido: '서울특별시',
           sgg: '송파구',
           emd: '잠실동',

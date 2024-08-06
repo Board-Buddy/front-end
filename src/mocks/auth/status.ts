@@ -12,6 +12,7 @@ export const status = http.get(`${API_BASE_URL}/api/auth/status`, () => {
         emd: '잠실동',
         isPhoneNumberVerified: true,
         profileImageS3SavedURL: null,
+        memberType: 'SOCIAL',
       },
     },
     message: '유효한 세션입니다.',
