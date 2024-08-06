@@ -10,7 +10,7 @@ interface Props {
   nickname?: string;
   description: string;
   rank: number | null;
-  profileImageS3SavedURL: string | null;
+  profileImageS3SavedURL?: string | null;
 }
 
 const ProfileInfo = ({
