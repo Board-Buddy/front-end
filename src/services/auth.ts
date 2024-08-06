@@ -149,3 +149,24 @@ export const oauthRegister = async (data: {
     };
   }
 };
+
+/** 비밀번호 검증 API */
+export const passwordCheck = async (password: string) => {
+  try {
+    const response = await api.post('/api/auth/password', {
+      password,
+    });
+
+    return {
+      status: 'success',
+      data: response.data.data,
+      message: response.data.message,
+    };
+  } catch (error: any) {
+    return {
+      status: error.response.data.status,
+      data: error.response.data.data,
+      message: error.response.data.message,
+    };
+  }
+};

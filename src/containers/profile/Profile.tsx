@@ -31,7 +31,11 @@ const Profile = () => {
   return (
     <div className="items-center">
       <div className="mb-4">
-        <ProfileInfo description={profile.description} rank={profile.rank} />
+        <ProfileInfo
+          description={profile.description}
+          rank={profile.rank}
+          profileImageS3SavedURL={profile.profileImageS3SavedURL}
+        />
         <BuddyPoint score={profile.buddyScore} />
         <BadgeList badges={profile.badges} />
         <ReviewList
