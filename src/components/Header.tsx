@@ -56,6 +56,10 @@ const Header = () => {
       title: '프로필 수정',
       leftArrow: true,
     },
+    '/my/badges': {
+      title: '나의 뱃지 목록',
+      leftArrow: true,
+    },
   };
 
   let title = headerParams[pathname]?.title || '';
@@ -85,7 +89,14 @@ const Header = () => {
   }
 
   if (pathname.includes('profile') && pathname.split('/').length >= 3) {
-    title = '프로필';
+    const nickname = decodeURIComponent(pathname.split('/').pop()!);
+    title = `${nickname} 님의 프로필`;
+    leftArrow = true;
+  }
+
+  if (pathname.includes('badges') && pathname.split('/').length >= 4) {
+    const nickname = decodeURIComponent(pathname.split('/')[2]!);
+    title = `${nickname} 님의 뱃지 목록`;
     leftArrow = true;
   }
 
