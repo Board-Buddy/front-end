@@ -98,7 +98,7 @@ const Article = ({
               className="mr-1"
             />
           )}
-          {author.nickname}
+          {author?.nickname}
         </div>
       </CardFooter>
     </Card>
