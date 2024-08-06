@@ -12,7 +12,7 @@ const Page = ({ params }: { params: { nickname: string } }) => {
       <div className="pb-4">
         <ProfileInfo
           nickname={decodeURIComponent(params.nickname)}
-          description={'자기소개'}
+          description="자기소개"
           rank={null}
         />
         <BuddyPoint score={50} />
