@@ -80,6 +80,11 @@ const Header = () => {
     leftArrow = true;
   }
 
+  if (pathname.includes('profile') && pathname.split('/').length >= 3) {
+    title = '프로필';
+    leftArrow = true;
+  }
+
   const handleNotificationButtonClick = () => {
     router.push('/notifications');
   };

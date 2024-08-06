@@ -1,20 +1,23 @@
 import CustomAvatar from '@/components/CustomAvatar';
 import { UserInfo } from '@/types/user';
+import { cn } from '@/utils/tailwind';
 import { useQueryClient } from '@tanstack/react-query';
 import { ChevronRight } from 'lucide-react';
 
 const sampleImageURL = '/images/default_profile.png';
 
 const ProfileInfo = ({
+  nickname,
   description,
   rank,
 }: {
+  nickname?: string;
   description: string;
   rank: number | null;
 }) => {
   const cache = useQueryClient();
   const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
-  const { nickname } = userInfo;
+  const { nickname: myNickname } = userInfo;
 
   return (
     <div className="flex items-center">
@@ -22,16 +25,21 @@ const ProfileInfo = ({
         <CustomAvatar
           src={sampleImageURL || null}
           rank={rank}
-          nickname="asdf"
+          nickname={nickname || myNickname}
           avatarSize="md"
         />
       </div>
 
       <div className="ml-3 items-center">
-        <span className="text-lg font-bold">{nickname}</span>
+        <span className="text-lg font-bold">{nickname || myNickname}</span>
         <p className="text-sm text-gray-600">{description}</p>
       </div>
-      <div className="flex items-center text-sm text-gray-700 font-bold ml-auto self-start">
+      <div
+        className={cn(
+          'flex items-center text-sm text-gray-700 font-bold ml-auto self-start',
+          nickname ? 'hidden' : 'visible',
+        )}
+      >
         <p>수정하기</p>
         <ChevronRight className="w-5 h-5 text-gray-700" />
       </div>

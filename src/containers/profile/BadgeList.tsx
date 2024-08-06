@@ -1,3 +1,4 @@
+import { cn } from '@/utils/tailwind';
 import { ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 
@@ -11,8 +12,15 @@ const BadgeList = ({ badges }: { badges: string[] }) => {
           <ChevronRight className="w-5 h-5 text-gray-700" />
         </div>
       </div>
-      <div className="flex justify-center items-center space-x-16 p-4">
-        {badges.length === 0 && <div>획득한 뱃지가 없습니다.</div>}
+      <div
+        className={cn(
+          'flex justify-center items-center space-x-16',
+          badges.length === 0 ? 'pb-4' : 'p-4',
+        )}
+      >
+        {badges.length === 0 && (
+          <div className="text-sm text-gray-600">획득한 뱃지가 없습니다.</div>
+        )}
         {badges.map(
           (badge) =>
             badge && (
