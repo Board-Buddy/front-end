@@ -27,9 +27,15 @@ const BadgeList = ({ badges }: { badges: string[] }) => {
           <div className="text-sm text-gray-600">획득한 뱃지가 없습니다.</div>
         )}
         {badges.map(
-          (badge) =>
+          (badge, i) =>
             badge && (
-              <Image src={badge} alt="badge image" width={48} height={48} />
+              <Image
+                src={badge}
+                alt="badge image"
+                width={48}
+                height={48}
+                key={i}
+              />
             ),
         )}
       </div>

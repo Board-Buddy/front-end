@@ -9,3 +9,11 @@ export interface Profile {
   totalBadCount: number;
   joinCount: number;
 }
+
+export interface EditProfileDTO {
+  profileImageFile: string | null;
+  nickname: string | null;
+  password: string | null;
+  phoneNumber: string | null;
+  description: string | null;
+}
