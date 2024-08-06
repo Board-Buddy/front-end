@@ -52,7 +52,6 @@ const MyProfileEdit = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData);
 
     // 서버 요청 시에 사용할 폼 데이터
     const formDataRequest = new FormData();
@@ -63,10 +62,10 @@ const MyProfileEdit = () => {
     }
 
     const updateProfileDTO = {
-      nickname: formData?.nickname,
-      password: formData?.password,
-      phoneNumber: formData?.phoneNumber,
-      description: formData?.description,
+      nickname: formData.nickname,
+      password: formData.password,
+      phoneNumber: formData.phoneNumber,
+      description: formData.description,
     };
 
     formDataRequest.append(
