@@ -28,12 +28,12 @@ const ArticleDetail = ({ id }: { id: number }) => {
     return <span>Error: {error.message}</span>;
   }
 
-  const isAuthor = article.author.nickname === nickname;
+  const isAuthor = article.author!.nickname === nickname;
   const isCompleted = article.status === 'completed';
 
   return (
     <div>
-      <Profile author={article.author} />
+      <Profile author={article.author!} />
       <ArticleContent
         id={id}
         title={article.title}
@@ -50,7 +50,7 @@ const ArticleDetail = ({ id }: { id: number }) => {
         endDateTime={article.endDateTime}
         createdAt={article.createdAt}
         status={article.status}
-        isAuthor={nickname === article.author.nickname}
+        isAuthor={nickname === article.author!.nickname}
       />
       {isCompleted && article.participationApplicationStatus === 'approved' && (
         <ReviewButton articleId={id} />
