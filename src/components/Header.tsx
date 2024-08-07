@@ -104,6 +104,11 @@ const Header = () => {
     leftArrow = true;
   }
 
+  if (pathname.includes('reviews')) {
+    title = '후기 작성';
+    leftArrow = true;
+  }
+
   const handleNotificationButtonClick = () => {
     router.push('/notifications');
   };
