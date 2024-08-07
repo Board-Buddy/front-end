@@ -17,7 +17,7 @@ export const boardCafes = http.get(
                 addressName: '서울 종로구 내수동 73',
                 distance: '1867',
                 id: '841664157',
-                phone: '070-8627-1688',
+                phone: '',
                 placeName: '보드게임101 광화문점 24시간 무인카페',
                 placeUrl: 'http://place.map.kakao.com/841664157',
                 roadAddressName: '서울 종로구 새문안로3길 23',
