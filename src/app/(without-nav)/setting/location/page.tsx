@@ -1,5 +1,4 @@
-import LocationRadiusSetting from '@/containers/location/LocationRadiusSetting';
-import Map from '@/containers/location/Map';
+import NeighborhoodsSetting from '@/containers/location/NeighborhoodsSetting';
 
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
@@ -7,8 +6,7 @@ export const fetchCache = 'force-no-store';
 const page = () => {
   return (
     <div className="flex flex-col">
-      <Map />
-      <LocationRadiusSetting />
+      <NeighborhoodsSetting />
     </div>
   );
 };

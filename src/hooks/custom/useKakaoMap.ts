@@ -6,6 +6,7 @@ import {
   LEVEL_TO_RADIUS,
   MAP_INITIAL_LEVEL,
   MAP_MAX_LEVEL,
+  RADIUS_TO_LEVEL,
 } from '@/constants/map';
 import { Location } from '@/types/map';
 
@@ -17,7 +18,10 @@ const useKakaoMap = (
   setShowInfo?: (show: boolean) => void,
   setShowReloadButton?: (show: boolean) => void,
   setStatic?: boolean,
+  radiusSetting?: number,
 ) => {
+  console.log(radiusSetting);
+
   const mapRef = useRef<HTMLDivElement>(null);
   const [mapObject, setMapObject] = useState<any>(null);
   const [radius, setRadius] = useState<number>(
@@ -47,12 +51,15 @@ const useKakaoMap = (
             location.latitude,
             location.longitude,
           ),
-          level: MAP_INITIAL_LEVEL,
+          level: radiusSetting
+            ? RADIUS_TO_LEVEL[radiusSetting]
+            : MAP_INITIAL_LEVEL,
           maxLevel: MAP_MAX_LEVEL,
           draggable: !setStatic,
           zoomable: !setStatic,
         };
 
+        console.log(options);
         const map = new window.kakao.maps.Map(container, options);
         setMapObject(map);
 
@@ -102,6 +109,25 @@ const useKakaoMap = (
         });
 
         currentMarker.setMap(map);
+
+        // 반경 정보가 주어졌다면(동네 설정 페이지) 반경 표시
+        if (radiusSetting) {
+          const circle = new window.kakao.maps.Circle({
+            center: new window.kakao.maps.LatLng(
+              location.latitude,
+              location.longitude,
+            ),
+            radius: radiusSetting * 1000,
+            strokeWeight: 1, // 선의 두께
+            strokeColor: '#F49C01', // 선의 색깔
+            strokeOpacity: 1, // 선의 불투명도
+            strokeStyle: 'line', // 선의 스타일
+            fillColor: '#FFF3E0', // 채우기 색깔
+            fillOpacity: 0.4, // 채우기 불투명도
+          });
+
+          circle.setMap(map);
+        }
       });
     };
 

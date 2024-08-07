@@ -8,7 +8,7 @@ export const setLocation = ({ sido, sgg, emd }: { [key: string]: string }) =>
 export const setRadius = ({ radius }: { radius: 2 | 5 | 7 | 10 }) =>
   api.post('/api/radius', { radius });
 
-/** 위치 검색 API) */
+/** 위치 검색 API */
 export const searchLocation = (keyword: string, forAuth: boolean) => {
   return forAuth
     ? api
@@ -18,3 +18,7 @@ export const searchLocation = (keyword: string, forAuth: boolean) => {
         .get(`/api/locations/search?emd=${keyword}`)
         .then((response) => response.data.data.locations);
 };
+
+/** 내 동네 조회 API */
+export const getMyNeighborhoods = () =>
+  api.get('/api/my/neighborhoods').then((response) => response.data.data);

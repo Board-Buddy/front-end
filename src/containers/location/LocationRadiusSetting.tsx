@@ -5,8 +5,13 @@ import { useState } from 'react';
 import { useSetLocation, useSetRadius } from '@/hooks/useLocation';
 import LocationSettingComboBox from '@/components/LocationSettingComboBox';
 
-const LocationRadiusSetting = () => {
-  const [value, setValue] = useState(0);
+interface Props {
+  radius: number;
+}
+
+const LocationRadiusSetting = ({ radius }: Props) => {
+  const radiusOptions = [2, 5, 7, 10];
+  const [value, setValue] = useState(radiusOptions.indexOf(radius));
 
   const locationMutation = useSetLocation();
   const radiusMutation = useSetRadius();
@@ -28,12 +33,11 @@ const LocationRadiusSetting = () => {
           onSelect={onLocationSelect}
         />
         <Slider
-          defaultValue={[0]}
           value={[value]}
           onValueChange={([val]) => {
             setValue(val);
-            const radiusOptions = [2, 5, 7, 10] as const;
-            radiusMutation.mutate({ radius: radiusOptions[val] });
+            const radiusType = [2, 5, 7, 10] as const;
+            radiusMutation.mutate({ radius: radiusType[val] });
           }}
           min={0}
           max={3}
