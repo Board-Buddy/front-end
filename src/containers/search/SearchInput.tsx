@@ -34,7 +34,7 @@ const SearchInput = ({ keyword, setKeyword, refetch }: Props) => {
         onKeyDown={(e) => activeEnter(e)}
         placeholder="검색어를 입력하세요."
       />
-      <SearchIcon className="mr-4 text-gray-400" />
+      <SearchIcon className="mr-4 text-gray-400" onClick={() => refetch()} />
     </div>
   );
 };
