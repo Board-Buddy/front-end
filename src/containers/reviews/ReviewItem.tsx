@@ -1,17 +1,33 @@
+'use client';
+
 import CustomAvatar from '@/components/CustomAvatar';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
+import { useSendReview } from '@/hooks/useReview';
 import ReviewModal from './ReviewModal';
 
 interface Props {
   nickname: string;
-  profileImage: string;
+  profileImage: string | null;
   rank: number | null;
   isReviewed: boolean;
+  articleId: string;
 }
 
-const ReviewItem = ({ nickname, profileImage, rank, isReviewed }: Props) => {
+const ReviewItem = ({
+  nickname,
+  profileImage,
+  rank,
+  isReviewed,
+  articleId,
+}: Props) => {
   const [open, setOpen] = useState(false);
+
+  const mutation = useSendReview(articleId, nickname, setOpen);
+
+  const onSubmit = (review: string) => {
+    mutation.mutate({ review });
+  };
 
   return (
     <>
@@ -31,7 +47,12 @@ const ReviewItem = ({ nickname, profileImage, rank, isReviewed }: Props) => {
           {isReviewed ? '작성 완료' : '후기 작성'}
         </Button>
       </div>
-      <ReviewModal open={open} setOpen={setOpen} nickname={nickname} />
+      <ReviewModal
+        open={open}
+        setOpen={setOpen}
+        nickname={nickname}
+        onSubmit={onSubmit}
+      />
     </>
   );
 };

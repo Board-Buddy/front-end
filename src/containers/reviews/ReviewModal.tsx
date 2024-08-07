@@ -16,9 +16,10 @@ interface Props {
   open: boolean;
   nickname: string;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  onSubmit: (review: string) => void;
 }
 
-const ReviewModal = ({ open, nickname, setOpen }: Props) => {
+const ReviewModal = ({ open, nickname, setOpen, onSubmit }: Props) => {
   const [selected, setSelected] = useState<string>('');
 
   const handleSelect = (choice: string) => {
@@ -97,7 +98,10 @@ const ReviewModal = ({ open, nickname, setOpen }: Props) => {
           >
             <p>취소</p>
           </div>
-          <div className="w-full bg-primary text-white font-semibold rounded-br-lg place-content-center cursor-pointer text-sm">
+          <div
+            className="w-full bg-primary text-white font-semibold rounded-br-lg place-content-center cursor-pointer text-sm"
+            onClick={() => onSubmit(selected)}
+          >
             <p>후기 보내기</p>
           </div>
         </div>
