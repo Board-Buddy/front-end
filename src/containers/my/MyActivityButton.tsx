@@ -1,7 +1,7 @@
 import { ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
-const MyArticle = () => {
+const MyActivityButton = () => {
   return (
     <Link href="my/activity">
       <div className="border-b-[1px] border-gray-200 py-4 px-1">
@@ -13,4 +13,4 @@ const MyArticle = () => {
     </Link>
   );
 };
-export default MyArticle;
+export default MyActivityButton;

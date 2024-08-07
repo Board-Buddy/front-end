@@ -3,18 +3,17 @@
 import ProfileInfo from '@/containers/profile/ProfileInfo';
 import BuddyPoint from '@/containers/profile/BuddyPoint';
 import BadgeList from '@/containers/profile/BadgeList';
-import MyParticipation from '@/containers/profile/MyParticipation';
+import MyParticipation from '@/containers/my/MyParticipation';
 import ReviewList from '@/containers/profile/ReviewList';
-import MyArticle from '@/containers/profile/MyArticle';
-import LocationSetting from '@/containers/profile/LocationSetting';
-import LogoutButton from '@/containers/profile/LogoutButton';
-import DeleteAccountButton from '@/containers/profile/DeleteAccountButton';
-
+import LocationSetting from '@/containers/my/LocationSetting';
 import { useGetProfile } from '@/hooks/useProfile';
 import { LoaderCircleIcon } from 'lucide-react';
 import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
 import { cn } from '@/utils/tailwind';
+import LogoutButton from '../my/LogoutButton';
+import WithdrawalButton from '../my/WithdrawalButton';
+import MyActivityButton from '../my/MyActivityButton';
 
 interface Props {
   nickname?: string;
@@ -65,7 +64,7 @@ const Profile = ({ nickname }: Props) => {
         />
         {!nickname && (
           <>
-            <MyArticle />
+            <MyActivityButton />
             <LocationSetting />
           </>
         )}
@@ -74,7 +73,7 @@ const Profile = ({ nickname }: Props) => {
       {!nickname && (
         <>
           <LogoutButton />
-          <DeleteAccountButton />
+          <WithdrawalButton />
         </>
       )}
     </div>
