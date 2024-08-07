@@ -1,4 +1,4 @@
-import MyProfileEditForm from '@/containers/profile/MyProfileEditForm';
+import MyProfileEditForm from '@/containers/my/MyProfileEditForm';
 
 export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
