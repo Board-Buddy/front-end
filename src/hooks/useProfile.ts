@@ -58,6 +58,8 @@ export const useGetMyArticles = () => {
   return useQuery({
     queryKey: ['myArticles'],
     queryFn: () => getMyArticles(),
+    staleTime: 0,
+    gcTime: 0,
   });
 };
 
@@ -65,5 +67,7 @@ export const useGetJoinedArticles = () => {
   return useQuery({
     queryKey: ['myJoinedArticles'],
     queryFn: () => getJoinedArticles(),
+    staleTime: 0,
+    gcTime: 0,
   });
 };
