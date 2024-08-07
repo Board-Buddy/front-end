@@ -72,7 +72,7 @@ const ReviewModal = ({ open, nickname, setOpen, onSubmit }: Props) => {
                 onClick={() => handleSelect('BAD')}
               >
                 별로예요
-                <ThumbsUpIcon
+                <ThumbsDownIcon
                   size={16}
                   strokeWidth={selected === 'BAD' ? 2.5 : 2}
                 />
