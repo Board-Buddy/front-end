@@ -8,7 +8,6 @@ import { locationHandlers } from './locations';
 import { myActivityHandlers } from './my';
 import { notificationHandlers } from './notifications';
 import { profileHandlers } from './profiles';
-import { radiusHandlers } from './radius';
 import { rankingHandlers } from './rankings';
 import { reviewHandlers } from './reviews';
 
@@ -16,7 +15,6 @@ export const handlers = [
   ...authHandlers,
   ...articleHandlers,
   ...locationHandlers,
-  ...radiusHandlers,
   ...boardCafeHandlers,
   ...rankingHandlers,
   ...participationHandlers,
