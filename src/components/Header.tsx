@@ -3,13 +3,11 @@
 import { cn } from '@/utils/tailwind';
 import { Bell, ChevronLeft, SearchIcon } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
-import SearchInput from '@/containers/search/SearchInput';
 import Link from 'next/link';
 import NotificationProvider from './NotificationProvider';
 
 const Header = () => {
   const pathname = usePathname();
-  const router = useRouter();
 
   if (
     pathname === '/' ||
