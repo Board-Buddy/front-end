@@ -12,9 +12,6 @@ const page = () => {
       <Banner />
       <Ranking />
       <ArticleList />
-      <div className="text-center translate-y-5 text-gray-600 text-sm">
-        모든 글을 확인하셨습니다
-      </div>
       <WriteButton />
     </>
   );
