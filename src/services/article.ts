@@ -26,3 +26,11 @@ export const editArticle = (data: NewArticle, articleId: number) =>
 /** 모집글 삭제 API */
 export const deleteArticle = (articleId: number) =>
   api.delete(`/api/gather-articles/${articleId}`);
+
+/** 모집글 검색 API */
+export const searchArticles = (keyword: string) =>
+  api
+    .get('/api/gather-articles/search', {
+      params: { query: keyword },
+    })
+    .then((response) => response.data.data.posts);
