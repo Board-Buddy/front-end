@@ -40,15 +40,20 @@ const BadgeListDetail = ({ nickname }: Props) => {
         {badges.map(
           (badge, i) =>
             badge && (
-              <Image
-                src={
-                  badge.badgeImageS3SavedURL || '/images/default_profile.png'
-                }
-                alt="badge image"
-                width={65}
-                height={65}
-                key={i}
-              />
+              <div>
+                <Image
+                  src={
+                    badge.badgeImageS3SavedURL || '/images/default_profile.png'
+                  }
+                  alt="badge image"
+                  width={65}
+                  height={65}
+                  key={i}
+                />
+                <div className="mt-2 text-xs text-center">
+                  {badge.badgeYearMonth}
+                </div>
+              </div>
             ),
         )}
       </div>

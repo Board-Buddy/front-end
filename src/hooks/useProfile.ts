@@ -46,7 +46,7 @@ export const useEditProfile = () => {
 };
 
 export const useGetBadgeList = (nickname: string) => {
-  return useQuery<{ badgeImageS3SavedURL: string }[]>({
+  return useQuery<{ badgeImageS3SavedURL: string; badgeYearMonth: string }[]>({
     queryKey: ['badgeList', { nickname }],
     queryFn: () => getBadgeList(nickname),
     staleTime: 0,

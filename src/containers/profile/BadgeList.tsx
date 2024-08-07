@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 interface Props {
-  badges: string[];
+  badges: { badgeImageS3SavedURL: string; badgeYearMonth: string }[];
   nickname?: string;
 }
 
@@ -37,13 +37,20 @@ const BadgeList = ({ badges, nickname }: Props) => {
         {badges.map(
           (badge, i) =>
             badge && (
-              <Image
-                src={badge}
-                alt="badge image"
-                width={48}
-                height={48}
-                key={i}
-              />
+              <div>
+                <Image
+                  src={
+                    badge.badgeImageS3SavedURL || '/images/default_profile.png'
+                  }
+                  alt="badge image"
+                  width={65}
+                  height={65}
+                  key={i}
+                />
+                <div className="mt-2 text-xs text-center">
+                  {badge.badgeYearMonth}
+                </div>
+              </div>
             ),
         )}
       </div>

@@ -13,9 +13,18 @@ export const getUserProfile = http.get(
           rank: 2,
           buddyScore: 68,
           badges: [
-            '/images/default_profile.png',
-            '/images/default_profile.png',
-            '/images/default_profile.png',
+            {
+              badgeImageS3SavedURL: null,
+              badgeYearMonth: '2024.09',
+            },
+            {
+              badgeImageS3SavedURL: null,
+              badgeYearMonth: '2024.08',
+            },
+            {
+              badgeImageS3SavedURL: null,
+              badgeYearMonth: '2024.07',
+            },
           ],
           joinCount: 4,
           totalExcellentCount: 2,
