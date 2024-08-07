@@ -10,6 +10,7 @@ import { notificationHandlers } from './notifications';
 import { profileHandlers } from './profiles';
 import { radiusHandlers } from './radius';
 import { rankingHandlers } from './rankings';
+import { reviewHandlers } from './reviews';
 
 export const handlers = [
   ...authHandlers,
@@ -24,4 +25,5 @@ export const handlers = [
   ...profileHandlers,
   ...badgeHandlers,
   ...myActivityHandlers,
+  ...reviewHandlers,
 ];

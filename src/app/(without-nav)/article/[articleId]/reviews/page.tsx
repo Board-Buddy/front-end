@@ -1,9 +1,9 @@
 import ReviewList from '@/containers/reviews/ReviewList';
 
-const page = () => {
+const page = ({ params }: { params: { articleId: string } }) => {
   return (
     <div className="p-4">
-      <ReviewList />
+      <ReviewList articleId={params.articleId} />
     </div>
   );
 };
