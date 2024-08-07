@@ -140,6 +140,7 @@ const useKakaoMap = (
     setShowInfo,
     setShowReloadButton,
     setStatic,
+    radiusSetting,
   ]);
 
   return { mapRef, mapObject, markersRef, radius, center };

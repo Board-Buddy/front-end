@@ -1,6 +1,5 @@
 'use client';
 
-import { RADIUS_TO_LEVEL } from '@/constants/map';
 import useKakaoMap from '@/hooks/custom/useKakaoMap';
 import { Location } from '@/types/map';
 
