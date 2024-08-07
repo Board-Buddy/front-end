@@ -8,6 +8,8 @@ import { smsCertificationVerify } from './sms-certifications/verify';
 import { status } from './status';
 import { searchLocation } from './locations/search';
 import { passwordCheck } from './password';
+import { logout } from './logout';
+import { withdrawal } from './withdrawal';
 
 export const authHandlers = [
   status,
@@ -20,4 +22,6 @@ export const authHandlers = [
   oauthRegister,
   searchLocation,
   passwordCheck,
+  logout,
+  withdrawal,
 ];

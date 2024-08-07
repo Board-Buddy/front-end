@@ -170,3 +170,9 @@ export const passwordCheck = async (password: string) => {
     };
   }
 };
+
+/** 로그아웃 API */
+export const logout = () => api.post(`/api/auth/logout`);
+
+/** 회원탈퇴 API */
+export const withdrawal = () => api.post('/api/auth/withdrawal');
