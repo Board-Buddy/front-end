@@ -41,6 +41,10 @@ export const useCancelParticipation = (articleId: string) => {
       queryClient.invalidateQueries({
         queryKey: ['article', { articleId }],
       });
+      // TODO 쿼리 무효화 되는지 확인
+      queryClient.invalidateQueries({
+        queryKey: ['myJoinedArticles'],
+      });
     },
   });
 };
