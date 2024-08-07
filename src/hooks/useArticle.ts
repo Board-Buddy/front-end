@@ -4,7 +4,9 @@ import {
   editArticle,
   getArticle,
   getArticles,
+  searchArticles,
 } from '@/services/article';
+import { CustomError } from '@/types/api';
 import { Article, NewArticle } from '@/types/article';
 import {
   useInfiniteQuery,
@@ -12,6 +14,7 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 
 export const useGetArticles = (
@@ -94,5 +97,16 @@ export const useDeleteArticle = (articleId: number) => {
       });
     },
     retry: 0,
+  });
+};
+
+export const useSearchArticles = (query: string) => {
+  return useQuery<Article[], AxiosError<CustomError>>({
+    queryKey: ['search', { query }],
+    queryFn: () => searchArticles(query),
+    enabled: false,
+    staleTime: 0,
+    gcTime: 0,
+    retry: 1,
   });
 };

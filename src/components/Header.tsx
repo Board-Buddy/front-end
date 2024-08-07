@@ -3,6 +3,8 @@
 import { cn } from '@/utils/tailwind';
 import { Bell, ChevronLeft, SearchIcon } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
+import SearchInput from '@/containers/search/SearchInput';
+import Link from 'next/link';
 import NotificationProvider from './NotificationProvider';
 
 const Header = () => {
@@ -109,43 +111,60 @@ const Header = () => {
     leftArrow = true;
   }
 
-  const handleNotificationButtonClick = () => {
-    router.push('/notifications');
-  };
+  if (pathname.includes('search')) {
+    title = '검색';
+    leftArrow = true;
+  }
 
   return (
     <>
       <NotificationProvider />
-      <div className="flex items-center border-b py-3 px-2 border-gray-200">
-        <div className="left-section basis-1/3">
+      {pathname.includes('search') ? (
+        <>
           {leftArrow && (
             <ChevronLeft
-              className="w-5 h-5 cursor-pointer"
+              className="w-5 h-5 cursor-pointer my-6 mx-2 absolute"
               onClick={() => {
                 window.history.back();
               }}
             />
           )}
-        </div>
-        <div className="title-section basis-1/3 text-center">
-          <span className="font-bold">{title}</span>
-        </div>
-        <div className="right-section ml-auto flex gap-2 items-center">
-          <SearchIcon
-            className={cn(
-              'w-5 h-5 cursor-pointer',
-              pathname === '/home' ? 'visible' : 'hidden',
+        </>
+      ) : (
+        <div className="flex items-center border-b py-3 px-2 border-gray-200">
+          <div className="left-section basis-1/3">
+            {leftArrow && (
+              <ChevronLeft
+                className="w-5 h-5 cursor-pointer"
+                onClick={() => {
+                  window.history.back();
+                }}
+              />
             )}
-          />
-          <Bell
-            className={cn(
-              'w-5 h-5 cursor-pointer',
-              pathname === '/home' ? 'visible' : 'hidden',
-            )}
-            onClick={handleNotificationButtonClick}
-          />
+          </div>
+          <div className="title-section basis-1/3 text-center">
+            <span className="font-bold">{title}</span>
+          </div>
+          <div className="right-section ml-auto flex gap-2 items-center">
+            <Link href="/search">
+              <SearchIcon
+                className={cn(
+                  'w-5 h-5 cursor-pointer',
+                  pathname === '/home' ? 'visible' : 'hidden',
+                )}
+              />
+            </Link>
+            <Link href="/notifications">
+              <Bell
+                className={cn(
+                  'w-5 h-5 cursor-pointer',
+                  pathname === '/home' ? 'visible' : 'hidden',
+                )}
+              />
+            </Link>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
