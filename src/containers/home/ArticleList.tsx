@@ -9,6 +9,7 @@ import { useIntersectionObserver } from '@/hooks/custom/useIntersectionObserver'
 import { useGetArticles } from '@/hooks/useArticle';
 import Selectors from './Selectors';
 import Article from './Article';
+import Loading from '@/components/Loading';
 
 const ArticleList = () => {
   const router = useRouter();
@@ -22,51 +23,52 @@ const ArticleList = () => {
     sort: null,
   });
 
-  const { data, error, fetchNextPage, hasNextPage, status } = useGetArticles(
-    locationString,
-    filter.status,
-    filter.sort,
-  );
+  const { data, fetchNextPage, hasNextPage, isPending, isError, error } =
+    useGetArticles(locationString, filter.status, filter.sort);
 
   const { setTarget } = useIntersectionObserver({
     hasNextPage,
     fetchNextPage,
   });
 
-  return status === 'pending' ? (
-    <p>Loading...</p>
-  ) : status === 'error' ? (
-    <p>Error: {error.message}</p>
-  ) : (
+  if (isError) {
+    return <>{error.message}</>;
+  }
+  return (
     <>
       <Selectors filter={filter} setFilter={setFilter} />
-      {data.pages.map((group, i) => (
-        <Fragment key={i}>
-          {group.posts.map((article: IArticle) => (
-            <Article
-              onClick={() => router.push(`/article/${article.id}`)}
-              key={article.id}
-              id={article.id}
-              title={article.title}
-              description={article.description}
-              author={article.author}
-              meetingLocation={article.meetingLocation}
-              maxParticipants={article.maxParticipants}
-              currentParticipants={article.currentParticipants}
-              startDateTime={article.startDateTime}
-              endDateTime={article.endDateTime}
-              createdAt={article.createdAt}
-              status={article.status}
-            />
+      {isPending && <Loading />}
+      {!isPending && !isError && (
+        <>
+          {data.pages.map((group, i) => (
+            <Fragment key={i}>
+              {group.posts.map((article: IArticle) => (
+                <Article
+                  onClick={() => router.push(`/article/${article.id}`)}
+                  key={article.id}
+                  id={article.id}
+                  title={article.title}
+                  description={article.description}
+                  author={article.author}
+                  meetingLocation={article.meetingLocation}
+                  maxParticipants={article.maxParticipants}
+                  currentParticipants={article.currentParticipants}
+                  startDateTime={article.startDateTime}
+                  endDateTime={article.endDateTime}
+                  createdAt={article.createdAt}
+                  status={article.status}
+                />
+              ))}
+            </Fragment>
           ))}
-        </Fragment>
-      ))}
-      <div className="text-center translate-y-5 text-gray-600 text-sm">
-        {data.pages[0].posts.length === 0
-          ? '작성된 모집글이 없습니다.'
-          : '모든 글을 확인하셨습니다'}
-      </div>
-      <div ref={setTarget} className="h-0" />
+          <div className="text-center translate-y-5 text-gray-600 text-sm">
+            {data.pages[0].posts.length === 0
+              ? '작성된 모집글이 없습니다.'
+              : '모든 글을 확인하셨습니다'}
+          </div>
+          <div ref={setTarget} className="h-0" />
+        </>
+      )}
     </>
   );
 };
