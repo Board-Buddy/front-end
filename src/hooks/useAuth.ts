@@ -1,4 +1,5 @@
 import { checkUserLogin, login, logout, withdrawal } from '@/services/auth';
+import { setStoredUser } from '@/utils/localStorage';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
@@ -18,6 +19,7 @@ export const useUserLogin = () => {
     mutationFn: (data: { username: string; password: string }) => login(data),
     onSuccess: (data) => {
       const userInfo = data;
+      setStoredUser(userInfo);
       queryClient.setQueryData(['userInfo'], userInfo);
       router.push('/home');
     },
