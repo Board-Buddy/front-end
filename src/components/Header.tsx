@@ -2,7 +2,7 @@
 
 import { cn } from '@/utils/tailwind';
 import { Bell, ChevronLeft, SearchIcon } from 'lucide-react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import NotificationProvider from './NotificationProvider';
 

@@ -3,10 +3,12 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/tailwind';
 import { useState } from 'react';
-import WithdrawalAlertModal from './WithdrawalAlertModal';
+import CustomAlert from '@/components/CustomAlert';
+import { useWithdrawal } from '@/hooks/useAuth';
 
 const WithdrawalButton = () => {
   const [open, setOpen] = useState(false);
+  const mutation = useWithdrawal();
 
   return (
     <>
@@ -20,7 +22,15 @@ const WithdrawalButton = () => {
           탈퇴하기
         </Button>
       </div>
-      <WithdrawalAlertModal open={open} setOpen={setOpen} />
+      <CustomAlert
+        open={open}
+        setOpen={setOpen}
+        title="정말 탈퇴하시겠어요?"
+        description="그동안의 모든 기록이 삭제되며, 복구 불가능합니다"
+        cancelText="아니요"
+        confirmText="네"
+        onConfirm={() => mutation.mutate()}
+      />
     </>
   );
 };

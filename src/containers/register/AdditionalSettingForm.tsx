@@ -22,11 +22,16 @@ import {
 import { useRouter } from 'next/navigation';
 import { useUserLoginCheck } from '@/hooks/useAuth';
 import LocationSettingComboBox from '@/components/LocationSettingComboBox';
+import CustomAlert from '@/components/CustomAlert';
 
 const phoneRegex = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
 
 const AdditionalSettingForm = () => {
   const router = useRouter();
+
+  const [openLoginSuccess, setOpenLoginSuccess] = useState(false);
+  const [openLoginError, setOpenLoginError] = useState(false);
+  const [errMsg, setErrMsg] = useState<string | null>(null);
 
   const [showPhoneVerifyCodeInput, setShowPhoneVerifyCodeInput] =
     useState(false);
@@ -118,114 +123,133 @@ const AdditionalSettingForm = () => {
     if (status === 'success') {
       setGetUserInfo(true);
     } else {
-      alert(message);
+      setErrMsg(message);
+      setOpenLoginError(true);
     }
   };
 
   useEffect(() => {
     if (isSuccess) {
-      alert('로그인 되었습니다.');
-      router.push('/home');
+      setOpenLoginSuccess(true);
     } else {
-      console.log(error);
+      setOpenLoginError(true);
     }
   }, [isSuccess, error, router]);
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="location"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <LocationSettingComboBox
-                  popOverWidth={408}
-                  onSelect={(sido, sgg, emd) => {
-                    field.onChange(`${sido} ${sgg} ${emd}`);
-                  }}
-                />
-              </FormControl>
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <div className="flex items-center gap-2">
+    <>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="location"
+            render={({ field }) => (
+              <FormItem>
                 <FormControl>
-                  <Input
-                    placeholder="01012345678"
-                    {...field}
-                    onChange={(e) => {
-                      setShowPhoneVerifyCodeInput(false);
-                      field.onChange(e.target.value);
-                      form.setValue('phoneVerifyCode', '');
-                      setVerifiedPhone(false);
+                  <LocationSettingComboBox
+                    popOverWidth={408}
+                    onSelect={(sido, sgg, emd) => {
+                      field.onChange(`${sido} ${sgg} ${emd}`);
                     }}
                   />
                 </FormControl>
-                <Button
-                  type="button"
-                  className="text-white font-semibold"
-                  onClick={sendPhoneCertificationNumber}
-                  disabled={!field.value || showPhoneVerifyCodeInput}
-                >
-                  인증번호 전송
-                </Button>
-              </div>
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
-            </FormItem>
-          )}
-        />
-        {showPhoneVerifyCodeInput && (
+                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+              </FormItem>
+            )}
+          />
           <FormField
             control={form.control}
-            name="phoneVerifyCode"
+            name="phone"
             render={({ field }) => (
               <FormItem>
                 <div className="flex items-center gap-2">
                   <FormControl>
                     <Input
-                      placeholder="핸드폰 인증번호 입력"
+                      placeholder="01012345678"
                       {...field}
                       onChange={(e) => {
-                        setVerifiedPhone(false);
+                        setShowPhoneVerifyCodeInput(false);
                         field.onChange(e.target.value);
+                        form.setValue('phoneVerifyCode', '');
+                        setVerifiedPhone(false);
                       }}
                     />
                   </FormControl>
                   <Button
                     type="button"
                     className="text-white font-semibold"
-                    onClick={verifyPhone}
-                    disabled={verifiedPhone}
+                    onClick={sendPhoneCertificationNumber}
+                    disabled={!field.value || showPhoneVerifyCodeInput}
                   >
-                    인증번호 확인
+                    인증번호 전송
                   </Button>
                 </div>
-                {verifiedPhone && (
-                  <p className="text-sm text-green-600 ml-1 mt-1">
-                    인증에 성공하였습니다.
-                  </p>
-                )}
                 <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
               </FormItem>
             )}
           />
-        )}
-        <Button
-          type="submit"
-          className={cn('bg-primary text-white font-bold text-lg w-full h-12')}
-        >
-          확인
-        </Button>
-      </form>
-    </Form>
+          {showPhoneVerifyCodeInput && (
+            <FormField
+              control={form.control}
+              name="phoneVerifyCode"
+              render={({ field }) => (
+                <FormItem>
+                  <div className="flex items-center gap-2">
+                    <FormControl>
+                      <Input
+                        placeholder="핸드폰 인증번호 입력"
+                        {...field}
+                        onChange={(e) => {
+                          setVerifiedPhone(false);
+                          field.onChange(e.target.value);
+                        }}
+                      />
+                    </FormControl>
+                    <Button
+                      type="button"
+                      className="text-white font-semibold"
+                      onClick={verifyPhone}
+                      disabled={verifiedPhone}
+                    >
+                      인증번호 확인
+                    </Button>
+                  </div>
+                  {verifiedPhone && (
+                    <p className="text-sm text-green-600 ml-1 mt-1">
+                      인증에 성공하였습니다.
+                    </p>
+                  )}
+                  <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                </FormItem>
+              )}
+            />
+          )}
+          <Button
+            type="submit"
+            className={cn(
+              'bg-primary text-white font-bold text-lg w-full h-12',
+            )}
+          >
+            확인
+          </Button>
+        </form>
+      </Form>
+      <CustomAlert
+        open={openLoginSuccess}
+        setOpen={setOpenLoginSuccess}
+        title="로그인 성공"
+        confirmText="확인"
+        onConfirm={() => router.push('/home')}
+      />
+      <CustomAlert
+        open={openLoginError}
+        setOpen={setOpenLoginError}
+        title="로그인 실패"
+        description={errMsg || error?.message}
+        confirmText="다시 시도"
+        onConfirm={() => {}}
+      />
+    </>
   );
 };
 

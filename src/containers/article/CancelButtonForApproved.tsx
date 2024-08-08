@@ -1,20 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { useCancelParticipation } from '@/hooks/useParticipation';
 import { cn } from '@/utils/tailwind';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
 import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
 import { useState } from 'react';
+import CustomAlert from '@/components/CustomAlert';
 
 interface Props {
   articleId: number;
@@ -53,27 +43,19 @@ const CancelButtonForApproved = ({ articleId, startDateTime }: Props) => {
           참가 취소
         </Button>
       </div>
-      <AlertDialog open={open} onOpenChange={setOpen}>
-        <AlertDialogTrigger className="w-full" />
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>정말 취소하시겠어요?</AlertDialogTitle>
-            <AlertDialogDescription>
-              이미 참가가 승인된 모임입니다.
+      <CustomAlert
+        open={open}
+        setOpen={setOpen}
+        title="정말 취소하시겠어요?"
+        description={`이미 참가가 승인된 모임입니다.
               <br />
-              다들 {nickname}님과의 즐거운 만남을 기대하고 있어요!
+              다들 ${nickname}님과의 즐거운 만남을 기대하고 있어요!
               <br />
-              지금 취소하시면 버디지수가 하락합니다🥲
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>아니요</AlertDialogCancel>
-            <AlertDialogAction onClick={() => cancelMutation.mutate()}>
-              네
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
+              지금 취소하시면 버디지수가 하락합니다🥲`}
+        cancelText="아니요"
+        confirmText="네"
+        onConfirm={() => cancelMutation.mutate()}
+      />
     </>
   );
 };

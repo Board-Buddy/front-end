@@ -24,8 +24,13 @@ import {
 import { useRouter } from 'next/navigation';
 import LocationSettingComboBox from '@/components/LocationSettingComboBox';
 import { passwordRegex, phoneRegex } from '@/utils/regex';
+import CustomAlert from '@/components/CustomAlert';
 
 const RegisterForm = () => {
+  const [openRegisterSuccess, setOpenRegisterSuccess] = useState(false);
+  const [openRegisterError, setOpenRegisterError] = useState(false);
+  const [msg, setMsg] = useState<string>('');
+
   const [uniqueId, setUniqueId] = useState(false);
   const [uniqueNickname, setUniqueNickname] = useState(false);
   const [showPhoneVerifyCodeInput, setShowPhoneVerifyCodeInput] =
@@ -94,58 +99,6 @@ const RegisterForm = () => {
       phoneVerifyCode: '',
     },
   });
-
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    if (!uniqueId) {
-      form.setError('id', {
-        type: 'manual',
-        message: '아이디 중복확인이 필요합니다.',
-      });
-      return;
-    }
-
-    if (!uniqueNickname) {
-      form.setError('nickname', {
-        type: 'manual',
-        message: '닉네임 중복확인이 필요합니다.',
-      });
-      return;
-    }
-
-    if (!showPhoneVerifyCodeInput) {
-      form.setError('phone', {
-        type: 'manual',
-        message: '휴대폰 인증이 필요합니다.',
-      });
-      return;
-    }
-
-    if (!verifiedPhone) {
-      form.setError('phoneVerifyCode', {
-        type: 'manual',
-        message: '휴대폰 인증이 필요합니다.',
-      });
-      return;
-    }
-
-    const { status, message } = await register({
-      username: values.id,
-      password: values.password,
-      email: values.email,
-      nickname: values.nickname,
-      phoneNumber: values.phone,
-      sido: values.location.split(' ')[0],
-      sgg: values.location.split(' ')[1],
-      emd: values.location.split(' ')[2],
-    });
-
-    if (status === 'success') {
-      alert(message);
-      router.push('/login');
-    } else {
-      alert(message);
-    }
-  };
 
   const verifyId = async () => {
     const idValue = form.getValues('id');
@@ -232,178 +185,75 @@ const RegisterForm = () => {
     }
   };
 
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    if (!uniqueId) {
+      form.setError('id', {
+        type: 'manual',
+        message: '아이디 중복확인이 필요합니다.',
+      });
+      return;
+    }
+
+    if (!uniqueNickname) {
+      form.setError('nickname', {
+        type: 'manual',
+        message: '닉네임 중복확인이 필요합니다.',
+      });
+      return;
+    }
+
+    if (!showPhoneVerifyCodeInput) {
+      form.setError('phone', {
+        type: 'manual',
+        message: '휴대폰 인증이 필요합니다.',
+      });
+      return;
+    }
+
+    if (!verifiedPhone) {
+      form.setError('phoneVerifyCode', {
+        type: 'manual',
+        message: '휴대폰 인증이 필요합니다.',
+      });
+      return;
+    }
+
+    const { status, message } = await register({
+      username: values.id,
+      password: values.password,
+      email: values.email,
+      nickname: values.nickname,
+      phoneNumber: values.phone,
+      sido: values.location.split(' ')[0],
+      sgg: values.location.split(' ')[1],
+      emd: values.location.split(' ')[2],
+    });
+
+    if (status === 'success') {
+      setMsg(message);
+      setOpenRegisterSuccess(true);
+    } else {
+      setMsg(message);
+      setOpenRegisterError(true);
+    }
+  };
+
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="id"
-          render={({ field }) => (
-            <FormItem>
-              <div className="flex items-center gap-2">
-                <FormControl>
-                  <Input
-                    placeholder="아이디 입력"
-                    {...field}
-                    onChange={(e) => {
-                      setUniqueId(false);
-                      field.onChange(e.target.value);
-                    }}
-                  />
-                </FormControl>
-                <Button
-                  type="button"
-                  className="text-white font-semibold"
-                  onClick={verifyId}
-                  disabled={uniqueId || !field.value}
-                >
-                  중복확인
-                </Button>
-              </div>
-              {uniqueId && (
-                <p className="text-sm text-green-600 ml-1 mt-1">
-                  사용 가능한 아이디입니다.
-                </p>
-              )}
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input placeholder="비밀번호 입력" type="password" {...field} />
-              </FormControl>
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="passwordConfirm"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  placeholder="비밀번호 재입력"
-                  type="password"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input placeholder="이메일 입력" type="email" {...field} />
-              </FormControl>
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="nickname"
-          render={({ field }) => (
-            <FormItem>
-              <div className="flex items-center gap-2">
-                <FormControl>
-                  <Input
-                    placeholder="닉네임 입력"
-                    {...field}
-                    onChange={(e) => {
-                      setUniqueNickname(false);
-                      field.onChange(e.target.value);
-                    }}
-                  />
-                </FormControl>
-                <Button
-                  type="button"
-                  className="text-white font-semibold"
-                  onClick={verifyNickname}
-                  disabled={uniqueNickname || !field.value}
-                >
-                  중복확인
-                </Button>
-              </div>
-              {uniqueNickname && (
-                <p className="text-sm text-green-600 ml-1 mt-1">
-                  사용 가능한 닉네임입니다.
-                </p>
-              )}
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="location"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <LocationSettingComboBox
-                  popOverWidth={408}
-                  onSelect={(sido, sgg, emd) => {
-                    field.onChange(`${sido} ${sgg} ${emd}`);
-                  }}
-                />
-              </FormControl>
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <div className="flex items-center gap-2">
-                <FormControl>
-                  <Input
-                    placeholder="01012345678"
-                    {...field}
-                    onChange={(e) => {
-                      setShowPhoneVerifyCodeInput(false);
-                      field.onChange(e.target.value);
-                      form.setValue('phoneVerifyCode', '');
-                      setVerifiedPhone(false);
-                    }}
-                  />
-                </FormControl>
-                <Button
-                  type="button"
-                  className="text-white font-semibold"
-                  onClick={sendPhoneCertificationNumber}
-                  disabled={!field.value || showPhoneVerifyCodeInput}
-                >
-                  인증번호 전송
-                </Button>
-              </div>
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
-            </FormItem>
-          )}
-        />
-        {showPhoneVerifyCodeInput && (
+    <>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
           <FormField
             control={form.control}
-            name="phoneVerifyCode"
+            name="id"
             render={({ field }) => (
               <FormItem>
                 <div className="flex items-center gap-2">
                   <FormControl>
                     <Input
-                      placeholder="핸드폰 인증번호 입력"
+                      placeholder="아이디 입력"
                       {...field}
                       onChange={(e) => {
-                        setVerifiedPhone(false);
+                        setUniqueId(false);
                         field.onChange(e.target.value);
                       }}
                     />
@@ -411,30 +261,209 @@ const RegisterForm = () => {
                   <Button
                     type="button"
                     className="text-white font-semibold"
-                    onClick={verifyPhone}
-                    disabled={verifiedPhone}
+                    onClick={verifyId}
+                    disabled={uniqueId || !field.value}
                   >
-                    인증번호 확인
+                    중복확인
                   </Button>
                 </div>
-                {verifiedPhone && (
+                {uniqueId && (
                   <p className="text-sm text-green-600 ml-1 mt-1">
-                    인증에 성공하였습니다.
+                    사용 가능한 아이디입니다.
                   </p>
                 )}
                 <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
               </FormItem>
             )}
           />
-        )}
-        <Button
-          type="submit"
-          className={cn('bg-primary text-white font-bold text-lg w-full h-12')}
-        >
-          회원가입
-        </Button>
-      </form>
-    </Form>
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    placeholder="비밀번호 입력"
+                    type="password"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="passwordConfirm"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input
+                    placeholder="비밀번호 재입력"
+                    type="password"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <Input placeholder="이메일 입력" type="email" {...field} />
+                </FormControl>
+                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="nickname"
+            render={({ field }) => (
+              <FormItem>
+                <div className="flex items-center gap-2">
+                  <FormControl>
+                    <Input
+                      placeholder="닉네임 입력"
+                      {...field}
+                      onChange={(e) => {
+                        setUniqueNickname(false);
+                        field.onChange(e.target.value);
+                      }}
+                    />
+                  </FormControl>
+                  <Button
+                    type="button"
+                    className="text-white font-semibold"
+                    onClick={verifyNickname}
+                    disabled={uniqueNickname || !field.value}
+                  >
+                    중복확인
+                  </Button>
+                </div>
+                {uniqueNickname && (
+                  <p className="text-sm text-green-600 ml-1 mt-1">
+                    사용 가능한 닉네임입니다.
+                  </p>
+                )}
+                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="location"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <LocationSettingComboBox
+                    popOverWidth={408}
+                    onSelect={(sido, sgg, emd) => {
+                      field.onChange(`${sido} ${sgg} ${emd}`);
+                    }}
+                  />
+                </FormControl>
+                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="phone"
+            render={({ field }) => (
+              <FormItem>
+                <div className="flex items-center gap-2">
+                  <FormControl>
+                    <Input
+                      placeholder="01012345678"
+                      {...field}
+                      onChange={(e) => {
+                        setShowPhoneVerifyCodeInput(false);
+                        field.onChange(e.target.value);
+                        form.setValue('phoneVerifyCode', '');
+                        setVerifiedPhone(false);
+                      }}
+                    />
+                  </FormControl>
+                  <Button
+                    type="button"
+                    className="text-white font-semibold"
+                    onClick={sendPhoneCertificationNumber}
+                    disabled={!field.value || showPhoneVerifyCodeInput}
+                  >
+                    인증번호 전송
+                  </Button>
+                </div>
+                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+              </FormItem>
+            )}
+          />
+          {showPhoneVerifyCodeInput && (
+            <FormField
+              control={form.control}
+              name="phoneVerifyCode"
+              render={({ field }) => (
+                <FormItem>
+                  <div className="flex items-center gap-2">
+                    <FormControl>
+                      <Input
+                        placeholder="핸드폰 인증번호 입력"
+                        {...field}
+                        onChange={(e) => {
+                          setVerifiedPhone(false);
+                          field.onChange(e.target.value);
+                        }}
+                      />
+                    </FormControl>
+                    <Button
+                      type="button"
+                      className="text-white font-semibold"
+                      onClick={verifyPhone}
+                      disabled={verifiedPhone}
+                    >
+                      인증번호 확인
+                    </Button>
+                  </div>
+                  {verifiedPhone && (
+                    <p className="text-sm text-green-600 ml-1 mt-1">
+                      인증에 성공하였습니다.
+                    </p>
+                  )}
+                  <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                </FormItem>
+              )}
+            />
+          )}
+          <Button
+            type="submit"
+            className={cn(
+              'bg-primary text-white font-bold text-lg w-full h-12',
+            )}
+          >
+            회원가입
+          </Button>
+        </form>
+      </Form>
+      <CustomAlert
+        open={openRegisterSuccess}
+        setOpen={setOpenRegisterSuccess}
+        title="회원가입 성공"
+        confirmText="로그인하러 가기"
+        onConfirm={() => router.push('/login')}
+      />
+      <CustomAlert
+        open={openRegisterError}
+        setOpen={setOpenRegisterError}
+        title="로그인 실패"
+        description={msg}
+        confirmText="다시 시도"
+        onConfirm={() => router.push('/')}
+      />
+    </>
   );
 };
 

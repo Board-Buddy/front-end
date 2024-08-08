@@ -30,8 +30,10 @@ import {
 import { cn } from '@/utils/tailwind';
 import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
+import CustomAlert from '@/components/CustomAlert';
 
 const MyProfileEditForm = () => {
+  const [imageSizeAlertOpen, setImageSizeAlertOpen] = useState(false);
   const queryClient = useQueryClient();
   const { nickname, memberType } = queryClient.getQueryData([
     'userInfo',
@@ -181,7 +183,7 @@ const MyProfileEditForm = () => {
       const image = (await resizeFile(e.target.files[0])) as File;
 
       if (image.size > IMAGE_MAX_SIZE) {
-        alert('이미지 용량이 너무 큽니다.');
+        setImageSizeAlertOpen(true);
         return;
       }
 
@@ -252,214 +254,230 @@ const MyProfileEditForm = () => {
   };
 
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-4 flex flex-col items-center pt-8 pb-4"
-      >
-        <Avatar
-          className="overflow-visible size-24 mb-8"
-          onClick={handleAddImageButtonClick}
+    <>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-4 flex flex-col items-center pt-8 pb-4"
         >
-          <AvatarImage
-            src={formData.profileImageFile || '/images/default_profile.png'}
-            className="rounded-full"
+          <Avatar
+            className="overflow-visible size-24 mb-8"
+            onClick={handleAddImageButtonClick}
+          >
+            <AvatarImage
+              src={formData.profileImageFile || '/images/default_profile.png'}
+              className="rounded-full"
+            />
+            <AvatarFallback>
+              <Image
+                src="/images/default_profile.png"
+                alt="avatar_image"
+                fill
+              />
+            </AvatarFallback>
+          </Avatar>
+          <input
+            type="file"
+            accept="image/*"
+            ref={imageInputRef}
+            className="hidden"
+            onChange={handleImageChange}
           />
-          <AvatarFallback>
-            <Image src="/images/default_profile.png" alt="avatar_image" fill />
-          </AvatarFallback>
-        </Avatar>
-        <input
-          type="file"
-          accept="image/*"
-          ref={imageInputRef}
-          className="hidden"
-          onChange={handleImageChange}
-        />
-        <FormField
-          control={form.control}
-          name="nickname"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>닉네임</FormLabel>
-              <div className="flex items-center gap-2 mt-1">
-                <FormControl>
+          <FormField
+            control={form.control}
+            name="nickname"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>닉네임</FormLabel>
+                <div className="flex items-center gap-2 mt-1">
+                  <FormControl>
+                    <Input
+                      placeholder={nickname}
+                      {...field}
+                      onChange={(e) => {
+                        setUniqueNickname(false);
+                        field.onChange(e.target.value);
+                      }}
+                    />
+                  </FormControl>
+                  <Button
+                    type="button"
+                    className="text-white font-semibold"
+                    onClick={verifyNickname}
+                    disabled={uniqueNickname || !field.value}
+                  >
+                    중복확인
+                  </Button>
+                </div>
+                {uniqueNickname && (
+                  <p className="text-sm text-green-600 ml-1 mt-1">
+                    사용 가능한 닉네임입니다.
+                  </p>
+                )}
+                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem className="w-full">
+                <FormLabel>자기소개</FormLabel>
+                <FormControl className="mt-2">
                   <Input
-                    placeholder={nickname}
+                    placeholder="변경할 자기소개 입력"
+                    type="text"
                     {...field}
-                    onChange={(e) => {
-                      setUniqueNickname(false);
-                      field.onChange(e.target.value);
-                    }}
                   />
                 </FormControl>
-                <Button
-                  type="button"
-                  className="text-white font-semibold"
-                  onClick={verifyNickname}
-                  disabled={uniqueNickname || !field.value}
-                >
-                  중복확인
-                </Button>
-              </div>
-              {uniqueNickname && (
-                <p className="text-sm text-green-600 ml-1 mt-1">
-                  사용 가능한 닉네임입니다.
-                </p>
-              )}
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>자기소개</FormLabel>
-              <FormControl className="mt-2">
-                <Input
-                  placeholder="변경할 자기소개 입력"
-                  type="text"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
-            </FormItem>
-          )}
-        />
-        {memberType === 'REGULAR' && (
-          <>
-            <FormField
-              control={form.control}
-              name="beforePassword"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>비밀번호</FormLabel>
-                  <FormControl className="mt-2">
-                    <div className="flex items-center gap-2 mt-1">
+                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+              </FormItem>
+            )}
+          />
+          {memberType === 'REGULAR' && (
+            <>
+              <FormField
+                control={form.control}
+                name="beforePassword"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormLabel>비밀번호</FormLabel>
+                    <FormControl className="mt-2">
+                      <div className="flex items-center gap-2 mt-1">
+                        <FormControl>
+                          <Input
+                            type="password"
+                            placeholder="기존 비밀번호 입력"
+                            {...field}
+                            onChange={(e) => {
+                              setUniqueNickname(false);
+                              field.onChange(e.target.value);
+                            }}
+                          />
+                        </FormControl>
+                        <Button
+                          type="button"
+                          className="text-white font-semibold"
+                          onClick={verifyPassword}
+                          disabled={showNewPasswordInput || !field.value}
+                        >
+                          비밀번호 확인
+                        </Button>
+                      </div>
+                    </FormControl>
+                    <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                  </FormItem>
+                )}
+              />
+              {showNewPasswordInput && (
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
                       <FormControl>
                         <Input
+                          placeholder="변경할 비밀번호 입력"
                           type="password"
-                          placeholder="기존 비밀번호 입력"
                           {...field}
-                          onChange={(e) => {
-                            setUniqueNickname(false);
-                            field.onChange(e.target.value);
-                          }}
                         />
                       </FormControl>
-                      <Button
-                        type="button"
-                        className="text-white font-semibold"
-                        onClick={verifyPassword}
-                        disabled={showNewPasswordInput || !field.value}
-                      >
-                        비밀번호 확인
-                      </Button>
-                    </div>
-                  </FormControl>
-                  <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
-                </FormItem>
+                      <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                    </FormItem>
+                  )}
+                />
               )}
-            />
-            {showNewPasswordInput && (
               <FormField
                 control={form.control}
-                name="password"
+                name="phone"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormControl>
-                      <Input
-                        placeholder="변경할 비밀번호 입력"
-                        type="password"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
-                  </FormItem>
-                )}
-              />
-            )}
-            <FormField
-              control={form.control}
-              name="phone"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>휴대폰 번호</FormLabel>
-                  <div className="flex items-center gap-2 mt-2">
-                    <FormControl>
-                      <Input
-                        placeholder="01012345678"
-                        {...field}
-                        onChange={(e) => {
-                          setShowPhoneVerifyCodeInput(false);
-                          field.onChange(e.target.value);
-                          form.setValue('phoneVerifyCode', '');
-                          setVerifiedPhone(false);
-                        }}
-                      />
-                    </FormControl>
-                    <Button
-                      type="button"
-                      className="text-white font-semibold"
-                      onClick={sendPhoneCertificationNumber}
-                      disabled={!field.value || showPhoneVerifyCodeInput}
-                    >
-                      인증번호 전송
-                    </Button>
-                  </div>
-                  <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
-                </FormItem>
-              )}
-            />
-            {showPhoneVerifyCodeInput && (
-              <FormField
-                control={form.control}
-                name="phoneVerifyCode"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <div className="flex items-center gap-2">
+                    <FormLabel>휴대폰 번호</FormLabel>
+                    <div className="flex items-center gap-2 mt-2">
                       <FormControl>
                         <Input
-                          placeholder="핸드폰 인증번호 입력"
+                          placeholder="01012345678"
                           {...field}
                           onChange={(e) => {
-                            setVerifiedPhone(false);
+                            setShowPhoneVerifyCodeInput(false);
                             field.onChange(e.target.value);
+                            form.setValue('phoneVerifyCode', '');
+                            setVerifiedPhone(false);
                           }}
                         />
                       </FormControl>
                       <Button
                         type="button"
                         className="text-white font-semibold"
-                        onClick={verifyPhone}
-                        disabled={verifiedPhone}
+                        onClick={sendPhoneCertificationNumber}
+                        disabled={!field.value || showPhoneVerifyCodeInput}
                       >
-                        인증번호 확인
+                        인증번호 전송
                       </Button>
                     </div>
-                    {verifiedPhone && (
-                      <p className="text-sm text-green-600 ml-1 mt-1">
-                        인증에 성공하였습니다.
-                      </p>
-                    )}
                     <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
                   </FormItem>
                 )}
               />
-            )}
-          </>
-        )}
+              {showPhoneVerifyCodeInput && (
+                <FormField
+                  control={form.control}
+                  name="phoneVerifyCode"
+                  render={({ field }) => (
+                    <FormItem className="w-full">
+                      <div className="flex items-center gap-2">
+                        <FormControl>
+                          <Input
+                            placeholder="핸드폰 인증번호 입력"
+                            {...field}
+                            onChange={(e) => {
+                              setVerifiedPhone(false);
+                              field.onChange(e.target.value);
+                            }}
+                          />
+                        </FormControl>
+                        <Button
+                          type="button"
+                          className="text-white font-semibold"
+                          onClick={verifyPhone}
+                          disabled={verifiedPhone}
+                        >
+                          인증번호 확인
+                        </Button>
+                      </div>
+                      {verifiedPhone && (
+                        <p className="text-sm text-green-600 ml-1 mt-1">
+                          인증에 성공하였습니다.
+                        </p>
+                      )}
+                      <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                    </FormItem>
+                  )}
+                />
+              )}
+            </>
+          )}
 
-        <Button
-          type="submit"
-          className={cn('bg-primary text-white font-bold text-lg w-full h-12')}
-        >
-          수정
-        </Button>
-      </form>
-    </Form>
+          <Button
+            type="submit"
+            className={cn(
+              'bg-primary text-white font-bold text-lg w-full h-12',
+            )}
+          >
+            수정
+          </Button>
+        </form>
+      </Form>
+      <CustomAlert
+        open={imageSizeAlertOpen}
+        setOpen={setImageSizeAlertOpen}
+        title="이미지 용량이 너무 큽니다."
+        description="업로드하신 이미지의 용량이 1MB를 초과합니다. 1MB 이하로 다시 선택주세요."
+        confirmText="확인"
+        onConfirm={() => setImageSizeAlertOpen(false)}
+      />
+    </>
   );
 };
 
