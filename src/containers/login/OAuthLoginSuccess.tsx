@@ -25,11 +25,11 @@ const OAuthLoginSuccess = () => {
 
   return (
     <>
-      <div className="w-full h-full flex justify-center items-center">
-        {isLoading && (
+      {isLoading && (
+        <div className="w-full h-full flex justify-center items-center">
           <LoaderCircleIcon className="animate-spin text-primary size-6" />
-        )}
-      </div>
+        </div>
+      )}
       <CustomAlert
         open={openSuccess}
         setOpen={setOpenSuccess}

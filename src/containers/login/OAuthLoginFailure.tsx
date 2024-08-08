@@ -12,11 +12,7 @@ interface Props {
 
 const OAuthLoginFailure = ({ messageCode }: Props) => {
   const router = useRouter();
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    setOpen(true);
-  }, [messageCode, router]);
+  const [open, setOpen] = useState(true);
 
   return (
     <>
