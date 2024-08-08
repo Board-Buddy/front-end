@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 
 const OAuthLoginSuccess = () => {
   const router = useRouter();
-  const { isLoading, isError, isSuccess } = useUserLoginCheck({
+  const { isError, isSuccess } = useUserLoginCheck({
     isReady: true,
   });
 
@@ -25,11 +25,9 @@ const OAuthLoginSuccess = () => {
 
   return (
     <>
-      {isLoading && (
-        <div className="w-full h-full flex justify-center items-center">
-          <LoaderCircleIcon className="animate-spin text-primary size-6" />
-        </div>
-      )}
+      <div className="w-full h-full flex justify-center items-center">
+        <LoaderCircleIcon className="animate-spin text-primary size-6" />
+      </div>
       <CustomAlert
         open={openSuccess}
         setOpen={setOpenSuccess}
