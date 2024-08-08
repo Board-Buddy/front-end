@@ -6,7 +6,7 @@ import {
   getExistingMessages,
 } from '@/services/chat';
 import { ArticleSimpleInfo, ChatRoom, Message } from '@/types/chat';
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 
 export const useGetExistingMessages = (chatRoomId: number | string) => {
   return useSuspenseQuery<Message[]>({
@@ -18,7 +18,7 @@ export const useGetExistingMessages = (chatRoomId: number | string) => {
 };
 
 export const useGetChatList = () => {
-  return useQuery<ChatRoom[]>({
+  return useSuspenseQuery<ChatRoom[]>({
     queryKey: ['chat'],
     queryFn: getChatList,
     staleTime: 0,

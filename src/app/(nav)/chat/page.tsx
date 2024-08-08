@@ -1,11 +1,19 @@
+import CustomErrorBoundary from '@/components/CustomErrorBoundary';
+import Loading from '@/components/Loading';
 import ChatList from '@/containers/chat/ChatList';
+import { Suspense } from 'react';
 
-const page = () => {
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+
+const Page = () => {
   return (
-    <>
-      <ChatList />
-    </>
+    <CustomErrorBoundary>
+      <Suspense fallback={<Loading />}>
+        <ChatList />
+      </Suspense>
+    </CustomErrorBoundary>
   );
 };
 
-export default page;
+export default Page;
