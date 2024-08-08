@@ -7,9 +7,9 @@ import { UserInfo } from '@/types/user';
 import { useRouter } from 'next/navigation';
 import { useIntersectionObserver } from '@/hooks/custom/useIntersectionObserver';
 import { useGetArticles } from '@/hooks/useArticle';
+import Loading from '@/components/Loading';
 import Selectors from './Selectors';
 import Article from './Article';
-import Loading from '@/components/Loading';
 
 const ArticleList = () => {
   const router = useRouter();
