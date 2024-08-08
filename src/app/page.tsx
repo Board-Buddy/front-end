@@ -11,14 +11,13 @@ const page = () => {
         width={216}
         height={108}
         className="mb-32"
-        priority={true}
+        priority
       />
       <Link href="/register/terms">
         <Button className="rounded-3xl text-white font-bold py-6 w-64 text-md">
           보드버디 참여하기
         </Button>
       </Link>
-
       <div className="flex gap-1 mt-2 text-white font-semibold text-sm">
         <p>이미 보드버디 회원이라면?</p>
         <Link href="/login">

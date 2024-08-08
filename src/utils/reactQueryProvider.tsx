@@ -6,7 +6,10 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import React from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { checkUserLogin } from '@/services/auth';
+import { clearStoredUser, getStoredUser } from './localStorage';
 import handleApiError from './handleApiError';
 
 function makeQueryClient() {
@@ -42,8 +45,36 @@ export default function ReactQueryProviders({
 }: React.PropsWithChildren) {
   // queryClient를 useState를 사용하여 초기화 하면 안된다.
   // suspense boundary가 없을 경우 React의 렌더링이 중단될 수도 있고
-  // queryClient 자체를 폐기할 수 도 있다.
+  // queryClient 자체를 폐기할 수도 있다.
   const queryClient = getQueryClient();
+
+  const router = useRouter();
+
+  console.log('reactQueryProviders');
+
+  useEffect(() => {
+    const userInfo = getStoredUser();
+    console.log('useEffect', userInfo);
+
+    if (userInfo) {
+      queryClient.setQueryData(['userInfo'], userInfo);
+
+      // 유저가 서버에서도 로그인 상태가 유지되고 있는지 확인
+      checkUserLogin()
+        .then(() => {
+          // 로그인되어 있다면 홈 페이지로 이동
+          router.push('/home');
+        })
+        .catch(() => {
+          // 로그인되어 있지 않다면 로그인 페이지로 이동
+          clearStoredUser();
+          queryClient.setQueryData(['userInfo'], null);
+          router.push('/login');
+        });
+    } else {
+      router.push('/');
+    }
+  }, [queryClient, router]);
 
   return (
     <QueryClientProvider client={queryClient}>
