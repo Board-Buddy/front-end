@@ -16,6 +16,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import CustomAlert from '@/components/CustomAlert';
+import Loading from '@/components/Loading';
+import ErrorFallback from '@/components/ErrorFallback';
 import CommentInput from './CommentInput';
 
 const CommentList = ({ articleId }: { articleId: number }) => {
@@ -44,14 +46,17 @@ const CommentList = ({ articleId }: { articleId: number }) => {
     isPending,
     isError,
     error,
+    refetch,
   } = useGetComments(articleId);
 
   if (isPending) {
-    return <span>Loading...</span>;
+    return <Loading />;
   }
 
   if (isError) {
-    return <span>Error: {error.message}</span>;
+    return (
+      <ErrorFallback errMsg={error.response?.data.message} reset={refetch} />
+    );
   }
 
   const handleReplyButtonClick = (parentId: string, authorNickname: string) => {

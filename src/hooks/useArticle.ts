@@ -6,7 +6,7 @@ import {
   getArticles,
   searchArticles,
 } from '@/services/article';
-import { CustomError } from '@/types/api';
+import { AxiosCustomError } from '@/types/api';
 import { Article, NewArticle } from '@/types/article';
 import {
   InfiniteData,
@@ -15,7 +15,6 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
-import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 
 export const useGetArticles = (
@@ -28,7 +27,7 @@ export const useGetArticles = (
       posts: Article[];
       last: boolean;
     },
-    AxiosError<CustomError>,
+    AxiosCustomError,
     InfiniteData<{
       posts: Article[];
       last: boolean;
@@ -51,7 +50,7 @@ export const useGetArticles = (
 };
 
 export const useGetArticle = (articleId: number) => {
-  return useQuery<Omit<Article, 'id'>>({
+  return useQuery<Omit<Article, 'id'>, AxiosCustomError>({
     queryKey: ['article', { articleId }],
     queryFn: () => getArticle({ gatherArticleId: articleId }),
     staleTime: 0,
@@ -108,7 +107,7 @@ export const useDeleteArticle = (articleId: number) => {
 };
 
 export const useSearchArticles = (query: string) => {
-  return useQuery<Article[], AxiosError<CustomError>>({
+  return useQuery<Article[], AxiosCustomError>({
     queryKey: ['search', { query }],
     queryFn: () => searchArticles(query),
     enabled: false,

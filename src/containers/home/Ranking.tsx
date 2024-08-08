@@ -2,17 +2,21 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useGetRankings } from '@/hooks/useRankings';
+import Loading from '@/components/Loading';
+import ErrorFallback from '@/components/ErrorFallback';
 import RankingBar from './RankingBar';
 
 const Ranking = () => {
-  const { data, isPending, isError, error } = useGetRankings();
+  const { data, isPending, isError, error, refetch } = useGetRankings();
 
   if (isPending) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   if (isError) {
-    return <p>Error: {error.message}</p>;
+    return (
+      <ErrorFallback errMsg={error.response?.data.message} reset={refetch} />
+    );
   }
 
   const rankingData = [

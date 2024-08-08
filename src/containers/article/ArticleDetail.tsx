@@ -3,6 +3,8 @@
 import { useGetArticle } from '@/hooks/useArticle';
 import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
+import Loading from '@/components/Loading';
+import ErrorFallback from '@/components/ErrorFallback';
 import ArticleContent from './ArticleContent';
 import Profile from './Profile';
 import ApplyButton from './ApplyButton';
@@ -18,14 +20,22 @@ const ArticleDetail = ({ id }: { id: number }) => {
   const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
   const { nickname } = userInfo;
 
-  const { data: article, isPending, isError, error } = useGetArticle(id);
+  const {
+    data: article,
+    isPending,
+    isError,
+    error,
+    refetch,
+  } = useGetArticle(id);
 
   if (isPending) {
-    return <span>Loading...</span>;
+    return <Loading />;
   }
 
   if (isError) {
-    return <span>Error: {error.message}</span>;
+    return (
+      <ErrorFallback errMsg={error.response?.data.message} reset={refetch} />
+    );
   }
 
   const isAuthor = article.author!.nickname === nickname;

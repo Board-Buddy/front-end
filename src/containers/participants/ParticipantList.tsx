@@ -5,6 +5,8 @@ import {
   useGetParticipationList,
   useRejectParticipation,
 } from '@/hooks/useParticipation';
+import Loading from '@/components/Loading';
+import ErrorFallback from '@/components/ErrorFallback';
 import ParticipantItem from './ParticipantItem';
 
 interface Props {
@@ -17,17 +19,20 @@ const ParticipantList = ({ articleId }: Props) => {
     isPending,
     isError,
     error,
+    refetch,
   } = useGetParticipationList(articleId);
 
   const approveMutation = useApproveParticipation(articleId);
   const rejectMutation = useRejectParticipation(articleId);
 
   if (isPending) {
-    return <p>Loading...</p>;
+    return <Loading />;
   }
 
   if (isError) {
-    return <p>Error: {error.message}</p>;
+    return (
+      <ErrorFallback errMsg={error.response?.data.message} reset={refetch} />
+    );
   }
 
   const onApproveButtonClick = (
