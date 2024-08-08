@@ -51,7 +51,7 @@ const CustomAlert = ({
           )}
           <AlertDialogAction
             onClick={() => onConfirm()}
-            className={cn(!cancelText && 'w-full mt-4')}
+            className={cn(!cancelText && 'w-full')}
           >
             {confirmText}
           </AlertDialogAction>

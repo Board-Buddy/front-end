@@ -23,31 +23,29 @@ const OAuthLoginSuccess = () => {
     }
   }, [isSuccess, isError, router]);
 
-  if (isLoading) {
-    return (
-      <>
-        <div className="w-full h-full flex justify-center items-center">
+  return (
+    <>
+      <div className="w-full h-full flex justify-center items-center">
+        {isLoading && (
           <LoaderCircleIcon className="animate-spin text-primary size-6" />
-        </div>
-        <CustomAlert
-          open={openSuccess}
-          setOpen={setOpenSuccess}
-          title="로그인 성공"
-          confirmText="확인"
-          onConfirm={() => router.push('/home')}
-        />
-        <CustomAlert
-          open={openError}
-          setOpen={setOpenError}
-          title="로그인 실패"
-          confirmText="다시 로그인"
-          onConfirm={() => router.push('/login')}
-        />
-      </>
-    );
-  }
-
-  return null;
+        )}
+      </div>
+      <CustomAlert
+        open={openSuccess}
+        setOpen={setOpenSuccess}
+        title="로그인 성공"
+        confirmText="확인"
+        onConfirm={() => router.push('/home')}
+      />
+      <CustomAlert
+        open={openError}
+        setOpen={setOpenError}
+        title="로그인 실패"
+        confirmText="다시 로그인"
+        onConfirm={() => router.push('/login')}
+      />
+    </>
+  );
 };
 
 export default OAuthLoginSuccess;
