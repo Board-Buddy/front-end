@@ -1,34 +1,22 @@
-'use client';
+import ChatList from '@/containers/chat/ChatList';
+import { getNotificationList } from '@/services/notification';
+import getQueryClient from '@/utils/getQueryClient';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
-import NotificationItem from '@/containers/notifications/NotificationItem';
-import { useGetNotificationList } from '@/hooks/useNotifications';
+const Page = async () => {
+  const queryClient = getQueryClient();
 
-const Page = () => {
-  const {
-    data: notifications,
-    isPending,
-    isError,
-    error,
-  } = useGetNotificationList();
-
-  if (isPending) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) {
-    return <div>Error: {error.message}</div>;
-  }
+  await queryClient.prefetchQuery({
+    queryKey: ['notifications'],
+    queryFn: getNotificationList,
+  });
 
   return (
-    <div>
-      {notifications.map((notification, i) => (
-        <NotificationItem
-          key={i}
-          message={notification.message}
-          createdAt={notification.createdAt}
-        />
-      ))}
-    </div>
+    <>
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <ChatList />
+      </HydrationBoundary>
+    </>
   );
 };
 
