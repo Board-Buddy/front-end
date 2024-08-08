@@ -1,11 +1,3 @@
-export interface ArticleListResponse {
-  data: {
-    posts: ArticleList;
-    last: boolean;
-  };
-  message: string;
-}
-
 export type ArticleList = Article[];
 
 export interface Article {

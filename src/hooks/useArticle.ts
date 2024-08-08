@@ -9,6 +9,7 @@ import {
 import { CustomError } from '@/types/api';
 import { Article, NewArticle } from '@/types/article';
 import {
+  InfiniteData,
   useInfiniteQuery,
   useMutation,
   useQuery,
@@ -22,7 +23,19 @@ export const useGetArticles = (
   status: string | null,
   sort: string | null,
 ) => {
-  return useInfiniteQuery({
+  return useInfiniteQuery<
+    {
+      posts: Article[];
+      last: boolean;
+    },
+    AxiosError<CustomError>,
+    InfiniteData<{
+      posts: Article[];
+      last: boolean;
+    }>,
+    [string, { location: string; status: string | null; sort: string | null }],
+    number
+  >({
     queryKey: ['articles', { location, status, sort }],
     queryFn: ({ pageParam = 0 }) => getArticles({ pageParam, status, sort }),
     initialPageParam: 0,

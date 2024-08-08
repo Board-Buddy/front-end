@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useIntersectionObserver } from '@/hooks/custom/useIntersectionObserver';
 import { useGetArticles } from '@/hooks/useArticle';
 import Loading from '@/components/Loading';
+import ErrorFallback from '@/components/ErrorFallback';
 import Selectors from './Selectors';
 import Article from './Article';
 
@@ -23,21 +24,32 @@ const ArticleList = () => {
     sort: null,
   });
 
-  const { data, fetchNextPage, hasNextPage, isPending, isError, error } =
-    useGetArticles(locationString, filter.status, filter.sort);
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isPending,
+    isError,
+    error,
+    refetch,
+  } = useGetArticles(locationString, filter.status, filter.sort);
 
   const { setTarget } = useIntersectionObserver({
     hasNextPage,
     fetchNextPage,
   });
 
-  if (isError) {
-    return <>{error.message}</>;
+  if (!isPending && !isError) {
+    console.log(data);
   }
+
   return (
     <>
       <Selectors filter={filter} setFilter={setFilter} />
       {isPending && <Loading />}
+      {isError && (
+        <ErrorFallback reset={refetch} errMsg={error.response!.data.message} />
+      )}
       {!isPending && !isError && (
         <>
           {data.pages.map((group, i) => (

@@ -2,7 +2,7 @@ import { LoaderCircleIcon } from 'lucide-react';
 
 const Loading = () => {
   return (
-    <div className="flex justify-center items-center h-[calc(100vh-100px)]">
+    <div className="flex justify-center items-center h-[200px]">
       <LoaderCircleIcon className="animate-spin text-primary" />
     </div>
   );
