@@ -1,19 +1,21 @@
-import CustomErrorBoundary from '@/components/CustomErrorBoundary';
-import Loading from '@/components/Loading';
 import ChatList from '@/containers/chat/ChatList';
-import { Suspense } from 'react';
+import { getChatList } from '@/services/chat';
+import getQueryClient from '@/utils/getQueryClient';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
-export const dynamic = 'force-dynamic';
-export const fetchCache = 'force-no-store';
+const page = async () => {
+  const queryClient = getQueryClient();
 
-const Page = () => {
+  await queryClient.prefetchQuery({
+    queryKey: ['chat'],
+    queryFn: getChatList,
+  });
+
   return (
-    <CustomErrorBoundary>
-      <Suspense fallback={<Loading />}>
-        <ChatList />
-      </Suspense>
-    </CustomErrorBoundary>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <ChatList />
+    </HydrationBoundary>
   );
 };
 
-export default Page;
+export default page;
