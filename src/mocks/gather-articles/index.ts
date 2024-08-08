@@ -75,7 +75,7 @@ export const getArticles = http.get(
               maxParticipants: 4,
               currentParticipants: 2,
               startDateTime: '2024-07-20 11:00',
-              endDateTime: '2024-07-20 13:00',
+              endDateTime: '2024-07-20 13:30',
               createdAt: '2024-07-20 11:00',
               status: 'closed',
             },

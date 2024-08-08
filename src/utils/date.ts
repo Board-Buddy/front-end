@@ -1,3 +1,5 @@
+import { differenceInMinutes } from 'date-fns';
+
 export const formatMeetingTime = (startTime: string, endTime: string) => {
   const start = new Date(startTime);
   const end = new Date(endTime);
@@ -8,7 +10,8 @@ export const formatMeetingTime = (startTime: string, endTime: string) => {
   let startHours = start.getHours();
   let endHours = end.getHours();
 
-  const duration = endHours - startHours;
+  const startMinutes = start.getMinutes();
+  const endMinutes = end.getMinutes();
 
   const startAmpm = startHours >= 12 ? '오후' : '오전';
   const endAmpm = endHours >= 12 ? '오후' : '오전';
@@ -16,7 +19,25 @@ export const formatMeetingTime = (startTime: string, endTime: string) => {
   startHours = startHours % 12 ? startHours % 12 : 12;
   endHours = endHours % 12 ? endHours % 12 : 12;
 
-  const formattedDate = `${month}월 ${day}일 ${startAmpm} ${startHours}시 - ${endAmpm} ${endHours}시 (${duration}시간)`;
+  // 시작 시간과 종료 시간의 차이를 분으로 계산
+  const totalDurationInMinutes = differenceInMinutes(end, start);
+  const durationHours = Math.floor(totalDurationInMinutes / 60);
+  const durationMinutes = totalDurationInMinutes % 60;
+
+  // 분이 0이 아닐 때만 분을 표시
+  const ithMinutes = (hours: number, minutes: number) =>
+    minutes === 0 ? `${hours}시` : `${hours}시 ${minutes}분`;
+
+  // 총 소요 시간 표시
+  const formattedDuration =
+    durationHours === 0
+      ? `${durationMinutes}분`
+      : `${durationHours}시간${durationMinutes > 0 ? ` ${durationMinutes}분` : ''}`;
+
+  const formattedDate = `${month}월 ${day}일 ${startAmpm} ${ithMinutes(
+    startHours,
+    startMinutes,
+  )} - ${endAmpm} ${ithMinutes(endHours, endMinutes)} (${formattedDuration})`;
 
   return formattedDate;
 };
