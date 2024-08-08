@@ -31,6 +31,7 @@ const page = () => {
             alt="네이버 로그인"
             width={35}
             height={35}
+            priority={true}
           />
         </Link>
         <Link href="https://boardbuddyapp.com/api/oauth2/authorization/kakao">
@@ -39,6 +40,7 @@ const page = () => {
             alt="카카오 로그인"
             width={35}
             height={35}
+            priority={true}
           />
         </Link>
         <Link href="https://boardbuddyapp.com/api/oauth2/authorization/google">
@@ -47,6 +49,7 @@ const page = () => {
             alt="구글 로그인"
             width={35}
             height={35}
+            priority={true}
           />
         </Link>
       </div>

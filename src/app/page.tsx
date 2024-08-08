@@ -11,6 +11,7 @@ const page = () => {
         width={216}
         height={108}
         className="mb-32"
+        priority={true}
       />
       <Link href="/register/terms">
         <Button className="rounded-3xl text-white font-bold py-6 w-64 text-md">
