@@ -1,5 +1,6 @@
 'use client';
 
+import Loading from '@/components/Loading';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
@@ -10,7 +11,7 @@ const OAuthVerifiedFailure = () => {
     router.push('/register/additionalSettings');
   }, [router]);
 
-  return <div>Redirecting...</div>;
+  return <Loading />;
 };
 
 export default OAuthVerifiedFailure;

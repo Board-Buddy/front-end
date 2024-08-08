@@ -38,7 +38,9 @@ const AdditionalSettingForm = () => {
   const [verifiedPhone, setVerifiedPhone] = useState(false);
   const [getUserInfo, setGetUserInfo] = useState(false);
 
-  const { isSuccess, error } = useUserLoginCheck({ isReady: getUserInfo });
+  const { isSuccess, error, isError } = useUserLoginCheck({
+    isReady: getUserInfo,
+  });
 
   const formSchema = z.object({
     location: z.string().min(1, { message: '지역을 선택해주세요.' }),
@@ -131,7 +133,9 @@ const AdditionalSettingForm = () => {
   useEffect(() => {
     if (isSuccess) {
       setOpenLoginSuccess(true);
-    } else {
+    }
+
+    if (isError) {
       setOpenLoginError(true);
     }
   }, [isSuccess, error, router]);
