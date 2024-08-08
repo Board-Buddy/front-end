@@ -239,7 +239,7 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
                       <SelectTrigger className="w-20">
                         <SelectValue placeholder="시" />
                         <SelectContent className="bg-white h-[150px]">
-                          {[...Array(24)].map((_, index) => (
+                          {[...Array(23)].map((_, index) => (
                             <SelectItem
                               key={index}
                               value={(index + 1).toString()}
