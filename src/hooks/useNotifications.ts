@@ -7,6 +7,6 @@ export const useGetNotificationList = () => {
     queryKey: ['notifications'],
     queryFn: getNotificationList,
     staleTime: 0,
-    gcTime: 0,
+    gcTime: 10 * 1000,
   });
 };

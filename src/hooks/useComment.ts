@@ -12,7 +12,7 @@ export const useGetComments = (articleId: number) => {
     queryKey: ['comments', { articleId }],
     queryFn: () => getComments({ gatherArticleId: articleId }),
     staleTime: 0,
-    gcTime: 0,
+    gcTime: 3 * 60 * 1000,
   });
 };
 

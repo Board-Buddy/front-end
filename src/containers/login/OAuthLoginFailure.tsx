@@ -4,7 +4,7 @@ import CustomAlert from '@/components/CustomAlert';
 import { OAUTH_LOGIN_MESSAGE_CODE } from '@/constants/auth';
 import { LoaderCircleIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 interface Props {
   messageCode: number;

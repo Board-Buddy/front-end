@@ -31,10 +31,9 @@ export const useGetArticles = (
         return undefined;
       }
       return lastPageParam + 1;
-      // return lastPage.posts[2].id;
     },
-    staleTime: 0,
-    gcTime: 0,
+    staleTime: 30 * 1000,
+    gcTime: 5 * 60 * 1000,
   });
 };
 
@@ -56,12 +55,10 @@ export const useAddArticle = () => {
     onSuccess: () => {
       router.push('/home');
       // 성공 시 모집글 리스트 쿼리 무효화
-      // TODO queryKey 확인
       queryClient.invalidateQueries({
         queryKey: ['articles'],
       });
     },
-    retry: 0,
   });
 };
 
@@ -78,7 +75,6 @@ export const useEditArticle = (articleId: number) => {
         queryKey: ['article', { articleId }],
       });
     },
-    retry: 0,
   });
 };
 
@@ -91,12 +87,10 @@ export const useDeleteArticle = (articleId: number) => {
     onSuccess: () => {
       router.push('/home');
       // 성공 시 모집글 리스트 쿼리 무효화
-      // TODO queryKey 확인
       queryClient.invalidateQueries({
         queryKey: ['articles'],
       });
     },
-    retry: 0,
   });
 };
 
@@ -105,8 +99,7 @@ export const useSearchArticles = (query: string) => {
     queryKey: ['search', { query }],
     queryFn: () => searchArticles(query),
     enabled: false,
-    staleTime: 0,
-    gcTime: 0,
-    retry: 1,
+    staleTime: 1 * 60 * 1000,
+    gcTime: 1 * 60 * 1000,
   });
 };

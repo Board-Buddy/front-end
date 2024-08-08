@@ -20,6 +20,6 @@ export const useGetBoardCafes = ({
     queryFn: () => getBoardCafes({ x, y, radius }),
     staleTime: 0,
     gcTime: 0,
-    retry: 0,
+    retry: 1,
   });
 };

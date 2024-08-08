@@ -13,6 +13,8 @@ export const useSearchLocation = (enabled: boolean, debouncedQuery: string) => {
     queryKey: ['search', debouncedQuery],
     queryFn: () => searchLocation(debouncedQuery, !userInfo),
     enabled,
+    staleTime: 0,
+    gcTime: 0,
     retry: 1,
   });
 };

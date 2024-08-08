@@ -42,5 +42,7 @@ export const useGetMyNeighborhoods = () => {
   return useQuery({
     queryKey: ['myNeighborhoods'],
     queryFn: getMyNeighborhoods,
+    staleTime: 0,
+    gcTime: 0,
   });
 };

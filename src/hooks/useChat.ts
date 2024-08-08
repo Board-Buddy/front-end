@@ -33,7 +33,7 @@ export const useGetArticleSimpleInfo = (
   return useQuery<ArticleSimpleInfo>({
     queryKey: ['articlePreview', { chatRoomId, articleId }],
     queryFn: () => getArticleSimpleInfo(chatRoomId, articleId),
-    staleTime: 0,
-    gcTime: 0,
+    staleTime: 30 * 1000,
+    gcTime: 5 * 60 * 1000,
   });
 };

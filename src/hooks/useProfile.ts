@@ -15,13 +15,16 @@ export const useGetProfile = (nickname: string) => {
   return useQuery({
     queryKey: ['profile', { nickname }],
     queryFn: () => getProfile(nickname),
-    staleTime: 0,
-    gcTime: 0,
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   });
 };
 
 export const useEditProfile = () => {
   const queryClient = useQueryClient();
+  const userInfo = queryClient.getQueryData(['userInfo']);
+  const { nickname } = userInfo as UserInfo;
+
   const router = useRouter();
 
   return useMutation({
@@ -38,6 +41,11 @@ export const useEditProfile = () => {
           nickname: newNickname ?? old.nickname,
         };
       });
+
+      queryClient.invalidateQueries({
+        queryKey: ['profile', { nickname: newNickname ?? nickname }],
+      });
+
       router.push('/my');
       successToast('profile update', '프로필이 수정되었습니다.');
     },
@@ -49,8 +57,6 @@ export const useGetBadgeList = (nickname: string) => {
   return useQuery<{ badgeImageS3SavedURL: string; badgeYearMonth: string }[]>({
     queryKey: ['badgeList', { nickname }],
     queryFn: () => getBadgeList(nickname),
-    staleTime: 0,
-    gcTime: 0,
   });
 };
 
