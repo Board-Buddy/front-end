@@ -6,10 +6,10 @@ import {
   getExistingMessages,
 } from '@/services/chat';
 import { ArticleSimpleInfo, ChatRoom, Message } from '@/types/chat';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 
 export const useGetExistingMessages = (chatRoomId: number | string) => {
-  return useQuery<Message[]>({
+  return useSuspenseQuery<Message[]>({
     queryKey: ['chat', { chatRoomId }],
     queryFn: () => getExistingMessages(chatRoomId),
     staleTime: 0,
@@ -30,7 +30,7 @@ export const useGetArticleSimpleInfo = (
   chatRoomId: number | string,
   articleId: number | string,
 ) => {
-  return useQuery<ArticleSimpleInfo>({
+  return useSuspenseQuery<ArticleSimpleInfo>({
     queryKey: ['articlePreview', { chatRoomId, articleId }],
     queryFn: () => getArticleSimpleInfo(chatRoomId, articleId),
     staleTime: 30 * 1000,

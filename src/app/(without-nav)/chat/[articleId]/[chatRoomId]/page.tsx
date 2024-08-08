@@ -1,54 +1,35 @@
 'use client';
 
-import ArticleInfo from '@/containers/chat/ArticleInfo';
-import WebSocketContainer from '@/containers/chat/WebSocketContainer';
-import {
-  useGetArticleSimpleInfo,
-  useGetExistingMessages,
-} from '@/hooks/useChat';
+import ErrorFallback from '@/components/ErrorFallback';
+import Loading from '@/components/Loading';
+import ChatRoom from '@/containers/chat/ChatRoom';
+import { QueryErrorResetBoundary } from '@tanstack/react-query';
+import { Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 
 const Page = ({
   params,
 }: {
   params: { articleId: string; chatRoomId: string };
 }) => {
-  const {
-    data: chatMessages,
-    isPending: isChatMessagesPending,
-    isError: isChatMessagesError,
-    error: chatMessagesError,
-  } = useGetExistingMessages(params.chatRoomId);
-
-  const {
-    data: articleSimpleInfo,
-    isPending: isArticleSimpleInfoPending,
-    isError: isArticleSimpleInfoError,
-    error: articleSimpleInfoError,
-  } = useGetArticleSimpleInfo(params.chatRoomId, params.articleId);
-
-  if (isChatMessagesPending || isArticleSimpleInfoPending) {
-    return <span>Loading...</span>;
-  }
-
-  if (isChatMessagesError) {
-    return <span>Error: {chatMessagesError.message}</span>;
-  }
-
-  if (isArticleSimpleInfoError) {
-    return <span>Error: {articleSimpleInfoError.message}</span>;
-  }
-
   return (
-    <>
-      <ArticleInfo
-        articleId={params.articleId}
-        articleSimpleInfo={articleSimpleInfo}
-      />
-      <WebSocketContainer
-        chatRoomId={params.chatRoomId}
-        chatMessages={chatMessages}
-      />
-    </>
+    <QueryErrorResetBoundary>
+      {({ reset }) => (
+        <ErrorBoundary
+          onReset={reset}
+          fallbackRender={({ resetErrorBoundary }) => (
+            <ErrorFallback reset={resetErrorBoundary} />
+          )}
+        >
+          <Suspense fallback={<Loading />}>
+            <ChatRoom
+              chatRoomId={params.chatRoomId}
+              articleId={params.articleId}
+            />
+          </Suspense>
+        </ErrorBoundary>
+      )}
+    </QueryErrorResetBoundary>
   );
 };
 
