@@ -176,7 +176,7 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
           <FormLabel className="font-semibold">
             모임 시작/종료 예상 시간
           </FormLabel>
-          <div className="flex items-center justify-between !mt-2">
+          <div className="flex items-center justify-between !mt-2 mb-4">
             <FormField
               control={form.control}
               name="startHour"
@@ -218,7 +218,7 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
                               key={index}
                               value={(index * 5).toString()}
                             >
-                              {index * 5}
+                              {(index * 5).toString().padStart(2, '0')}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -270,7 +270,7 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
                               key={index}
                               value={(index * 5).toString()}
                             >
-                              {index * 5}
+                              {(index * 5).toString().padStart(2, '0')}
                             </SelectItem>
                           ))}
                         </SelectContent>
