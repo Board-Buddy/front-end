@@ -12,7 +12,7 @@ const BadgeList = ({ badges, nickname }: Props) => {
   return (
     <div className="pt-6 pb-4">
       <div className="flex justify-between items-center font-bold mb-4 text-xl text-gray-600">
-        <div className="flex gap-2 px-1">뱃지목록</div>
+        <div className="flex gap-2">뱃지목록</div>
         <Link href={nickname ? `${nickname}/badges` : '/my/badges'}>
           <div
             className={cn(
