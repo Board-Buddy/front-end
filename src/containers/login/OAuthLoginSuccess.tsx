@@ -15,7 +15,9 @@ const OAuthLoginSuccess = () => {
   const [openError, setOpenError] = useState(false);
 
   useEffect(() => {
-    if (isError) {
+    if (isSuccess) {
+      router.push('/home');
+    } else if (isError) {
       setOpenError(true);
     }
   }, [isSuccess, isError, router]);
@@ -25,7 +27,6 @@ const OAuthLoginSuccess = () => {
       <div className="w-full h-[100vh] flex justify-center items-center">
         <LoaderCircleIcon className="animate-spin text-primary size-6" />
       </div>
-
       <CustomAlert
         open={openError}
         setOpen={setOpenError}
