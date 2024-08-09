@@ -40,7 +40,7 @@ const CustomAvatar = ({ src, rank, nickname, avatarSize }: Props) => {
       >
         <AvatarImage
           src={src || '/images/default_profile.png'}
-          className="rounded-full border border-gray-500"
+          className="rounded-full border border-gray-500 object-cover"
         />
         <AvatarFallback>
           <Image src="/images/default_profile.png" alt="avatar_image" fill />
