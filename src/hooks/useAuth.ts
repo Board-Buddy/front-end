@@ -1,4 +1,5 @@
 import { checkUserLogin, login, logout, withdrawal } from '@/services/auth';
+import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
@@ -35,6 +36,7 @@ export const useLogout = () => {
     onSuccess: () => {
       queryClient.invalidateQueries();
       router.push('/');
+      successToast('logout', '로그아웃되었습니다.');
     },
   });
 };
@@ -48,6 +50,7 @@ export const useWithdrawal = () => {
     onSuccess: () => {
       queryClient.invalidateQueries();
       router.push('/');
+      successToast('withdrawal', '탈퇴되었습니다.');
     },
   });
 };

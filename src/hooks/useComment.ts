@@ -6,6 +6,7 @@ import {
 } from '@/services/comment';
 import { AxiosCustomError } from '@/types/api';
 import { Comment } from '@/types/comment';
+import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const useGetComments = (articleId: number) => {
@@ -77,6 +78,7 @@ export const useDeleteComment = (articleId: number) => {
     onSuccess: () => {
       // 성공 시 댓글 리스트 쿼리 무효화
       queryClient.invalidateQueries({ queryKey: ['comments', { articleId }] });
+      successToast('comment delete', '댓글이 삭제되었습니다.');
     },
     retry: 0,
   });

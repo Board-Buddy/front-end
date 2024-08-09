@@ -8,6 +8,7 @@ import {
 } from '@/services/article';
 import { AxiosCustomError } from '@/types/api';
 import { Article, NewArticle } from '@/types/article';
+import { successToast } from '@/utils/customToast';
 import {
   InfiniteData,
   useInfiniteQuery,
@@ -70,6 +71,7 @@ export const useAddArticle = () => {
       queryClient.invalidateQueries({
         queryKey: ['articles'],
       });
+      successToast('article create', '모집글이 등록되었습니다.');
     },
   });
 };
@@ -86,6 +88,7 @@ export const useEditArticle = (articleId: number) => {
       queryClient.invalidateQueries({
         queryKey: ['article', { articleId }],
       });
+      successToast('article edit', '모집글이 수정되었습니다.');
     },
   });
 };
@@ -102,6 +105,7 @@ export const useDeleteArticle = (articleId: number) => {
       queryClient.invalidateQueries({
         queryKey: ['articles'],
       });
+      successToast('article delete', '모집글이 삭제되었습니다.');
     },
   });
 };

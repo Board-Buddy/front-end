@@ -7,6 +7,7 @@ import {
 } from '@/services/participation';
 import { AxiosCustomError } from '@/types/api';
 import { ParticipantInfo } from '@/types/article';
+import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const useGetParticipationList = (articleId: string) => {
@@ -28,6 +29,7 @@ export const useApplyParticipation = (articleId: string) => {
       queryClient.invalidateQueries({
         queryKey: ['article', { articleId }],
       });
+      successToast('apply', '참가 신청되었습니다.');
     },
   });
 };
@@ -46,6 +48,7 @@ export const useCancelParticipation = (articleId: string) => {
       queryClient.invalidateQueries({
         queryKey: ['myJoinedArticles'],
       });
+      successToast('cancel', '참가 취소되었습니다.');
     },
   });
 };
