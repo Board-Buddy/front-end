@@ -254,7 +254,7 @@ const MyProfileEditForm = () => {
   };
 
   return (
-    <>
+    <div className="p-4">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -477,7 +477,7 @@ const MyProfileEditForm = () => {
         confirmText="확인"
         onConfirm={() => setImageSizeAlertOpen(false)}
       />
-    </>
+    </div>
   );
 };
 

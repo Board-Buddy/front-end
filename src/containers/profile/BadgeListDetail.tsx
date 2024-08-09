@@ -42,16 +42,18 @@ const BadgeListDetail = ({ nickname }: Props) => {
           <div className="text-sm text-gray-600">획득한 뱃지가 없습니다.</div>
         )}
         {badges.map(
-          (badge, i) =>
+          (badge) =>
             badge && (
-              <div>
+              <div key={badge.badgeYearMonth}>
                 <div className="bg-gray-100 rounded-full size-24 flex justify-center items-center">
                   <Image
-                    src={badge.badgeImageS3SavedURL}
+                    src={
+                      badge.badgeImageS3SavedURL ||
+                      '/images/default_profile.png'
+                    }
                     alt="badge image"
                     width={65}
                     height={65}
-                    key={i}
                     className="bg-transparent"
                   />
                 </div>
