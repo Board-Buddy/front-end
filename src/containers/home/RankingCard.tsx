@@ -14,7 +14,7 @@ const RankingCard = ({ nickname, profileUrl, rank }: Props) => {
       className={cn(
         rank === 1
           ? 'size-40 bg-[#FFF1D8] shadow-[0_0_10px_rgba(0,0,0,0.2)] z-40'
-          : 'size-32 shadow-none bg-[#efefef]',
+          : 'size-32 shadow-none bg-bgGray',
         'rounded-2xl  flex justify-center items-center border-none',
         rank === 2 && 'translate-x-6',
         rank === 3 && '-translate-x-6',

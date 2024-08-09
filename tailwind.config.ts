@@ -33,6 +33,7 @@ const config = {
         sub_first: 'var(--sub-color-first)',
         sub_second: 'var(--sub-color-second)',
         muted: 'var(--gray-500)',
+        bgGray: 'var(--gray)',
       },
       borderRadius: {
         lg: 'var(--radius)',
