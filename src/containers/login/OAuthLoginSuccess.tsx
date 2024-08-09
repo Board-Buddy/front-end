@@ -12,13 +12,10 @@ const OAuthLoginSuccess = () => {
     isReady: true,
   });
 
-  const [openSuccess, setOpenSuccess] = useState(false);
   const [openError, setOpenError] = useState(false);
 
   useEffect(() => {
-    if (isSuccess) {
-      setOpenSuccess(true);
-    } else if (isError) {
+    if (isError) {
       setOpenError(true);
     }
   }, [isSuccess, isError, router]);
@@ -28,13 +25,7 @@ const OAuthLoginSuccess = () => {
       <div className="w-full h-[100vh] flex justify-center items-center">
         <LoaderCircleIcon className="animate-spin text-primary size-6" />
       </div>
-      <CustomAlert
-        open={openSuccess}
-        setOpen={setOpenSuccess}
-        title="로그인 성공"
-        confirmText="확인"
-        onConfirm={() => router.push('/home')}
-      />
+
       <CustomAlert
         open={openError}
         setOpen={setOpenError}
