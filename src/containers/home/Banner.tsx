@@ -36,13 +36,19 @@ const Banner = () => {
       className="rounded-xl h-40 shadow-md mb-4"
     >
       <Image
-        src="/images/banner/banner_1.jpg"
+        src="/images/banner/banner_1.jpeg"
         width={416}
         height={160}
         alt="banner_1"
       />
       <Image
-        src="/images/banner/banner_2.jpg"
+        src="/images/banner/banner_2.jpeg"
+        width={416}
+        height={160}
+        alt="banner_2"
+      />
+      <Image
+        src="/images/banner/banner_3.jpeg"
         width={416}
         height={160}
         alt="banner_2"
