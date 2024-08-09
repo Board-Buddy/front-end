@@ -1,6 +1,6 @@
 import { ChatRoom } from '@/types/chat';
 import { getLastMessageSentTime } from '@/utils/date';
-import { CalendarDaysIcon, MapPinIcon, UserRound } from 'lucide-react';
+import { MapPinIcon, UserRound } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -13,8 +13,8 @@ const ChatItem = ({
     <Link
       href={`/chat/${gatherArticleSimpleInfo.gatherArticleId}/${chatRoomId}`}
     >
-      <div className="flex min-h-32 w-full justify-center">
-        <div className="bg-white basis-2/3 rounded-xl px-4 py-2">
+      <div className="flex min-h-28 w-full justify-center">
+        <div className="bg-white basis-2/3 rounded-xl px-4 py-3">
           <div className="flex items-center">
             <p className="font-extrabold text-primary text-lg tracking-tighter max-w-48 truncate">
               {gatherArticleSimpleInfo.title}
@@ -23,7 +23,7 @@ const ChatItem = ({
               {getLastMessageSentTime(latestChatMessageInfo.sentAt)}
             </p>
           </div>
-          <p className="text-sm text-gray-500 font-semibold">
+          <p className="text-sm text-gray-500 font-semibold line-clamp-3">
             {latestChatMessageInfo.content}
           </p>
         </div>
@@ -34,11 +34,13 @@ const ChatItem = ({
             </p>
           </div>
           <div className="flex flex-col p-3 gap-1 tracking-tighter">
-            <div className="flex items-center gap-1">
+            <div className="flex items-start gap-1">
               <div className="bg-primary rounded-full p-1 w-fit">
-                <CalendarDaysIcon strokeWidth={2} size={10} color="white" />
+                <MapPinIcon strokeWidth={2} size={10} color="white" />
               </div>
-              <p className="text-xs text-gray-500 font-bold">24.08.20</p>
+              <p className="text-xs text-gray-500 font-bold">
+                {gatherArticleSimpleInfo.meetingLocation}
+              </p>
             </div>
             <div className="flex items-center gap-1">
               <div className="bg-primary rounded-full p-1 w-fit">
@@ -46,14 +48,6 @@ const ChatItem = ({
               </div>
               <p className="text-xs text-gray-500 font-bold">
                 {gatherArticleSimpleInfo.currentParticipants}명
-              </p>
-            </div>
-            <div className="flex items-start gap-1">
-              <div className="bg-primary rounded-full p-1 w-fit">
-                <MapPinIcon strokeWidth={2} size={10} color="white" />
-              </div>
-              <p className="text-xs text-gray-500 font-bold">
-                {gatherArticleSimpleInfo.meetingLocation}
               </p>
             </div>
           </div>

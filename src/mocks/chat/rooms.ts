@@ -41,7 +41,8 @@ export const getChatRooms = http.get(`${API_BASE_URL}/api/chat/rooms`, () => {
             meetingLocation: '성균관대역점 더홀릭',
           },
           latestChatMessageInfo: {
-            content: '확인했습니다. 감사합니다 :)',
+            content:
+              '확인했습니다. 감사합니다 :)확인했습니다. 감사합니다 :)확인했습니다. 감사합니다 :)확인했습니다. 감사합니다 :)확인했습니다. 감사합니다 :)확인했습니다. 감사합니다 :)',
             sentAt: '2024-07-19 13:09',
           },
         },
