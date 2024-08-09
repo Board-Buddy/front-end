@@ -140,7 +140,7 @@ const Header = () => {
             )}
           </div>
           <div className="title-section basis-1/3 text-center">
-            <span className="font-bold">{title}</span>
+            <span className="font-extrabold text-gray-600">{title}</span>
           </div>
         </div>
       )}
