@@ -29,7 +29,7 @@ const ChatSection = ({ messages }: { messages: Message[] }) => {
   }, [messages]);
 
   return (
-    <div className="h-[calc(100vh-222px)] overflow-y-auto" ref={scrollRef}>
+    <div className="h-[calc(100dvh-222px)] overflow-y-auto" ref={scrollRef}>
       <div className="flex flex-col p-4 gap-4">
         {messages.map((message, i) => {
           if (message.messageType === 'TALK') {

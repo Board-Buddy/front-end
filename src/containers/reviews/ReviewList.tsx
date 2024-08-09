@@ -2,6 +2,7 @@
 
 import { useGetReviewList } from '@/hooks/useReview';
 import Loading from '@/components/Loading';
+import ErrorFallback from '@/components/ErrorFallback';
 import ReviewItem from './ReviewItem';
 
 interface Props {
@@ -14,6 +15,7 @@ const ReviewList = ({ articleId }: Props) => {
     isPending,
     isError,
     error,
+    refetch,
   } = useGetReviewList(articleId);
 
   if (isPending) {
@@ -21,7 +23,9 @@ const ReviewList = ({ articleId }: Props) => {
   }
 
   if (isError) {
-    return <div>Error: {error.message}</div>;
+    return (
+      <ErrorFallback errMsg={error.response?.data.message} reset={refetch} />
+    );
   }
 
   return (

@@ -7,10 +7,11 @@ import MyParticipation from '@/containers/my/MyParticipation';
 import ReviewList from '@/containers/profile/ReviewList';
 import LocationSetting from '@/containers/my/LocationSetting';
 import { useGetProfile } from '@/hooks/useProfile';
-import { LoaderCircleIcon } from 'lucide-react';
 import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
 import { cn } from '@/utils/tailwind';
+import Loading from '@/components/Loading';
+import ErrorFallback from '@/components/ErrorFallback';
 import LogoutButton from '../my/LogoutButton';
 import WithdrawalButton from '../my/WithdrawalButton';
 import MyActivityButton from '../my/MyActivityButton';
@@ -29,18 +30,17 @@ const Profile = ({ nickname }: Props) => {
     isPending,
     isError,
     error,
+    refetch,
   } = useGetProfile(nickname || myNickname);
 
   if (isPending) {
-    return (
-      <div className="flex justify-center items-center h-[calc(100vh-100px)]">
-        <LoaderCircleIcon className="animate-spin text-primary" />
-      </div>
-    );
+    return <Loading />;
   }
 
   if (isError) {
-    return <span>Error: {error?.message}</span>;
+    return (
+      <ErrorFallback errMsg={error.response?.data.message} reset={refetch} />
+    );
   }
 
   return (

@@ -1,5 +1,6 @@
 'use client';
 
+import ErrorFallback from '@/components/ErrorFallback';
 import Loading from '@/components/Loading';
 import { useGetBadgeList } from '@/hooks/useProfile';
 import { UserInfo } from '@/types/user';
@@ -21,6 +22,7 @@ const BadgeListDetail = ({ nickname }: Props) => {
     isPending,
     isError,
     error,
+    refetch,
   } = useGetBadgeList(nickname || myNickname);
 
   if (isPending) {
@@ -28,7 +30,9 @@ const BadgeListDetail = ({ nickname }: Props) => {
   }
 
   if (isError) {
-    return <div>Error: {error.message}</div>;
+    return (
+      <ErrorFallback errMsg={error.response?.data.message} reset={refetch} />
+    );
   }
 
   return (

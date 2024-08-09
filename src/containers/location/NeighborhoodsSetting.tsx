@@ -2,18 +2,21 @@
 
 import { useGetMyNeighborhoods } from '@/hooks/useLocation';
 import Loading from '@/components/Loading';
+import ErrorFallback from '@/components/ErrorFallback';
 import Map from './Map';
 import LocationRadiusSetting from './LocationRadiusSetting';
 
 const NeighborhoodsSetting = () => {
-  const { data, isPending, isError, error } = useGetMyNeighborhoods();
+  const { data, isPending, isError, error, refetch } = useGetMyNeighborhoods();
 
   if (isPending) {
     return <Loading />;
   }
 
   if (isError) {
-    return <div>Error: {error.message}</div>;
+    return (
+      <ErrorFallback errMsg={error.response?.data.message} reset={refetch} />
+    );
   }
 
   return (

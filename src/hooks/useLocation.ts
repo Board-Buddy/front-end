@@ -3,6 +3,8 @@ import {
   setLocation,
   setRadius,
 } from '@/services/location';
+import { AxiosCustomError } from '@/types/api';
+import { MyNeighborhoods } from '@/types/location';
 import { UserInfo } from '@/types/user';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -39,7 +41,7 @@ export const useSetRadius = () => {
 };
 
 export const useGetMyNeighborhoods = () => {
-  return useQuery({
+  return useQuery<MyNeighborhoods, AxiosCustomError>({
     queryKey: ['myNeighborhoods'],
     queryFn: getMyNeighborhoods,
     staleTime: 0,

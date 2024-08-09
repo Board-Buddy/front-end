@@ -64,7 +64,7 @@ const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
         ref={mapRef}
         className={cn(
           'w-full bg-gray-200 transition-all ease-in',
-          showInfo ? 'h-[calc(100vh-300px)]' : 'h-[calc(100vh-50px)]',
+          showInfo ? 'h-[calc(100dvh-300px)]' : 'h-[calc(100dvh-50px)]',
         )}
       />
       <ReloadButton

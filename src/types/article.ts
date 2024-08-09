@@ -4,19 +4,19 @@ export interface Article {
   id: number;
   title: string;
   description: string;
-  author?: Author;
   meetingLocation: string;
-  sido?: string;
-  sgg?: string;
-  emd?: string;
-  x?: number;
-  y?: number;
   maxParticipants: number;
   currentParticipants: number;
   startDateTime: string;
   endDateTime: string;
   createdAt: string;
   status: string;
+  author?: Author;
+  sido?: string;
+  sgg?: string;
+  emd?: string;
+  x?: number;
+  y?: number;
   participationApplicationStatus?: string;
 }
 

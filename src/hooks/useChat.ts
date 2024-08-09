@@ -5,11 +5,12 @@ import {
   getChatList,
   getExistingMessages,
 } from '@/services/chat';
+import { AxiosCustomError } from '@/types/api';
 import { ArticleSimpleInfo, ChatRoom, Message } from '@/types/chat';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 
 export const useGetExistingMessages = (chatRoomId: number | string) => {
-  return useSuspenseQuery<Message[]>({
+  return useSuspenseQuery<Message[], AxiosCustomError>({
     queryKey: ['chat', { chatRoomId }],
     queryFn: () => getExistingMessages(chatRoomId),
     staleTime: 0,
@@ -18,7 +19,7 @@ export const useGetExistingMessages = (chatRoomId: number | string) => {
 };
 
 export const useGetChatList = () => {
-  return useQuery<ChatRoom[]>({
+  return useQuery<ChatRoom[], AxiosCustomError>({
     queryKey: ['chat'],
     queryFn: getChatList,
     staleTime: 60 * 1000,

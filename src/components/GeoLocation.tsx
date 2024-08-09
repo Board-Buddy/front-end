@@ -41,7 +41,7 @@ const GeoLocation = ({ redirectionURL }: Props) => {
 
   if (!location || error) {
     return (
-      <div className="flex justify-center items-center h-[calc(100vh-50px)] text-primary">
+      <div className="flex justify-center items-center h-[calc(100dvh-50px)] text-primary">
         <LoaderCircleIcon className="animate-spin size-9" />
       </div>
     );

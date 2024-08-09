@@ -4,19 +4,28 @@ import { useRouter } from 'next/navigation';
 import { useGetJoinedArticles } from '@/hooks/useProfile';
 import Loading from '@/components/Loading';
 import { Article as IArticle } from '@/types/article';
+import ErrorFallback from '@/components/ErrorFallback';
 import Article from '../home/Article';
 
 const MyJoinedArticle = () => {
   const router = useRouter();
 
-  const { data: posts, isPending, isError, error } = useGetJoinedArticles();
+  const {
+    data: posts,
+    isPending,
+    isError,
+    error,
+    refetch,
+  } = useGetJoinedArticles();
 
   if (isPending) {
     return <Loading />;
   }
 
   if (isError) {
-    return <p>Error: {error.message}</p>;
+    return (
+      <ErrorFallback errMsg={error.response?.data.message} reset={refetch} />
+    );
   }
 
   return (
