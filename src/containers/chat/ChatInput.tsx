@@ -18,6 +18,13 @@ const ChatInput = ({
     setValue('');
   };
 
+  const activeEnter = (e: any) => {
+    if (e.key === 'Enter') {
+      sendMessage(value);
+      setValue('');
+    }
+  };
+
   return (
     <div className="flex items-center gap-2 fixed bottom-0 p-4 max-w-md w-full bg-white">
       <Input
@@ -25,6 +32,7 @@ const ChatInput = ({
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder="메시지를 입력하세요."
+        onKeyDown={(e) => activeEnter(e)}
       />
       <Button
         className={cn(
