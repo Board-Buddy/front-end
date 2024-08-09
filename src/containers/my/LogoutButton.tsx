@@ -2,7 +2,6 @@
 
 import { Button } from '@/components/ui/button';
 import { useLogout } from '@/hooks/useAuth';
-import { cn } from '@/utils/tailwind';
 
 const LogoutButton = () => {
   const mutation = useLogout();
@@ -12,11 +11,9 @@ const LogoutButton = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="basis-1/2">
       <Button
-        className={cn(
-          'w-full text-gray-400 font-bold text-md h-12 border border-gray-400 bg-white',
-        )}
+        className="w-full text-gray-400 text-sm h-8 rounded-xl bg-[#efefef]"
         onClick={handleClick}
       >
         로그아웃

@@ -1,7 +1,6 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { cn } from '@/utils/tailwind';
 import { useState } from 'react';
 import CustomAlert from '@/components/CustomAlert';
 import { useWithdrawal } from '@/hooks/useAuth';
@@ -12,11 +11,9 @@ const WithdrawalButton = () => {
 
   return (
     <>
-      <div className="px-4 mb-8">
+      <div className="basis-1/2">
         <Button
-          className={cn(
-            'w-full text-red-500 font-bold text-md h-12 border border-red-500 bg-white',
-          )}
+          className="w-full text-primary text-sm h-8 bg-[#f9ecd1] rounded-xl"
           onClick={() => setOpen(true)}
         >
           탈퇴하기

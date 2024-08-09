@@ -23,7 +23,7 @@ const page = () => {
         <div className="mt-8">
           <LoginForm />
         </div>
-        <div className="mt-6 w-full border border-dashed" />
+        <div className="mt-6 w-full border-t border-dashed" />
         <div>
           <div className="flex justify-center gap-2 mt-6 text-gray-600 font-semibold text-sm items-center">
             <Link href="/register/terms">회원가입</Link>

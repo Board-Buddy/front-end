@@ -1,20 +1,17 @@
 'use client';
 
 import ProfileInfo from '@/containers/profile/ProfileInfo';
-import BuddyPoint from '@/containers/profile/BuddyPoint';
 import BadgeList from '@/containers/profile/BadgeList';
 import MyParticipation from '@/containers/my/MyParticipation';
 import ReviewList from '@/containers/profile/ReviewList';
-import LocationSetting from '@/containers/my/LocationSetting';
+
 import { useGetProfile } from '@/hooks/useProfile';
 import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
 import { cn } from '@/utils/tailwind';
 import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
-import LogoutButton from '../my/LogoutButton';
-import WithdrawalButton from '../my/WithdrawalButton';
-import MyActivityButton from '../my/MyActivityButton';
+import QuitButtons from '../my/QuitButtons';
 
 interface Props {
   nickname?: string;
@@ -44,36 +41,32 @@ const Profile = ({ nickname }: Props) => {
   }
 
   return (
-    <div className={cn('items-center p-4')}>
+    <div className={cn('items-center p-8')}>
       <div className="mb-4">
         <ProfileInfo
           nickname={nickname && decodeURIComponent(nickname)}
           description={profile.description}
           rank={profile.rank}
           profileImageS3SavedURL={profile.profileImageS3SavedURL}
+          buddyScore={profile.buddyScore}
         />
-        <BuddyPoint score={profile.buddyScore} />
+        <MyParticipation joinCount={profile.joinCount} nickname={nickname} />
+        <div className="w-full border-t border-dashed" />
         <BadgeList
           badges={profile.badges}
           nickname={nickname && decodeURIComponent(nickname)}
         />
+        <div className="w-full border-t border-dashed" />
         <ReviewList
           totalExcellentCount={profile.totalExcellentCount}
           totalGoodCount={profile.totalGoodCount}
           totalBadCount={profile.totalBadCount}
         />
-        {!nickname && (
-          <>
-            <MyActivityButton />
-            <LocationSetting />
-          </>
-        )}
-        <MyParticipation joinCount={profile.joinCount} />
       </div>
       {!nickname && (
         <>
-          <LogoutButton />
-          <WithdrawalButton />
+          <div className="w-full border-t border-dashed" />
+          <QuitButtons />
         </>
       )}
     </div>

@@ -21,14 +21,14 @@ const CustomAvatar = ({ src, rank, nickname, avatarSize }: Props) => {
     xs: 'size-8',
     sm: 'size-[55px]', // 랭킹 2, 3등
     md: 'size-[75px]', // 랭킹 1등
-    lg: 'size-24',
+    lg: 'size-[130px]',
   };
 
   const badgeSizeTW: { [key: string]: number } = {
     xs: 14,
     sm: 50,
     md: 60,
-    lg: 34,
+    lg: 100,
   };
 
   return (
@@ -49,6 +49,7 @@ const CustomAvatar = ({ src, rank, nickname, avatarSize }: Props) => {
           className={cn(
             avatarSize === 'sm' && '-translate-y-4',
             avatarSize === 'md' && '-translate-y-5',
+            avatarSize === 'lg' && '-translate-y-8',
           )}
         >
           {rank ? (
