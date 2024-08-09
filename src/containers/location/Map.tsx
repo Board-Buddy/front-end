@@ -20,7 +20,7 @@ const Map = ({ myNeighborhoods, radius }: Props) => {
     radius,
   );
 
-  return <div ref={mapRef} className="h-[calc(100vh-222px)]" />;
+  return <div ref={mapRef} className="h-[calc(100dvh-222px)]" />;
 };
 
 export default Map;
