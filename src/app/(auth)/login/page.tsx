@@ -1,59 +1,46 @@
-import { Separator } from '@/components/ui/separator';
 import LoginForm from '@/containers/login/LoginForm';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const page = () => {
   return (
-    <>
-      <div>
-        <span className="font-bold text-xl">보드버디 로그인</span>
-        <p className="text-gray-600 font-semibold">
-          보드게임 할 사람, 여기 버디 모여라!
+    <div className="bg-primary w-full h-[100vh] flex flex-col justify-center items-center px-8">
+      <div className="text-white text-3xl self-start">
+        <p>안녕하세요:)</p>
+        <p>
+          <span className="font-extrabold">보드버디</span> 입니다.
         </p>
       </div>
-      <div className="mt-6">
-        <LoginForm />
+      <div className="relative w-full bg-white rounded-3xl px-6 py-8 mt-12 mb-20">
+        <Image
+          src="/images/sundy/sundy_heart.png"
+          alt="하트를 들고 있는 썬디"
+          width={80}
+          height={80}
+          className="absolute right-4 -top-[77px]"
+        />
+        <span className="text-gray-800 text-xl font-bold">LOGIN</span>
+        <div className="mt-8">
+          <LoginForm />
+        </div>
+        <div className="mt-6 w-full border border-dashed" />
+        <div>
+          <div className="flex justify-center gap-2 mt-6 text-gray-600 font-semibold text-sm items-center">
+            <Link href="/register/terms">회원가입</Link>
+            <div className="h-[12px] border border-gray-500" />
+            <p>아이디 찾기</p>
+            <div className="h-[12px] border border-gray-500" />
+            <p>비밀번호 찾기</p>
+          </div>
+        </div>
       </div>
-      <div className="flex justify-center gap-2 mt-6 text-gray-600 font-semibold text-sm">
-        <Link href="/register/terms">회원가입</Link>|<p>아이디 찾기</p>|
-        <p>비밀번호 찾기</p>
-      </div>
-      <div className="flex justify-center gap-2 mt-6 text-gray-600 text-sm items-center">
-        <Separator className="bg-gray-600 flex-1" />
-        <p className="flex-2">또는</p>
-        <Separator className="bg-gray-600 flex-1" />
-      </div>
-      <div className="flex justify-center gap-16 mt-6">
-        <Link href="https://boardbuddyapp.com/api/oauth2/authorization/naver">
-          <Image
-            src="/images/icon/naver_icon.png"
-            alt="네이버 로그인"
-            width={35}
-            height={35}
-            priority
-          />
-        </Link>
-        <Link href="https://boardbuddyapp.com/api/oauth2/authorization/kakao">
-          <Image
-            src="/images/icon/kakao_icon.png"
-            alt="카카오 로그인"
-            width={35}
-            height={35}
-            priority
-          />
-        </Link>
-        <Link href="https://boardbuddyapp.com/api/oauth2/authorization/google">
-          <Image
-            src="/images/icon/google_icon.png"
-            alt="구글 로그인"
-            width={35}
-            height={35}
-            priority
-          />
-        </Link>
-      </div>
-    </>
+      <Image
+        src="/images/logo/boardbuddy_logo_white.png"
+        alt="보드버디 흰색 로고"
+        width={130}
+        height={130}
+      />
+    </div>
   );
 };
 
