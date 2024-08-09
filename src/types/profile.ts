@@ -3,7 +3,7 @@ export interface Profile {
   description: string;
   rank: number | null;
   buddyScore: number;
-  badges: string[];
+  badges: Badge[] | [];
   totalExcellentCount: number;
   totalGoodCount: number;
   totalBadCount: number;
@@ -16,4 +16,9 @@ export interface EditProfileDTO {
   password: string | null;
   phoneNumber: string | null;
   description: string | null;
+}
+
+export interface Badge {
+  badgeImageS3SavedURL: string;
+  badgeYearMonth: string;
 }

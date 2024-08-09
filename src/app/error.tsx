@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const error = () => {
   return (
-    <div className="flex flex-col items-center justify-center h-[calc(100vh-100px)]">
+    <div className="flex flex-col items-center justify-center h-[calc(100dvh-100px)]">
       <p className="font-bold mb-2 text-gray-900">
         오류가 발생했습니다. 다시 로그인해주세요.
       </p>

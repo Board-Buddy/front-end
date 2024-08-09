@@ -6,14 +6,22 @@ import ErrorFallback from '@/components/ErrorFallback';
 import ChatItem from './ChatItem';
 
 const ChatList = () => {
-  const { data: chatRooms, isPending, isError, refetch } = useGetChatList();
+  const {
+    data: chatRooms,
+    isPending,
+    isError,
+    error,
+    refetch,
+  } = useGetChatList();
 
   if (isPending) {
     return <Loading />;
   }
 
   if (isError) {
-    return <ErrorFallback reset={refetch} />;
+    return (
+      <ErrorFallback errMsg={error.response?.data.message} reset={refetch} />
+    );
   }
 
   return (

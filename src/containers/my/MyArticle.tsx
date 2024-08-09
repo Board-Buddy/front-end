@@ -4,19 +4,28 @@ import { useRouter } from 'next/navigation';
 import { useGetMyArticles } from '@/hooks/useProfile';
 import Loading from '@/components/Loading';
 import { Article as IArticle } from '@/types/article';
+import ErrorFallback from '@/components/ErrorFallback';
 import Article from '../home/Article';
 
 const MyArticle = () => {
   const router = useRouter();
 
-  const { data: posts, isPending, isError, error } = useGetMyArticles();
+  const {
+    data: posts,
+    isPending,
+    isError,
+    error,
+    refetch,
+  } = useGetMyArticles();
 
   if (isPending) {
     return <Loading />;
   }
 
   if (isError) {
-    return <p>Error: {error.message}</p>;
+    return (
+      <ErrorFallback errMsg={error.response?.data.message} reset={refetch} />
+    );
   }
 
   return (
