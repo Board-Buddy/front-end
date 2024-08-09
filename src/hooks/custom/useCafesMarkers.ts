@@ -24,9 +24,17 @@ const useCafesMarkers = (
       cafes.forEach((cafe) => {
         const markerPosition = new window.kakao.maps.LatLng(cafe.y, cafe.x);
 
+        // 마커 이미지 생성
+        const markerImage = new window.kakao.maps.MarkerImage(
+          '/images/icon/marker_icon.png',
+          new window.kakao.maps.Size(37, 50),
+          { offset: new window.kakao.maps.Point(27, 60) },
+        );
+
         const marker = new window.kakao.maps.Marker({
           map: mapObject,
           position: markerPosition,
+          image: markerImage,
           clickable: true, // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
         });
 
