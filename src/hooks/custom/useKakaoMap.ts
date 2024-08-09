@@ -54,7 +54,7 @@ const useKakaoMap = (
           level: radiusSetting
             ? RADIUS_TO_LEVEL[radiusSetting]
             : MAP_INITIAL_LEVEL,
-          maxLevel: MAP_MAX_LEVEL,
+          // maxLevel: MAP_MAX_LEVEL,
           draggable: !setStatic,
           zoomable: !setStatic,
         };
