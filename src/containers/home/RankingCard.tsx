@@ -30,7 +30,7 @@ const RankingCard = ({ nickname, profileUrl, rank }: Props) => {
           />
           <span
             className={cn(
-              'text-gray-500 font-semibold line-clamp-2',
+              'text-gray-500 font-bold line-clamp-2',
               rank === 1 ? 'text-md' : 'text-sm',
             )}
           >

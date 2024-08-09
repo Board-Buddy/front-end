@@ -35,7 +35,7 @@ const Article = ({
   return (
     <Card className="mb-3" onClick={onClick}>
       <CardHeader>
-        <CardTitle className="flex text-md font-normal items-center">
+        <CardTitle className="flex text-md font-semibold text-gray-600 items-center">
           <div
             className={cn(
               'border rounded-md px-2 py-0.5 mr-2',
@@ -90,15 +90,9 @@ const Article = ({
         </div>
         <div className="flex items-center">
           {badgeImage && (
-            <Image
-              src={badgeImage}
-              alt="rank_badge"
-              width={12}
-              height={12}
-              className="mr-1"
-            />
+            <Image src={badgeImage} alt="rank_badge" width={30} height={30} />
           )}
-          {author?.nickname}
+          <p className="text-gray-700">{author?.nickname}</p>
         </div>
       </CardFooter>
     </Card>
