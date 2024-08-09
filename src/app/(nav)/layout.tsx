@@ -40,7 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
-      <main className="overflow-y-auto flex-1 p-4 pb-0">{children}</main>
+      <main className="overflow-y-auto flex-1">{children}</main>
       <NavBar />
     </>
   );

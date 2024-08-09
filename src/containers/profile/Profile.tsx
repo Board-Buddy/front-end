@@ -44,7 +44,7 @@ const Profile = ({ nickname }: Props) => {
   }
 
   return (
-    <div className={cn('items-center', nickname && 'p-4')}>
+    <div className={cn('items-center p-4')}>
       <div className="mb-4">
         <ProfileInfo
           nickname={nickname && decodeURIComponent(nickname)}

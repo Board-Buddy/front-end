@@ -26,21 +26,23 @@ const Ranking = () => {
   ];
 
   return (
-    <Card className="border-none bg-yellow-50">
-      <CardHeader>
-        <CardTitle className="text-md">지난달 Top 3</CardTitle>
-      </CardHeader>
-      <CardContent className="flex items-end justify-center gap-3">
-        {rankingData.map((person) => (
-          <RankingBar
-            key={person.rank}
-            nickname={person.nickname}
-            profileUrl={person.profileImageS3SavedURL}
-            rank={person.rank}
-          />
-        ))}
-      </CardContent>
-    </Card>
+    <div className="px-4">
+      <Card className="border-none bg-yellow-50">
+        <CardHeader>
+          <CardTitle className="text-md">지난달 Top 3</CardTitle>
+        </CardHeader>
+        <CardContent className="flex items-end justify-center gap-3">
+          {rankingData.map((person) => (
+            <RankingBar
+              key={person.rank}
+              nickname={person.nickname}
+              profileUrl={person.profileImageS3SavedURL}
+              rank={person.rank}
+            />
+          ))}
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
