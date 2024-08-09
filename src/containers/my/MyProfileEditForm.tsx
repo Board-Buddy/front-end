@@ -271,7 +271,7 @@ const MyProfileEditForm = () => {
             />
             <div
               className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-primary w-24 text-center text-xs py-1 text-white font-semibold"
-              color={'black'}
+              color="black"
             >
               EDIT
             </div>
