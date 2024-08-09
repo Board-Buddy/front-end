@@ -31,7 +31,6 @@ import { cn } from '@/utils/tailwind';
 import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
 import CustomAlert from '@/components/CustomAlert';
-import { Pen, PenBox } from 'lucide-react';
 
 const MyProfileEditForm = () => {
   const [imageSizeAlertOpen, setImageSizeAlertOpen] = useState(false);
@@ -267,7 +266,7 @@ const MyProfileEditForm = () => {
           >
             <AvatarImage
               src={formData.profileImageFile || '/images/default_profile.png'}
-              className="rounded-full"
+              className="rounded-full object-cover"
             />
             <div
               className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-primary w-24 text-center text-xs py-1 text-white font-semibold"
