@@ -16,20 +16,20 @@ const ChatItem = ({
       <div className="flex min-h-28 w-full justify-center">
         <div className="bg-white basis-2/3 rounded-xl px-4 py-3">
           <div className="flex items-center">
-            <p className="font-extrabold text-primary text-lg tracking-tighter max-w-48 truncate">
+            <p className="font-bold text-primary text-lg tracking-tighter max-w-48 truncate">
               {gatherArticleSimpleInfo.title}
             </p>
             <p className="ml-auto text-xs text-gray-400 tracking-tighter font-semibold">
               {getLastMessageSentTime(latestChatMessageInfo.sentAt)}
             </p>
           </div>
-          <p className="text-sm text-gray-500 font-semibold line-clamp-3">
+          <p className="text-sm text-gray-500 line-clamp-3">
             {latestChatMessageInfo.content}
           </p>
         </div>
         <div className="relative bg-white basis-1/3 rounded-xl">
           <div className="w-full bg-primary rounded-t-xl h-7 place-content-center">
-            <p className="text-white text-xs tracking-tighter text-center font-bold">
+            <p className="text-white text-xs tracking-tighter text-center font-semibold">
               게임정보를 확인해요!
             </p>
           </div>
@@ -38,7 +38,7 @@ const ChatItem = ({
               <div className="bg-primary rounded-full p-1 w-fit">
                 <MapPinIcon strokeWidth={2} size={10} color="white" />
               </div>
-              <p className="text-xs text-gray-500 font-bold">
+              <p className="text-xs text-gray-500">
                 {gatherArticleSimpleInfo.meetingLocation}
               </p>
             </div>
@@ -46,7 +46,7 @@ const ChatItem = ({
               <div className="bg-primary rounded-full p-1 w-fit">
                 <UserRound strokeWidth={2} size={10} color="white" />
               </div>
-              <p className="text-xs text-gray-500 font-bold">
+              <p className="text-xs text-gray-500">
                 {gatherArticleSimpleInfo.currentParticipants}명
               </p>
             </div>

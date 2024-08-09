@@ -25,7 +25,7 @@ const CustomAvatar = ({ src, rank, nickname, avatarSize }: Props) => {
   };
 
   const badgeSizeTW: { [key: string]: number } = {
-    xs: 14,
+    xs: 40,
     sm: 50,
     md: 60,
     lg: 100,
@@ -47,6 +47,7 @@ const CustomAvatar = ({ src, rank, nickname, avatarSize }: Props) => {
         </AvatarFallback>
         <div
           className={cn(
+            avatarSize === 'xs' && '-translate-y-3',
             avatarSize === 'sm' && '-translate-y-4',
             avatarSize === 'md' && '-translate-y-5',
             avatarSize === 'lg' && '-translate-y-8',
