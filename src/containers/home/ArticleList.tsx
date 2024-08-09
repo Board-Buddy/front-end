@@ -44,7 +44,7 @@ const ArticleList = () => {
   }
 
   return (
-    <div className="p-4">
+    <div className="p-4 pt-2">
       <Selectors filter={filter} setFilter={setFilter} />
       {isPending && <Loading />}
       {isError && (

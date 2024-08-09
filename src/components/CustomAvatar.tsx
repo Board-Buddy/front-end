@@ -12,28 +12,32 @@ interface Props {
 
 const CustomAvatar = ({ src, rank, nickname, avatarSize }: Props) => {
   const rankBadge = [
-    '/images/badge/first_badge.png',
-    '/images/badge/second_badge.png',
-    '/images/badge/third_badge.png',
+    '/images/badge/first_rank_badge.png',
+    '/images/badge/second_rank_badge.png',
+    '/images/badge/third_rank_badge.png',
   ];
 
   const avatarSizeTW: { [key: string]: string } = {
     xs: 'size-8',
-    sm: 'size-12',
-    md: 'size-16',
+    sm: 'size-[55px]', // 랭킹 2, 3등
+    md: 'size-[75px]', // 랭킹 1등
     lg: 'size-24',
   };
 
   const badgeSizeTW: { [key: string]: number } = {
     xs: 14,
-    sm: 17,
-    md: 22,
+    sm: 50,
+    md: 60,
     lg: 34,
   };
 
   return (
     <Link href={`/profile/${nickname}`}>
-      <Avatar className={cn(`overflow-visible ${avatarSizeTW[avatarSize]}`)}>
+      <Avatar
+        className={cn(
+          `overflow-visible ${avatarSizeTW[avatarSize]} flex flex-col items-center`,
+        )}
+      >
         <AvatarImage
           src={src || '/images/default_profile.png'}
           className="rounded-full border border-gray-500"
@@ -41,7 +45,12 @@ const CustomAvatar = ({ src, rank, nickname, avatarSize }: Props) => {
         <AvatarFallback>
           <Image src="/images/default_profile.png" alt="avatar_image" fill />
         </AvatarFallback>
-        <div className="absolute -bottom-1 right-0">
+        <div
+          className={cn(
+            avatarSize === 'sm' && '-translate-y-4',
+            avatarSize === 'md' && '-translate-y-5',
+          )}
+        >
           {rank ? (
             <Image
               src={rankBadge[rank - 1]}
