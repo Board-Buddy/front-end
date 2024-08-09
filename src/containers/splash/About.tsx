@@ -95,14 +95,13 @@ const About = () => {
             aria-label="indicator-button"
             type="button"
             key={index}
-            className={`h-2 w-2 rounded-full ${
+            className={`h-2 w-2 rounded-full cursor-default ${
               index === activeIndex ? 'bg-primary' : 'bg-gray-400'
             }`}
-            onClick={() => setActiveIndex(index)}
           />
         ))}
       </div>
-      <Link href="/login">
+      <Link href="/login-splash">
         <div className="absolute bottom-0 w-full h-14 bg-primary text-white flex items-center justify-center font-bold cursor-pointer">
           시작하기
         </div>
