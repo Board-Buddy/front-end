@@ -10,7 +10,7 @@ const Splash = () => {
 
   setTimeout(() => {
     setSkip(true);
-  }, 3000);
+  }, 1000);
 
   return (
     <div className="relative">
