@@ -3,7 +3,7 @@
 import { Input } from '@/components/ui/input';
 import { SearchIcon } from 'lucide-react';
 import Image from 'next/image';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, RefObject, SetStateAction, useEffect, useRef } from 'react';
 
 interface Props {
   keyword: string;
@@ -12,11 +12,19 @@ interface Props {
 }
 
 const SearchInput = ({ keyword, setKeyword, refetch }: Props) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const activeEnter = (e: any) => {
     if (e.key === 'Enter') {
       refetch();
     }
   };
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   return (
     <div className="border border-gray-200 rounded-3xl flex items-center shadow-md mb-4 ml-6">
@@ -33,6 +41,7 @@ const SearchInput = ({ keyword, setKeyword, refetch }: Props) => {
         onChange={(e) => setKeyword(e.target.value)}
         onKeyDown={(e) => activeEnter(e)}
         placeholder="검색어를 입력하세요."
+        ref={inputRef}
       />
       <SearchIcon className="mr-4 text-gray-400" onClick={() => refetch()} />
     </div>
