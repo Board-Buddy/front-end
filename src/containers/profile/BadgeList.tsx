@@ -40,10 +40,7 @@ const BadgeList = ({ badges, nickname }: Props) => {
               <div>
                 <div className="bg-gray-100 rounded-full size-24 flex justify-center items-center">
                   <Image
-                    src={
-                      badge.badgeImageS3SavedURL ||
-                      '/images/default_profile.png'
-                    }
+                    src={badge.badgeImageS3SavedURL}
                     alt="badge image"
                     width={65}
                     height={65}

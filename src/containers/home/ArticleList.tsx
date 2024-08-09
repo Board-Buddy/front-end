@@ -39,10 +39,6 @@ const ArticleList = () => {
     fetchNextPage,
   });
 
-  if (!isPending && !isError) {
-    console.log(data);
-  }
-
   return (
     <div className="p-8 pt-2">
       <Selectors filter={filter} setFilter={setFilter} />

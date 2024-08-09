@@ -20,8 +20,6 @@ const useKakaoMap = (
   setStatic?: boolean,
   radiusSetting?: number,
 ) => {
-  console.log(radiusSetting);
-
   const mapRef = useRef<HTMLDivElement>(null);
   const [mapObject, setMapObject] = useState<any>(null);
   const [radius, setRadius] = useState<number>(
@@ -59,7 +57,6 @@ const useKakaoMap = (
           zoomable: !setStatic,
         };
 
-        console.log(options);
         const map = new window.kakao.maps.Map(container, options);
         setMapObject(map);
 

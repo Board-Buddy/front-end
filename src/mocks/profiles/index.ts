@@ -9,9 +9,6 @@ const editProfile = http.put(
     const profileInfo = data.get('UpdateProfileDTO');
     const image = data.get('profileImageFile');
 
-    console.log(profileInfo);
-    console.log(image);
-
     const result = {
       status: 'success',
       data: null,
