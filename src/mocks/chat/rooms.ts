@@ -10,7 +10,7 @@ export const getChatRooms = http.get(`${API_BASE_URL}/api/chat/rooms`, () => {
           chatRoomId: 1,
           gatherArticleSimpleInfo: {
             gatherArticleId: 30,
-            title: '스플렌더 같이 하실 분 ㄱㄱ',
+            title: '스플렌더 같이 하실 분 ㄱㄱ 긴 버전 어쩌구 저쩌구',
             currentParticipants: 3,
             meetingLocation: '레드버튼 신림점',
           },
@@ -38,7 +38,7 @@ export const getChatRooms = http.get(`${API_BASE_URL}/api/chat/rooms`, () => {
             gatherArticleId: 30,
             title: '스플렌더 같이 하실 분 ㄱㄱ',
             currentParticipants: 3,
-            meetingLocation: '레드버튼 신림점',
+            meetingLocation: '성균관대역점 더홀릭',
           },
           latestChatMessageInfo: {
             content: '확인했습니다. 감사합니다 :)',
