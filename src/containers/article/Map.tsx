@@ -19,6 +19,7 @@ const Map = ({ lat, lng }: Props) => {
       latitude: lat,
       longitude: lng,
     },
+    false,
     undefined,
     undefined,
     true,

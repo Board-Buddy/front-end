@@ -14,6 +14,7 @@ const Map = ({ myNeighborhoods, radius }: Props) => {
       latitude: myNeighborhoods.latitude,
       longitude: myNeighborhoods.longitude,
     },
+    false,
     undefined,
     undefined,
     true,

@@ -15,6 +15,7 @@ import { Location } from '@/types/map';
  */
 const useKakaoMap = (
   location: Location,
+  isMarkerSundy: boolean,
   setShowInfo?: (show: boolean) => void,
   setShowReloadButton?: (show: boolean) => void,
   setStatic?: boolean,
@@ -90,8 +91,12 @@ const useKakaoMap = (
 
         // 현재 위치 마커 생성
         const currentMarkerImage = new window.kakao.maps.MarkerImage(
-          '/images/sundy/sundy_map.png',
-          new window.kakao.maps.Size(36, 56),
+          isMarkerSundy
+            ? '/images/sundy/sundy_map.png'
+            : '/images/icon/marker_icon.png',
+          isMarkerSundy
+            ? new window.kakao.maps.Size(36, 56)
+            : new window.kakao.maps.Size(37, 50),
           { offset: new window.kakao.maps.Point(27, 60) },
         );
 
