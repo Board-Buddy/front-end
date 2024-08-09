@@ -1,4 +1,4 @@
-import ChatList from '@/containers/chat/ChatList';
+import NotificationList from '@/containers/notifications/NotificationList';
 import { getNotificationList } from '@/services/notification';
 import getQueryClient from '@/utils/getQueryClient';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
@@ -14,7 +14,7 @@ const Page = async () => {
   return (
     <>
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <ChatList />
+        <NotificationList />
       </HydrationBoundary>
     </>
   );

@@ -1,3 +1,5 @@
+'use client';
+
 import { useGetNotificationList } from '@/hooks/useNotifications';
 import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
