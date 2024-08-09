@@ -25,7 +25,7 @@ const ProfileInfo = ({
   const { nickname: myNickname } = userInfo;
 
   return (
-    <div className="flex gap-5">
+    <div className="flex gap-4">
       <CustomAvatar
         src={profileImageS3SavedURL || null}
         rank={rank}
