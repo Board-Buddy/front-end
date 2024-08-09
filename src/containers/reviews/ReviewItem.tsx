@@ -10,7 +10,7 @@ interface Props {
   nickname: string;
   profileImage: string | null;
   rank: number | null;
-  isReviewed: boolean;
+  hasReviewed: boolean;
   articleId: string;
 }
 
@@ -18,7 +18,7 @@ const ReviewItem = ({
   nickname,
   profileImage,
   rank,
-  isReviewed,
+  hasReviewed,
   articleId,
 }: Props) => {
   const [open, setOpen] = useState(false);
@@ -41,10 +41,10 @@ const ReviewItem = ({
         <span className="ml-2">{nickname}</span>
         <Button
           className="text-white rounded-lg px-3 py-2 h-8 ml-auto disabled:bg-slate-300 disabled:text-slate-600"
-          disabled={isReviewed}
+          disabled={hasReviewed}
           onClick={() => setOpen(true)}
         >
-          {isReviewed ? '작성 완료' : '후기 작성'}
+          {hasReviewed ? '작성 완료' : '후기 작성'}
         </Button>
       </div>
       <ReviewModal

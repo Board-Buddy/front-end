@@ -33,7 +33,7 @@ const ReviewList = ({ articleId }: Props) => {
           nickname={review.nickname}
           rank={review.rank}
           profileImage={review.profileImageS3SavedURL}
-          isReviewed={review.isReviewed}
+          hasReviewed={review.hasReviewed}
         />
       ))}
     </div>
