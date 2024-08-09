@@ -7,12 +7,12 @@ import ReactQueryProviders from '@/utils/reactQueryProvider';
 import Header from '@/components/Header';
 import { Toaster } from 'react-hot-toast';
 
-const BASE_URL = 'https://boardbuddyapp.vercel.app';
-
 const fontSans = FontSans({
   subsets: ['latin'],
   variable: '--font-sans',
 });
+
+const BASE_URL = 'https://boardbuddyapp.vercel.app';
 
 export const metadata: Metadata = {
   title: '보드버디',
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
     siteName: '보드버디',
     images: [
       {
-        url: `${BASE_URL}/images/banner/banner_1.jpeg`,
-        width: 1630,
-        height: 1038,
+        url: `${BASE_URL}/images/og_image.png`,
+        width: 1600,
+        height: 630,
       },
     ],
     locale: 'ko_KR',
@@ -37,6 +37,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   width: 'device-width',
+  height: 'device-height',
   initialScale: 1.0,
   maximumScale: 1.0,
   userScalable: false,
