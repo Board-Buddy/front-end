@@ -49,8 +49,8 @@ const LocationSettingComboBox = ({ popOverWidth, onSelect }: Props) => {
           variant="outline"
           role="combobox"
           className={cn(
-            'justify-between px-3 py-2',
-            popOverWidthTW[popOverWidth],
+            'justify-between px-3 py-2 w-full',
+
             displayName === '동네 선택' && 'text-muted',
           )}
         >
@@ -58,10 +58,7 @@ const LocationSettingComboBox = ({ popOverWidth, onSelect }: Props) => {
           <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent
-        side="bottom"
-        className={cn('p-0 bg-white', popOverWidthTW[popOverWidth])}
-      >
+      <PopoverContent side="bottom" className={cn('p-0 bg-white')}>
         <Search selectedResult={selected} onSelectResult={handleSetActive} />
       </PopoverContent>
     </Popover>

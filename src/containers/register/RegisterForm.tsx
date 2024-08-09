@@ -444,7 +444,7 @@ const RegisterForm = () => {
               'bg-primary text-white font-bold text-lg w-full h-12',
             )}
           >
-            회원가입
+            가입하기
           </Button>
         </form>
       </Form>

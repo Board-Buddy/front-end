@@ -77,7 +77,7 @@ export const commentTime = (createdAt: string) => {
   const day = date.getDate();
 
   const hours = date.getHours();
-  const minutes = date.getMinutes();
+  const minutes = date.getMinutes().toString().padStart(2, '0');
 
   return `${year}/${month}/${day} · ${hours}:${minutes}`;
 };

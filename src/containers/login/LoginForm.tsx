@@ -64,9 +64,9 @@ const LoginForm = () => {
         />
         <Button
           type="submit"
-          className={cn('bg-primary text-white font-bold text-lg w-full h-12')}
+          className={cn('bg-primary text-white font-bold text-md w-full h-12')}
         >
-          로그인
+          보드버디 시작하기
         </Button>
       </form>
     </Form>

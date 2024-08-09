@@ -1,9 +1,7 @@
 'use client';
 
-import { cn } from '@/utils/tailwind';
-import { Bell, ChevronLeft, SearchIcon } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
 import { usePathname } from 'next/navigation';
-import Link from 'next/link';
 import NotificationProvider from './NotificationProvider';
 
 const Header = () => {
@@ -15,7 +13,8 @@ const Header = () => {
     pathname === '/register/terms' ||
     pathname === '/register/accounts' ||
     pathname === '/register/additionalSettings' ||
-    pathname === '/login/oauth/callback'
+    pathname === '/login/oauth/callback' ||
+    pathname === '/login-splash'
   )
     return null;
 
@@ -117,7 +116,7 @@ const Header = () => {
   return (
     <>
       <NotificationProvider />
-      {pathname.includes('search') ? (
+      {pathname.includes('search') || pathname.includes('/home') ? (
         <>
           {leftArrow && (
             <ChevronLeft
@@ -141,25 +140,9 @@ const Header = () => {
             )}
           </div>
           <div className="title-section basis-1/3 text-center">
-            <span className="font-bold">{title}</span>
-          </div>
-          <div className="right-section ml-auto flex gap-2 items-center">
-            <Link href="/search">
-              <SearchIcon
-                className={cn(
-                  'w-5 h-5 cursor-pointer',
-                  pathname === '/home' ? 'visible' : 'hidden',
-                )}
-              />
-            </Link>
-            <Link href="/notifications">
-              <Bell
-                className={cn(
-                  'w-5 h-5 cursor-pointer',
-                  pathname === '/home' ? 'visible' : 'hidden',
-                )}
-              />
-            </Link>
+            <span className="font-extrabold text-gray-600 text-lg">
+              {title}
+            </span>
           </div>
         </div>
       )}

@@ -27,7 +27,7 @@ const TermForm = () => {
   return (
     <>
       <div className="flex flex-col gap-3 mt-6">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 bg-gray-100 p-4">
           <Checkbox
             id="all"
             className="rounded-full transition-all"
@@ -36,7 +36,7 @@ const TermForm = () => {
           />
           <Label htmlFor="all">전체 동의</Label>
         </div>
-        <div className="flex items-center space-x-2 mr-1">
+        <div className="flex items-center space-x-2 mr-1 px-4">
           <Checkbox
             id="service"
             className="transition-all"
@@ -50,7 +50,7 @@ const TermForm = () => {
             보기
           </Button>
         </div>
-        <div className="flex items-center space-x-2 mr-1">
+        <div className="flex items-center space-x-2 mr-1 px-4">
           <Checkbox
             id="privacy"
             className="transition-all"
@@ -64,7 +64,7 @@ const TermForm = () => {
             보기
           </Button>
         </div>
-        <div className="flex items-center space-x-2 mr-1">
+        <div className="flex items-center space-x-2 mr-1 px-4">
           <Checkbox
             id="thirdparty"
             className="transition-all"

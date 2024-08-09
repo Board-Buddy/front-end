@@ -1,5 +1,5 @@
-import { Card, CardContent } from '@/components/ui/card';
-import { Sparkles, ThumbsDown, ThumbsUp } from 'lucide-react';
+import Image from 'next/image';
+import ReviewItem from './ReviewItem';
 
 const ReviewList = ({
   totalExcellentCount,
@@ -11,39 +11,33 @@ const ReviewList = ({
   totalBadCount: number;
 }) => {
   return (
-    <div className="border-b-[1px] border-gray-200 py-4">
-      <div className="justify-between items-center font-bold">
-        <div className="flex gap-2 mb-4 px-1">받은 후기</div>
-      </div>
-      <div className="flex flex-col gap-2">
-        <Card className="border-none shadow-none">
-          <CardContent className="font-bold py-2 px-4 bg-[#FFF3E0] rounded-xl !border-none">
-            <div className="text-primary flex items-center justify-between">
-              <Sparkles />
-              <div>최고에요</div>
-              <div>{totalExcellentCount}</div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="border-none shadow-none">
-          <CardContent className="font-bold py-2 px-4 bg-[#FFF3E0] rounded-xl ">
-            <div className="text-primary flex items-center justify-between">
-              <ThumbsUp />
-              <div>좋아요</div>
-              <div>{totalGoodCount}</div>
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="border-none shadow-none">
-          <CardContent className="font-bold py-2 px-4 bg-[#FFF3E0] rounded-xl ">
-            <div className="text-primary flex items-center justify-between">
-              <ThumbsDown />
-              <div>별로에요</div>
-              <div>{totalBadCount}</div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+    <div className="py-6 relative">
+      <Image
+        src="/images/sundy/sundy_heart_shadow.png"
+        width={80}
+        height={100}
+        alt="하트를 들고 있는 썬디"
+        className="absolute bottom-4 right-0"
+      />
+      <div className="flex text-xl text-gray-600 font-bold pb-4">받은후기</div>
+      <ReviewItem
+        imageSrc="/images/icon/excellent_review_icon.png"
+        altText="excellent review"
+        label="정말 최고예요"
+        count={totalExcellentCount}
+      />
+      <ReviewItem
+        imageSrc="/images/icon/good_review_icon.png"
+        altText="good review"
+        label="너무 좋아요"
+        count={totalGoodCount}
+      />
+      <ReviewItem
+        imageSrc="/images/icon/bad_review_icon.png"
+        altText="bad review"
+        label="별로예요"
+        count={totalBadCount}
+      />
     </div>
   );
 };

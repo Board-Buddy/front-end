@@ -45,16 +45,20 @@ const BadgeListDetail = ({ nickname }: Props) => {
           (badge, i) =>
             badge && (
               <div>
-                <Image
-                  src={
-                    badge.badgeImageS3SavedURL || '/images/default_profile.png'
-                  }
-                  alt="badge image"
-                  width={65}
-                  height={65}
-                  key={i}
-                />
-                <div className="mt-2 text-xs text-center">
+                <div className="bg-gray-100 rounded-full size-24 flex justify-center items-center">
+                  <Image
+                    src={
+                      badge.badgeImageS3SavedURL ||
+                      '/images/default_profile.png'
+                    }
+                    alt="badge image"
+                    width={65}
+                    height={65}
+                    key={i}
+                    className="bg-transparent"
+                  />
+                </div>
+                <div className="mt-2 text-sm text-center font-bold text-gray-600">
                   {badge.badgeYearMonth}
                 </div>
               </div>

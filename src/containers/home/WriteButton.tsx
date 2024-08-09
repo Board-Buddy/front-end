@@ -13,7 +13,7 @@ const WriteButton = () => {
 
   return (
     <Button
-      className="rounded-full bg-primary border-none shadow-md size-12 sticky bottom-4 left-[400px] p-0"
+      className="rounded-full bg-primary border-none shadow-md size-12 sticky bottom-4 left-[386px] p-0"
       onClick={handleClick}
     >
       <PlusIcon color="white" size={24} />

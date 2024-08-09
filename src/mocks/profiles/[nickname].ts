@@ -9,7 +9,7 @@ export const getUserProfile = http.get(
       data: {
         profile: {
           profileImageS3SavedURL: null,
-          description: '자기소개',
+          description: '',
           rank: 2,
           buddyScore: 68,
           badges: [

@@ -44,7 +44,7 @@ const ArticleList = () => {
   }
 
   return (
-    <>
+    <div className="p-8 pt-2">
       <Selectors filter={filter} setFilter={setFilter} />
       {isPending && <Loading />}
       {isError && (
@@ -81,7 +81,7 @@ const ArticleList = () => {
           <div ref={setTarget} className="h-0" />
         </>
       )}
-    </>
+    </div>
   );
 };
 

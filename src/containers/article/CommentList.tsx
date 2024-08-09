@@ -74,7 +74,6 @@ const CommentList = ({ articleId }: { articleId: number }) => {
 
   return (
     <>
-      {' '}
       <div className="p-4">
         <span className="text-gray-700 text-lg font-bold">댓글</span>
         {commentList.map((comment) => (

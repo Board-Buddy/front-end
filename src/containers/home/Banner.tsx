@@ -4,7 +4,7 @@ import Image from 'next/image';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import '@/styles/carousel.css';
-import CustomDot from './CustomDot';
+// import CustomDot from './CustomDot';
 
 const Banner = () => {
   const responsive = {
@@ -27,31 +27,34 @@ const Banner = () => {
       draggable
       swipeable
       arrows={false}
-      showDots
-      customDot={<CustomDot />}
+      // showDots
+      // customDot={<CustomDot />}
       responsive={responsive}
-      ssr // means to render carousel on server-side.
       infinite
       containerClass="carousel-container"
-      className="rounded-xl h-40 shadow-md mb-4"
+      autoPlay
+      autoPlaySpeed={4000}
     >
       <Image
         src="/images/banner/banner_1.jpeg"
-        width={416}
-        height={160}
+        width={448}
+        height={300}
         alt="banner_1"
+        priority
       />
       <Image
         src="/images/banner/banner_2.jpeg"
-        width={416}
-        height={160}
+        width={448}
+        height={300}
         alt="banner_2"
+        priority
       />
       <Image
         src="/images/banner/banner_3.jpeg"
-        width={416}
-        height={160}
+        width={448}
+        height={300}
         alt="banner_2"
+        priority
       />
     </Carousel>
   );
