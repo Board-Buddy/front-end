@@ -44,7 +44,7 @@ const FilterList = ({
           key={item.title}
           type="button"
           className={cn(
-            'border border-gray-400 font-semibold text-gray-400 rounded-3xl py-1 px-4 text-sm hover:text-white hover:bg-primary hover:border-primary transition-all',
+            'border border-gray-400 font-semibold text-gray-400 rounded-3xl py-1 px-4 text-sm hover:text-white hover:bg-primary hover:border-primary transition-all last-of-type:ml-auto',
             item.status && 'text-white bg-primary border-primary',
           )}
           onClick={item.onClick}
