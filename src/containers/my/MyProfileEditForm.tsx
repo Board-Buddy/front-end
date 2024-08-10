@@ -330,7 +330,7 @@ const MyProfileEditForm = () => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>자기소개</FormLabel>
-                <FormControl className="mt-2">
+                <FormControl className="mt-1">
                   <Input
                     placeholder="변경할 자기소개 입력"
                     type="text"
@@ -349,7 +349,7 @@ const MyProfileEditForm = () => {
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>비밀번호</FormLabel>
-                    <FormControl className="mt-2">
+                    <FormControl className="mt-1">
                       <div className="flex items-center gap-2 mt-1">
                         <FormControl>
                           <Input
@@ -400,7 +400,7 @@ const MyProfileEditForm = () => {
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>휴대폰 번호</FormLabel>
-                    <div className="flex items-center gap-2 mt-2">
+                    <div className="flex items-center gap-2 mt-1">
                       <FormControl>
                         <Input
                           placeholder="01012345678"
@@ -435,7 +435,7 @@ const MyProfileEditForm = () => {
                       <div className="flex items-center gap-2">
                         <FormControl>
                           <Input
-                            placeholder="핸드폰 인증번호 입력"
+                            placeholder="휴대폰 인증번호 입력"
                             {...field}
                             onChange={(e) => {
                               setVerifiedPhone(false);

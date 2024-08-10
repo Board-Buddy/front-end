@@ -35,7 +35,7 @@ export const login = http.post<any, RequestBody>(
       data: {
         profileDTO: {
           nickname: 'yubin',
-          memberType: 'SOCIAL',
+          memberType: 'REGULAR',
           sido: '서울특별시',
           sgg: '송파구',
           emd: '잠실동',
