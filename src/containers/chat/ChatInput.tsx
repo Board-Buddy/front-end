@@ -20,8 +20,8 @@ const ChatInput = ({
 
   const activeEnter = (e: any) => {
     if (e.key === 'Enter') {
-      sendMessage(value);
-      setValue('');
+      e.preventDefault();
+      handleClick();
     }
   };
 
@@ -32,7 +32,7 @@ const ChatInput = ({
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder="메시지를 입력하세요."
-        onKeyDown={(e) => activeEnter(e)}
+        onKeyUp={(e) => activeEnter(e)}
       />
       <Button
         className={cn(
