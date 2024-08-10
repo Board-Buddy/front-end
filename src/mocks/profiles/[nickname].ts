@@ -8,8 +8,8 @@ export const getUserProfile = http.get(
       status: 'success',
       data: {
         profile: {
-          profileImageS3SavedURL: null,
-          description: '',
+          profileImageS3SavedURL: '/images/banner/banner_1.jpeg',
+          description: '안녕하세요',
           rank: 2,
           buddyScore: 68,
           badges: [

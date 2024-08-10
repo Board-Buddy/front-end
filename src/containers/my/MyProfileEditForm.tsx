@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { IMAGE_MAX_SIZE } from '@/constants/image';
 import { EditProfileDTO } from '@/types/profile';
 import { resizeFile } from '@/utils/image';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -31,13 +31,12 @@ import { cn } from '@/utils/tailwind';
 import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
 import CustomAlert from '@/components/CustomAlert';
+import { useExistingProfileInfoContext } from '@/context/ExistingProfileInfoContext';
 
 const MyProfileEditForm = () => {
   const [imageSizeAlertOpen, setImageSizeAlertOpen] = useState(false);
   const queryClient = useQueryClient();
-  const { nickname, memberType } = queryClient.getQueryData([
-    'userInfo',
-  ]) as UserInfo;
+  const { memberType } = queryClient.getQueryData(['userInfo']) as UserInfo;
 
   const editProfileMutation = useEditProfile();
 
@@ -49,6 +48,8 @@ const MyProfileEditForm = () => {
   const [showPhoneVerifyCodeInput, setShowPhoneVerifyCodeInput] =
     useState(false);
   const [verifiedPhone, setVerifiedPhone] = useState(false);
+
+  const { formState } = useExistingProfileInfoContext();
 
   const formSchema = z.object({
     nickname: z
@@ -265,7 +266,11 @@ const MyProfileEditForm = () => {
             onClick={handleAddImageButtonClick}
           >
             <AvatarImage
-              src={formData.profileImageFile || '/images/default_profile.png'}
+              src={
+                formData.profileImageFile ||
+                formState.profileImageFile ||
+                '/images/default_profile.png'
+              }
               className="rounded-full object-cover"
             />
             <div
@@ -298,7 +303,7 @@ const MyProfileEditForm = () => {
                 <div className="flex items-center gap-2 mt-1">
                   <FormControl>
                     <Input
-                      placeholder={nickname}
+                      placeholder={formState.nickname}
                       {...field}
                       onChange={(e) => {
                         setUniqueNickname(false);
@@ -332,7 +337,9 @@ const MyProfileEditForm = () => {
                 <FormLabel>자기소개</FormLabel>
                 <FormControl className="mt-1">
                   <Input
-                    placeholder="변경할 자기소개 입력"
+                    placeholder={
+                      formState.description || '자기소개를 입력해주세요.'
+                    }
                     type="text"
                     {...field}
                   />

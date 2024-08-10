@@ -1,8 +1,11 @@
+'use client';
+
 import CustomAvatar from '@/components/CustomAvatar';
 import { UserInfo } from '@/types/user';
 import { cn } from '@/utils/tailwind';
 import { useQueryClient } from '@tanstack/react-query';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useExistingProfileInfoContext } from '@/context/ExistingProfileInfoContext';
 import BuddyPoint from './BuddyPoint';
 
 interface Props {
@@ -20,9 +23,23 @@ const ProfileInfo = ({
   profileImageS3SavedURL,
   buddyScore,
 }: Props) => {
+  const router = useRouter();
+
   const cache = useQueryClient();
   const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
   const { nickname: myNickname } = userInfo;
+
+  const { setFormState } = useExistingProfileInfoContext();
+
+  const handleClick = () => {
+    setFormState({
+      nickname: nickname || myNickname,
+      description,
+      profileImageFile: profileImageS3SavedURL || null,
+    });
+
+    router.push('/my/edit');
+  };
 
   return (
     <div className="flex gap-4">
@@ -37,7 +54,7 @@ const ProfileInfo = ({
           <span className="text-gray-600 font-bold text-xl">
             {nickname || myNickname}
           </span>
-          <Link href="/my/edit">
+          <div onClick={handleClick}>
             <div
               className={cn(
                 'bg-gray-400 text-white text-xs px-2 py-0.5 rounded-xl text-center cursor-pointer',
@@ -46,7 +63,7 @@ const ProfileInfo = ({
             >
               <p className="font-bold">프로필 수정</p>
             </div>
-          </Link>
+          </div>
         </div>
         <p className="text-gray-600 text-sm mt-1 line-clamp-2 ">
           {description}

@@ -18,6 +18,12 @@ export interface EditProfileDTO {
   description: string | null;
 }
 
+export interface ExistingProfileInfo {
+  profileImageFile: string | null;
+  nickname: string;
+  description: string;
+}
+
 export interface Badge {
   badgeImageS3SavedURL: string;
   badgeYearMonth: string;

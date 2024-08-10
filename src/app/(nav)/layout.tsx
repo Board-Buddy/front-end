@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import '../../styles/globals.css';
 import NavBar from '@/components/NavBar';
+import { ExistingProfileInfoContextProvider } from '@/context/ExistingProfileInfoContext';
 
 const BASE_URL = 'https://boardbuddyapp.vercel.app';
 
@@ -39,9 +40,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    <ExistingProfileInfoContextProvider>
       <main className="overflow-y-auto flex-1">{children}</main>
       <NavBar />
-    </>
+    </ExistingProfileInfoContextProvider>
   );
 }
