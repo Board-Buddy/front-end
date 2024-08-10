@@ -29,10 +29,10 @@ const ChatList = () => {
     <div className="flex flex-col bg-gray-100 h-[calc(100vh-113px)]">
       <div className="flex py-4 items-center border-b border-primary bg-white">
         <div className="pl-8 text-3xl">
-          <p>
+          <p className="text-gray-700">
             <span className="font-extrabold text-primary">보드</span>게임할사람
           </p>
-          <p>
+          <p className="text-gray-700">
             여기<span className="font-extrabold text-primary">버디</span>모여라
           </p>
         </div>
