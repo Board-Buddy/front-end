@@ -79,13 +79,16 @@ const ArticleContent = ({
   return (
     <>
       <div className="p-4">
-        <div className="text-lg flex gap-2 font-bold ">
+        <div className="text-lg flex gap-2 font-bold">
           <span
-            className={cn(status === 'open' ? 'text-primary' : 'text-gray-500')}
+            className={cn(
+              status === 'open' ? 'text-primary' : 'text-gray-500',
+              'flex-none',
+            )}
           >
             {ARTICLE_STATUS[status]}
           </span>
-          <span className="text-gray-800 max-w-[310px] truncate">{title}</span>
+          <span className="text-gray-800 line-clamp-1">{title}</span>
           <DropdownMenu>
             <DropdownMenuTrigger
               className={cn(

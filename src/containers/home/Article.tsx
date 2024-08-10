@@ -38,7 +38,7 @@ const Article = ({
         <CardTitle className="flex text-md font-semibold text-gray-600 items-center">
           <div
             className={cn(
-              'border rounded-md px-2 py-0.5 mr-2',
+              'border rounded-md px-2 py-0.5 mr-2 flex-none',
               status === 'open'
                 ? 'text-primary border-primary'
                 : 'text-gray-600 border-gray-500',
@@ -46,7 +46,7 @@ const Article = ({
           >
             {ARTICLE_STATUS[status]}
           </div>
-          <p className="max-w-[270px] truncate">{title}</p>
+          <p className="line-clamp-1">{title}</p>
         </CardTitle>
         <CardDescription className="text-gray-500">
           <p className="line-clamp-1">{description}</p>
