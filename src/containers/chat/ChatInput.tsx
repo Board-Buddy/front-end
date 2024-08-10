@@ -18,8 +18,12 @@ const ChatInput = ({
     setValue('');
   };
 
-  const activeEnter = (e: any) => {
-    if (e.key === 'Enter' && e.nativeEvent.isComposing === false) {
+  const activeEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    if (e.nativeEvent.isComposing) return;
+
+    if (e.key === 'Enter') {
       handleClick();
     }
   };
