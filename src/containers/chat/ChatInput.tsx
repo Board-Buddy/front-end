@@ -19,8 +19,7 @@ const ChatInput = ({
   };
 
   const activeEnter = (e: any) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
+    if (e.key === 'Enter' && e.nativeEvent.isComposing === false) {
       handleClick();
     }
   };
