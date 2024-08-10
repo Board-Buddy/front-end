@@ -14,6 +14,8 @@ const ChatInput = ({
   const [value, setValue] = useState('');
 
   const handleClick = () => {
+    if (value === '') return;
+
     sendMessage(value);
     setValue('');
   };
