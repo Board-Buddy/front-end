@@ -3,7 +3,7 @@
 import { Input } from '@/components/ui/input';
 import { SearchIcon } from 'lucide-react';
 import Image from 'next/image';
-import { Dispatch, RefObject, SetStateAction, useEffect, useRef } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 
 interface Props {
   keyword: string;

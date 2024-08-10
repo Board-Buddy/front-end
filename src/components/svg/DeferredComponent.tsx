@@ -2,7 +2,7 @@
 
 import { PropsWithChildren, useEffect, useState } from 'react';
 
-const DeferredComponent = ({ children }: PropsWithChildren<{}>) => {
+const DeferredComponent = ({ children }: PropsWithChildren<object>) => {
   const [isDeferred, setIsDeferred] = useState(false);
 
   useEffect(() => {
