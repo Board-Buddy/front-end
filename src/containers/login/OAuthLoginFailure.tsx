@@ -24,7 +24,7 @@ const OAuthLoginFailure = ({ messageCode }: Props) => {
         setOpen={setOpen}
         title={OAUTH_LOGIN_MESSAGE_CODE[messageCode]}
         confirmText="다시 로그인"
-        onConfirm={() => router.push('/login')}
+        onConfirm={() => router.push('/login-splash')}
       />
     </>
   );

@@ -32,7 +32,7 @@ const OAuthLoginSuccess = () => {
         setOpen={setOpenError}
         title="로그인 실패"
         confirmText="다시 로그인"
-        onConfirm={() => router.push('/login')}
+        onConfirm={() => router.push('/login-splash')}
       />
     </>
   );
