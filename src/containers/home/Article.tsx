@@ -46,10 +46,10 @@ const Article = ({
           >
             {ARTICLE_STATUS[status]}
           </div>
-          {title}
+          <p className="max-w-[270px] truncate">{title}</p>
         </CardTitle>
         <CardDescription className="text-gray-500">
-          {description}
+          <p className="line-clamp-1">{description}</p>
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col text-sm">

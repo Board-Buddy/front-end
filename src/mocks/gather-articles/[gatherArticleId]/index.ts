@@ -11,7 +11,8 @@ export const getArticle = http.get(
         status: 'success',
         data: {
           post: {
-            title: '퇴근 후 보드게임 ㄱㄱ하실분',
+            title:
+              '퇴근 후 보드게임 ㄱㄱ하실분퇴근 후 보드게임 ㄱㄱ하실분퇴근 후 보드게임 ㄱㄱ하실분퇴근 후 보드게임 ㄱㄱ하실분퇴근 후 보드게임 ㄱㄱ하실분',
             description: '스플렌더 하실 분~',
             author: {
               nickname: 'yubin',
@@ -30,7 +31,7 @@ export const getArticle = http.get(
             sgg: '관악구',
             emd: '신림동',
             createdAt: '2024-07-19 13:09',
-            status: 'open',
+            status: 'closed',
             participationApplicationStatus: 'approved',
           },
         },

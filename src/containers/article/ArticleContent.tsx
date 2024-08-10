@@ -85,7 +85,7 @@ const ArticleContent = ({
           >
             {ARTICLE_STATUS[status]}
           </span>
-          <span className="text-gray-800 ">{title}</span>
+          <span className="text-gray-800 max-w-[310px] truncate">{title}</span>
           <DropdownMenu>
             <DropdownMenuTrigger
               className={cn(

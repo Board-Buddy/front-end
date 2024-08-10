@@ -32,8 +32,10 @@ export const getArticles = http.get(
           posts: [
             {
               id: 1,
-              title: '퇴근 후 보드게임 ㄱㄱ하실분',
-              description: '스플렌더 하실 분~',
+              title:
+                '퇴근 후 보드게임 ㄱㄱ하실분퇴근 후 보드게임 ㄱㄱ하실분퇴근 후 보드게임 ㄱㄱ하실분',
+              description:
+                '스플렌더 하실 분~스플렌더 하실 분~스플렌더 하실 분~스플렌더 하실 분~스플렌더 하실 분~스플렌더 하실 분~스플렌더 하실 분~스플렌더 하실 분~',
               author: {
                 nickname: '김보드',
                 rank: 1,
