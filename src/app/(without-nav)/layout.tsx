@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import '../../styles/globals.css';
 import { WriteFormProvider } from '@/context/WriteFormContext';
 
-const BASE_URL = 'https://boardbuddyapp.vercel.app';
+const BASE_URL = 'https://m.boardbuddyapp.com';
 
 export const metadata: Metadata = {
   title: '보드버디',

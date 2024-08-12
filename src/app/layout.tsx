@@ -13,7 +13,7 @@ const fontSans = FontSans({
   variable: '--font-sans',
 });
 
-const BASE_URL = 'https://boardbuddyapp.vercel.app';
+const BASE_URL = 'https://m.boardbuddyapp.com';
 
 export const metadata: Metadata = {
   title: '보드버디',
