@@ -23,26 +23,25 @@ BoardBuddy는 보드게임을 좋아하는 사람들이 주변에서 보드게�
 <br><br>
 
 ## Front-end 멤버 소개
-|<img width="200" src="https://avatars.githubusercontent.com/u/63189595?v=4" alt="프로필 이미지">|<img width="200" src="https://avatars.githubusercontent.com/u/96777845?v=4" alt="프로필 이미지">|
+|<img width="200" src="https://avatars.githubusercontent.com/u/63189595?v=4" alt="프로필 이미지">|<img width="200" src="https://github.com/user-attachments/assets/c447b0c3-146c-415e-a147-eed3af3ad366" alt="프로필 이미지">|
 |:---:|:---:|
 |[**채유빈**](https://github.com/ChaeYubin)|[**마혜준**](https://github.com)|
 
 <br><br>
 
 ## 역할 및 담당 기능
+
 <table>
   <tr>
     <th width="10%">이름</th>
     <td width="45%">채유빈</td>
     <td width="45%">마혜준</td>
   </tr>
-  
   <tr>
     <th>역할</th>
     <td>팀장, 프로젝트 PM</td>
     <td>팀원</td>
   </tr>
-  
   <tr>
     <th>기능</th>
     <td>
@@ -135,7 +134,7 @@ npm run dev
 <br><br>
 
 ## 아키텍처
-![Cloudcraft Web App Reference](https://github.com/user-attachments/assets/c86b26a2-d0fd-445e-828d-7e385df44523)
+![아키텍처_최종](https://github.com/user-attachments/assets/f2a00f79-f5d1-45e7-b315-b557a02638a4)
 
 <br><br>
 
