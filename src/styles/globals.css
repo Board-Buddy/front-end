@@ -24,13 +24,17 @@
     --chart-5: 27 87% 67%;
   }
 
-  * {
-    overscroll-behavior: none;
-  }
-}
-
-@layer base {
   body {
     @apply bg-background text-foreground;
+  }
+
+  * {
+    overscroll-behavior: none;
+    -ms-overflow-style: none; /* IE, Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  *::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
   }
 }
