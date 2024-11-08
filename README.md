@@ -2,7 +2,7 @@
 
 <div align="center">
   <h4>개발 기간: 2024/6/28 ~ 2024/8/14</h3><br>
-  <a href="#배포-주소">배포 주소</a> • <a href="#프로젝트-소개">프로젝트 소개</a> • <a href="#front-end-멤버-소개">Front-end 멤버 소개</a> • <a href="#역할-및-담당-기능">역할 및 담당 기능</a> • <a href="#주요-기능">주요 기능</a> • <a href="#아키텍처">아키텍처</a> • <a href="#시연영상">시연영상</a>
+  <a href="#배포-주소">배포 주소</a> • <a href="#프로젝트-소개">프로젝트 소개</a> • <a href="#프론트엔드-주요-기술-스택">기술 스택</a> • <a href="#front-end-멤버-소개">멤버 소개</a> • <a href="#역할-및-담당-기능">역할 및 담당 기능</a> • <a href="#주요-기능">주요 기능</a> • <a href="#아키텍처">아키텍처</a> • <a href="#시연영상">시연영상</a>
 </div>
 
 <br><br>
@@ -22,6 +22,11 @@ BoardBuddy는 보드게임을 좋아하는 사람들이 주변에서 보드게�
 
 <br><br>
 
+## 프론트엔드 주요 기술 스택
+<img src="https://img.shields.io/badge/NextJS-000000?style=for-the-badge&logo=nextdotjs&logoColor=white"><img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"><img src="https://img.shields.io/badge/ReactQuery-FF4154?style=for-the-badge&logo=reactquery&logoColor=white"><img src="https://img.shields.io/badge/TailwindCSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"><img src="https://img.shields.io/badge/shadcn/ui-000000?style=for-the-badge&logo=shadcnui&logoColor=white"><img src="https://img.shields.io/badge/MSW-FF6A33?style=for-the-badge&logo=mockserviceworker&logoColor=white"><img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white"><img src="https://img.shields.io/badge/stompjs-000000?style=for-the-badge">
+
+<br><br>
+
 ## Front-end 멤버 소개
 |<img width="200" src="https://avatars.githubusercontent.com/u/63189595?v=4" alt="프로필 이미지">|<img width="200" src="https://github.com/user-attachments/assets/c447b0c3-146c-415e-a147-eed3af3ad366" alt="프로필 이미지">|
 |:---:|:---:|
@@ -31,7 +36,7 @@ BoardBuddy는 보드게임을 좋아하는 사람들이 주변에서 보드게�
 
 ## 역할 및 담당 기능
 
-<table>
+<table width="100%">
   <tr>
     <th width="10%">이름</th>
     <td width="45%">채유빈</td>
@@ -64,16 +69,24 @@ BoardBuddy는 보드게임을 좋아하는 사람들이 주변에서 보드게�
 <br><br>
 
 ## 실행 방법
-1. `.env.local` 파일 생성 후 아래와 같이 작성합니다.
+1. 레포지토리를 클론합니다.
+```bash
+git clone https://github.com/Board-Buddy/front-end.git
+
+cd front-end
+```
+2. `front-end` 디렉토리의 최상위에 `.env.local` 파일 생성 후 아래와 같이 작성합니다.
 ```bash
 NEXT_PUBLIC_API_MOCKING=enabled
 ```
-2. 터미널에서 아래 명령어를 차례대로 입력합니다.
+
+3. 터미널에서 아래 명령어를 차례대로 입력합니다.
 ```bash
 npm install
 npm run dev
 ```
-3. 브라우저에서 [http://localhost:3000](http://localhost:3000) 페이지에 접속합니다.
+
+4. 브라우저에서 [http://localhost:3000](http://localhost:3000) 페이지에 접속합니다.
 
 <br>
 
@@ -128,10 +141,6 @@ npm run dev
 
 <br><br>
 
-## 프론트엔드 주요 기술 스택
-<img src="https://img.shields.io/badge/NextJS-000000?style=for-the-badge&logo=nextdotjs&logoColor=white"><img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"><img src="https://img.shields.io/badge/ReactQuery-FF4154?style=for-the-badge&logo=reactquery&logoColor=white"><img src="https://img.shields.io/badge/TailwindCSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"><img src="https://img.shields.io/badge/shadcn/ui-000000?style=for-the-badge&logo=shadcnui&logoColor=white"><img src="https://img.shields.io/badge/MSW-FF6A33?style=for-the-badge&logo=mockserviceworker&logoColor=white"><img src="https://img.shields.io/badge/axios-5A29E4?style=for-the-badge&logo=axios&logoColor=white"><img src="https://img.shields.io/badge/stompjs-000000?style=for-the-badge">
-
-<br><br>
 
 ## 아키텍처
 ![아키텍처_최종](https://github.com/user-attachments/assets/f2a00f79-f5d1-45e7-b315-b557a02638a4)
