@@ -78,6 +78,7 @@ cd front-end
 2. `front-end` 디렉토리의 최상위에 `.env.local` 파일 생성 후 아래와 같이 작성합니다.
 ```bash
 NEXT_PUBLIC_API_MOCKING=enabled
+NEXT_PUBLIC_API_SERVER_URL=https://localhost:3000
 ```
 
 3. 터미널에서 아래 명령어를 차례대로 입력합니다.
