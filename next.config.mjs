@@ -13,12 +13,14 @@ const nextConfig = {
     }
     return config;
   },
-  rewrites: [
-    {
-      source: '/api/:path*',
-      destination: `${process.env.NEXT_PUBLIC_API_SERVER_URL}/api/:path*`,
-    },
-  ],
+  rewrites: async () => {
+    return [
+      {
+        source: '/api/:path*',
+        destination: `${process.env.NEXT_PUBLIC_API_SERVER_URL}/api/:path*`,
+      },
+    ];
+  },
   images: {
     remotePatterns: [
       {
