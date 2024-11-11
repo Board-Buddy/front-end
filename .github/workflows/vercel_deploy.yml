@@ -20,7 +20,7 @@ jobs:
 
       - name: Build Project Artifacts
         env:
-          BACKEND_SERVER_URL: ${{ secrets.BACKEND_SERVER_URL }}
+          BACKEND_SERVER_URL: ${{ secrets.SERVER_URL }}
         run: |
           echo "NEXT_PUBLIC_API_SERVER_URL=${{ secrets.SERVER_URL }}" >> .env.production
           echo "NEXT_PUBLIC_WS_SERVER_URL=${{ secrets.WS_SERVER_URL }}" >> .env.production
