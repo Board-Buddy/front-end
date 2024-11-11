@@ -1,11 +1,34 @@
+import { API_BASE_URL } from '@/constants/env';
 import api from '@/services';
 
 /** 아이디 중복 검사 API */
 export const checkIdDuplicate = async (id: string) => {
+  // try {
+  //   const response = await api.post(`/api/auth/username/check`, {
+  //     username: id,
+  //   });
+
+  //   return {
+  //     status: 'success',
+  //     data: response.data.data,
+  //     message: response.data.message,
+  //   };
+  // } catch (error: any) {
+  //   return {
+  //     status: error.response.data.status,
+  //     data: error.response.data.data,
+  //     message: error.response.data.message,
+  //   };
+  // }
+
   try {
-    const response = await api.post(`/api/auth/username/check`, {
-      username: id,
-    });
+    const response = await fetch(`${API_BASE_URL}/api/auth/username/check`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username: id }),
+    }).then((response) => response.json());
 
     return {
       status: 'success',
