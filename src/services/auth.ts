@@ -28,7 +28,7 @@ export const checkIdDuplicate = async (id: string) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ username: id }),
-    }).then((response) => response.json());
+    }).then((res) => res.json());
 
     return {
       status: 'success',
