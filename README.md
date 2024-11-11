@@ -68,7 +68,7 @@ BoardBuddy는 보드게임을 좋아하는 사람들이 주변에서 보드게�
 
 <br><br>
 
-## 실행 방법
+## 로컬에서 실행하는 방법
 1. 레포지토리를 클론합니다.
 ```bash
 git clone https://github.com/Board-Buddy/front-end.git
@@ -78,7 +78,7 @@ cd front-end
 2. `front-end` 디렉토리의 최상위에 `.env.local` 파일 생성 후 아래와 같이 작성합니다.
 ```bash
 NEXT_PUBLIC_API_MOCKING=enabled
-NEXT_PUBLIC_API_SERVER_URL=https://localhost:3000
+NEXT_PUBLIC_API_SERVER_URL=http://localhost:3000
 ```
 
 3. 터미널에서 아래 명령어를 차례대로 입력합니다.
