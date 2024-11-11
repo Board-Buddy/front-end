@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   webpack: (config, { isServer }) => {
@@ -13,6 +15,12 @@ const nextConfig = {
     }
     return config;
   },
+  rewrites: [
+    {
+      source: '/api/:path*',
+      destination: `${process.env.NEXT_PUBLIC_API_SERVER_URL}/api/:path*`,
+    },
+  ],
   images: {
     remotePatterns: [
       {
