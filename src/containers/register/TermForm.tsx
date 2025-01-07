@@ -11,10 +11,9 @@ const TermForm = () => {
   const [serviceChecked, setServiceChecked] = useState(false);
   const [privacyChecked, setPrivacyChecked] = useState(false);
   const [thirdPartyChecked, setThirdPartyChecked] = useState(false);
-  const [allAgreed, setAllAgreed] = useState(false);
 
   useEffect(() => {
-    setAllAgreed(serviceChecked && privacyChecked && thirdPartyChecked);
+    setAllChecked(serviceChecked && privacyChecked && thirdPartyChecked);
   }, [serviceChecked, privacyChecked, thirdPartyChecked]);
 
   const handleAllChange = (checked: boolean) => {
@@ -81,10 +80,10 @@ const TermForm = () => {
           </Button>
         </div>
       </div>
-      <Link href={allAgreed ? '/register/accounts' : '#'}>
+      <Link href={allChecked ? '/register/accounts' : '#'}>
         <Button
           className="bg-primary text-white font-bold text-lg w-full h-12 mt-4"
-          disabled={!allAgreed}
+          disabled={!allChecked}
         >
           다음
         </Button>
