@@ -112,13 +112,17 @@ const RegisterForm = () => {
       return;
     }
 
-    const { status, message } = await checkIdDuplicate(form.getValues('id'));
+    try {
+      const { status, message } = await checkIdDuplicate(form.getValues('id'));
 
-    if (status === 'success') {
-      form.clearErrors('id');
-      setUniqueId(true);
-    } else {
-      form.setError('id', { type: 'manual', message });
+      if (status === 'success') {
+        form.clearErrors('id');
+        setUniqueId(true);
+      } else {
+        form.setError('id', { type: 'manual', message });
+      }
+    } catch (error: any) {
+      form.setError('id', { type: 'manual', message: error.message });
     }
   };
 
@@ -134,15 +138,20 @@ const RegisterForm = () => {
       });
       return;
     }
-    const { status, message } = await checkNicknameDuplicate(
-      form.getValues('nickname'),
-    );
 
-    if (status === 'success') {
-      form.clearErrors('nickname');
-      setUniqueNickname(true);
-    } else {
-      form.setError('nickname', { type: 'manual', message });
+    try {
+      const { status, message } = await checkNicknameDuplicate(
+        form.getValues('nickname'),
+      );
+
+      if (status === 'success') {
+        form.clearErrors('nickname');
+        setUniqueNickname(true);
+      } else {
+        form.setError('nickname', { type: 'manual', message });
+      }
+    } catch (error: any) {
+      form.setError('nickname', { type: 'manual', message: error.message });
     }
   };
 
@@ -159,15 +168,19 @@ const RegisterForm = () => {
       return;
     }
 
-    const { status, message } = await smsCertificationSend(
-      form.getValues('phone'),
-    );
+    try {
+      const { status, message } = await smsCertificationSend(
+        form.getValues('phone'),
+      );
 
-    if (status === 'success') {
-      form.clearErrors('phone');
-      setShowPhoneVerifyCodeInput(true);
-    } else {
-      form.setError('phone', { type: 'manual', message });
+      if (status === 'success') {
+        form.clearErrors('phone');
+        setShowPhoneVerifyCodeInput(true);
+      } else {
+        form.setError('phone', { type: 'manual', message });
+      }
+    } catch (error: any) {
+      form.setError('phone', { type: 'manual', message: error.message });
     }
   };
 
@@ -177,11 +190,18 @@ const RegisterForm = () => {
       certificationNumber: form.getValues('phoneVerifyCode'),
     });
 
-    if (status === 'success') {
-      form.clearErrors('phoneVerifyCode');
-      setVerifiedPhone(true);
-    } else {
-      form.setError('phoneVerifyCode', { type: 'manual', message });
+    try {
+      if (status === 'success') {
+        form.clearErrors('phoneVerifyCode');
+        setVerifiedPhone(true);
+      } else {
+        form.setError('phoneVerifyCode', { type: 'manual', message });
+      }
+    } catch (error: any) {
+      form.setError('phoneVerifyCode', {
+        type: 'manual',
+        message: error.message,
+      });
     }
   };
 
@@ -218,22 +238,27 @@ const RegisterForm = () => {
       return;
     }
 
-    const { status, message } = await register({
-      username: values.id,
-      password: values.password,
-      email: values.email,
-      nickname: values.nickname,
-      phoneNumber: values.phone,
-      sido: values.location.split(' ')[0],
-      sgg: values.location.split(' ')[1],
-      emd: values.location.split(' ')[2],
-    });
+    try {
+      const { status, message } = await register({
+        username: values.id,
+        password: values.password,
+        email: values.email,
+        nickname: values.nickname,
+        phoneNumber: values.phone,
+        sido: values.location.split(' ')[0],
+        sgg: values.location.split(' ')[1],
+        emd: values.location.split(' ')[2],
+      });
 
-    if (status === 'success') {
-      setMsg(message);
-      setOpenRegisterSuccess(true);
-    } else {
-      setMsg(message);
+      if (status === 'success') {
+        setMsg(message);
+        setOpenRegisterSuccess(true);
+      } else {
+        setMsg(message);
+        setOpenRegisterError(true);
+      }
+    } catch (error: any) {
+      setMsg(error.message);
       setOpenRegisterError(true);
     }
   };

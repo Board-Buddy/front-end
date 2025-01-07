@@ -13,11 +13,7 @@ export const checkIdDuplicate = async (id: string) => {
       message: response.data.message,
     };
   } catch (error: any) {
-    return {
-      status: error.response.data.status,
-      data: error.response.data.data,
-      message: error.response.data.message,
-    };
+    return error;
   }
 };
 
@@ -34,11 +30,7 @@ export const checkNicknameDuplicate = async (nickname: string) => {
       message: response.data.message,
     };
   } catch (error: any) {
-    return {
-      status: error.response.data.status,
-      data: error.response.data.data,
-      message: error.response.data.message,
-    };
+    return error;
   }
 };
 
@@ -55,11 +47,7 @@ export const smsCertificationSend = async (phoneNumber: string) => {
       message: response.data.message,
     };
   } catch (error: any) {
-    return {
-      status: error.response.data.status,
-      data: error.response.data.data,
-      message: error.response.data.message,
-    };
+    return error;
   }
 };
 
@@ -80,11 +68,7 @@ export const smsCertificationVerify = async (data: {
       message: response.data.message,
     };
   } catch (error: any) {
-    return {
-      status: error.response.data.status,
-      data: error.response.data.data,
-      message: error.response.data.message,
-    };
+    return error;
   }
 };
 
@@ -108,11 +92,7 @@ export const register = async (data: {
       message: response.data.message,
     };
   } catch (error: any) {
-    return {
-      status: error.response.data.status,
-      data: error.response.data.data,
-      message: error.response.data.message,
-    };
+    return error;
   }
 };
 
@@ -142,11 +122,7 @@ export const oauthRegister = async (data: {
       message: response.data.message,
     };
   } catch (error: any) {
-    return {
-      status: error.response.data.status,
-      data: error.response.data.data,
-      message: error.response.data.message,
-    };
+    return error;
   }
 };
 
@@ -163,11 +139,7 @@ export const passwordCheck = async (password: string) => {
       message: response.data.message,
     };
   } catch (error: any) {
-    return {
-      status: error.response.data.status,
-      data: error.response.data.data,
-      message: error.response.data.message,
-    };
+    return error;
   }
 };
 
