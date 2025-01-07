@@ -37,7 +37,7 @@ const LoginDrawer = () => {
       <p className="font-extrabold mt-1 mb-3">지금 바로 함께해요!</p>
       <div className="w-4/5 flex flex-col items-center gap-2">
         <Link
-          href={`${API_BASE_URL}/api/oauth2/authorization/kakao`}
+          href={`${API_BASE_URL}/v1/oauth2/authorization/kakao`}
           className="w-full"
         >
           <div className="flex rounded-3xl bg-[#f9e000] border-[3px] border-white h-11 items-center justify-center gap-1.5">
@@ -48,7 +48,7 @@ const LoginDrawer = () => {
           </div>
         </Link>
         <Link
-          href={`${API_BASE_URL}/api/oauth2/authorization/naver`}
+          href={`${API_BASE_URL}/v1/oauth2/authorization/naver`}
           className="w-full"
         >
           <div className="flex rounded-3xl bg-[#2db400] border-[3px] border-white h-11 items-center justify-center gap-1.5">
@@ -59,7 +59,7 @@ const LoginDrawer = () => {
           </div>
         </Link>
         <Link
-          href={`${API_BASE_URL}/api/oauth2/authorization/google`}
+          href={`${API_BASE_URL}/v1/oauth2/authorization/google`}
           className="w-full"
         >
           <div className="flex rounded-3xl bg-gray-300 border-[3px] border-white h-11 items-center justify-center gap-1.5">
