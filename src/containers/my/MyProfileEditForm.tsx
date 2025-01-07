@@ -106,15 +106,20 @@ const MyProfileEditForm = () => {
       });
       return;
     }
-    const { status, message } = await checkNicknameDuplicate(
-      form.getValues('nickname')!,
-    );
 
-    if (status === 'success') {
-      form.clearErrors('nickname');
-      setUniqueNickname(true);
-    } else {
-      form.setError('nickname', { type: 'manual', message });
+    try {
+      const { status, message } = await checkNicknameDuplicate(
+        form.getValues('nickname')!,
+      );
+
+      if (status === 'success') {
+        form.clearErrors('nickname');
+        setUniqueNickname(true);
+      } else {
+        form.setError('nickname', { type: 'manual', message });
+      }
+    } catch (error: any) {
+      form.setError('nickname', { type: 'manual', message: error.message });
     }
   };
 
@@ -129,15 +134,23 @@ const MyProfileEditForm = () => {
       });
       return;
     }
-    const { status, message } = await passwordCheck(
-      form.getValues('beforePassword')!,
-    );
 
-    if (status === 'success') {
-      form.clearErrors('beforePassword');
-      setShowNewPasswordInput(true);
-    } else {
-      form.setError('beforePassword', { type: 'manual', message });
+    try {
+      const { status, message } = await passwordCheck(
+        form.getValues('beforePassword')!,
+      );
+
+      if (status === 'success') {
+        form.clearErrors('beforePassword');
+        setShowNewPasswordInput(true);
+      } else {
+        form.setError('beforePassword', { type: 'manual', message });
+      }
+    } catch (error: any) {
+      form.setError('beforePassword', {
+        type: 'manual',
+        message: error.message,
+      });
     }
   };
 
@@ -153,15 +166,19 @@ const MyProfileEditForm = () => {
       return;
     }
 
-    const { status, message } = await smsCertificationSend(
-      form.getValues('phone')!,
-    );
+    try {
+      const { status, message } = await smsCertificationSend(
+        form.getValues('phone')!,
+      );
 
-    if (status === 'success') {
-      form.clearErrors('phone');
-      setShowPhoneVerifyCodeInput(true);
-    } else {
-      form.setError('phone', { type: 'manual', message });
+      if (status === 'success') {
+        form.clearErrors('phone');
+        setShowPhoneVerifyCodeInput(true);
+      } else {
+        form.setError('phone', { type: 'manual', message });
+      }
+    } catch (error: any) {
+      form.setError('phone', { type: 'manual', message: error.message });
     }
   };
 
@@ -171,11 +188,18 @@ const MyProfileEditForm = () => {
       certificationNumber: form.getValues('phoneVerifyCode')!,
     });
 
-    if (status === 'success') {
-      form.clearErrors('phoneVerifyCode');
-      setVerifiedPhone(true);
-    } else {
-      form.setError('phoneVerifyCode', { type: 'manual', message });
+    try {
+      if (status === 'success') {
+        form.clearErrors('phoneVerifyCode');
+        setVerifiedPhone(true);
+      } else {
+        form.setError('phoneVerifyCode', { type: 'manual', message });
+      }
+    } catch (error: any) {
+      form.setError('phoneVerifyCode', {
+        type: 'manual',
+        message: error.message,
+      });
     }
   };
 
