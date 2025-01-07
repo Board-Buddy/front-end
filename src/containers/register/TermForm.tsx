@@ -4,23 +4,51 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const TermForm = () => {
-  const [allChecked, setAllChecked] = useState(false);
-  const [serviceChecked, setServiceChecked] = useState(false);
-  const [privacyChecked, setPrivacyChecked] = useState(false);
-  const [thirdPartyChecked, setThirdPartyChecked] = useState(false);
+  const [items, setItems] = useState([
+    {
+      name: 'service',
+      value: '보드버디 서비스 이용약관 동의',
+      isChecked: false,
+      required: true,
+    },
+    {
+      name: 'privacy',
+      value: '개인정보 수집 및 이용 동의',
+      isChecked: false,
+      required: true,
+    },
+    {
+      name: 'thirdparty',
+      value: '개인정보 제3자 제공 동의',
+      isChecked: false,
+      required: true,
+    },
+    {
+      name: 'advertisement',
+      value: '마케팅 및 광고활용 동의',
+      isChecked: false,
+      required: false,
+    },
+  ]);
 
-  useEffect(() => {
-    setAllChecked(serviceChecked && privacyChecked && thirdPartyChecked);
-  }, [serviceChecked, privacyChecked, thirdPartyChecked]);
+  const allRequiredChecked = items
+    .filter((item) => item.required)
+    .every((item) => item.isChecked);
+  const allChecked = items.every((item) => item.isChecked);
 
   const handleAllChange = (checked: boolean) => {
-    setAllChecked(checked);
-    setServiceChecked(checked);
-    setPrivacyChecked(checked);
-    setThirdPartyChecked(checked);
+    setItems((prev) => prev.map((item) => ({ ...item, isChecked: checked })));
+  };
+
+  const handleItemChange = (name: string, checked: boolean) => {
+    setItems((prev) =>
+      prev.map((item) =>
+        item.name === name ? { ...item, isChecked: checked } : item,
+      ),
+    );
   };
 
   return (
@@ -35,55 +63,32 @@ const TermForm = () => {
           />
           <Label htmlFor="all">전체 동의</Label>
         </div>
-        <div className="flex items-center space-x-2 mr-1 px-4">
-          <Checkbox
-            id="service"
-            className="transition-all"
-            checked={serviceChecked}
-            onCheckedChange={(checked: boolean) => setServiceChecked(checked)}
-          />
-          <Label htmlFor="service" className="flex-1">
-            [필수] 보드버디 서비스 이용약관 동의
-          </Label>
-          <Button className="bg-transparent underline text-gray-600 p-0 h-fit">
-            보기
-          </Button>
-        </div>
-        <div className="flex items-center space-x-2 mr-1 px-4">
-          <Checkbox
-            id="privacy"
-            className="transition-all"
-            checked={privacyChecked}
-            onCheckedChange={(checked: boolean) => setPrivacyChecked(checked)}
-          />
-          <Label htmlFor="privacy" className="flex-1">
-            [필수] 개인정보 수집 및 이용 동의
-          </Label>
-          <Button className="bg-transparent underline text-gray-600 p-0 h-fit">
-            보기
-          </Button>
-        </div>
-        <div className="flex items-center space-x-2 mr-1 px-4">
-          <Checkbox
-            id="thirdparty"
-            className="transition-all"
-            checked={thirdPartyChecked}
-            onCheckedChange={(checked: boolean) =>
-              setThirdPartyChecked(checked)
-            }
-          />
-          <Label htmlFor="thirdparty" className="flex-1">
-            [필수] 개인정보 제3자 제공 동의
-          </Label>
-          <Button className="bg-transparent underline text-gray-600 p-0 h-fit">
-            보기
-          </Button>
-        </div>
+        {items.map((item) => (
+          <div
+            key={item.name}
+            className="flex items-center space-x-2 mr-1 px-4"
+          >
+            <Checkbox
+              id={item.name}
+              className="transition-all"
+              checked={item.isChecked}
+              onCheckedChange={(checked) =>
+                handleItemChange(item.name, Boolean(checked))
+              }
+            />
+            <Label htmlFor={item.name} className="flex-1">
+              [{item.required ? '필수' : '선택'}] {item.value}
+            </Label>
+            <Button className="bg-transparent underline text-gray-600 p-0 h-fit">
+              보기
+            </Button>
+          </div>
+        ))}
       </div>
-      <Link href={allChecked ? '/register/accounts' : '#'}>
+      <Link href={allRequiredChecked ? '/register/accounts' : '#'}>
         <Button
           className="bg-primary text-white font-bold text-lg w-full h-12 mt-4"
-          disabled={!allChecked}
+          disabled={!allRequiredChecked}
         >
           다음
         </Button>
