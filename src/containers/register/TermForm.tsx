@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 const TermForm = () => {
+  // 주석 추가
   const [items, setItems] = useState([
     {
       name: 'service',
