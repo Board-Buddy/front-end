@@ -3,16 +3,16 @@ import api from '@/services';
 /** 참가 신청 리스트 조회 API */
 export const getParticipants = ({ articleId }: { articleId: string }) =>
   api
-    .get(`/v1/gather-articles/${articleId}/participation`)
+    .get(`/gather-articles/${articleId}/participation`)
     .then((response) => response.data.data.participationAppliedMemberList);
 
 /** 참가 신청 API */
 export const applyParticipation = ({ articleId }: { articleId: string }) =>
-  api.post(`/v1/gather-articles/${articleId}/participation`);
+  api.post(`/gather-articles/${articleId}/participation`);
 
 /** 참가 신청 취소 API */
 export const cancelParticipation = ({ articleId }: { articleId: string }) =>
-  api.put(`/v1/gather-articles/${articleId}/participation`);
+  api.put(`/gather-articles/${articleId}/participation`);
 
 /** 참가 신청 승인 API */
 export const approveParticipation = ({
@@ -25,7 +25,7 @@ export const approveParticipation = ({
   applicantNickname: string;
 }) =>
   api.put(
-    `/v1/gather-articles/${articleId}/participation/${participationId}/approval?applicantNickname=${applicantNickname}`,
+    `/gather-articles/${articleId}/participation/${participationId}/approval?applicantNickname=${applicantNickname}`,
   );
 
 /** 참가 신청 거절 API */
@@ -39,5 +39,5 @@ export const rejectParticipation = ({
   applicantNickname: string;
 }) =>
   api.put(
-    `/v1/gather-articles/${articleId}/participation/${participationId}/rejection?applicantNickname=${applicantNickname}`,
+    `/gather-articles/${articleId}/participation/${participationId}/rejection?applicantNickname=${applicantNickname}`,
   );

@@ -20,7 +20,7 @@ const NotificationProvider = () => {
 
   useEffect(() => {
     const eventSource = new EventSource(
-      `${API_BASE_URL}/api/notifications/subscribe`,
+      `${API_BASE_URL}/notifications/subscribe`,
       {
         withCredentials: true,
       },

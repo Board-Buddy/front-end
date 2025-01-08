@@ -12,7 +12,7 @@ interface ResponseBody {
 }
 
 export const checkNickname = http.post<any, RequestBody, ResponseBody>(
-  `${API_BASE_URL}/api/auth/username/check`,
+  `${API_BASE_URL}/auth/username/check`,
   async ({ request }) => {
     const { nickname } = await request.json();
 

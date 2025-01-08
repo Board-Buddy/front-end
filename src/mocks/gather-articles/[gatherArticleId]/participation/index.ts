@@ -32,7 +32,7 @@ const participationMap = new Map<number, ParticipantInfo[]>([
 ]);
 
 export const getParticipants = http.get(
-  `${API_BASE_URL}/api/gather-articles/:articleId([0-9]+)/participation`,
+  `${API_BASE_URL}/gather-articles/:articleId([0-9]+)/participation`,
   ({ params }) => {
     const { articleId } = params;
     const participants = participationMap.get(Number(articleId)) || [];
@@ -48,7 +48,7 @@ export const getParticipants = http.get(
 );
 
 export const applyParticipation = http.post(
-  `${API_BASE_URL}/api/gather-articles/:articleId([0-9]+)/participation`,
+  `${API_BASE_URL}/gather-articles/:articleId([0-9]+)/participation`,
   ({ params }) => {
     const { articleId } = params;
     const participants = participationMap.get(Number(articleId)) || [];
@@ -72,7 +72,7 @@ export const applyParticipation = http.post(
 );
 
 export const cancelParticipation = http.put(
-  `${API_BASE_URL}/api/gather-articles/:articleId([0-9]+)/participation`,
+  `${API_BASE_URL}/gather-articles/:articleId([0-9]+)/participation`,
   ({ params }) => {
     const { articleId } = params;
     const participants = participationMap.get(Number(articleId)) || [];
@@ -92,7 +92,7 @@ export const cancelParticipation = http.put(
 );
 
 export const approveParticipation = http.put(
-  `${API_BASE_URL}/api/gather-articles/:articleId([0-9]+)/participation/:participationId([0-9]+)/approval`,
+  `${API_BASE_URL}/gather-articles/:articleId([0-9]+)/participation/:participationId([0-9]+)/approval`,
   ({ request, params }) => {
     const url = new URL(request.url);
     const applicantNickname = url.searchParams.get('applicantNickname');
@@ -117,7 +117,7 @@ export const approveParticipation = http.put(
 );
 
 export const rejectParticipation = http.put(
-  `${API_BASE_URL}/api/gather-articles/:articleId([0-9]+)/participation/:participationId([0-9]+)/rejection`,
+  `${API_BASE_URL}/gather-articles/:articleId([0-9]+)/participation/:participationId([0-9]+)/rejection`,
   ({ request, params }) => {
     const url = new URL(request.url);
     const applicantNickname = url.searchParams.get('applicantNickname');

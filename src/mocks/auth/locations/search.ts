@@ -2,7 +2,7 @@ import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 
 export const searchLocation = http.get(
-  `${API_BASE_URL}/api/auth/locations/search`,
+  `${API_BASE_URL}/auth/locations/search`,
   ({ request }) => {
     const url = new URL(request.url);
     const keyword = url.searchParams.get('emd');

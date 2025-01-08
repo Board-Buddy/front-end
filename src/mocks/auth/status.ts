@@ -1,7 +1,7 @@
 import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 
-export const status = http.get(`${API_BASE_URL}/api/auth/status`, () => {
+export const status = http.get(`${API_BASE_URL}/auth/status`, () => {
   return HttpResponse.json({
     status: 'success',
     data: {

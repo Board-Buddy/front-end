@@ -2,7 +2,7 @@ import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 
 export const searchArticles = http.get(
-  `${API_BASE_URL}/api/gather-articles/search`,
+  `${API_BASE_URL}/gather-articles/search`,
   ({ request }) => {
     const url = new URL(request.url);
     const keyword = decodeURIComponent(url.searchParams.get('query')!);

@@ -19,7 +19,7 @@ const useSockWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
 
   // 웹소켓 연결
   const connectToWebSocket = () => {
-    const socket = new SockJS(`${API_BASE_URL}/api/ws-stomp/connection`);
+    const socket = new SockJS(`${API_BASE_URL}/ws-stomp/connection`);
     const client = Stomp.over(socket);
     clientRef.current = client;
 
@@ -35,7 +35,7 @@ const useSockWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
 
     // 채팅방 메시지 구독
     client.subscribe(
-      `/api/ws-stomp/reception/${chatRoomId}`,
+      `/ws-stomp/reception/${chatRoomId}`,
       (message: IMessage) => {
         try {
           const newMessage = JSON.parse(message.body) as Message;
@@ -51,7 +51,7 @@ const useSockWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
   const handleSendMessage = (message: string) => {
     if (clientRef.current?.connected) {
       clientRef.current?.publish({
-        destination: `/api/ws-stomp/publication/${chatRoomId}`,
+        destination: `/ws-stomp/publication/${chatRoomId}`,
         body: JSON.stringify({
           content: message,
           nickname,

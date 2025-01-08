@@ -2,7 +2,7 @@ import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 
 export const getArticleSimpleInfo = http.get(
-  `${API_BASE_URL}/api/chat/rooms/:chatRoomId([0-9]+)/gather-articles/:gatherArticleId([0-9]+)`,
+  `${API_BASE_URL}/chat/rooms/:chatRoomId([0-9]+)/gather-articles/:gatherArticleId([0-9]+)`,
   () => {
     return HttpResponse.json({
       status: 'success',

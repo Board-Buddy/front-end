@@ -14,7 +14,7 @@ export const getBoardCafes = ({
   radius: number;
 }) =>
   api
-    .get(`/v1/board-cafes`, {
+    .get(`/board-cafes`, {
       params: { x, y, radius },
     })
     .then((response) => response.data.data.cafes);

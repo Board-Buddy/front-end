@@ -1,7 +1,7 @@
 import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 
-export const setRadius = http.put(`${API_BASE_URL}/api/my/radius`, async () => {
+export const setRadius = http.put(`${API_BASE_URL}/my/radius`, async () => {
   const result = {
     status: 'success',
     data: null,

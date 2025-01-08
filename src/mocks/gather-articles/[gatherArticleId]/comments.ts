@@ -6,7 +6,7 @@ import { http, HttpResponse } from 'msw';
 const comments = new Map<number, Comment>();
 
 export const getComments = http.get(
-  `${API_BASE_URL}/api/gather-articles/:id([0-9]+)/comments`,
+  `${API_BASE_URL}/gather-articles/:id([0-9]+)/comments`,
   () => {
     return HttpResponse.json({
       status: 'success',
@@ -19,7 +19,7 @@ export const getComments = http.get(
 );
 
 export const addComment = http.post<any, { content: string }>(
-  `${API_BASE_URL}/api/gather-articles/:id([0-9]+)/comments`,
+  `${API_BASE_URL}/gather-articles/:id([0-9]+)/comments`,
   async ({ request }) => {
     const { content } = await request.json();
 
@@ -45,7 +45,7 @@ export const addComment = http.post<any, { content: string }>(
 );
 
 export const addReply = http.post<any, { content: string }>(
-  `${API_BASE_URL}/api/gather-articles/:articleId([0-9]+)/comments/:parentId([0-9]+)`,
+  `${API_BASE_URL}/gather-articles/:articleId([0-9]+)/comments/:parentId([0-9]+)`,
   async ({ request, params }) => {
     const { content } = await request.json();
     const { parentId } = params;
@@ -85,7 +85,7 @@ export const addReply = http.post<any, { content: string }>(
 );
 
 export const editComment = http.put<any, { content: string }>(
-  `${API_BASE_URL}/api/gather-articles/:articleId([0-9]+)/comments/:commentId([0-9]+)`,
+  `${API_BASE_URL}/gather-articles/:articleId([0-9]+)/comments/:commentId([0-9]+)`,
   async ({ request, params }) => {
     const { content } = await request.json();
     const { commentId } = params;
@@ -110,7 +110,7 @@ export const editComment = http.put<any, { content: string }>(
 );
 
 export const deleteComment = http.delete<any>(
-  `${API_BASE_URL}/api/gather-articles/:articleId([0-9]+)/comments/:commentId([0-9]+)`,
+  `${API_BASE_URL}/gather-articles/:articleId([0-9]+)/comments/:commentId([0-9]+)`,
   async ({ params }) => {
     const { commentId } = params;
 

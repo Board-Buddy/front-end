@@ -18,7 +18,7 @@ interface ResponseBody {
 }
 
 export const register = http.post<any, RequestBody, ResponseBody>(
-  `${API_BASE_URL}/api/auth/register`,
+  `${API_BASE_URL}/auth/register`,
   async ({ request }) => {
     const requestBody = await request.json();
 

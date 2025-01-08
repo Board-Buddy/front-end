@@ -15,7 +15,7 @@ interface ResponseBody {
 }
 
 export const oauthRegister = http.post<any, RequestBody, ResponseBody>(
-  `${API_BASE_URL}/api/auth/oauth2/register`,
+  `${API_BASE_URL}/auth/oauth2/register`,
   async ({ request }) => {
     const requestBody = await request.json();
 

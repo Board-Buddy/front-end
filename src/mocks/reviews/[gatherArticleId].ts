@@ -2,7 +2,7 @@ import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 
 export const getReviewList = http.get(
-  `${API_BASE_URL}/api/reviews/:articleId([0-9]+)`,
+  `${API_BASE_URL}/reviews/:articleId([0-9]+)`,
   () => {
     const result = {
       status: 'success',
@@ -36,7 +36,7 @@ export const getReviewList = http.get(
 );
 
 export const sendReview = http.post(
-  `${API_BASE_URL}/api/reviews/:articleId([0-9]+)`,
+  `${API_BASE_URL}/reviews/:articleId([0-9]+)`,
   () => {
     const result = {
       status: 'success',

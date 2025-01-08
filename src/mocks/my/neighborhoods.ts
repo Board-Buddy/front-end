@@ -2,7 +2,7 @@ import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 
 export const getMyNeighborhoods = http.get(
-  `${API_BASE_URL}/api/my/neighborhoods`,
+  `${API_BASE_URL}/my/neighborhoods`,
   async () => {
     const result = {
       status: 'success',
@@ -69,7 +69,7 @@ export const getMyNeighborhoods = http.get(
 );
 
 export const setMyNeighborhoods = http.put(
-  `${API_BASE_URL}/api/my/neighborhoods`,
+  `${API_BASE_URL}/my/neighborhoods`,
   async () => {
     const result = {
       status: 'success',

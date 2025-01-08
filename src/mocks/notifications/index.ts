@@ -3,7 +3,7 @@ import { http, HttpResponse } from 'msw';
 import { notificationSubscribe } from './subscribe';
 
 export const getNotificationList = http.get(
-  `${API_BASE_URL}/api/notifications`,
+  `${API_BASE_URL}/notifications`,
   async () => {
     return HttpResponse.json(
       {

@@ -3,7 +3,7 @@ import api from '@/services';
 /** 아이디 중복 검사 API */
 export const checkIdDuplicate = async (id: string) => {
   try {
-    const response = await api.post(`/v1/auth/username/check`, {
+    const response = await api.post(`/auth/username/check`, {
       username: id,
     });
 
@@ -20,7 +20,7 @@ export const checkIdDuplicate = async (id: string) => {
 /** 닉네임 중복 검사 API  */
 export const checkNicknameDuplicate = async (nickname: string) => {
   try {
-    const response = await api.post(`/v1/auth/nickname/check`, {
+    const response = await api.post(`/auth/nickname/check`, {
       nickname,
     });
 
@@ -37,7 +37,7 @@ export const checkNicknameDuplicate = async (nickname: string) => {
 /** SMS 인증 메시지 전송 API */
 export const smsCertificationSend = async (phoneNumber: string) => {
   try {
-    const response = await api.post(`/v1/auth/sms-certifications/send`, {
+    const response = await api.post(`/auth/sms-certifications/send`, {
       phoneNumber,
     });
 
@@ -57,7 +57,7 @@ export const smsCertificationVerify = async (data: {
   certificationNumber: string;
 }) => {
   try {
-    const response = await api.post(`/v1/auth/sms-certifications/verify`, {
+    const response = await api.post(`/auth/sms-certifications/verify`, {
       phoneNumber: data.phoneNumber,
       certificationNumber: data.certificationNumber,
     });
@@ -84,7 +84,7 @@ export const register = async (data: {
   emd: string;
 }) => {
   try {
-    const response = await api.post('/v1/auth/register', data);
+    const response = await api.post('/auth/register', data);
 
     return {
       status: 'success',
@@ -99,12 +99,12 @@ export const register = async (data: {
 /** 로그인 API */
 export const login = (data: { username: string; password: string }) =>
   api
-    .post('/v1/auth/login', data)
+    .post('/auth/login', data)
     .then((response) => response.data.data.profileDTO);
 
 /** 로그인 확인 API */
 export const checkUserLogin = () =>
-  api.get('/v1/auth/status').then((response) => response.data.data.profileDTO);
+  api.get('/auth/status').then((response) => response.data.data.profileDTO);
 
 /** 소셜 로그인 추가 인증 API */
 export const oauthRegister = async (data: {
@@ -114,7 +114,7 @@ export const oauthRegister = async (data: {
   emd: string;
 }) => {
   try {
-    const response = await api.post('/v1/auth/oauth2/register', data);
+    const response = await api.post('/auth/oauth2/register', data);
 
     return {
       status: 'success',
@@ -129,7 +129,7 @@ export const oauthRegister = async (data: {
 /** 비밀번호 검증 API */
 export const passwordCheck = async (password: string) => {
   try {
-    const response = await api.post('/api/auth/password', {
+    const response = await api.post('/auth/password', {
       password,
     });
 
@@ -144,7 +144,7 @@ export const passwordCheck = async (password: string) => {
 };
 
 /** 로그아웃 API */
-export const logout = () => api.post(`/api/auth/logout`);
+export const logout = () => api.post(`/auth/logout`);
 
 /** 회원탈퇴 API */
-export const withdrawal = () => api.post('/api/auth/withdrawal');
+export const withdrawal = () => api.post('/auth/withdrawal');

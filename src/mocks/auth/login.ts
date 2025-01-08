@@ -7,7 +7,7 @@ interface RequestBody {
 }
 
 export const login = http.post<any, RequestBody>(
-  `${API_BASE_URL}/api/auth/login`,
+  `${API_BASE_URL}/auth/login`,
   async ({ request }) => {
     const { username, password } = await request.json();
 

@@ -3,7 +3,7 @@ import { API_BASE_URL } from '@/constants/env';
 import { getUserProfile } from './[nickname]';
 
 const editProfile = http.put(
-  `${API_BASE_URL}/api/profiles`,
+  `${API_BASE_URL}/profiles`,
   async ({ request }) => {
     const data = await request.formData();
     const profileInfo = data.get('UpdateProfileDTO');

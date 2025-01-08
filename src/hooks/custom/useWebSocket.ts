@@ -20,7 +20,7 @@ const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
     console.log('WebSocket Connected');
 
     clientRef.current?.subscribe(
-      `/api/ws-stomp/reception/${chatRoomId}`,
+      `/ws-stomp/reception/${chatRoomId}`,
       (message: IMessage) => {
         try {
           const newMessage = JSON.parse(message.body) as Message;
@@ -35,7 +35,7 @@ const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
   const handleSendMessage = (message: string) => {
     if (clientRef.current?.connected) {
       clientRef.current?.publish({
-        destination: `/api/ws-stomp/publication/${chatRoomId}`,
+        destination: `/ws-stomp/publication/${chatRoomId}`,
         body: JSON.stringify({
           content: message,
           nickname,
@@ -48,7 +48,7 @@ const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
 
   useEffect(() => {
     clientRef.current = new Client({
-      brokerURL: `${WS_BASE_URL}/api/ws-stomp/connection`,
+      brokerURL: `${WS_BASE_URL}/ws-stomp/connection`,
       onConnect: () => handleWebSocketConnect(),
       onDisconnect: () => console.log('WebSocket Disconnected'),
       onWebSocketError: (error) => console.log(error),

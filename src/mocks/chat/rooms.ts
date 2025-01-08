@@ -1,7 +1,7 @@
 import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 
-export const getChatRooms = http.get(`${API_BASE_URL}/api/chat/rooms`, () => {
+export const getChatRooms = http.get(`${API_BASE_URL}/chat/rooms`, () => {
   return HttpResponse.json({
     status: 'success',
     data: {

@@ -6,7 +6,7 @@ interface RequestBody {
 }
 
 export const passwordCheck = http.post<any, RequestBody>(
-  `${API_BASE_URL}/api/auth/password`,
+  `${API_BASE_URL}/auth/password`,
   async ({ request }) => {
     const { password } = await request.json();
 

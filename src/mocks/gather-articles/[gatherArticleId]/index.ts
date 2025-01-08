@@ -2,7 +2,7 @@ import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 
 export const getArticle = http.get(
-  `${API_BASE_URL}/api/gather-articles/:articleId([0-9]+)`,
+  `${API_BASE_URL}gather-articles/:articleId([0-9]+)`,
   ({ params }) => {
     const { articleId } = params;
 
@@ -104,7 +104,7 @@ export const getArticle = http.get(
 );
 
 export const editArticle = http.put(
-  `${API_BASE_URL}/api/gather-articles/:id([0-9]+)`,
+  `${API_BASE_URL}gather-articles/:id([0-9]+)`,
   () => {
     return HttpResponse.json({
       status: 'success',
@@ -119,7 +119,7 @@ export const editArticle = http.put(
 );
 
 export const deleteArticle = http.delete(
-  `${API_BASE_URL}/api/gather-articles/:id([0-9]+)`,
+  `${API_BASE_URL}gather-articles/:id([0-9]+)`,
   () => {
     return HttpResponse.json({
       status: 'success',

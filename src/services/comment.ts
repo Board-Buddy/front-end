@@ -3,7 +3,7 @@ import api from '@/services';
 /** 댓글 리스트 조회 API */
 export const getComments = ({ gatherArticleId }: { gatherArticleId: number }) =>
   api
-    .get(`/v1/gather-articles/${gatherArticleId}/comments`)
+    .get(`/gather-articles/${gatherArticleId}/comments`)
     .then((response) => response.data.data.comments);
 
 /** 댓글 작성 API */
@@ -17,10 +17,10 @@ export const addComment = ({
   parentId?: string;
 }) => {
   return parentId
-    ? api.post(`/v1/gather-articles/${gatherArticleId}/comments/${parentId}`, {
+    ? api.post(`/gather-articles/${gatherArticleId}/comments/${parentId}`, {
         content,
       })
-    : api.post(`/v1/gather-articles/${gatherArticleId}/comments`, {
+    : api.post(`/gather-articles/${gatherArticleId}/comments`, {
         content,
       });
 };
@@ -35,7 +35,7 @@ export const editComment = async ({
   content: string;
   commentId: string;
 }) =>
-  api.put(`/v1/gather-articles/${gatherArticleId}/comments/${commentId}`, {
+  api.put(`/gather-articles/${gatherArticleId}/comments/${commentId}`, {
     content,
   });
 
@@ -46,5 +46,4 @@ export const deleteComment = async ({
 }: {
   gatherArticleId: number;
   commentId: string;
-}) =>
-  api.delete(`/v1/gather-articles/${gatherArticleId}/comments/${commentId}`);
+}) => api.delete(`/gather-articles/${gatherArticleId}/comments/${commentId}`);

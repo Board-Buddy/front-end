@@ -2,7 +2,7 @@ import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 
 export const boardCafes = http.get(
-  `${API_BASE_URL}/api/board-cafes`,
+  `${API_BASE_URL}/board-cafes`,
   ({ request }) => {
     const url = new URL(request.url);
     const radius = url.searchParams.get('radius');

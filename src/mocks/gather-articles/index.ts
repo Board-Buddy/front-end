@@ -11,7 +11,7 @@ import {
 import { searchArticles } from './search';
 
 export const getArticles = http.get(
-  `${API_BASE_URL}/api/gather-articles`,
+  `${API_BASE_URL}/gather-articles`,
   ({ request }) => {
     const url = new URL(request.url);
     const page = url.searchParams.get('page');
@@ -126,20 +126,17 @@ export const getArticles = http.get(
   },
 );
 
-export const addArticle = http.post(
-  `${API_BASE_URL}/api/gather-articles`,
-  () => {
-    return HttpResponse.json({
-      status: 'success',
-      data: {
-        post: {
-          id: 1,
-        },
+export const addArticle = http.post(`${API_BASE_URL}/gather-articles`, () => {
+  return HttpResponse.json({
+    status: 'success',
+    data: {
+      post: {
+        id: 1,
       },
-      message: '모집글이 업로드 되었습니다',
-    });
-  },
-);
+    },
+    message: '모집글이 업로드 되었습니다',
+  });
+});
 
 export const articleHandlers = [
   getArticles,

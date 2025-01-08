@@ -1,7 +1,7 @@
 import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 
-export const getRankings = http.get(`${API_BASE_URL}/api/rankings`, () => {
+export const getRankings = http.get(`${API_BASE_URL}/rankings`, () => {
   return HttpResponse.json({
     status: 'success',
     data: {

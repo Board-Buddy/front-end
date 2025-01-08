@@ -2,7 +2,7 @@ import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 
 export const getMyJoinedArticles = http.get(
-  `${API_BASE_URL}/api/my/participations`,
+  `${API_BASE_URL}/my/participations`,
   async () => {
     const result = {
       status: 'success',

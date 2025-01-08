@@ -13,7 +13,7 @@ interface ResponseBody {
 }
 
 export const smsCertificationVerify = http.post<any, RequestBody, ResponseBody>(
-  `${API_BASE_URL}/api/auth/sms-certifications/verify`,
+  `${API_BASE_URL}/auth/sms-certifications/verify`,
   async ({ request }) => {
     const { certificationNumber } = await request.json();
 

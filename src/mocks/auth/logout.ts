@@ -1,7 +1,7 @@
 import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 
-export const logout = http.post(`${API_BASE_URL}/api/auth/logout`, async () => {
+export const logout = http.post(`${API_BASE_URL}/auth/logout`, async () => {
   const result = {
     status: 'success',
     data: null,
