@@ -9,17 +9,16 @@ const api = axios.create({
 api.interceptors.response.use(
   (response) => response, // 성공적인 응답은 그대로 반환
   (error) => {
-    // 네트워크 또는 CORS 에러
-    if (!error.response) {
-      return Promise.reject(new Error('네트워크 에러가 발생했습니다.'));
+    if (error.response) {
+      // 서버 에러 메시지 추가 설정
+      error.message =
+        error.response?.data.message || '알 수 없는 에러가 발생했습니다.';
+    } else {
+      // 네트워크 에러
+      error.message = '네트워크 에러가 발생했습니다.';
     }
 
-    // 다른 서버 에러
-    const { message } = error.response.data;
-
-    return Promise.reject(
-      new Error(message || '알 수 없는 에러가 발생했습니다.'),
-    );
+    return Promise.reject(error);
   },
 );
 
