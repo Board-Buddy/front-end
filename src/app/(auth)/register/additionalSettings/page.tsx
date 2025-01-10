@@ -9,7 +9,7 @@ const page = () => {
           <Image
             src="/images/logo/boardbuddy_logo.png"
             width={70}
-            height={70}
+            height={35}
             alt="보드버디 로고"
             className="mb-4"
           />

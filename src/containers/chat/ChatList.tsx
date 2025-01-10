@@ -40,7 +40,7 @@ const ChatList = () => {
           src="/images/sundy/sundy_chess_peeking.png"
           alt="빼꼼 쳐다보는 썬디"
           width={120}
-          height={120}
+          height={147}
           className="ml-auto"
         />
       </div>

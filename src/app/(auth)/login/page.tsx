@@ -15,8 +15,8 @@ const page = () => {
         <Image
           src="/images/sundy/sundy_heart.png"
           alt="하트를 들고 있는 썬디"
-          width={80}
-          height={80}
+          width={92}
+          height={162}
           className="absolute right-4 -top-[77px]"
         />
         <span className="text-gray-800 text-xl font-bold">LOGIN</span>
@@ -38,7 +38,7 @@ const page = () => {
         src="/images/logo/boardbuddy_logo_white.png"
         alt="보드버디 흰색 로고"
         width={130}
-        height={130}
+        height={65}
       />
     </div>
   );

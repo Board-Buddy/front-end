@@ -15,7 +15,7 @@ const ReviewList = ({
       <Image
         src="/images/sundy/sundy_heart_shadow.png"
         width={80}
-        height={100}
+        height={135}
         alt="하트를 들고 있는 썬디"
         className="absolute bottom-4 right-0"
       />
