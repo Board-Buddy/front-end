@@ -2,7 +2,7 @@ import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
 
 export const getUserProfile = http.get(
-  `${API_BASE_URL}/api/profiles/:nickname`,
+  `${API_BASE_URL}/profiles/:nickname`,
   async () => {
     const result = {
       status: 'success',

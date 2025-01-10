@@ -19,7 +19,7 @@ const page = () => {
             src="/images/logo/boardbuddy_small_logo_white.png"
             alt="보드버디 흰색 로고"
             width={20}
-            height={17}
+            height={20}
             className="p-0.5"
           />
           쉽게 찾는 게임친구
@@ -29,7 +29,7 @@ const page = () => {
         src="/images/sundy/sundy_dice.png"
         alt="주사위를 든 썬디"
         width={180}
-        height={215}
+        height={273.5}
       />
       <LoginDrawer />
     </div>
