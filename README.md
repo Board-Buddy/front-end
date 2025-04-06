@@ -15,7 +15,7 @@
 ## 배포 주소
 > 🔗 [Board Buddy 바로가기](https://m.boardbuddyapp.com) (현재 백엔드 서버가 동작하고 있지 않습니다.)
 > 
-> 🔗 [Board Buddy 바로가기](https://m.boardbuddyapp.com) (프론트엔드만 배포된 버전을 확인하실 수 있습니다.)
+> 🔗 [Board Buddy 바로가기](https://board-buddy-front-end.vercel.app) (프론트엔드만 배포된 버전을 확인하실 수 있습니다.)
 
 <br><br>
 
