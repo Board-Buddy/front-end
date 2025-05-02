@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import '../../styles/globals.css';
 import { WriteFormProvider } from '@/context/WriteFormContext';
-
-const BASE_URL = 'https://m.boardbuddyapp.com';
+import { BASE_URL } from '../layout';
 
 export const metadata: Metadata = {
   title: '보드버디',
