@@ -3,10 +3,10 @@
 import { Message } from '@/types/chat';
 import { UserInfo } from '@/types/user';
 import { useEffect, useRef } from 'react';
+import { getUserInfo } from '@/utils/userInfoStorage';
 import ReceivedMessage from './ReceivedMessage';
 import SentMessage from './SentMessage';
 import EnterExitMessage from './EnterExitMessage';
-import { getUserInfo } from '@/utils/userInfoStorage';
 
 const ChatSection = ({ messages }: { messages: Message[] }) => {
   const userInfo = getUserInfo() as UserInfo;

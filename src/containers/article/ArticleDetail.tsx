@@ -3,6 +3,8 @@
 import { useGetArticle } from '@/hooks/useArticle';
 import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
+import { getUserInfo } from '@/utils/userInfoStorage';
+import { UserInfo } from '@/types/user';
 import ArticleContent from './ArticleContent';
 import Profile from './Profile';
 import ApplyButton from './ApplyButton';
@@ -12,8 +14,6 @@ import DisabledButton from './DisabledButton';
 import CancelButtonForApproved from './CancelButtonForApproved';
 import ParticipantsListButton from './ParticipantsListButton';
 import ReviewButton from './ReviewButton';
-import { getUserInfo } from '@/utils/userInfoStorage';
-import { UserInfo } from '@/types/user';
 
 const ArticleDetail = ({ id }: { id: number }) => {
   const userInfo = getUserInfo() as UserInfo;

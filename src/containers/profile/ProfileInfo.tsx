@@ -5,8 +5,8 @@ import { UserInfo } from '@/types/user';
 import { cn } from '@/utils/tailwind';
 import { useRouter } from 'next/navigation';
 import { useExistingProfileInfoContext } from '@/context/ExistingProfileInfoContext';
-import BuddyPoint from './BuddyPoint';
 import { getUserInfo } from '@/utils/userInfoStorage';
+import BuddyPoint from './BuddyPoint';
 
 interface Props {
   nickname?: string;

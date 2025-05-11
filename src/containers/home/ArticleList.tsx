@@ -8,9 +8,9 @@ import { useIntersectionObserver } from '@/hooks/custom/useIntersectionObserver'
 import { useGetArticles } from '@/hooks/useArticle';
 import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
+import { getUserInfo } from '@/utils/userInfoStorage';
 import Selectors from './Selectors';
 import Article from './Article';
-import { getUserInfo } from '@/utils/userInfoStorage';
 
 const ArticleList = () => {
   const router = useRouter();

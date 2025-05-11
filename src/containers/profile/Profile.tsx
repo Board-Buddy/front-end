@@ -10,8 +10,8 @@ import { UserInfo } from '@/types/user';
 import { cn } from '@/utils/tailwind';
 import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
-import QuitButtons from '../my/QuitButtons';
 import { getUserInfo } from '@/utils/userInfoStorage';
+import QuitButtons from '../my/QuitButtons';
 
 interface Props {
   nickname?: string;
