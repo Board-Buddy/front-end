@@ -4,12 +4,11 @@ import { WS_BASE_URL } from '@/constants/env';
 import { useEffect, useRef, useState } from 'react';
 import { Client, IMessage } from '@stomp/stompjs';
 import { Message } from '@/types/chat';
-import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
+import { getUserInfo } from '@/utils/userInfoStorage';
 
 const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
-  const cache = useQueryClient();
-  const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
+  const userInfo = getUserInfo() as UserInfo;
   const { nickname } = userInfo;
 
   const [messages, setMessages] = useState<Message[]>(existingMessages);
