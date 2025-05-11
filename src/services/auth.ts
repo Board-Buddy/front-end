@@ -1,4 +1,5 @@
 import api from '@/services';
+import { setUserInfo } from '@/utils/userInfoStorage';
 
 /** 아이디 중복 검사 API */
 export const checkIdDuplicate = async (id: string) => {
@@ -104,7 +105,10 @@ export const login = (data: { username: string; password: string }) =>
 
 /** 로그인 확인 API */
 export const checkUserLogin = () =>
-  api.get('/auth/status').then((response) => response.data.data.profileDTO);
+  api
+    .get('/auth/status')
+    .then((response) => response.data.data.profileDTO)
+    .then((userInfo) => setUserInfo(userInfo));
 
 /** 소셜 로그인 추가 인증 API */
 export const oauthRegister = async (data: {
