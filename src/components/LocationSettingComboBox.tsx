@@ -4,10 +4,10 @@ import { Location } from '@/types/location';
 import { useCallback, useState } from 'react';
 import { cn } from '@/utils/tailwind';
 import { ChevronDown } from 'lucide-react';
-import { getUserInfo } from '@/utils/userInfoStorage';
 import { Search } from './LocationSearch';
 import { Button } from './ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
+import { getUserInfo } from '@/utils/userInfoStorage';
 
 interface Props {
   popOverWidth: number;
