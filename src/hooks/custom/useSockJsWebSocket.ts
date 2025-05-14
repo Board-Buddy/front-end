@@ -6,10 +6,11 @@ import { API_BASE_URL } from '@/constants/env';
 import { useEffect, useRef, useState } from 'react';
 import { Message } from '@/types/chat';
 import { UserInfo } from '@/types/user';
-import { getUserInfo } from '@/utils/userInfoStorage';
+import { useQueryClient } from '@tanstack/react-query';
 
 const useSockWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
-  const userInfo = getUserInfo() as UserInfo;
+  const cache = useQueryClient();
+  const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
   const { nickname } = userInfo;
 
   const [messages, setMessages] = useState<Message[]>(existingMessages);

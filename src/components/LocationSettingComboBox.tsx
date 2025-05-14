@@ -4,10 +4,11 @@ import { Location } from '@/types/location';
 import { useCallback, useState } from 'react';
 import { cn } from '@/utils/tailwind';
 import { ChevronDown } from 'lucide-react';
+import { useQueryClient } from '@tanstack/react-query';
+import { UserInfo } from '@/types/user';
 import { Search } from './LocationSearch';
 import { Button } from './ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
-import { getUserInfo } from '@/utils/userInfoStorage';
 
 interface Props {
   popOverWidth: number;
@@ -15,7 +16,8 @@ interface Props {
 }
 
 const LocationSettingComboBox = ({ popOverWidth, onSelect }: Props) => {
-  const userInfo = getUserInfo();
+  const cache = useQueryClient();
+  const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
 
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState<Location | undefined>();

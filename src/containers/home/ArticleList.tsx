@@ -1,6 +1,7 @@
 'use client';
 
 import { Fragment, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { Article as IArticle, SearchParams } from '@/types/article';
 import { UserInfo } from '@/types/user';
 import { useRouter } from 'next/navigation';
@@ -10,12 +11,12 @@ import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
 import Selectors from './Selectors';
 import Article from './Article';
-import { getUserInfo } from '@/utils/userInfoStorage';
 
 const ArticleList = () => {
   const router = useRouter();
 
-  const userInfo = getUserInfo() as UserInfo;
+  const cache = useQueryClient();
+  const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
   const locationString = `${userInfo.sido} ${userInfo.sgg} ${userInfo.emd}`;
 
   const [filter, setFilter] = useState<Omit<SearchParams, 'location'>>({

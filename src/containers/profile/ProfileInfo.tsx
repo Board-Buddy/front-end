@@ -3,10 +3,10 @@
 import CustomAvatar from '@/components/CustomAvatar';
 import { UserInfo } from '@/types/user';
 import { cn } from '@/utils/tailwind';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useExistingProfileInfoContext } from '@/context/ExistingProfileInfoContext';
 import BuddyPoint from './BuddyPoint';
-import { getUserInfo } from '@/utils/userInfoStorage';
 
 interface Props {
   nickname?: string;
@@ -25,7 +25,8 @@ const ProfileInfo = ({
 }: Props) => {
   const router = useRouter();
 
-  const userInfo = getUserInfo() as UserInfo;
+  const cache = useQueryClient();
+  const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
   const { nickname: myNickname } = userInfo;
 
   const { setFormState } = useExistingProfileInfoContext();

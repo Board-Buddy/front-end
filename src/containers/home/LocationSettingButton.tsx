@@ -4,13 +4,14 @@ import { ChevronDown } from 'lucide-react';
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
-import { getUserInfo } from '@/utils/userInfoStorage';
 
 const LocationSettingButton = () => {
   const router = useRouter();
 
-  const userInfo = getUserInfo() as UserInfo;
+  const cache = useQueryClient();
+  const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
   const { emd } = userInfo;
 
   const onClick = () => {

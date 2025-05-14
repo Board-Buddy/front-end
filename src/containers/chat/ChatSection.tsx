@@ -1,15 +1,16 @@
 'use client';
 
 import { Message } from '@/types/chat';
+import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
 import { useEffect, useRef } from 'react';
 import ReceivedMessage from './ReceivedMessage';
 import SentMessage from './SentMessage';
 import EnterExitMessage from './EnterExitMessage';
-import { getUserInfo } from '@/utils/userInfoStorage';
 
 const ChatSection = ({ messages }: { messages: Message[] }) => {
-  const userInfo = getUserInfo() as UserInfo;
+  const cache = useQueryClient();
+  const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
   const { nickname } = userInfo;
 
   const scrollRef = useRef<HTMLDivElement>(null);
