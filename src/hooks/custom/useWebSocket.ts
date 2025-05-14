@@ -1,6 +1,6 @@
 'use client';
 
-import { WS_BASE_URL } from '@/constants/env';
+import { API_VERSION, WS_BASE_URL } from '@/constants/env';
 import { useEffect, useRef, useState } from 'react';
 import { Client, IMessage } from '@stomp/stompjs';
 import { Message } from '@/types/chat';
@@ -20,7 +20,7 @@ const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
     console.log('WebSocket Connected');
 
     clientRef.current?.subscribe(
-      `/ws-stomp/reception/${chatRoomId}`,
+      `${API_VERSION}/chat/subscriptions/${chatRoomId}`,
       (message: IMessage) => {
         try {
           const newMessage = JSON.parse(message.body) as Message;
@@ -35,7 +35,7 @@ const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
   const handleSendMessage = (message: string) => {
     if (clientRef.current?.connected) {
       clientRef.current?.publish({
-        destination: `/ws-stomp/publication/${chatRoomId}`,
+        destination: `${API_VERSION}/chat/publications/${chatRoomId}`,
         body: JSON.stringify({
           content: message,
           nickname,
@@ -48,7 +48,7 @@ const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
 
   useEffect(() => {
     clientRef.current = new Client({
-      brokerURL: `${WS_BASE_URL}/ws-stomp/connection`,
+      brokerURL: `${WS_BASE_URL}/chat/connection`,
       onConnect: () => handleWebSocketConnect(),
       onDisconnect: () => console.log('WebSocket Disconnected'),
       onWebSocketError: (error) => console.log(error),
