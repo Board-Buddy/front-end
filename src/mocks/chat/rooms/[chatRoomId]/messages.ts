@@ -1,8 +1,8 @@
-import { API_BASE_URL } from '@/constants/env';
+import { API_BASE_URL } from '@/services/endpoint';
 import { http, HttpResponse } from 'msw';
 
 export const getExistingMessages = http.get(
-  `${API_BASE_URL}/chat/rooms/:chatRoomId([0-9]+)/messages`,
+  `${API_BASE_URL}/chat/messages/:chatRoomId([0-9]+)`,
   () => {
     return HttpResponse.json({
       status: 'success',

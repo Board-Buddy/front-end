@@ -2,11 +2,11 @@
 
 import SockJS from 'sockjs-client';
 import { CompatClient, IMessage, Stomp } from '@stomp/stompjs';
-import { API_BASE_URL } from '@/constants/env';
 import { useEffect, useRef, useState } from 'react';
 import { Message } from '@/types/chat';
 import { UserInfo } from '@/types/user';
 import { useQueryClient } from '@tanstack/react-query';
+import { API_BASE_URL } from '@/services/endpoint';
 
 const useSockWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
   const cache = useQueryClient();
@@ -40,7 +40,7 @@ const useSockWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
         try {
           const newMessage = JSON.parse(message.body) as Message;
           setMessages((prevMessages) => [...prevMessages, newMessage]);
-        } catch (error: any) {
+        } catch (error: unknown) {
           console.error('Failed to parse message:', error);
         }
       },

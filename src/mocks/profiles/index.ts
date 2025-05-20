@@ -1,6 +1,6 @@
-import { http, HttpResponse } from 'msw';
-import { API_BASE_URL } from '@/constants/env';
+import { API_BASE_URL } from '@/services/endpoint';
 import { getUserProfile } from './[nickname]';
+import { http, HttpResponse } from 'msw';
 
 const editProfile = http.put(
   `${API_BASE_URL}/profiles`,
