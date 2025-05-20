@@ -3,53 +3,41 @@ import { ENDPOINT } from './endpoint';
 
 /** 아이디 중복 검사 API */
 export const checkIdDuplicate = async (id: string) => {
-  try {
-    const response = await api.post(ENDPOINT.AUTH.USERNAME_CHECK(), {
-      username: id,
-    });
+  const response = await api.post(ENDPOINT.AUTH.USERNAME_CHECK(), {
+    username: id,
+  });
 
-    return {
-      status: 'success',
-      data: response.data.data,
-      message: response.data.message,
-    };
-  } catch (error: unknown) {
-    return error;
-  }
+  return {
+    status: 'success',
+    data: response.data.data,
+    message: response.data.message,
+  };
 };
 
 /** 닉네임 중복 검사 API  */
 export const checkNicknameDuplicate = async (nickname: string) => {
-  try {
-    const response = await api.post(ENDPOINT.AUTH.NICKNAME_CHECK(), {
-      nickname,
-    });
+  const response = await api.post(ENDPOINT.AUTH.NICKNAME_CHECK(), {
+    nickname,
+  });
 
-    return {
-      status: 'success',
-      data: response.data.data,
-      message: response.data.message,
-    };
-  } catch (error: unknown) {
-    return error;
-  }
+  return {
+    status: 'success',
+    data: response.data.data,
+    message: response.data.message,
+  };
 };
 
 /** SMS 인증 메시지 전송 API */
 export const smsCertificationSend = async (phoneNumber: string) => {
-  try {
-    const response = await api.post(ENDPOINT.AUTH.SMS_CERTIFICATION.SEND(), {
-      phoneNumber,
-    });
+  const response = await api.post(ENDPOINT.AUTH.SMS_CERTIFICATION.SEND(), {
+    phoneNumber,
+  });
 
-    return {
-      status: 'success',
-      data: response.data.data,
-      message: response.data.message,
-    };
-  } catch (error: unknown) {
-    return error;
-  }
+  return {
+    status: 'success',
+    data: response.data.data,
+    message: response.data.message,
+  };
 };
 
 /** SMS 인증 API */
@@ -57,20 +45,16 @@ export const smsCertificationVerify = async (data: {
   phoneNumber: string;
   certificationNumber: string;
 }) => {
-  try {
-    const response = await api.post(ENDPOINT.AUTH.SMS_CERTIFICATION.VERIFY(), {
-      phoneNumber: data.phoneNumber,
-      certificationNumber: data.certificationNumber,
-    });
+  const response = await api.post(ENDPOINT.AUTH.SMS_CERTIFICATION.VERIFY(), {
+    phoneNumber: data.phoneNumber,
+    certificationNumber: data.certificationNumber,
+  });
 
-    return {
-      status: response.data.status,
-      data: response.data.data,
-      message: response.data.message,
-    };
-  } catch (error: unknown) {
-    return error;
-  }
+  return {
+    status: response.data.status,
+    data: response.data.data,
+    message: response.data.message,
+  };
 };
 
 /** 회원가입 API */
@@ -84,17 +68,13 @@ export const register = async (data: {
   sgg: string;
   emd: string;
 }) => {
-  try {
-    const response = await api.post(ENDPOINT.AUTH.REGISTER(), data);
+  const response = await api.post(ENDPOINT.AUTH.REGISTER(), data);
 
-    return {
-      status: 'success',
-      data: response.data.data,
-      message: response.data.message,
-    };
-  } catch (error: unknown) {
-    return error;
-  }
+  return {
+    status: 'success',
+    data: response.data.data,
+    message: response.data.message,
+  };
 };
 
 /** 로그인 API */
@@ -116,37 +96,29 @@ export const oauthRegister = async (data: {
   sgg: string;
   emd: string;
 }) => {
-  try {
-    const response = await api.post(
-      ENDPOINT.AUTH.SOCIAL_LOGIN.ADDITIONAL_CERTIFICATION(),
-      data,
-    );
+  const response = await api.post(
+    ENDPOINT.AUTH.SOCIAL_LOGIN.ADDITIONAL_CERTIFICATION(),
+    data,
+  );
 
-    return {
-      status: 'success',
-      data: response.data.data,
-      message: response.data.message,
-    };
-  } catch (error: unknown) {
-    return error;
-  }
+  return {
+    status: 'success',
+    data: response.data.data,
+    message: response.data.message,
+  };
 };
 
 /** 비밀번호 검증 API */
 export const passwordCheck = async (password: string) => {
-  try {
-    const response = await api.post(ENDPOINT.AUTH.PASSWORD_CERTIFICATION(), {
-      password,
-    });
+  const response = await api.post(ENDPOINT.AUTH.PASSWORD_CERTIFICATION(), {
+    password,
+  });
 
-    return {
-      status: 'success',
-      data: response.data.data,
-      message: response.data.message,
-    };
-  } catch (error: unknown) {
-    return error;
-  }
+  return {
+    status: 'success',
+    data: response.data.data,
+    message: response.data.message,
+  };
 };
 
 /** 로그아웃 API */
