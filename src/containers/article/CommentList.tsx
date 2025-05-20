@@ -227,7 +227,7 @@ const CommentList = ({ articleId }: { articleId: number }) => {
         description="삭제하시면 복구할 수 없습니다."
         cancelText="아니요"
         confirmText="네"
-        onConfirm={() => deleteCommentMutation.mutate(deleteCommentId)}
+        onConfirm={() => deleteCommentMutation.mutate(Number(deleteCommentId))}
       />
       <CustomAlert
         open={openReplyDeleteAlert}
@@ -236,7 +236,7 @@ const CommentList = ({ articleId }: { articleId: number }) => {
         description="삭제하시면 복구할 수 없습니다."
         cancelText="아니요"
         confirmText="네"
-        onConfirm={() => deleteCommentMutation.mutate(deleteCommentId)}
+        onConfirm={() => deleteCommentMutation.mutate(Number(deleteCommentId))}
       />
     </>
   );
