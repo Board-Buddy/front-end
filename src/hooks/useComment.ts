@@ -27,7 +27,7 @@ export const useAddComment = (articleId: number) => {
       parentId,
     }: {
       content: string;
-      parentId?: string;
+      parentId?: number;
     }) =>
       addComment({
         gatherArticleId: articleId,
@@ -51,7 +51,7 @@ export const useEditComment = (articleId: number) => {
       commentId,
     }: {
       content: string;
-      commentId: string;
+      commentId: number;
     }) =>
       editComment({
         gatherArticleId: articleId,
@@ -70,7 +70,7 @@ export const useDeleteComment = (articleId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (commentId: string) =>
+    mutationFn: (commentId: number) =>
       deleteComment({
         gatherArticleId: articleId,
         commentId,

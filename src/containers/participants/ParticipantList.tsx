@@ -14,16 +14,18 @@ interface Props {
 }
 
 const ParticipantList = ({ articleId }: Props) => {
+  const articleIdNumber = Number(articleId);
+
   const {
     data: participants,
     isPending,
     isError,
     error,
     refetch,
-  } = useGetParticipationList(articleId);
+  } = useGetParticipationList(articleIdNumber);
 
-  const approveMutation = useApproveParticipation(articleId);
-  const rejectMutation = useRejectParticipation(articleId);
+  const approveMutation = useApproveParticipation(articleIdNumber);
+  const rejectMutation = useRejectParticipation(articleIdNumber);
 
   if (isPending) {
     return <Loading />;
@@ -40,7 +42,7 @@ const ParticipantList = ({ articleId }: Props) => {
     applicantNickname: string,
   ) => {
     approveMutation.mutate({
-      participationId,
+      participationId: Number(participationId),
       applicantNickname,
     });
   };
@@ -50,7 +52,7 @@ const ParticipantList = ({ articleId }: Props) => {
     applicantNickname: string,
   ) => {
     rejectMutation.mutate({
-      participationId,
+      participationId: Number(participationId),
       applicantNickname,
     });
   };

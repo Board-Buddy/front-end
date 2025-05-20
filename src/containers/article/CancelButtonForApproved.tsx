@@ -17,7 +17,7 @@ const CancelButtonForApproved = ({ articleId, startDateTime }: Props) => {
   const { nickname } = userInfo;
 
   const [open, setOpen] = useState(false);
-  const cancelMutation = useCancelParticipation(articleId.toString());
+  const cancelMutation = useCancelParticipation(articleId);
 
   const handleClick = () => {
     const startTime = new Date(startDateTime);

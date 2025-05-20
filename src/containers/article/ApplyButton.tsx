@@ -5,7 +5,7 @@ import { useApplyParticipation } from '@/hooks/useParticipation';
 import { cn } from '@/utils/tailwind';
 
 const ApplyButton = ({ articleId }: { articleId: number }) => {
-  const applyMutation = useApplyParticipation(articleId.toString());
+  const applyMutation = useApplyParticipation(articleId);
 
   const handleClick = () => {
     applyMutation.mutate();

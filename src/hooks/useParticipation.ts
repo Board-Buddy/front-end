@@ -10,7 +10,7 @@ import { ParticipantInfo } from '@/types/article';
 import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-export const useGetParticipationList = (articleId: string) => {
+export const useGetParticipationList = (articleId: number) => {
   return useQuery<ParticipantInfo[], AxiosCustomError>({
     queryKey: ['participation', { articleId }],
     queryFn: () => getParticipants({ articleId }),
@@ -19,7 +19,7 @@ export const useGetParticipationList = (articleId: string) => {
   });
 };
 
-export const useApplyParticipation = (articleId: string) => {
+export const useApplyParticipation = (articleId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -34,7 +34,7 @@ export const useApplyParticipation = (articleId: string) => {
   });
 };
 
-export const useCancelParticipation = (articleId: string) => {
+export const useCancelParticipation = (articleId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -53,7 +53,7 @@ export const useCancelParticipation = (articleId: string) => {
   });
 };
 
-export const useApproveParticipation = (articleId: string) => {
+export const useApproveParticipation = (articleId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -61,7 +61,7 @@ export const useApproveParticipation = (articleId: string) => {
       participationId,
       applicantNickname,
     }: {
-      participationId: string;
+      participationId: number;
       applicantNickname: string;
     }) =>
       approveParticipation({ articleId, participationId, applicantNickname }),
@@ -74,7 +74,7 @@ export const useApproveParticipation = (articleId: string) => {
   });
 };
 
-export const useRejectParticipation = (articleId: string) => {
+export const useRejectParticipation = (articleId: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -82,7 +82,7 @@ export const useRejectParticipation = (articleId: string) => {
       participationId,
       applicantNickname,
     }: {
-      participationId: string;
+      participationId: number;
       applicantNickname: string;
     }) =>
       rejectParticipation({ articleId, participationId, applicantNickname }),

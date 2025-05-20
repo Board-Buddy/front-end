@@ -23,7 +23,7 @@ const ReviewItem = ({
 }: Props) => {
   const [open, setOpen] = useState(false);
 
-  const mutation = useSendReview(articleId, nickname, setOpen);
+  const mutation = useSendReview(Number(articleId), nickname, setOpen);
 
   const onSubmit = (review: string) => {
     mutation.mutate({ review });

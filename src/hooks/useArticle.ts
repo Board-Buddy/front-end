@@ -53,7 +53,7 @@ export const useGetArticles = (
 export const useGetArticle = (articleId: number) => {
   return useQuery<Omit<Article, 'id'>, AxiosCustomError>({
     queryKey: ['article', { articleId }],
-    queryFn: () => getArticle({ gatherArticleId: articleId }),
+    queryFn: () => getArticle({ articleId }),
     staleTime: 0,
     gcTime: 0,
   });

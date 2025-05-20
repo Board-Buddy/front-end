@@ -46,7 +46,7 @@ const CommentInput = ({
   const handleSubmit = () => {
     if (parentComment) {
       addCommentMutation.mutate(
-        { content: value, parentId: parentComment.parentId },
+        { content: value, parentId: Number(parentComment.parentId) },
         {
           onSuccess: () => {
             setParentComment(null);
@@ -61,7 +61,7 @@ const CommentInput = ({
 
   const handleEdit = () => {
     editCommentMutation.mutate(
-      { commentId: editingComment!.id, content: editValue! },
+      { commentId: Number(editingComment!.id), content: editValue! },
       {
         onSuccess: () => {
           setEditingComment(null);

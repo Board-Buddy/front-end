@@ -3,7 +3,7 @@ import { useCancelParticipation } from '@/hooks/useParticipation';
 import { cn } from '@/utils/tailwind';
 
 const CancelButton = ({ articleId }: { articleId: number }) => {
-  const cancelMutation = useCancelParticipation(articleId.toString());
+  const cancelMutation = useCancelParticipation(articleId);
 
   const handleClick = () => {
     cancelMutation.mutate();

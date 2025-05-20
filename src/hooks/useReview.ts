@@ -5,7 +5,7 @@ import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Dispatch, SetStateAction } from 'react';
 
-export const useGetReviewList = (articleId: string) => {
+export const useGetReviewList = (articleId: number) => {
   return useQuery<Review[], AxiosCustomError>({
     queryKey: ['reviewList', { articleId }],
     queryFn: () => getReviewList(articleId),
@@ -15,7 +15,7 @@ export const useGetReviewList = (articleId: string) => {
 };
 
 export const useSendReview = (
-  articleId: string,
+  articleId: number,
   nickname: string,
   setOpen: Dispatch<SetStateAction<boolean>>,
 ) => {

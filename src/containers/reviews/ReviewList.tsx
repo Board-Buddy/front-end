@@ -16,7 +16,7 @@ const ReviewList = ({ articleId }: Props) => {
     isError,
     error,
     refetch,
-  } = useGetReviewList(articleId);
+  } = useGetReviewList(Number(articleId));
 
   if (isPending) {
     return <Loading />;

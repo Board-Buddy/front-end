@@ -1,6 +1,6 @@
 'use client';
 
-import { API_BASE_URL } from '@/constants/env';
+import { SSE_SUBSCRIPTION_URL } from '@/services/notification';
 import { BellIcon } from 'lucide-react';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
@@ -19,12 +19,9 @@ const NotificationProvider = () => {
   };
 
   useEffect(() => {
-    const eventSource = new EventSource(
-      `${API_BASE_URL}/notifications/subscribe`,
-      {
-        withCredentials: true,
-      },
-    );
+    const eventSource = new EventSource(SSE_SUBSCRIPTION_URL, {
+      withCredentials: true,
+    });
 
     eventSource.onopen = () => {
       console.log('SSE connection established');
