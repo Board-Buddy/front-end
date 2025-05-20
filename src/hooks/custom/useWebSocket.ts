@@ -1,11 +1,11 @@
 'use client';
 
-import { API_VERSION, WS_BASE_URL } from '@/constants/env';
 import { useEffect, useRef, useState } from 'react';
 import { Client, IMessage } from '@stomp/stompjs';
 import { Message } from '@/types/chat';
 import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
+import { ENDPOINT, WS_BASE_URL } from '@/services/endpoint';
 
 const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
   const cache = useQueryClient();
@@ -20,12 +20,12 @@ const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
     console.log('WebSocket Connected');
 
     clientRef.current?.subscribe(
-      `${API_VERSION}/chat/subscriptions/${chatRoomId}`,
+      `${ENDPOINT.CHAT_ROOM.DETAIL.MESSAGE_SUBSCRIPTION(Number(chatRoomId))}`,
       (message: IMessage) => {
         try {
           const newMessage = JSON.parse(message.body) as Message;
           setMessages((prevMessages) => [...prevMessages, newMessage]);
-        } catch (error: any) {
+        } catch (error: unknown) {
           console.error('Failed to parse message:', error);
         }
       },
@@ -35,7 +35,7 @@ const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
   const handleSendMessage = (message: string) => {
     if (clientRef.current?.connected) {
       clientRef.current?.publish({
-        destination: `${API_VERSION}/chat/publications/${chatRoomId}`,
+        destination: `${ENDPOINT.CHAT_ROOM.DETAIL.MESSAGE_PUBLICATION(Number(chatRoomId))}`,
         body: JSON.stringify({
           content: message,
           nickname,
@@ -48,7 +48,7 @@ const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
 
   useEffect(() => {
     clientRef.current = new Client({
-      brokerURL: `${WS_BASE_URL}/chat/connection`,
+      brokerURL: `${WS_BASE_URL}${ENDPOINT.CHAT_ROOM.DETAIL.CONNECTION()}`,
       onConnect: () => handleWebSocketConnect(),
       onDisconnect: () => console.log('WebSocket Disconnected'),
       onWebSocketError: (error) => console.log(error),
