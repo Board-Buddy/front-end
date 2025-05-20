@@ -1,5 +1,5 @@
-export const API_BASE_URL = process.env.NEXT_PUBLIC_API_SERVER_URL + '/api';
-export const WS_BASE_URL = process.env.NEXT_PUBLIC_WS_SERVER_URL + '/ws';
+export const API_BASE_URL = `${process.env.NEXT_PUBLIC_API_SERVER_URL}/api`;
+export const WS_BASE_URL = `${process.env.NEXT_PUBLIC_WS_SERVER_URL}/ws`;
 
 export const ENDPOINT = {
   AUTH: {
