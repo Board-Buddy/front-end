@@ -1,4 +1,5 @@
 import api from '@/services';
+import { ENDPOINT } from './endpoint';
 
 /** 보드게임 카페 조회 API
  * @param x 경도
@@ -14,7 +15,7 @@ export const getBoardCafes = ({
   radius: number;
 }) =>
   api
-    .get(`/board-cafes`, {
+    .get(ENDPOINT.BOARD_CAFES(), {
       params: { x, y, radius },
     })
     .then((response) => response.data.data.cafes);

@@ -1,18 +1,19 @@
 import api from '@/services';
+import { ENDPOINT } from './endpoint';
 
 /** 후기 전송할 유저 조회 API */
-export const getReviewList = (gatherArticleId: string) =>
+export const getReviewList = (gatherArticleId: number) =>
   api
-    .get(`/reviews/${gatherArticleId}`)
+    .get(ENDPOINT.GATHER_ARTICLE.REVIEWS(gatherArticleId))
     .then((response) => response.data.data.users);
 
 /** 후기 전송 API */
 export const sendReview = (
-  gatherArticleId: string,
+  gatherArticleId: number,
   nickname: string,
   review: string,
 ) =>
-  api.post(`/reviews/${gatherArticleId}`, {
+  api.post(ENDPOINT.GATHER_ARTICLE.REVIEWS(gatherArticleId), {
     nickname,
     review,
   });
