@@ -1,4 +1,5 @@
 import { http, HttpResponse } from 'msw';
+import { API_BASE_URL } from '@/services/endpoint';
 import { deleteArticle, editArticle, getArticle } from './[gatherArticleId]';
 import {
   addComment,
@@ -8,7 +9,6 @@ import {
   getComments,
 } from './[gatherArticleId]/comments';
 import { searchArticles } from './search';
-import { API_BASE_URL } from '@/services/endpoint';
 
 export const getArticles = http.get(
   `${API_BASE_URL}/gather-articles`,
