@@ -4,12 +4,12 @@ import { ParticipantInfo } from '@/types/article';
 
 interface Props extends ParticipantInfo {
   onApproveButtonClick: (
-    participationId: string,
-    applicantNickname: string,
+    participationId: ParticipantInfo['id'],
+    applicantNickname: ParticipantInfo['nickname'],
   ) => void;
   onRejectButtonClick: (
-    participationId: string,
-    applicantNickname: string,
+    participationId: ParticipantInfo['id'],
+    applicantNickname: ParticipantInfo['nickname'],
   ) => void;
 }
 
@@ -33,13 +33,13 @@ const ParticipantItem = ({
       <div className="ml-auto flex gap-1 items-center">
         <Button
           className="text-white rounded-lg h-8"
-          onClick={() => onApproveButtonClick(id.toString(), nickname)}
+          onClick={() => onApproveButtonClick(id, nickname)}
         >
           승인
         </Button>
         <Button
           className="shadow-[inset_0_0_0_1px] text-primary bg-white rounded-lg h-8"
-          onClick={() => onRejectButtonClick(id.toString(), nickname)}
+          onClick={() => onRejectButtonClick(id, nickname)}
         >
           거절
         </Button>

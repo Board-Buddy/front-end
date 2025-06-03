@@ -5,11 +5,12 @@ import {
   getComments,
 } from '@/services/comment';
 import { AxiosCustomError } from '@/types/api';
-import { Comment } from '@/types/comment';
+import { Article } from '@/types/article';
+import { Comment, Reply } from '@/types/comment';
 import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-export const useGetComments = (articleId: number) => {
+export const useGetComments = (articleId: Article['id']) => {
   return useQuery<Comment[], AxiosCustomError>({
     queryKey: ['comments', { articleId }],
     queryFn: () => getComments({ gatherArticleId: articleId }),
@@ -18,7 +19,7 @@ export const useGetComments = (articleId: number) => {
   });
 };
 
-export const useAddComment = (articleId: number) => {
+export const useAddComment = (articleId: Article['id']) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -26,8 +27,8 @@ export const useAddComment = (articleId: number) => {
       content,
       parentId,
     }: {
-      content: string;
-      parentId?: number;
+      content: Reply['content'];
+      parentId?: Reply['id'];
     }) =>
       addComment({
         gatherArticleId: articleId,
@@ -42,7 +43,7 @@ export const useAddComment = (articleId: number) => {
   });
 };
 
-export const useEditComment = (articleId: number) => {
+export const useEditComment = (articleId: Article['id']) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -50,8 +51,8 @@ export const useEditComment = (articleId: number) => {
       content,
       commentId,
     }: {
-      content: string;
-      commentId: number;
+      content: Reply['content'];
+      commentId: Reply['id'];
     }) =>
       editComment({
         gatherArticleId: articleId,
@@ -66,11 +67,11 @@ export const useEditComment = (articleId: number) => {
   });
 };
 
-export const useDeleteComment = (articleId: number) => {
+export const useDeleteComment = (articleId: Article['id']) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (commentId: number) =>
+    mutationFn: (commentId: Reply['id']) =>
       deleteComment({
         gatherArticleId: articleId,
         commentId,

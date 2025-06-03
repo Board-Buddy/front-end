@@ -50,7 +50,7 @@ export const useGetArticles = (
   });
 };
 
-export const useGetArticle = (articleId: number) => {
+export const useGetArticle = (articleId: Article['id']) => {
   return useQuery<Omit<Article, 'id'>, AxiosCustomError>({
     queryKey: ['article', { articleId }],
     queryFn: () => getArticle({ articleId }),
@@ -76,7 +76,7 @@ export const useAddArticle = () => {
   });
 };
 
-export const useEditArticle = (articleId: number) => {
+export const useEditArticle = (articleId: Article['id']) => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
@@ -93,7 +93,7 @@ export const useEditArticle = (articleId: number) => {
   });
 };
 
-export const useDeleteArticle = (articleId: number) => {
+export const useDeleteArticle = (articleId: Article['id']) => {
   const queryClient = useQueryClient();
   const router = useRouter();
 

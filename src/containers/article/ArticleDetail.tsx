@@ -5,6 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
 import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
+import { Article } from '@/types/article';
 import ArticleContent from './ArticleContent';
 import Profile from './Profile';
 import ApplyButton from './ApplyButton';
@@ -15,7 +16,7 @@ import CancelButtonForApproved from './CancelButtonForApproved';
 import ParticipantsListButton from './ParticipantsListButton';
 import ReviewButton from './ReviewButton';
 
-const ArticleDetail = ({ id }: { id: number }) => {
+const ArticleDetail = ({ id }: { id: Article['id'] }) => {
   const cache = useQueryClient();
   const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
   const { nickname } = userInfo;

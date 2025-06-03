@@ -9,7 +9,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 
 interface Props {
-  nickname?: string;
+  nickname?: UserInfo['nickname'];
 }
 
 const BadgeListDetail = ({ nickname }: Props) => {

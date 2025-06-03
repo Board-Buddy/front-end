@@ -18,25 +18,27 @@ import {
 import CustomAlert from '@/components/CustomAlert';
 import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
+import { Article } from '@/types/article';
+import { Reply } from '@/types/comment';
 import CommentInput from './CommentInput';
 
-const CommentList = ({ articleId }: { articleId: number }) => {
+const CommentList = ({ articleId }: { articleId: Article['id'] }) => {
   const cache = useQueryClient();
   const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
   const { nickname } = userInfo;
 
   const [openCommentDeleteAlert, setOpenCommentDeleteAlert] = useState(false);
-  const [deleteCommentId, setDeleteCommentId] = useState('');
+  const [deleteCommentId, setDeleteCommentId] = useState<number | null>(null);
   const [openReplyDeleteAlert, setOpenReplyDeleteAlert] = useState(false);
 
   const [parentComment, setParentComment] = useState<{
-    parentId: string;
-    authorNickname: string;
+    parentId: Reply['id'];
+    authorNickname: Reply['author']['nickname'];
   } | null>(null);
 
   const [editingComment, setEditingComment] = useState<{
-    id: string;
-    content: string;
+    id: Reply['id'];
+    content: Reply['content'];
   } | null>(null);
 
   const deleteCommentMutation = useDeleteComment(articleId);
@@ -59,7 +61,10 @@ const CommentList = ({ articleId }: { articleId: number }) => {
     );
   }
 
-  const handleReplyButtonClick = (parentId: string, authorNickname: string) => {
+  const handleReplyButtonClick = (
+    parentId: Reply['id'],
+    authorNickname: Reply['author']['nickname'],
+  ) => {
     setEditingComment(null);
     setParentComment({
       parentId,
@@ -67,7 +72,10 @@ const CommentList = ({ articleId }: { articleId: number }) => {
     });
   };
 
-  const handleEditButtonClick = (id: string, content: string) => {
+  const handleEditButtonClick = (
+    id: Reply['id'],
+    content: Reply['content'],
+  ) => {
     setParentComment(null);
     setEditingComment({ id, content });
   };
@@ -96,7 +104,7 @@ const CommentList = ({ articleId }: { articleId: number }) => {
                       className="text-gray-400 size-4"
                       onClick={() =>
                         handleReplyButtonClick(
-                          comment.id.toString(),
+                          comment.id,
                           comment.author.nickname,
                         )
                       }
@@ -116,10 +124,7 @@ const CommentList = ({ articleId }: { articleId: number }) => {
                         <DropdownMenuItem
                           className="hover:bg-slate-50 transition-all"
                           onClick={() =>
-                            handleEditButtonClick(
-                              comment.id.toString(),
-                              comment.content,
-                            )
+                            handleEditButtonClick(comment.id, comment.content)
                           }
                         >
                           수정
@@ -128,7 +133,7 @@ const CommentList = ({ articleId }: { articleId: number }) => {
                           className="hover:bg-slate-50 transition-all"
                           onClick={() => {
                             setOpenCommentDeleteAlert(true);
-                            setDeleteCommentId(comment.id.toString());
+                            setDeleteCommentId(comment.id);
                           }}
                         >
                           삭제
@@ -161,7 +166,7 @@ const CommentList = ({ articleId }: { articleId: number }) => {
                           className="text-gray-400 size-4"
                           onClick={() =>
                             handleReplyButtonClick(
-                              reply.id.toString(),
+                              reply.id,
                               reply.author.nickname,
                             )
                           }
@@ -181,10 +186,7 @@ const CommentList = ({ articleId }: { articleId: number }) => {
                             <DropdownMenuItem
                               className="hover:bg-slate-50 transition-all"
                               onClick={() =>
-                                handleEditButtonClick(
-                                  reply.id.toString(),
-                                  reply.content,
-                                )
+                                handleEditButtonClick(reply.id, reply.content)
                               }
                             >
                               수정
@@ -193,7 +195,7 @@ const CommentList = ({ articleId }: { articleId: number }) => {
                               className="hover:bg-slate-50 transition-all"
                               onClick={() => {
                                 setOpenReplyDeleteAlert(true);
-                                setDeleteCommentId(comment.id.toString());
+                                setDeleteCommentId(comment.id);
                               }}
                             >
                               삭제
@@ -227,7 +229,10 @@ const CommentList = ({ articleId }: { articleId: number }) => {
         description="삭제하시면 복구할 수 없습니다."
         cancelText="아니요"
         confirmText="네"
-        onConfirm={() => deleteCommentMutation.mutate(Number(deleteCommentId))}
+        onConfirm={() => {
+          if (!deleteCommentId) return;
+          deleteCommentMutation.mutate(deleteCommentId);
+        }}
       />
       <CustomAlert
         open={openReplyDeleteAlert}
@@ -236,7 +241,10 @@ const CommentList = ({ articleId }: { articleId: number }) => {
         description="삭제하시면 복구할 수 없습니다."
         cancelText="아니요"
         confirmText="네"
-        onConfirm={() => deleteCommentMutation.mutate(Number(deleteCommentId))}
+        onConfirm={() => {
+          if (!deleteCommentId) return;
+          deleteCommentMutation.mutate(deleteCommentId);
+        }}
       />
     </>
   );

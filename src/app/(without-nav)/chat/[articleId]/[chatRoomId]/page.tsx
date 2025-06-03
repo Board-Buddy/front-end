@@ -13,7 +13,10 @@ const Page = ({
   return (
     <CustomErrorBoundary>
       <Suspense fallback={<Loading />}>
-        <ChatRoom chatRoomId={params.chatRoomId} articleId={params.articleId} />
+        <ChatRoom
+          chatRoomId={Number(params.chatRoomId)}
+          articleId={Number(params.articleId)}
+        />
       </Suspense>
     </CustomErrorBoundary>
   );

@@ -2,9 +2,10 @@
 
 import { Button } from '@/components/ui/button';
 import { useApplyParticipation } from '@/hooks/useParticipation';
+import { Article } from '@/types/article';
 import { cn } from '@/utils/tailwind';
 
-const ApplyButton = ({ articleId }: { articleId: number }) => {
+const ApplyButton = ({ articleId }: { articleId: Article['id'] }) => {
   const applyMutation = useApplyParticipation(articleId);
 
   const handleClick = () => {

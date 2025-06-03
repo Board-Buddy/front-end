@@ -6,11 +6,13 @@ import {
   rejectParticipation,
 } from '@/services/participation';
 import { AxiosCustomError } from '@/types/api';
-import { ParticipantInfo } from '@/types/article';
+import { Article, ParticipantInfo } from '@/types/article';
+import { Profile } from '@/types/profile';
+import { UserInfo } from '@/types/user';
 import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-export const useGetParticipationList = (articleId: number) => {
+export const useGetParticipationList = (articleId: Article['id']) => {
   return useQuery<ParticipantInfo[], AxiosCustomError>({
     queryKey: ['participation', { articleId }],
     queryFn: () => getParticipants({ articleId }),
@@ -19,7 +21,7 @@ export const useGetParticipationList = (articleId: number) => {
   });
 };
 
-export const useApplyParticipation = (articleId: number) => {
+export const useApplyParticipation = (articleId: Article['id']) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -34,7 +36,7 @@ export const useApplyParticipation = (articleId: number) => {
   });
 };
 
-export const useCancelParticipation = (articleId: number) => {
+export const useCancelParticipation = (articleId: Article['id']) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -53,7 +55,7 @@ export const useCancelParticipation = (articleId: number) => {
   });
 };
 
-export const useApproveParticipation = (articleId: number) => {
+export const useApproveParticipation = (articleId: Article['id']) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -61,8 +63,8 @@ export const useApproveParticipation = (articleId: number) => {
       participationId,
       applicantNickname,
     }: {
-      participationId: number;
-      applicantNickname: string;
+      participationId: ParticipantInfo['id'];
+      applicantNickname: UserInfo['nickname'];
     }) =>
       approveParticipation({ articleId, participationId, applicantNickname }),
     onSuccess: () => {
@@ -74,7 +76,7 @@ export const useApproveParticipation = (articleId: number) => {
   });
 };
 
-export const useRejectParticipation = (articleId: number) => {
+export const useRejectParticipation = (articleId: Article['id']) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -82,8 +84,8 @@ export const useRejectParticipation = (articleId: number) => {
       participationId,
       applicantNickname,
     }: {
-      participationId: number;
-      applicantNickname: string;
+      participationId: ParticipantInfo['id'];
+      applicantNickname: UserInfo['nickname'];
     }) =>
       rejectParticipation({ articleId, participationId, applicantNickname }),
     onSuccess: () => {

@@ -7,25 +7,24 @@ import {
 } from '@/hooks/useParticipation';
 import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
+import { Article, ParticipantInfo } from '@/types/article';
 import ParticipantItem from './ParticipantItem';
 
 interface Props {
-  articleId: string;
+  articleId: Article['id'];
 }
 
 const ParticipantList = ({ articleId }: Props) => {
-  const articleIdNumber = Number(articleId);
-
   const {
     data: participants,
     isPending,
     isError,
     error,
     refetch,
-  } = useGetParticipationList(articleIdNumber);
+  } = useGetParticipationList(articleId);
 
-  const approveMutation = useApproveParticipation(articleIdNumber);
-  const rejectMutation = useRejectParticipation(articleIdNumber);
+  const approveMutation = useApproveParticipation(articleId);
+  const rejectMutation = useRejectParticipation(articleId);
 
   if (isPending) {
     return <Loading />;
@@ -38,21 +37,21 @@ const ParticipantList = ({ articleId }: Props) => {
   }
 
   const onApproveButtonClick = (
-    participationId: string,
-    applicantNickname: string,
+    participationId: ParticipantInfo['id'],
+    applicantNickname: ParticipantInfo['nickname'],
   ) => {
     approveMutation.mutate({
-      participationId: Number(participationId),
+      participationId,
       applicantNickname,
     });
   };
 
   const onRejectButtonClick = (
-    participationId: string,
-    applicantNickname: string,
+    participationId: ParticipantInfo['id'],
+    applicantNickname: ParticipantInfo['nickname'],
   ) => {
     rejectMutation.mutate({
-      participationId: Number(participationId),
+      participationId,
       applicantNickname,
     });
   };

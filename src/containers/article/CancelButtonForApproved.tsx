@@ -5,10 +5,11 @@ import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
 import { useState } from 'react';
 import CustomAlert from '@/components/CustomAlert';
+import { Article } from '@/types/article';
 
 interface Props {
-  articleId: number;
-  startDateTime: string;
+  articleId: Article['id'];
+  startDateTime: Article['startDateTime'];
 }
 
 const CancelButtonForApproved = ({ articleId, startDateTime }: Props) => {

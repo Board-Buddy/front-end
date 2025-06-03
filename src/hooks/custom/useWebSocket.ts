@@ -2,12 +2,15 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Client, IMessage } from '@stomp/stompjs';
-import { Message } from '@/types/chat';
+import { ChatRoom, Message } from '@/types/chat';
 import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
 import { ENDPOINT, WS_BASE_URL } from '@/services/endpoint';
 
-const useWebSocket = (chatRoomId: string, existingMessages: Message[]) => {
+const useWebSocket = (
+  chatRoomId: ChatRoom['chatRoomId'],
+  existingMessages: Message[],
+) => {
   const cache = useQueryClient();
   const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
   const { nickname } = userInfo;

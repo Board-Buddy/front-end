@@ -12,7 +12,7 @@ export const useSetLocation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: { sido: string; sgg: string; emd: string }) =>
+    mutationFn: (data: Pick<UserInfo, 'sido' | 'sgg' | 'emd'>) =>
       setLocation(data),
     onSuccess: (_, variables) => {
       queryClient.setQueryData(['userInfo'], (old: UserInfo) => {

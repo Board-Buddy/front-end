@@ -6,10 +6,11 @@ import {
   getExistingMessages,
 } from '@/services/chat';
 import { AxiosCustomError } from '@/types/api';
+import { Article } from '@/types/article';
 import { ArticleSimpleInfo, ChatRoom, Message } from '@/types/chat';
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 
-export const useGetExistingMessages = (chatRoomId: number | string) => {
+export const useGetExistingMessages = (chatRoomId: ChatRoom['chatRoomId']) => {
   return useSuspenseQuery<Message[], AxiosCustomError>({
     queryKey: ['chat', { chatRoomId }],
     queryFn: () => getExistingMessages(chatRoomId),
@@ -28,8 +29,8 @@ export const useGetChatList = () => {
 };
 
 export const useGetArticleSimpleInfo = (
-  chatRoomId: number | string,
-  articleId: number | string,
+  chatRoomId: ChatRoom['chatRoomId'],
+  articleId: Article['id'],
 ) => {
   return useSuspenseQuery<ArticleSimpleInfo>({
     queryKey: ['articlePreview', { chatRoomId, articleId }],

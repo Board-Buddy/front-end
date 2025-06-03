@@ -14,8 +14,8 @@ interface Props {
 const SearchInput = ({ keyword, setKeyword, refetch }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const activeEnter = (e: any) => {
-    if (e.key === 'Enter') {
+  const activeEnter = (e: unknown) => {
+    if (e instanceof KeyboardEvent && e.key === 'Enter') {
       refetch();
     }
   };

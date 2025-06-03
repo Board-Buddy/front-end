@@ -1,8 +1,14 @@
 import api from '@/services';
+import { Article } from '@/types/article';
+import { Reply } from '@/types/comment';
 import { ENDPOINT } from './endpoint';
 
 /** 댓글 리스트 조회 API */
-export const getComments = ({ gatherArticleId }: { gatherArticleId: number }) =>
+export const getComments = ({
+  gatherArticleId,
+}: {
+  gatherArticleId: Article['id'];
+}) =>
   api
     .get(ENDPOINT.GATHER_ARTICLE.COMMENT.LIST(gatherArticleId))
     .then((response) => response.data.data.comments);
@@ -13,9 +19,9 @@ export const addComment = ({
   content,
   parentId,
 }: {
-  gatherArticleId: number;
-  content: string;
-  parentId?: number;
+  gatherArticleId: Article['id'];
+  content: Reply['content'];
+  parentId?: Reply['id'];
 }) =>
   api.post(ENDPOINT.GATHER_ARTICLE.COMMENT.LIST(gatherArticleId, parentId), {
     content,
@@ -27,9 +33,9 @@ export const editComment = async ({
   content,
   commentId,
 }: {
-  gatherArticleId: number;
-  content: string;
-  commentId: number;
+  gatherArticleId: Article['id'];
+  content: Reply['content'];
+  commentId: Reply['id'];
 }) =>
   api.put(ENDPOINT.GATHER_ARTICLE.COMMENT.DETAIL(gatherArticleId, commentId), {
     content,
@@ -40,8 +46,8 @@ export const deleteComment = async ({
   gatherArticleId,
   commentId,
 }: {
-  gatherArticleId: number;
-  commentId: number;
+  gatherArticleId: Article['id'];
+  commentId: Reply['id'];
 }) =>
   api.delete(
     ENDPOINT.GATHER_ARTICLE.COMMENT.DETAIL(gatherArticleId, commentId),

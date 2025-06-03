@@ -121,8 +121,10 @@ const RegisterForm = () => {
       } else {
         form.setError('id', { type: 'manual', message });
       }
-    } catch (error: any) {
-      form.setError('id', { type: 'manual', message: error.message });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        form.setError('id', { type: 'manual', message: error.message });
+      }
     }
   };
 
@@ -150,8 +152,10 @@ const RegisterForm = () => {
       } else {
         form.setError('nickname', { type: 'manual', message });
       }
-    } catch (error: any) {
-      form.setError('nickname', { type: 'manual', message: error.message });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        form.setError('nickname', { type: 'manual', message: error.message });
+      }
     }
   };
 
@@ -179,8 +183,10 @@ const RegisterForm = () => {
       } else {
         form.setError('phone', { type: 'manual', message });
       }
-    } catch (error: any) {
-      form.setError('phone', { type: 'manual', message: error.message });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        form.setError('phone', { type: 'manual', message: error.message });
+      }
     }
   };
 
@@ -197,11 +203,13 @@ const RegisterForm = () => {
       } else {
         form.setError('phoneVerifyCode', { type: 'manual', message });
       }
-    } catch (error: any) {
-      form.setError('phoneVerifyCode', {
-        type: 'manual',
-        message: error.message,
-      });
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        form.setError('phoneVerifyCode', {
+          type: 'manual',
+          message: error.message,
+        });
+      }
     }
   };
 
@@ -257,9 +265,11 @@ const RegisterForm = () => {
         setMsg(message);
         setOpenRegisterError(true);
       }
-    } catch (error: any) {
-      setMsg(error.message);
-      setOpenRegisterError(true);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setMsg(error.message);
+        setOpenRegisterError(true);
+      }
     }
   };
 

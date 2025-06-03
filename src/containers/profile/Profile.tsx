@@ -14,7 +14,7 @@ import ErrorFallback from '@/components/ErrorFallback';
 import QuitButtons from '../my/QuitButtons';
 
 interface Props {
-  nickname?: string;
+  nickname?: UserInfo['nickname'];
 }
 
 const Profile = ({ nickname }: Props) => {

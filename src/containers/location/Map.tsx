@@ -1,11 +1,12 @@
 'use client';
 
 import useKakaoMap from '@/hooks/custom/useKakaoMap';
+import { MyNeighborhoods } from '@/types/location';
 import { Location } from '@/types/map';
 
 interface Props {
   myNeighborhoods: Location;
-  radius: number;
+  radius: MyNeighborhoods['radius'];
 }
 
 const Map = ({ myNeighborhoods, radius }: Props) => {
