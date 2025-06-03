@@ -3,7 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Ranking } from '@/types/ranking';
 import { cn } from '@/utils/tailwind';
 
-interface Props extends Ranking {
+interface Props {
   nickname: Ranking['nickname'];
   profileUrl: Ranking['profileImageS3SavedURL'];
   rank: number;
