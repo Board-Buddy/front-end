@@ -2,15 +2,19 @@
 
 import { cn } from '@/utils/tailwind';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import About from './About';
 
 const Splash = () => {
   const [skip, setSkip] = useState(false);
 
-  setTimeout(() => {
-    setSkip(true);
-  }, 1000);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSkip(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="relative">
