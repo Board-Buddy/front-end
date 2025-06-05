@@ -1,8 +1,13 @@
 import { Button } from '@/components/ui/button';
+import { Article } from '@/types/article';
 import { cn } from '@/utils/tailwind';
 import Link from 'next/link';
 
-const ParticipantsListButton = ({ articleId }: { articleId: number }) => {
+const ParticipantsListButton = ({
+  articleId,
+}: {
+  articleId: Article['id'];
+}) => {
   return (
     <div className="px-4 mb-8">
       <Link href={`${articleId}/participants`}>

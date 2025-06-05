@@ -1,36 +1,55 @@
 import api from '@/services';
-import { ArticleRequest, NewArticle } from '@/types/article';
+import { Article, ArticleRequest, NewArticle } from '@/types/article';
+import { SuccessResponse } from '@/types/api';
+import { ENDPOINT } from './endpoint';
 
 /** 모집글 리스트 조회 API */
 export const getArticles = ({ pageParam, status, sort }: ArticleRequest) =>
   api
-    .get('/gather-articles', {
-      params: { page: pageParam, status, sort },
-    })
+    .get<SuccessResponse<{ posts: Article[]; last: boolean }>>(
+      ENDPOINT.GATHER_ARTICLE.LIST(),
+      {
+        params: { page: pageParam, status, sort },
+      },
+    )
     .then((response) => response.data.data);
 
 /** 모집글 상세 조회 API */
-export const getArticle = ({ gatherArticleId }: { gatherArticleId: number }) =>
+export const getArticle = (articleId: Article['id']) =>
   api
-    .get(`/gather-articles/${gatherArticleId}`)
+    .get<
+      SuccessResponse<{ post: Omit<Article, 'id'> }>
+    >(ENDPOINT.GATHER_ARTICLE.DETAIL(articleId))
     .then((response) => response.data.data.post);
 
 /** 모집글 작성 API */
 export const addArticle = (data: NewArticle) =>
-  api.post('/gather-articles', data);
+  api
+    .post<
+      SuccessResponse<{ post: { id: number } }>
+    >(ENDPOINT.GATHER_ARTICLE.LIST(), data)
+    .then((response) => response.data.data);
 
 /** 모집글 수정 API */
-export const editArticle = (data: NewArticle, articleId: number) =>
-  api.put(`/gather-articles/${articleId}`, data);
+export const editArticle = (data: NewArticle, articleId: Article['id']) =>
+  api.put<SuccessResponse<{ post: { id: number } }>>(
+    ENDPOINT.GATHER_ARTICLE.DETAIL(articleId),
+    data,
+  );
 
 /** 모집글 삭제 API */
-export const deleteArticle = (articleId: number) =>
-  api.delete(`/gather-articles/${articleId}`);
+export const deleteArticle = (articleId: Article['id']) =>
+  api.delete<SuccessResponse<{ post: { id: number } }>>(
+    ENDPOINT.GATHER_ARTICLE.DETAIL(articleId),
+  );
 
 /** 모집글 검색 API */
 export const searchArticles = (keyword: string) =>
   api
-    .get('/gather-articles/search', {
-      params: { query: keyword },
-    })
+    .get<SuccessResponse<{ posts: Article[] }>>(
+      ENDPOINT.GATHER_ARTICLE.SEARCH(),
+      {
+        params: { query: keyword },
+      },
+    )
     .then((response) => response.data.data.posts);

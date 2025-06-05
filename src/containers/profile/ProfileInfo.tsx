@@ -6,22 +6,23 @@ import { cn } from '@/utils/tailwind';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useExistingProfileInfoContext } from '@/context/ExistingProfileInfoContext';
+import { Profile } from '@/types/profile';
 import BuddyPoint from './BuddyPoint';
 
 interface Props {
-  nickname?: string;
-  description: string;
-  rank: number | null;
-  profileImageS3SavedURL?: string | null;
-  buddyScore: number;
+  nickname?: UserInfo['nickname'];
+  description: Profile['description'];
+  rank: Profile['rank'];
+  buddyScore: Profile['buddyScore'];
+  profileImageS3SavedURL?: Profile['profileImageS3SavedURL'];
 }
 
 const ProfileInfo = ({
   nickname,
   description,
   rank,
-  profileImageS3SavedURL,
   buddyScore,
+  profileImageS3SavedURL,
 }: Props) => {
   const router = useRouter();
 

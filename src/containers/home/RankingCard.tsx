@@ -1,10 +1,11 @@
 import CustomAvatar from '@/components/CustomAvatar';
 import { Card, CardContent } from '@/components/ui/card';
+import { Ranking } from '@/types/ranking';
 import { cn } from '@/utils/tailwind';
 
 interface Props {
-  nickname: string;
-  profileUrl: string | null;
+  nickname: Ranking['nickname'];
+  profileUrl: Ranking['profileImageS3SavedURL'];
   rank: number;
 }
 

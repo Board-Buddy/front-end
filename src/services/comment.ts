@@ -1,9 +1,19 @@
 import api from '@/services';
+import { Article } from '@/types/article';
+import { Comment, Reply } from '@/types/comment';
+import { SuccessResponse } from '@/types/api';
+import { ENDPOINT } from './endpoint';
 
 /** 댓글 리스트 조회 API */
-export const getComments = ({ gatherArticleId }: { gatherArticleId: number }) =>
+export const getComments = ({
+  gatherArticleId,
+}: {
+  gatherArticleId: Article['id'];
+}) =>
   api
-    .get(`/gather-articles/${gatherArticleId}/comments`)
+    .get<
+      SuccessResponse<{ comments: Comment[] }>
+    >(ENDPOINT.GATHER_ARTICLE.COMMENT.LIST(gatherArticleId))
     .then((response) => response.data.data.comments);
 
 /** 댓글 작성 API */
@@ -12,18 +22,16 @@ export const addComment = ({
   content,
   parentId,
 }: {
-  gatherArticleId: number;
-  content: string;
-  parentId?: string;
-}) => {
-  return parentId
-    ? api.post(`/gather-articles/${gatherArticleId}/comments/${parentId}`, {
-        content,
-      })
-    : api.post(`/gather-articles/${gatherArticleId}/comments`, {
-        content,
-      });
-};
+  gatherArticleId: Article['id'];
+  content: Reply['content'];
+  parentId?: Reply['id'];
+}) =>
+  api.post<SuccessResponse<null>>(
+    ENDPOINT.GATHER_ARTICLE.COMMENT.LIST(gatherArticleId, parentId),
+    {
+      content,
+    },
+  );
 
 /** 댓글 수정 API */
 export const editComment = async ({
@@ -31,19 +39,25 @@ export const editComment = async ({
   content,
   commentId,
 }: {
-  gatherArticleId: number;
-  content: string;
-  commentId: string;
+  gatherArticleId: Article['id'];
+  content: Reply['content'];
+  commentId: Reply['id'];
 }) =>
-  api.put(`/gather-articles/${gatherArticleId}/comments/${commentId}`, {
-    content,
-  });
+  api.put<SuccessResponse<null>>(
+    ENDPOINT.GATHER_ARTICLE.COMMENT.DETAIL(gatherArticleId, commentId),
+    {
+      content,
+    },
+  );
 
 /** 댓글 삭제 API */
 export const deleteComment = async ({
   gatherArticleId,
   commentId,
 }: {
-  gatherArticleId: number;
-  commentId: string;
-}) => api.delete(`/gather-articles/${gatherArticleId}/comments/${commentId}`);
+  gatherArticleId: Article['id'];
+  commentId: Reply['id'];
+}) =>
+  api.delete<SuccessResponse<null>>(
+    ENDPOINT.GATHER_ARTICLE.COMMENT.DETAIL(gatherArticleId, commentId),
+  );

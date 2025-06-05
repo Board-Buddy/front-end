@@ -1,5 +1,5 @@
-import { API_BASE_URL } from '@/constants/env';
 import { http, HttpResponse } from 'msw';
+import { API_BASE_URL } from '@/services/endpoint';
 import { deleteArticle, editArticle, getArticle } from './[gatherArticleId]';
 import {
   addComment,

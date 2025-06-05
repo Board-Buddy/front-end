@@ -3,7 +3,7 @@ import {
   setLocation,
   setRadius,
 } from '@/services/location';
-import { AxiosCustomError } from '@/types/api';
+import { CustomAxiosError } from '@/types/api';
 import { MyNeighborhoods } from '@/types/location';
 import { UserInfo } from '@/types/user';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -12,7 +12,7 @@ export const useSetLocation = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: { sido: string; sgg: string; emd: string }) =>
+    mutationFn: (data: Pick<UserInfo, 'sido' | 'sgg' | 'emd'>) =>
       setLocation(data),
     onSuccess: (_, variables) => {
       queryClient.setQueryData(['userInfo'], (old: UserInfo) => {
@@ -41,7 +41,7 @@ export const useSetRadius = () => {
 };
 
 export const useGetMyNeighborhoods = () => {
-  return useQuery<MyNeighborhoods, AxiosCustomError>({
+  return useQuery<MyNeighborhoods, CustomAxiosError>({
     queryKey: ['myNeighborhoods'],
     queryFn: getMyNeighborhoods,
     staleTime: 0,

@@ -1,12 +1,8 @@
+import { Notification } from '@/types/notification';
 import { getLastMessageSentTime } from '@/utils/date';
 import { BellIcon } from 'lucide-react';
 
-interface Props {
-  message: string;
-  createdAt: string;
-}
-
-const NotificationItem = ({ message, createdAt }: Props) => {
+const NotificationItem = ({ message, createdAt }: Notification) => {
   return (
     <div className="border-b border-slate-200 flex px-4 py-3 items-center gap-3">
       <div className="bg-gray-100 p-2 rounded-full border border-gray-200">

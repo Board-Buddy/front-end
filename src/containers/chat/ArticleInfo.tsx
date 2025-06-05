@@ -1,3 +1,4 @@
+import { Article } from '@/types/article';
 import { ArticleSimpleInfo } from '@/types/chat';
 import { formatMeetingTime } from '@/utils/date';
 import { UsersRoundIcon } from 'lucide-react';
@@ -5,7 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 interface Props {
-  articleId: string;
+  articleId: Article['id'];
   articleSimpleInfo: ArticleSimpleInfo;
 }
 

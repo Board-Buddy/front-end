@@ -4,9 +4,10 @@ import { Slider } from '@/components/ui/slider';
 import { useState } from 'react';
 import { useSetLocation, useSetRadius } from '@/hooks/useLocation';
 import LocationSettingComboBox from '@/components/LocationSettingComboBox';
+import { MyNeighborhoods } from '@/types/location';
 
 interface Props {
-  radius: number;
+  radius: MyNeighborhoods['radius'];
 }
 
 const LocationRadiusSetting = ({ radius }: Props) => {

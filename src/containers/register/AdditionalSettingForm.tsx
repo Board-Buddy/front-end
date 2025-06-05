@@ -23,6 +23,7 @@ import { useRouter } from 'next/navigation';
 import { useUserLoginCheck } from '@/hooks/useAuth';
 import LocationSettingComboBox from '@/components/LocationSettingComboBox';
 import CustomAlert from '@/components/CustomAlert';
+import { CustomAxiosError } from '@/types/api';
 
 const phoneRegex = /^01([0|1|6|7|8|9])([0-9]{3,4})([0-9]{4})$/;
 
@@ -72,29 +73,33 @@ const AdditionalSettingForm = () => {
       return;
     }
 
-    const { status, message } = await smsCertificationSend(
-      form.getValues('phone'),
-    );
+    try {
+      await smsCertificationSend(form.getValues('phone'));
 
-    if (status === 'success') {
       form.clearErrors('phone');
       setShowPhoneVerifyCodeInput(true);
-    } else {
-      form.setError('phone', { type: 'manual', message });
+    } catch (err: unknown) {
+      if (err instanceof CustomAxiosError) {
+        form.setError('phone', { type: 'manual', message: err.message });
+      }
     }
   };
 
   const verifyPhone = async () => {
-    const { status, message } = await smsCertificationVerify({
-      phoneNumber: form.getValues('phone'),
-      certificationNumber: form.getValues('phoneVerifyCode'),
-    });
-
-    if (status === 'success') {
+    try {
+      await smsCertificationVerify({
+        phoneNumber: form.getValues('phone'),
+        certificationNumber: form.getValues('phoneVerifyCode'),
+      });
       form.clearErrors('phoneVerifyCode');
       setVerifiedPhone(true);
-    } else {
-      form.setError('phoneVerifyCode', { type: 'manual', message });
+    } catch (err: unknown) {
+      if (err instanceof CustomAxiosError) {
+        form.setError('phoneVerifyCode', {
+          type: 'manual',
+          message: err.message,
+        });
+      }
     }
   };
 
@@ -115,18 +120,20 @@ const AdditionalSettingForm = () => {
       return;
     }
 
-    const { status, message } = await oauthRegister({
-      phoneNumber: values.phone,
-      sido: values.location.split(' ')[0],
-      sgg: values.location.split(' ')[1],
-      emd: values.location.split(' ')[2],
-    });
+    try {
+      await oauthRegister({
+        phoneNumber: values.phone,
+        sido: values.location.split(' ')[0],
+        sgg: values.location.split(' ')[1],
+        emd: values.location.split(' ')[2],
+      });
 
-    if (status === 'success') {
       setGetUserInfo(true);
-    } else {
-      setErrMsg(message);
-      setOpenLoginError(true);
+    } catch (err: unknown) {
+      if (err instanceof CustomAxiosError) {
+        setErrMsg(err.message);
+        setOpenLoginError(true);
+      }
     }
   };
 
@@ -138,7 +145,7 @@ const AdditionalSettingForm = () => {
     if (isError) {
       setOpenLoginError(true);
     }
-  }, [isSuccess, error, router]);
+  }, [isSuccess, error, router, isError]);
 
   return (
     <>

@@ -3,29 +3,31 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAddComment, useEditComment } from '@/hooks/useComment';
+import { Article } from '@/types/article';
+import { Reply } from '@/types/comment';
 import { cn } from '@/utils/tailwind';
 import { Dispatch, SetStateAction, useState } from 'react';
 
 interface Props {
-  articleId: number;
+  articleId: Article['id'];
   parentComment: {
-    parentId: string;
-    authorNickname: string;
+    parentId: Reply['id'];
+    authorNickname: Reply['author']['nickname'];
   } | null;
   setParentComment: Dispatch<
     SetStateAction<{
-      parentId: string;
-      authorNickname: string;
+      parentId: Reply['id'];
+      authorNickname: Reply['author']['nickname'];
     } | null>
   >;
   editingComment: {
-    id: string;
-    content: string;
+    id: Reply['id'];
+    content: Reply['content'];
   } | null;
   setEditingComment: Dispatch<
     SetStateAction<{
-      id: string;
-      content: string;
+      id: Reply['id'];
+      content: Reply['content'];
     } | null>
   >;
 }
@@ -61,7 +63,7 @@ const CommentInput = ({
 
   const handleEdit = () => {
     editCommentMutation.mutate(
-      { commentId: editingComment!.id, content: editValue! },
+      { commentId: Number(editingComment!.id), content: editValue! },
       {
         onSuccess: () => {
           setEditingComment(null);

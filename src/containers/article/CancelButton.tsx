@@ -1,9 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { useCancelParticipation } from '@/hooks/useParticipation';
+import { Article } from '@/types/article';
 import { cn } from '@/utils/tailwind';
 
-const CancelButton = ({ articleId }: { articleId: number }) => {
-  const cancelMutation = useCancelParticipation(articleId.toString());
+const CancelButton = ({ articleId }: { articleId: Article['id'] }) => {
+  const cancelMutation = useCancelParticipation(articleId);
 
   const handleClick = () => {
     cancelMutation.mutate();

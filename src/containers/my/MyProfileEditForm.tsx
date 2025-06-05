@@ -32,6 +32,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
 import CustomAlert from '@/components/CustomAlert';
 import { useExistingProfileInfoContext } from '@/context/ExistingProfileInfoContext';
+import { CustomAxiosError } from '@/types/api';
 
 const MyProfileEditForm = () => {
   const [imageSizeAlertOpen, setImageSizeAlertOpen] = useState(false);
@@ -108,18 +109,14 @@ const MyProfileEditForm = () => {
     }
 
     try {
-      const { status, message } = await checkNicknameDuplicate(
-        form.getValues('nickname')!,
-      );
+      await checkNicknameDuplicate(form.getValues('nickname')!);
 
-      if (status === 'success') {
-        form.clearErrors('nickname');
-        setUniqueNickname(true);
-      } else {
-        form.setError('nickname', { type: 'manual', message });
+      form.clearErrors('nickname');
+      setUniqueNickname(true);
+    } catch (error: unknown) {
+      if (error instanceof CustomAxiosError) {
+        form.setError('nickname', { type: 'manual', message: error.message });
       }
-    } catch (error: any) {
-      form.setError('nickname', { type: 'manual', message: error.message });
     }
   };
 
@@ -136,21 +133,17 @@ const MyProfileEditForm = () => {
     }
 
     try {
-      const { status, message } = await passwordCheck(
-        form.getValues('beforePassword')!,
-      );
+      await passwordCheck(form.getValues('beforePassword')!);
 
-      if (status === 'success') {
-        form.clearErrors('beforePassword');
-        setShowNewPasswordInput(true);
-      } else {
-        form.setError('beforePassword', { type: 'manual', message });
+      form.clearErrors('beforePassword');
+      setShowNewPasswordInput(true);
+    } catch (error: unknown) {
+      if (error instanceof CustomAxiosError) {
+        form.setError('beforePassword', {
+          type: 'manual',
+          message: error.message,
+        });
       }
-    } catch (error: any) {
-      form.setError('beforePassword', {
-        type: 'manual',
-        message: error.message,
-      });
     }
   };
 
@@ -167,39 +160,33 @@ const MyProfileEditForm = () => {
     }
 
     try {
-      const { status, message } = await smsCertificationSend(
-        form.getValues('phone')!,
-      );
+      await smsCertificationSend(form.getValues('phone')!);
 
-      if (status === 'success') {
-        form.clearErrors('phone');
-        setShowPhoneVerifyCodeInput(true);
-      } else {
-        form.setError('phone', { type: 'manual', message });
+      form.clearErrors('phone');
+      setShowPhoneVerifyCodeInput(true);
+    } catch (error: unknown) {
+      if (error instanceof CustomAxiosError) {
+        form.setError('phone', { type: 'manual', message: error.message });
       }
-    } catch (error: any) {
-      form.setError('phone', { type: 'manual', message: error.message });
     }
   };
 
   const verifyPhone = async () => {
-    const { status, message } = await smsCertificationVerify({
-      phoneNumber: form.getValues('phone')!,
-      certificationNumber: form.getValues('phoneVerifyCode')!,
-    });
-
     try {
-      if (status === 'success') {
-        form.clearErrors('phoneVerifyCode');
-        setVerifiedPhone(true);
-      } else {
-        form.setError('phoneVerifyCode', { type: 'manual', message });
-      }
-    } catch (error: any) {
-      form.setError('phoneVerifyCode', {
-        type: 'manual',
-        message: error.message,
+      await smsCertificationVerify({
+        phoneNumber: form.getValues('phone')!,
+        certificationNumber: form.getValues('phoneVerifyCode')!,
       });
+
+      form.clearErrors('phoneVerifyCode');
+      setVerifiedPhone(true);
+    } catch (error: unknown) {
+      if (error instanceof CustomAxiosError) {
+        form.setError('phoneVerifyCode', {
+          type: 'manual',
+          message: error.message,
+        });
+      }
     }
   };
 

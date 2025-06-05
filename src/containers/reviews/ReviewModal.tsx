@@ -8,13 +8,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { UserInfo } from '@/types/user';
 import { cn } from '@/utils/tailwind';
 import { SparklesIcon, ThumbsDownIcon, ThumbsUpIcon, X } from 'lucide-react';
 import { Dispatch, SetStateAction, useState } from 'react';
 
 interface Props {
   open: boolean;
-  nickname: string;
+  nickname: UserInfo['nickname'];
   setOpen: Dispatch<SetStateAction<boolean>>;
   onSubmit: (review: string) => void;
 }

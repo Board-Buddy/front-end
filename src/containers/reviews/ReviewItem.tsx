@@ -4,14 +4,17 @@ import CustomAvatar from '@/components/CustomAvatar';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 import { useSendReview } from '@/hooks/useReview';
+import { UserInfo } from '@/types/user';
+import { Profile } from '@/types/profile';
+import { Article } from '@/types/article';
 import ReviewModal from './ReviewModal';
 
 interface Props {
-  nickname: string;
-  profileImage: string | null;
-  rank: number | null;
+  nickname: UserInfo['nickname'];
+  profileImage: Profile['profileImageS3SavedURL'];
+  rank: Profile['rank'];
   hasReviewed: boolean;
-  articleId: string;
+  articleId: Article['id'];
 }
 
 const ReviewItem = ({
@@ -23,7 +26,7 @@ const ReviewItem = ({
 }: Props) => {
   const [open, setOpen] = useState(false);
 
-  const mutation = useSendReview(articleId, nickname, setOpen);
+  const mutation = useSendReview(Number(articleId), nickname, setOpen);
 
   const onSubmit = (review: string) => {
     mutation.mutate({ review });

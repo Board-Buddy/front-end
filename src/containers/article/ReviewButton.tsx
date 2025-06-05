@@ -1,10 +1,11 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { Article } from '@/types/article';
 import { cn } from '@/utils/tailwind';
 import Link from 'next/link';
 
-const ReviewButton = ({ articleId }: { articleId: number }) => {
+const ReviewButton = ({ articleId }: { articleId: Article['id'] }) => {
   return (
     <Link href={`${articleId}/reviews`}>
       <div className="px-4 mb-8">

@@ -4,12 +4,14 @@ import {
   useGetArticleSimpleInfo,
   useGetExistingMessages,
 } from '@/hooks/useChat';
+import { ChatRoom as ChatRoomType } from '@/types/chat';
+import { Article } from '@/types/article';
 import ArticleInfo from './ArticleInfo';
 import WebSocketContainer from './WebSocketContainer';
 
 interface Props {
-  articleId: string;
-  chatRoomId: any;
+  articleId: Article['id'];
+  chatRoomId: ChatRoomType['chatRoomId'];
 }
 
 const ChatRoom = ({ chatRoomId, articleId }: Props) => {

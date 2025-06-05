@@ -1,11 +1,13 @@
+import { Badge } from '@/types/profile';
+import { UserInfo } from '@/types/user';
 import { cn } from '@/utils/tailwind';
 import { ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 interface Props {
-  badges: { badgeImageS3SavedURL: string; badgeYearMonth: string }[];
-  nickname?: string;
+  badges: Badge[];
+  nickname?: UserInfo['nickname'];
 }
 
 const BadgeList = ({ badges, nickname }: Props) => {

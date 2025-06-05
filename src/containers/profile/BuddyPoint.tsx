@@ -1,7 +1,8 @@
 import { Slider } from '@/components/ui/noThumbSlider';
+import { Profile } from '@/types/profile';
 import { AlertCircleIcon } from 'lucide-react';
 
-const BuddyPoint = ({ score }: { score: number }) => {
+const BuddyPoint = ({ score }: { score: Profile['buddyScore'] }) => {
   return (
     <div className="mt-4">
       <div className="flex items-center mb-1">

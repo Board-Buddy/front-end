@@ -1,4 +1,4 @@
-import { API_BASE_URL } from '@/constants/env';
+import { API_BASE_URL } from '@/services/endpoint';
 import { http, HttpResponse } from 'msw';
 
 export const setRadius = http.put(`${API_BASE_URL}/my/radius`, async () => {

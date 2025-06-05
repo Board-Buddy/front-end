@@ -1,10 +1,10 @@
-import { Message } from '@/types/chat';
+import { ChatRoom, Message } from '@/types/chat';
 import useWebSocket from '@/hooks/custom/useWebSocket';
 import ChatSection from './ChatSection';
 import ChatInput from './ChatInput';
 
 interface Props {
-  chatRoomId: string;
+  chatRoomId: ChatRoom['chatRoomId'];
   chatMessages: Message[];
 }
 

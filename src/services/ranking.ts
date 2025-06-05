@@ -1,12 +1,10 @@
 import api from '@/services';
-import handleApiError from '@/utils/handleApiError';
+import { SuccessResponse } from '@/types/api';
+import { Ranking } from '@/types/ranking';
+import { ENDPOINT } from './endpoint';
 
 /** 랭킹 조회 API */
-export const getRankings = async () => {
-  try {
-    const response = await api.get(`/rankings`);
-    return response.data.data.rankings;
-  } catch (error: unknown) {
-    handleApiError(error);
-  }
-};
+export const getRankings = () =>
+  api
+    .get<SuccessResponse<{ rankings: Ranking[] }>>(ENDPOINT.RANKINGS())
+    .then((response) => response.data.data.rankings);

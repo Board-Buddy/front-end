@@ -8,7 +8,10 @@ export interface Location {
 
 export interface MyNeighborhoods {
   locations: {
-    [key: string]: { sido: string; sgg: string; emd: string }[];
+    '2': { sido: string; sgg: string; emd: string }[];
+    '5': { sido: string; sgg: string; emd: string }[];
+    '7': { sido: string; sgg: string; emd: string }[];
+    '10': { sido: string; sgg: string; emd: string }[];
   };
   longitude: number;
   latitude: number;

@@ -2,22 +2,26 @@
 
 import { cn } from '@/utils/tailwind';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import About from './About';
 
 const Splash = () => {
-  const [skip, setSkip] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
 
-  setTimeout(() => {
-    setSkip(true);
-  }, 1000);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="relative">
       <div
         className={cn(
-          'absolute bg-primary h-[100vh] flex flex-col justify-center items-center w-full transition-all opacity-100',
-          skip && 'opacity-0',
+          'absolute bg-primary h-[100vh] flex flex-col justify-center items-center w-full transition-all',
+          showSplash ? 'opacity-100' : 'opacity-0 pointer-events-none',
         )}
       >
         <Image
@@ -35,9 +39,7 @@ const Splash = () => {
           여기<span className="font-extrabold">버디</span> 모여라
         </p>
       </div>
-      <div className={cn('opacity-0 transition-all', skip && 'opacity-100')}>
-        <About />
-      </div>
+      {!showSplash && <About />}
     </div>
   );
 };

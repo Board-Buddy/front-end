@@ -5,10 +5,11 @@ import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
 import { useState } from 'react';
 import CustomAlert from '@/components/CustomAlert';
+import { Article } from '@/types/article';
 
 interface Props {
-  articleId: number;
-  startDateTime: string;
+  articleId: Article['id'];
+  startDateTime: Article['startDateTime'];
 }
 
 const CancelButtonForApproved = ({ articleId, startDateTime }: Props) => {
@@ -17,7 +18,7 @@ const CancelButtonForApproved = ({ articleId, startDateTime }: Props) => {
   const { nickname } = userInfo;
 
   const [open, setOpen] = useState(false);
-  const cancelMutation = useCancelParticipation(articleId.toString());
+  const cancelMutation = useCancelParticipation(articleId);
 
   const handleClick = () => {
     const startTime = new Date(startDateTime);

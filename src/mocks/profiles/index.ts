@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import { API_BASE_URL } from '@/constants/env';
+import { API_BASE_URL } from '@/services/endpoint';
 import { getUserProfile } from './[nickname]';
 
 const editProfile = http.put(

@@ -7,10 +7,11 @@ import {
 } from '@/hooks/useParticipation';
 import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
+import { Article, ParticipantInfo } from '@/types/article';
 import ParticipantItem from './ParticipantItem';
 
 interface Props {
-  articleId: string;
+  articleId: Article['id'];
 }
 
 const ParticipantList = ({ articleId }: Props) => {
@@ -36,8 +37,8 @@ const ParticipantList = ({ articleId }: Props) => {
   }
 
   const onApproveButtonClick = (
-    participationId: string,
-    applicantNickname: string,
+    participationId: ParticipantInfo['id'],
+    applicantNickname: ParticipantInfo['nickname'],
   ) => {
     approveMutation.mutate({
       participationId,
@@ -46,8 +47,8 @@ const ParticipantList = ({ articleId }: Props) => {
   };
 
   const onRejectButtonClick = (
-    participationId: string,
-    applicantNickname: string,
+    participationId: ParticipantInfo['id'],
+    applicantNickname: ParticipantInfo['nickname'],
   ) => {
     rejectMutation.mutate({
       participationId,
