@@ -1,4 +1,6 @@
 import api from '@/services';
+import { SuccessResponse } from '@/types/api';
+import { Cafe } from '@/types/map';
 import { ENDPOINT } from './endpoint';
 
 /** 보드게임 카페 조회 API
@@ -15,7 +17,7 @@ export const getBoardCafes = ({
   radius: number;
 }) =>
   api
-    .get(ENDPOINT.BOARD_CAFES(), {
+    .get<SuccessResponse<{ cafes: Cafe[] }>>(ENDPOINT.BOARD_CAFES(), {
       params: { x, y, radius },
     })
     .then((response) => response.data.data.cafes);

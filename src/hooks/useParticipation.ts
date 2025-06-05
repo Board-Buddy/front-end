@@ -5,15 +5,14 @@ import {
   getParticipants,
   rejectParticipation,
 } from '@/services/participation';
-import { AxiosCustomError } from '@/types/api';
+import { CustomAxiosError } from '@/types/api';
 import { Article, ParticipantInfo } from '@/types/article';
-import { Profile } from '@/types/profile';
 import { UserInfo } from '@/types/user';
 import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const useGetParticipationList = (articleId: Article['id']) => {
-  return useQuery<ParticipantInfo[], AxiosCustomError>({
+  return useQuery<ParticipantInfo[], CustomAxiosError>({
     queryKey: ['participation', { articleId }],
     queryFn: () => getParticipants({ articleId }),
     staleTime: 0,

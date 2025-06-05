@@ -5,8 +5,8 @@ import {
   getMyArticles,
   getProfile,
 } from '@/services/profile';
-import { AxiosCustomError } from '@/types/api';
-import { Article } from '@/types/article';
+import { CustomAxiosError } from '@/types/api';
+import { JoinedArticle, MyArticle } from '@/types/article';
 import { Badge, Profile } from '@/types/profile';
 import { UserInfo } from '@/types/user';
 import { blobToJson } from '@/utils/blobToJson';
@@ -15,7 +15,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
 export const useGetProfile = (nickname: string) => {
-  return useQuery<Profile, AxiosCustomError>({
+  return useQuery<Profile, CustomAxiosError>({
     queryKey: ['profile', { nickname }],
     queryFn: () => getProfile(nickname),
     staleTime: 5 * 60 * 1000,
@@ -57,14 +57,14 @@ export const useEditProfile = () => {
 };
 
 export const useGetBadgeList = (nickname: string) => {
-  return useQuery<Badge[], AxiosCustomError>({
+  return useQuery<Badge[], CustomAxiosError>({
     queryKey: ['badgeList', { nickname }],
     queryFn: () => getBadgeList(nickname),
   });
 };
 
 export const useGetMyArticles = () => {
-  return useQuery<Article[], AxiosCustomError>({
+  return useQuery<MyArticle[], CustomAxiosError>({
     queryKey: ['myArticles'],
     queryFn: () => getMyArticles(),
     staleTime: 0,
@@ -73,7 +73,7 @@ export const useGetMyArticles = () => {
 };
 
 export const useGetJoinedArticles = () => {
-  return useQuery<Article[], AxiosCustomError>({
+  return useQuery<JoinedArticle[], CustomAxiosError>({
     queryKey: ['myJoinedArticles'],
     queryFn: () => getJoinedArticles(),
     staleTime: 0,

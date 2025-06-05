@@ -6,7 +6,7 @@ import {
   getArticles,
   searchArticles,
 } from '@/services/article';
-import { AxiosCustomError } from '@/types/api';
+import { CustomAxiosError } from '@/types/api';
 import { Article, NewArticle } from '@/types/article';
 import { successToast } from '@/utils/customToast';
 import {
@@ -22,13 +22,13 @@ export const useGetArticles = (
   location: string,
   status: string | null,
   sort: string | null,
-) => {
-  return useInfiniteQuery<
+) =>
+  useInfiniteQuery<
     {
       posts: Article[];
       last: boolean;
     },
-    AxiosCustomError,
+    CustomAxiosError,
     InfiniteData<{
       posts: Article[];
       last: boolean;
@@ -39,7 +39,7 @@ export const useGetArticles = (
     queryKey: ['articles', { location, status, sort }],
     queryFn: ({ pageParam = 0 }) => getArticles({ pageParam, status, sort }),
     initialPageParam: 0,
-    getNextPageParam: (lastPage, allPages, lastPageParam) => {
+    getNextPageParam: (lastPage, _, lastPageParam) => {
       if (lastPage.last) {
         return undefined;
       }
@@ -48,16 +48,14 @@ export const useGetArticles = (
     staleTime: 30 * 1000,
     gcTime: 5 * 60 * 1000,
   });
-};
 
-export const useGetArticle = (articleId: Article['id']) => {
-  return useQuery<Omit<Article, 'id'>, AxiosCustomError>({
+export const useGetArticle = (articleId: Article['id']) =>
+  useQuery<Omit<Article, 'id'>, CustomAxiosError>({
     queryKey: ['article', { articleId }],
-    queryFn: () => getArticle({ articleId }),
+    queryFn: () => getArticle(articleId),
     staleTime: 0,
     gcTime: 0,
   });
-};
 
 export const useAddArticle = () => {
   const queryClient = useQueryClient();
@@ -110,12 +108,11 @@ export const useDeleteArticle = (articleId: Article['id']) => {
   });
 };
 
-export const useSearchArticles = (query: string) => {
-  return useQuery<Article[], AxiosCustomError>({
+export const useSearchArticles = (query: string) =>
+  useQuery<Article[], CustomAxiosError>({
     queryKey: ['search', { query }],
     queryFn: () => searchArticles(query),
     enabled: false,
     staleTime: 1 * 60 * 1000,
     gcTime: 1 * 60 * 1000,
   });
-};

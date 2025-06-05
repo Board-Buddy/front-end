@@ -1,5 +1,5 @@
 import { getReviewList, sendReview } from '@/services/review';
-import { AxiosCustomError } from '@/types/api';
+import { CustomAxiosError } from '@/types/api';
 import { Article } from '@/types/article';
 import { Review } from '@/types/review';
 import { successToast } from '@/utils/customToast';
@@ -7,7 +7,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { Dispatch, SetStateAction } from 'react';
 
 export const useGetReviewList = (articleId: Article['id']) => {
-  return useQuery<Review[], AxiosCustomError>({
+  return useQuery<Review[], CustomAxiosError>({
     queryKey: ['reviewList', { articleId }],
     queryFn: () => getReviewList(articleId),
     staleTime: 0,

@@ -1,64 +1,38 @@
 import api from '@/services';
+import { SuccessResponse } from '@/types/api';
+import { UserInfo } from '@/types/user';
 import { ENDPOINT } from './endpoint';
 
 /** 아이디 중복 검사 API */
-export const checkIdDuplicate = async (id: string) => {
-  const response = await api.post(ENDPOINT.AUTH.USERNAME_CHECK(), {
+export const checkIdDuplicate = (id: string) =>
+  api.post<SuccessResponse<null>>(ENDPOINT.AUTH.USERNAME_CHECK(), {
     username: id,
   });
 
-  return {
-    status: 'success',
-    data: response.data.data,
-    message: response.data.message,
-  };
-};
-
 /** 닉네임 중복 검사 API  */
-export const checkNicknameDuplicate = async (nickname: string) => {
-  const response = await api.post(ENDPOINT.AUTH.NICKNAME_CHECK(), {
+export const checkNicknameDuplicate = (nickname: string) =>
+  api.post<SuccessResponse<null>>(ENDPOINT.AUTH.NICKNAME_CHECK(), {
     nickname,
   });
 
-  return {
-    status: 'success',
-    data: response.data.data,
-    message: response.data.message,
-  };
-};
-
 /** SMS 인증 메시지 전송 API */
-export const smsCertificationSend = async (phoneNumber: string) => {
-  const response = await api.post(ENDPOINT.AUTH.SMS_CERTIFICATION.SEND(), {
+export const smsCertificationSend = (phoneNumber: string) =>
+  api.post<SuccessResponse<null>>(ENDPOINT.AUTH.SMS_CERTIFICATION.SEND(), {
     phoneNumber,
   });
 
-  return {
-    status: 'success',
-    data: response.data.data,
-    message: response.data.message,
-  };
-};
-
 /** SMS 인증 API */
-export const smsCertificationVerify = async (data: {
+export const smsCertificationVerify = (data: {
   phoneNumber: string;
   certificationNumber: string;
-}) => {
-  const response = await api.post(ENDPOINT.AUTH.SMS_CERTIFICATION.VERIFY(), {
+}) =>
+  api.post<SuccessResponse<null>>(ENDPOINT.AUTH.SMS_CERTIFICATION.VERIFY(), {
     phoneNumber: data.phoneNumber,
     certificationNumber: data.certificationNumber,
   });
 
-  return {
-    status: response.data.status,
-    data: response.data.data,
-    message: response.data.message,
-  };
-};
-
 /** 회원가입 API */
-export const register = async (data: {
+export const register = (data: {
   username: string;
   password: string;
   email: string;
@@ -67,62 +41,54 @@ export const register = async (data: {
   sido: string;
   sgg: string;
   emd: string;
-}) => {
-  const response = await api.post(ENDPOINT.AUTH.REGISTER(), data);
-
-  return {
-    status: 'success',
-    data: response.data.data,
-    message: response.data.message,
-  };
-};
+}) => api.post<SuccessResponse<null>>(ENDPOINT.AUTH.REGISTER(), data);
 
 /** 로그인 API */
 export const login = (data: { username: string; password: string }) =>
   api
-    .post(ENDPOINT.AUTH.LOGIN(), data)
+    .post<
+      SuccessResponse<{
+        profileDTO: Omit<UserInfo, 'awsS3SavedFileURL'> & {
+          profileImageS3SavedURL: string | null;
+        };
+      }>
+    >(ENDPOINT.AUTH.LOGIN(), data)
     .then((response) => response.data.data.profileDTO);
 
 /** 로그인 확인 API */
 export const checkUserLogin = () =>
   api
-    .get(ENDPOINT.AUTH.STATUS())
+    .get<
+      SuccessResponse<{
+        profileDTO: Omit<UserInfo, 'awsS3SavedFileURL'> & {
+          profileImageS3SavedURL: string | null;
+        };
+      }>
+    >(ENDPOINT.AUTH.STATUS())
     .then((response) => response.data.data.profileDTO);
 
 /** 소셜 로그인 추가 인증 API */
-export const oauthRegister = async (data: {
+export const oauthRegister = (data: {
   phoneNumber: string;
   sido: string;
   sgg: string;
   emd: string;
-}) => {
-  const response = await api.post(
+}) =>
+  api.post<SuccessResponse<null>>(
     ENDPOINT.AUTH.SOCIAL_LOGIN.ADDITIONAL_CERTIFICATION(),
     data,
   );
 
-  return {
-    status: 'success',
-    data: response.data.data,
-    message: response.data.message,
-  };
-};
-
 /** 비밀번호 검증 API */
-export const passwordCheck = async (password: string) => {
-  const response = await api.post(ENDPOINT.AUTH.PASSWORD_CERTIFICATION(), {
+export const passwordCheck = (password: string) =>
+  api.post<SuccessResponse<null>>(ENDPOINT.AUTH.PASSWORD_CERTIFICATION(), {
     password,
   });
 
-  return {
-    status: 'success',
-    data: response.data.data,
-    message: response.data.message,
-  };
-};
-
 /** 로그아웃 API */
-export const logout = () => api.post(ENDPOINT.AUTH.LOGOUT());
+export const logout = () =>
+  api.post<SuccessResponse<null>>(ENDPOINT.AUTH.LOGOUT());
 
 /** 회원탈퇴 API */
-export const withdrawal = () => api.post(ENDPOINT.AUTH.WITHDRAWAL());
+export const withdrawal = () =>
+  api.post<SuccessResponse<null>>(ENDPOINT.AUTH.WITHDRAWAL());

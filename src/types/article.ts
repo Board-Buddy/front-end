@@ -1,3 +1,5 @@
+import { RequiredOnly } from '@/utils/type';
+
 export type ArticleList = Article[];
 
 export interface Article {
@@ -19,6 +21,9 @@ export interface Article {
   y?: number;
   participationApplicationStatus?: string;
 }
+
+export type MyArticle = RequiredOnly<Article>;
+export type JoinedArticle = RequiredOnly<Article> & { author: Author };
 
 export interface Author {
   nickname: string;

@@ -1,12 +1,15 @@
 import api from '@/services';
 import { Article, ParticipantInfo } from '@/types/article';
 import { UserInfo } from '@/types/user';
+import { SuccessResponse } from '@/types/api';
 import { ENDPOINT } from './endpoint';
 
 /** 참가 신청 리스트 조회 API */
 export const getParticipants = ({ articleId }: { articleId: Article['id'] }) =>
   api
-    .get(ENDPOINT.GATHER_ARTICLE.PARTICIPATION.APPLICATION(articleId))
+    .get<
+      SuccessResponse<{ participationAppliedMemberList: ParticipantInfo[] }>
+    >(ENDPOINT.GATHER_ARTICLE.PARTICIPATION.APPLICATION(articleId))
     .then((response) => response.data.data.participationAppliedMemberList);
 
 /** 참가 신청 API */
@@ -14,14 +17,20 @@ export const applyParticipation = ({
   articleId,
 }: {
   articleId: Article['id'];
-}) => api.post(ENDPOINT.GATHER_ARTICLE.PARTICIPATION.APPLICATION(articleId));
+}) =>
+  api.post<SuccessResponse<null>>(
+    ENDPOINT.GATHER_ARTICLE.PARTICIPATION.APPLICATION(articleId),
+  );
 
 /** 참가 신청 취소 API */
 export const cancelParticipation = ({
   articleId,
 }: {
   articleId: Article['id'];
-}) => api.put(ENDPOINT.GATHER_ARTICLE.PARTICIPATION.APPLICATION(articleId));
+}) =>
+  api.put<SuccessResponse<null>>(
+    ENDPOINT.GATHER_ARTICLE.PARTICIPATION.APPLICATION(articleId),
+  );
 
 /** 참가 신청 승인 API */
 export const approveParticipation = ({
@@ -33,7 +42,7 @@ export const approveParticipation = ({
   participationId: ParticipantInfo['id'];
   applicantNickname: UserInfo['nickname'];
 }) =>
-  api.put(
+  api.put<SuccessResponse<null>>(
     ENDPOINT.GATHER_ARTICLE.PARTICIPATION.APPROVAL(
       articleId,
       participationId,
@@ -51,7 +60,7 @@ export const rejectParticipation = ({
   participationId: ParticipantInfo['id'];
   applicantNickname: UserInfo['nickname'];
 }) =>
-  api.put(
+  api.put<SuccessResponse<null>>(
     ENDPOINT.GATHER_ARTICLE.PARTICIPATION.REJECTION(
       articleId,
       participationId,

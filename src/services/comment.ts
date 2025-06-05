@@ -1,6 +1,7 @@
 import api from '@/services';
 import { Article } from '@/types/article';
-import { Reply } from '@/types/comment';
+import { Comment, Reply } from '@/types/comment';
+import { SuccessResponse } from '@/types/api';
 import { ENDPOINT } from './endpoint';
 
 /** 댓글 리스트 조회 API */
@@ -10,7 +11,9 @@ export const getComments = ({
   gatherArticleId: Article['id'];
 }) =>
   api
-    .get(ENDPOINT.GATHER_ARTICLE.COMMENT.LIST(gatherArticleId))
+    .get<
+      SuccessResponse<{ comments: Comment[] }>
+    >(ENDPOINT.GATHER_ARTICLE.COMMENT.LIST(gatherArticleId))
     .then((response) => response.data.data.comments);
 
 /** 댓글 작성 API */
@@ -23,9 +26,12 @@ export const addComment = ({
   content: Reply['content'];
   parentId?: Reply['id'];
 }) =>
-  api.post(ENDPOINT.GATHER_ARTICLE.COMMENT.LIST(gatherArticleId, parentId), {
-    content,
-  });
+  api.post<SuccessResponse<null>>(
+    ENDPOINT.GATHER_ARTICLE.COMMENT.LIST(gatherArticleId, parentId),
+    {
+      content,
+    },
+  );
 
 /** 댓글 수정 API */
 export const editComment = async ({
@@ -37,9 +43,12 @@ export const editComment = async ({
   content: Reply['content'];
   commentId: Reply['id'];
 }) =>
-  api.put(ENDPOINT.GATHER_ARTICLE.COMMENT.DETAIL(gatherArticleId, commentId), {
-    content,
-  });
+  api.put<SuccessResponse<null>>(
+    ENDPOINT.GATHER_ARTICLE.COMMENT.DETAIL(gatherArticleId, commentId),
+    {
+      content,
+    },
+  );
 
 /** 댓글 삭제 API */
 export const deleteComment = async ({
@@ -49,6 +58,6 @@ export const deleteComment = async ({
   gatherArticleId: Article['id'];
   commentId: Reply['id'];
 }) =>
-  api.delete(
+  api.delete<SuccessResponse<null>>(
     ENDPOINT.GATHER_ARTICLE.COMMENT.DETAIL(gatherArticleId, commentId),
   );

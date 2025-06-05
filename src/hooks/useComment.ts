@@ -4,14 +4,14 @@ import {
   editComment,
   getComments,
 } from '@/services/comment';
-import { AxiosCustomError } from '@/types/api';
+import { CustomAxiosError } from '@/types/api';
 import { Article } from '@/types/article';
 import { Comment, Reply } from '@/types/comment';
 import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const useGetComments = (articleId: Article['id']) => {
-  return useQuery<Comment[], AxiosCustomError>({
+  return useQuery<Comment[], CustomAxiosError>({
     queryKey: ['comments', { articleId }],
     queryFn: () => getComments({ gatherArticleId: articleId }),
     staleTime: 0,

@@ -2,7 +2,6 @@
 
 import { useRouter } from 'next/navigation';
 import React from 'react';
-import { Article as IArticle } from '@/types/article';
 import Loading from '@/components/Loading';
 import { useSearchArticles } from '@/hooks/useArticle';
 import Article from '../home/Article';
@@ -35,7 +34,7 @@ const SearchResult = ({ keyword, isRefetching }: Props) => {
 
   return (
     <>
-      {posts.map((article: IArticle) => (
+      {posts.map((article) => (
         <Article
           onClick={() => router.push(`/article/${article.id}`)}
           key={article.id}
