@@ -1,5 +1,3 @@
-import { checkNickname } from './username/check';
-import { checkUsername } from './nickname/check';
 import { login } from './login';
 import { oauthRegister } from './oauth2/register';
 import { register } from './register';
@@ -10,6 +8,8 @@ import { searchLocation } from './locations/search';
 import { passwordCheck } from './password';
 import { logout } from './logout';
 import { withdrawal } from './withdrawal';
+import { checkUsername } from './username/check';
+import { checkNickname } from './nickname/check';
 
 export const authHandlers = [
   status,
