@@ -5,19 +5,36 @@ import {
   getChatList,
   getExistingMessages,
 } from '@/services/chat';
-import { CustomAxiosError } from '@/types/api';
+import { CustomAxiosError, InfiniteScrollResponseData } from '@/types/api';
 import { Article } from '@/types/article';
 import { ArticleSimpleInfo, ChatRoom, Message } from '@/types/chat';
-import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useQuery,
+  useSuspenseQuery,
+} from '@tanstack/react-query';
 
-export const useGetExistingMessages = (chatRoomId: ChatRoom['chatRoomId']) => {
-  return useSuspenseQuery<Message[], CustomAxiosError>({
+export const useGetExistingMessages = ({
+  chatRoomId,
+}: {
+  chatRoomId: ChatRoom['chatRoomId'];
+}) =>
+  useInfiniteQuery<InfiniteScrollResponseData<Message>, CustomAxiosError>({
     queryKey: ['chat', { chatRoomId }],
-    queryFn: () => getExistingMessages(chatRoomId),
+    queryFn: ({ pageParam }) => {
+      const direction = pageParam === undefined ? 'initial' : 'older';
+
+      return getExistingMessages(
+        chatRoomId,
+        direction,
+        pageParam as undefined | string,
+      );
+    },
+    initialPageParam: undefined as string | undefined,
+    getNextPageParam: () => undefined,
+    getPreviousPageParam: (page) => page.hasMore,
     staleTime: 0,
-    gcTime: 0,
   });
-};
 
 export const useGetChatList = () => {
   return useQuery<ChatRoom[], CustomAxiosError>({

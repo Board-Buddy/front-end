@@ -1,7 +1,7 @@
 import api from '@/services';
 import { ArticleSimpleInfo, ChatRoom, Message } from '@/types/chat';
 import { Article } from '@/types/article';
-import { SuccessResponse } from '@/types/api';
+import { InfiniteScrollResponseData, SuccessResponse } from '@/types/api';
 import { ENDPOINT } from './endpoint';
 
 /** 채팅 목록 조회 API */
@@ -13,12 +13,22 @@ export const getChatList = () =>
     .then((response) => response.data.data.chatRoomDetailsList);
 
 /** 채팅 기존 메시지 조회 API */
-export const getExistingMessages = (chatRoomId: ChatRoom['chatRoomId']) =>
+export const getExistingMessages = (
+  chatRoomId: ChatRoom['chatRoomId'],
+  direction: 'initial' | 'older',
+  cursor?: string,
+) =>
   api
-    .get<
-      SuccessResponse<{ chatMessages: Message[] }>
-    >(ENDPOINT.CHAT_ROOM.DETAIL.MESSAGES(chatRoomId))
-    .then((response) => response.data.data.chatMessages);
+    .get<SuccessResponse<InfiniteScrollResponseData<Message>>>(
+      ENDPOINT.CHAT_ROOM.DETAIL.MESSAGES(chatRoomId),
+      {
+        params: {
+          direction,
+          cursor: direction === 'initial' ? undefined : cursor,
+        },
+      },
+    )
+    .then((response) => response.data.data);
 
 /** 채팅방과 연결된 모집글 정보 축약 조회 */
 export const getArticleSimpleInfo = (
