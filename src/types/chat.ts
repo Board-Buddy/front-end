@@ -1,10 +1,11 @@
 export interface Message {
+  id: number;
+  content: string;
   messageType: 'TALK' | 'ENTER' | 'EXIT';
+  sentAt: string;
   nickname?: string;
   rank?: number | null;
   profileImageS3SavedURL?: string | null;
-  content: string;
-  sentAt?: string;
 }
 
 export interface ChatRoom {
