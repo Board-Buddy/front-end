@@ -54,6 +54,6 @@ export class CustomAxiosError extends AxiosError<ErrorResponse> {
 // 무한스크롤 전용 data 타입
 export interface InfiniteScrollResponseData<T> {
   dataList: T[];
-  hasNext: boolean;
-  nextCursor: number;
+  hasMore: boolean;
+  nextCursor: string | null;
 }
