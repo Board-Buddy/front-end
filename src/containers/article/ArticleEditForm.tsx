@@ -212,14 +212,16 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
                       <SelectTrigger className="w-20">
                         <SelectValue placeholder="분" />
                         <SelectContent className="h-[150px] bg-white">
-                          {[...Array(12)].map((_, index) => (
-                            <SelectItem
-                              key={index}
-                              value={(index * 5).toString()}
-                            >
-                              {(index * 5).toString().padStart(2, '0')}
-                            </SelectItem>
-                          ))}
+                          {Array.from({ length: 12 }, (_, i) => i).map(
+                            (num) => (
+                              <SelectItem
+                                key={num}
+                                value={(num * 5).toString()}
+                              >
+                                {(num * 5).toString().padStart(2, '0')}
+                              </SelectItem>
+                            ),
+                          )}
                         </SelectContent>
                       </SelectTrigger>
                     </FormControl>
@@ -238,14 +240,13 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
                       <SelectTrigger className="w-20">
                         <SelectValue placeholder="시" />
                         <SelectContent className="h-[150px] bg-white">
-                          {[...Array(23)].map((_, index) => (
-                            <SelectItem
-                              key={index}
-                              value={(index + 1).toString()}
-                            >
-                              {index + 1}
-                            </SelectItem>
-                          ))}
+                          {Array.from({ length: 24 }, (_, i) => i + 1).map(
+                            (num) => (
+                              <SelectItem key={num} value={num.toString()}>
+                                {num}
+                              </SelectItem>
+                            ),
+                          )}
                         </SelectContent>
                       </SelectTrigger>
                     </FormControl>
@@ -264,14 +265,16 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
                       <SelectTrigger className="w-20">
                         <SelectValue placeholder="분" />
                         <SelectContent className="h-[150px] bg-white">
-                          {[...Array(12)].map((_, index) => (
-                            <SelectItem
-                              key={index}
-                              value={(index * 5).toString()}
-                            >
-                              {(index * 5).toString().padStart(2, '0')}
-                            </SelectItem>
-                          ))}
+                          {Array.from({ length: 12 }, (_, i) => i).map(
+                            (num) => (
+                              <SelectItem
+                                key={num}
+                                value={(num * 5).toString()}
+                              >
+                                {(num * 5).toString().padStart(2, '0')}
+                              </SelectItem>
+                            ),
+                          )}
                         </SelectContent>
                       </SelectTrigger>
                     </FormControl>
@@ -327,9 +330,9 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className="h-[150px] w-20 bg-white">
-                  {[...Array(9)].map((_, index) => (
-                    <SelectItem key={index} value={(index + 2).toString()}>
-                      {index + 2}
+                  {Array.from({ length: 9 }, (_, i) => i + 2).map((num) => (
+                    <SelectItem key={num} value={num.toString()}>
+                      {num}
                     </SelectItem>
                   ))}
                 </SelectContent>
