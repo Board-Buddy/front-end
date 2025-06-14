@@ -275,7 +275,7 @@ export const getExistingMessages = http.get(
 
     if (direction === 'initial') {
       const dataList = CHAT_MOCK_DATA.slice(-CHAT_COUNT_PER_PAGE);
-      const hasMore = CHAT_MOCK_DATA.slice(0, CHAT_COUNT_PER_PAGE).length > 0;
+      const hasMore = CHAT_MOCK_DATA.length > CHAT_COUNT_PER_PAGE;
 
       return HttpResponse.json({
         status: 'success',
