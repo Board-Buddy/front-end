@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { Client, IMessage } from '@stomp/stompjs';
 import { ChatRoom, Message } from '@/types/chat';
 import { useQueryClient } from '@tanstack/react-query';
@@ -9,13 +9,11 @@ import { ENDPOINT, WS_BASE_URL } from '@/services/endpoint';
 
 const useWebSocket = (
   chatRoomId: ChatRoom['chatRoomId'],
-  existingMessages: Message[],
+  setMessages: Dispatch<SetStateAction<Message[] | null>>,
 ) => {
   const cache = useQueryClient();
   const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
   const { nickname } = userInfo;
-
-  const [messages, setMessages] = useState<Message[]>(existingMessages);
 
   const clientRef = useRef<Client | null>(null);
 
@@ -27,7 +25,7 @@ const useWebSocket = (
       (message: IMessage) => {
         try {
           const newMessage = JSON.parse(message.body) as Message;
-          setMessages((prevMessages) => [...prevMessages, newMessage]);
+          setMessages((prevMessages) => [...(prevMessages || []), newMessage]);
         } catch (error: unknown) {
           console.error('Failed to parse message:', error);
         }
@@ -70,7 +68,7 @@ const useWebSocket = (
     };
   }, []);
 
-  return { messages, handleSendMessage };
+  return { handleSendMessage };
 };
 
 export default useWebSocket;

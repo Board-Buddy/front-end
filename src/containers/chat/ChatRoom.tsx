@@ -4,10 +4,11 @@ import {
   useGetArticleSimpleInfo,
   useGetExistingMessages,
 } from '@/hooks/useChat';
-import { ChatRoom as ChatRoomType } from '@/types/chat';
+import { ChatRoom as ChatRoomType, Message } from '@/types/chat';
 import { Article } from '@/types/article';
 import ArticleInfo from './ArticleInfo';
-import WebSocketContainer from './WebSocketContainer';
+import ChatContainer from './ChatContainer';
+import { useState } from 'react';
 
 interface Props {
   articleId: Article['id'];
@@ -15,7 +16,7 @@ interface Props {
 }
 
 const ChatRoom = ({ chatRoomId, articleId }: Props) => {
-  const { data: chatMessages } = useGetExistingMessages(chatRoomId);
+  const [messages, setMessages] = useState<Message[] | null>(null);
 
   const { data: articleSimpleInfo } = useGetArticleSimpleInfo(
     chatRoomId,
@@ -28,7 +29,11 @@ const ChatRoom = ({ chatRoomId, articleId }: Props) => {
         articleId={articleId}
         articleSimpleInfo={articleSimpleInfo}
       />
-      <WebSocketContainer chatRoomId={chatRoomId} chatMessages={chatMessages} />
+      <ChatContainer
+        chatRoomId={chatRoomId}
+        messages={messages}
+        setMessages={setMessages}
+      />
     </>
   );
 };
