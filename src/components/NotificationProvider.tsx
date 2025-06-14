@@ -63,12 +63,6 @@ const NotificationProvider = () => {
       notify(newNotification);
     });
 
-    // 설정한 반경 내 동네 모집글 업로드 알림 이벤트 리스너
-    eventSource.addEventListener('writeGatherArticle', (event) => {
-      const newNotification = event.data;
-      notify(newNotification);
-    });
-
     eventSource.onerror = (error) => {
       console.log('SSE error:', error);
     };
