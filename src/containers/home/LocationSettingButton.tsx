@@ -4,15 +4,9 @@ import { ChevronDown } from 'lucide-react';
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useQueryClient } from '@tanstack/react-query';
-import { UserInfo } from '@/types/user';
 
 const LocationSettingButton = () => {
   const router = useRouter();
-
-  const cache = useQueryClient();
-  const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
-  const { emd } = userInfo;
 
   const onClick = () => {
     router.push('/setting/location');
@@ -27,7 +21,7 @@ const LocationSettingButton = () => {
         height={28}
       />
       <div className="flex w-[300px] items-center bg-transparent p-0">
-        <span className="text-lg font-bold text-gray-800">{emd}</span>
+        <span className="text-lg font-bold text-gray-800">잠실동(수정 필)</span>
         <ChevronDown className="ml-1 size-4 shrink-0" />
       </div>
     </div>
