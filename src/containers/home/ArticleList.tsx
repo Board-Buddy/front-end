@@ -15,10 +15,6 @@ import Article from './Article';
 const ArticleList = () => {
   const router = useRouter();
 
-  const cache = useQueryClient();
-  const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
-  const locationString = `${userInfo.sido} ${userInfo.sgg} ${userInfo.emd}`;
-
   const [filter, setFilter] = useState<Omit<SearchParams, 'location'>>({
     status: null,
     sort: null,
@@ -32,7 +28,7 @@ const ArticleList = () => {
     isError,
     error,
     refetch,
-  } = useGetArticles(locationString, filter.status, filter.sort);
+  } = useGetArticles(filter.status, filter.sort);
 
   const { setTarget } = useIntersectionObserver({
     hasNextPage,

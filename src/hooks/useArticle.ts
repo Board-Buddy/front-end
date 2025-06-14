@@ -18,11 +18,7 @@ import {
 } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
-export const useGetArticles = (
-  location: string,
-  status: string | null,
-  sort: string | null,
-) =>
+export const useGetArticles = (status: string | null, sort: string | null) =>
   useInfiniteQuery<
     {
       posts: Article[];
@@ -33,10 +29,10 @@ export const useGetArticles = (
       posts: Article[];
       last: boolean;
     }>,
-    [string, { location: string; status: string | null; sort: string | null }],
+    [string, { status: string | null; sort: string | null }],
     number
   >({
-    queryKey: ['articles', { location, status, sort }],
+    queryKey: ['articles', { status, sort }],
     queryFn: ({ pageParam = 0 }) => getArticles({ pageParam, status, sort }),
     initialPageParam: 0,
     getNextPageParam: (lastPage, _, lastPageParam) => {
