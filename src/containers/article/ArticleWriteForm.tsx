@@ -187,14 +187,13 @@ const ArticleWriteForm = () => {
                       <SelectTrigger className="w-20">
                         <SelectValue placeholder="시" />
                         <SelectContent className="bg-white h-[150px]">
-                          {[...Array(24)].map((_, index) => (
-                            <SelectItem
-                              key={index}
-                              value={(index + 1).toString()}
-                            >
-                              {index + 1}
-                            </SelectItem>
-                          ))}
+                          {Array.from({ length: 24 }, (_, i) => i + 1).map(
+                            (num) => (
+                              <SelectItem key={num} value={num.toString()}>
+                                {num}
+                              </SelectItem>
+                            ),
+                          )}
                         </SelectContent>
                       </SelectTrigger>
                     </FormControl>
@@ -213,12 +212,9 @@ const ArticleWriteForm = () => {
                       <SelectTrigger className="w-20">
                         <SelectValue placeholder="분" />
                         <SelectContent className="bg-white h-[150px]">
-                          {[...Array(12)].map((_, index) => (
-                            <SelectItem
-                              key={index}
-                              value={(index * 5).toString()}
-                            >
-                              {(index * 5).toString().padStart(2, '0')}
+                          {Array.from({ length: 12 }).map((num) => (
+                            <SelectItem key={num} value={(num * 5).toString()}>
+                              {(num * 5).toString().padStart(2, '0')}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -239,14 +235,13 @@ const ArticleWriteForm = () => {
                       <SelectTrigger className="w-20">
                         <SelectValue placeholder="시" />
                         <SelectContent className="bg-white h-[150px]">
-                          {[...Array(23)].map((_, index) => (
-                            <SelectItem
-                              key={index}
-                              value={(index + 1).toString()}
-                            >
-                              {index + 1}
-                            </SelectItem>
-                          ))}
+                          {Array.from({ length: 24 }, (_, i) => i + 1).map(
+                            (num) => (
+                              <SelectItem key={num} value={num.toString()}>
+                                {num}
+                              </SelectItem>
+                            ),
+                          )}
                         </SelectContent>
                       </SelectTrigger>
                     </FormControl>

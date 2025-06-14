@@ -61,14 +61,14 @@ const ChatSection = ({
       <div>
         <div ref={setTarget} className="h-0" />
         <div className="flex flex-col p-4 gap-4">
-          {messages.map((message, i) => {
+          {messages.map((message) => {
             if (message.messageType === 'TALK') {
               if (message.nickname === nickname) {
-                return <SentMessage key={i} message={message} />;
+                return <SentMessage key={message.id} message={message} />;
               }
-              return <ReceivedMessage key={i} message={message} />;
+              return <ReceivedMessage key={message.id} message={message} />;
             }
-            return <EnterExitMessage key={i} message={message} />;
+            return <EnterExitMessage key={message.id} message={message} />;
           })}
         </div>
       </div>
