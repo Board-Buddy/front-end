@@ -26,9 +26,9 @@ const NotificationList = () => {
 
   return (
     <>
-      {notifications.map((notification, i) => (
+      {notifications.map((notification) => (
         <NotificationItem
-          key={i}
+          key={`${notification.message}-${notification.createdAt}`}
           message={notification.message}
           createdAt={notification.createdAt}
         />

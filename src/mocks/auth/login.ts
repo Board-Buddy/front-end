@@ -36,9 +36,6 @@ export const login = http.post<any, RequestBody>(
         profileDTO: {
           nickname: 'yubin',
           memberType: 'REGULAR',
-          sido: '서울특별시',
-          sgg: '송파구',
-          emd: '잠실동',
           isPhoneNumberVerified: true,
           awsS3SavedFileURL: null,
         },

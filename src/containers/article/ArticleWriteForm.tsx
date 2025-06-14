@@ -265,14 +265,16 @@ const ArticleWriteForm = () => {
                       <SelectTrigger className="w-20">
                         <SelectValue placeholder="분" />
                         <SelectContent className="h-[150px] bg-white">
-                          {[...Array(12)].map((_, index) => (
-                            <SelectItem
-                              key={index}
-                              value={(index * 5).toString()}
-                            >
-                              {(index * 5).toString().padStart(2, '0')}
-                            </SelectItem>
-                          ))}
+                          {Array.from({ length: 12 }, (_, i) => i).map(
+                            (num) => (
+                              <SelectItem
+                                key={num}
+                                value={(num * 5).toString()}
+                              >
+                                {(num * 5).toString().padStart(2, '0')}
+                              </SelectItem>
+                            ),
+                          )}
                         </SelectContent>
                       </SelectTrigger>
                     </FormControl>
@@ -305,7 +307,7 @@ const ArticleWriteForm = () => {
               <FormControl className="mt-2">
                 <Button
                   type="button"
-                  className="mt-2 block w-full border border-slate-400 bg-transparent px-3 text-left font-normal"
+                  className="mt-2 block w-full border border-input bg-transparent px-3 text-left font-normal"
                   onClick={handleLocationSettingButton}
                 >
                   {field.value || '위치 선택'}
@@ -328,9 +330,9 @@ const ArticleWriteForm = () => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent className="h-[150px] w-20 bg-white">
-                  {[...Array(9)].map((_, index) => (
-                    <SelectItem key={index} value={(index + 2).toString()}>
-                      {index + 2}
+                  {Array.from({ length: 9 }, (_, i) => i + 2).map((num) => (
+                    <SelectItem key={num} value={num.toString()}>
+                      {num}
                     </SelectItem>
                   ))}
                 </SelectContent>

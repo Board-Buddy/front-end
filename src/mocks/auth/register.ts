@@ -6,9 +6,6 @@ interface RequestBody {
   password: string;
   nickname: string;
   phoneNumber: string;
-  sido: string;
-  sgg: string;
-  emd: string;
 }
 
 interface ResponseBody {

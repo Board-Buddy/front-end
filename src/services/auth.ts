@@ -38,9 +38,6 @@ export const register = (data: {
   email: string;
   nickname: string;
   phoneNumber: string;
-  sido: string;
-  sgg: string;
-  emd: string;
 }) => api.post<SuccessResponse<null>>(ENDPOINT.AUTH.REGISTER(), data);
 
 /** 로그인 API */
@@ -68,12 +65,7 @@ export const checkUserLogin = () =>
     .then((response) => response.data.data.profileDTO);
 
 /** 소셜 로그인 추가 인증 API */
-export const oauthRegister = (data: {
-  phoneNumber: string;
-  sido: string;
-  sgg: string;
-  emd: string;
-}) =>
+export const oauthRegister = (data: { phoneNumber: string }) =>
   api.post<SuccessResponse<null>>(
     ENDPOINT.AUTH.SOCIAL_LOGIN.ADDITIONAL_CERTIFICATION(),
     data,

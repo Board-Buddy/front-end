@@ -19,6 +19,8 @@ const NotificationProvider = () => {
   };
 
   useEffect(() => {
+    if (process.env.NODE_ENV === 'development') return;
+
     const eventSource = new EventSource(SSE_SUBSCRIPTION_URL, {
       withCredentials: true,
     });
@@ -59,12 +61,6 @@ const NotificationProvider = () => {
 
     // 모집글 댓글 작성 이벤트 리스너
     eventSource.addEventListener('writeComment', (event) => {
-      const newNotification = event.data;
-      notify(newNotification);
-    });
-
-    // 설정한 반경 내 동네 모집글 업로드 알림 이벤트 리스너
-    eventSource.addEventListener('writeGatherArticle', (event) => {
       const newNotification = event.data;
       notify(newNotification);
     });

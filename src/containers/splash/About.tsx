@@ -17,6 +17,7 @@ const About = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const items = [
     {
+      id: 1,
       icon: <MapPinIcon size={20} />,
       title: '게임카페 검색',
       description: `현재 위치 근처의
@@ -27,6 +28,7 @@ const About = () => {
       alt: '마커를 든 썬디',
     },
     {
+      id: 2,
       icon: <StarIcon size={20} />,
       title: '랭킹시스템',
       description: `이번달 TOP3를
@@ -37,6 +39,7 @@ const About = () => {
       alt: '체스를 든 썬디',
     },
     {
+      id: 3,
       icon: <MessageSquareIcon size={20} />,
       title: '리뷰 및 평가',
       description: `모임이 끝난 후
@@ -60,8 +63,8 @@ const About = () => {
     <div className="relative h-screen w-full">
       <Carousel setApi={setApi}>
         <CarouselContent>
-          {items.map((item, index) => (
-            <CarouselItem key={index}>
+          {items.map((item) => (
+            <CarouselItem key={item.id}>
               <div className="flex h-screen w-full -translate-y-14 flex-col justify-center p-14">
                 <div className="flex items-center gap-0.5 pb-4 text-primary">
                   {item.icon}
@@ -90,13 +93,13 @@ const About = () => {
       </Carousel>
       {/* Indicators */}
       <div className="absolute bottom-20 flex w-full justify-center space-x-2">
-        {items.map((_, index) => (
+        {items.map((item) => (
           <button
             aria-label="indicator-button"
             type="button"
-            key={index}
+            key={item.id}
             className={`size-2 cursor-default rounded-full ${
-              index === activeIndex ? 'bg-primary' : 'bg-gray-400'
+              item.id === activeIndex ? 'bg-primary' : 'bg-gray-400'
             }`}
           />
         ))}

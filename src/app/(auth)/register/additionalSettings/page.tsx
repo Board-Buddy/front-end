@@ -15,7 +15,7 @@ const page = () => {
           />
           <span className="text-xl font-bold">추가 정보 입력</span>
           <p className="font-semibold text-gray-600">
-            서비스를 이용하시려면 추가 정보 입력이 필요합니다.
+            서비스를 이용하시려면 휴대폰 인증이 필요합니다.
           </p>
         </div>
         <div className="mt-6">
