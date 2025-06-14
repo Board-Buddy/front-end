@@ -4,7 +4,7 @@ import DeferredComponent from './svg/DeferredComponent';
 const Loading = () => {
   return (
     <DeferredComponent>
-      <div className="flex justify-center items-center h-[calc(100vh-53px)]">
+      <div className="flex h-[calc(100vh-53px)] items-center justify-center">
         <LoaderCircleIcon className="animate-spin text-primary" />
       </div>
     </DeferredComponent>

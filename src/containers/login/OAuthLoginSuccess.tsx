@@ -24,8 +24,8 @@ const OAuthLoginSuccess = () => {
 
   return (
     <>
-      <div className="w-full h-[100vh] flex justify-center items-center">
-        <LoaderCircleIcon className="animate-spin text-primary size-6" />
+      <div className="flex h-screen w-full items-center justify-center">
+        <LoaderCircleIcon className="size-6 animate-spin text-primary" />
       </div>
       <CustomAlert
         open={openError}

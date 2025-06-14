@@ -164,7 +164,7 @@ const AdditionalSettingForm = () => {
                     }}
                   />
                 </FormControl>
-                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
               </FormItem>
             )}
           />
@@ -188,14 +188,14 @@ const AdditionalSettingForm = () => {
                   </FormControl>
                   <Button
                     type="button"
-                    className="text-white font-semibold"
+                    className="font-semibold text-white"
                     onClick={sendPhoneCertificationNumber}
                     disabled={!field.value || showPhoneVerifyCodeInput}
                   >
                     인증번호 전송
                   </Button>
                 </div>
-                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
               </FormItem>
             )}
           />
@@ -218,7 +218,7 @@ const AdditionalSettingForm = () => {
                     </FormControl>
                     <Button
                       type="button"
-                      className="text-white font-semibold"
+                      className="font-semibold text-white"
                       onClick={verifyPhone}
                       disabled={verifiedPhone}
                     >
@@ -226,11 +226,11 @@ const AdditionalSettingForm = () => {
                     </Button>
                   </div>
                   {verifiedPhone && (
-                    <p className="text-sm text-green-600 ml-1 mt-1">
+                    <p className="ml-1 mt-1 text-sm text-green-600">
                       인증에 성공하였습니다.
                     </p>
                   )}
-                  <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                  <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
                 </FormItem>
               )}
             />

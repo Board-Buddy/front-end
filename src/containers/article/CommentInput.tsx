@@ -75,12 +75,12 @@ const CommentInput = ({
   return (
     <>
       {parentComment && (
-        <div className="flex items-center mt-4 text-sm">
-          <div className=" px-2 py-1 text-slate-600 w-fit rounded-lg">
+        <div className="mt-4 flex items-center text-sm">
+          <div className=" w-fit rounded-lg px-2 py-1 text-slate-600">
             {parentComment.authorNickname}님에게 답글을 쓰는 중...
           </div>
           <div
-            className="px-2 !py-1 rounded-lg cursor-pointer bg-[#FFF7EA] text-primary"
+            className="cursor-pointer rounded-lg bg-[#FFF7EA] !py-1 px-2 text-primary"
             onClick={() => setParentComment(null)}
           >
             취소
@@ -88,17 +88,17 @@ const CommentInput = ({
         </div>
       )}
       {editingComment && (
-        <div className="flex items-center mt-4 text-sm">
-          <div className="px-2 py-1 text-slate-600 w-fit rounded-lg">
+        <div className="mt-4 flex items-center text-sm">
+          <div className="w-fit rounded-lg px-2 py-1 text-slate-600">
             <div className="flex">
-              <span className="block max-w-24 text-primary truncate pr-1">
+              <span className="block max-w-24 truncate pr-1 text-primary">
                 {editingComment.content}
               </span>
               수정 중
             </div>
           </div>
           <div
-            className="px-2 !py-1 rounded-lg cursor-pointer bg-[#FFF7EA] text-primary"
+            className="cursor-pointer rounded-lg bg-[#FFF7EA] !py-1 px-2 text-primary"
             onClick={() => {
               setEditingComment(null);
               setEditValue('');
@@ -121,7 +121,7 @@ const CommentInput = ({
               value={editValue}
               onChange={(e) => setEditValue(e.target.value)}
             />
-            <Button className="text-white font-bold" onClick={handleEdit}>
+            <Button className="font-bold text-white" onClick={handleEdit}>
               수정
             </Button>
           </>
@@ -132,7 +132,7 @@ const CommentInput = ({
               value={value}
               onChange={(e) => setValue(e.target.value)}
             />
-            <Button className="text-white font-bold" onClick={handleSubmit}>
+            <Button className="font-bold text-white" onClick={handleSubmit}>
               등록
             </Button>
           </>

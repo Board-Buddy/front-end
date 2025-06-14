@@ -60,7 +60,7 @@ const ChatSection = ({
     <div className="h-[calc(100dvh-222px)] overflow-y-auto" ref={scrollRef}>
       <div>
         <div ref={setTarget} className="h-0" />
-        <div className="flex flex-col p-4 gap-4">
+        <div className="flex flex-col gap-4 p-4">
           {messages.map((message) => {
             if (message.messageType === 'TALK') {
               if (message.nickname === nickname) {

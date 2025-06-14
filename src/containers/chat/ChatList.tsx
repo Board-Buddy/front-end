@@ -26,8 +26,8 @@ const ChatList = () => {
   }
 
   return (
-    <div className="flex flex-col bg-gray-100 h-[calc(100vh-113px)]">
-      <div className="flex py-4 items-center border-b border-primary bg-white">
+    <div className="flex h-[calc(100vh-113px)] flex-col bg-gray-100">
+      <div className="flex items-center border-b border-primary bg-white py-4">
         <div className="pl-8 text-3xl">
           <p className="text-gray-700">
             <span className="font-extrabold text-primary">보드</span>게임할사람
@@ -44,7 +44,7 @@ const ChatList = () => {
           className="ml-auto"
         />
       </div>
-      <div className="flex flex-col gap-3 w-full bg-gray-100 py-4 px-8">
+      <div className="flex w-full flex-col gap-3 bg-gray-100 px-8 py-4">
         {chatRooms.map((chat) => (
           <ChatItem
             key={chat.chatRoomId}

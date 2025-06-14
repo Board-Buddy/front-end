@@ -120,7 +120,7 @@ const Header = () => {
         <>
           {leftArrow && (
             <ChevronLeft
-              className="w-5 h-5 cursor-pointer my-6 mx-2 absolute"
+              className="absolute mx-2 my-6 size-5 cursor-pointer"
               onClick={() => {
                 window.history.back();
               }}
@@ -128,11 +128,11 @@ const Header = () => {
           )}
         </>
       ) : (
-        <div className="flex items-center border-b py-3 px-2 border-gray-200">
+        <div className="flex items-center border-b border-gray-200 px-2 py-3">
           <div className="left-section basis-1/12">
             {leftArrow && (
               <ChevronLeft
-                className="w-5 h-5 cursor-pointer"
+                className="size-5 cursor-pointer"
                 onClick={() => {
                   window.history.back();
                 }}
@@ -140,7 +140,7 @@ const Header = () => {
             )}
           </div>
           <div className="title-section basis-10/12 text-center">
-            <span className="font-extrabold text-gray-600 text-lg">
+            <span className="text-lg font-extrabold text-gray-600">
               {title}
             </span>
           </div>

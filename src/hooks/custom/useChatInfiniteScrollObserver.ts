@@ -20,7 +20,7 @@ export const useChatInfiniteScrollObserver = ({
   const previousScrollHeightRef = useRef<number | null>(null);
 
   // fetchPreviousPage 전후로 스크롤 조정
-  const adjustScroll = async () => {
+  const adjustScroll = useCallback(async () => {
     const scrollContainer = scrollRef?.current;
 
     if (scrollContainer) {
@@ -41,7 +41,7 @@ export const useChatInfiniteScrollObserver = ({
         });
       });
     }
-  };
+  }, [fetchPreviousPage, scrollRef]);
 
   const observerCallback = useCallback<IntersectionObserverCallback>(
     (entries) => {
@@ -52,7 +52,7 @@ export const useChatInfiniteScrollObserver = ({
         }
       });
     },
-    [fetchPreviousPage, hasPreviousPage],
+    [hasPreviousPage, adjustScroll],
   );
 
   useEffect(() => {

@@ -13,8 +13,8 @@ interface Props {
 const ArticleInfo = ({ articleId, articleSimpleInfo }: Props) => {
   return (
     <Link href={`/article/${articleId}`}>
-      <div className="px-4 py-3 border-b border-slate-200">
-        <h1 className="text-md mb-2">
+      <div className="border-b border-slate-200 px-4 py-3">
+        <h1 className="mb-2 text-base">
           <span>&quot;{articleSimpleInfo.title}&quot;</span> 채팅방입니다.
         </h1>
         <div>
@@ -34,7 +34,7 @@ const ArticleInfo = ({ articleId, articleSimpleInfo }: Props) => {
                 )}
               </div>
             </div>
-            <div className="flex items-center mt-1">
+            <div className="mt-1 flex items-center">
               <Image
                 src="/images/icon/map_icon_gray.png"
                 alt="map"
@@ -43,7 +43,7 @@ const ArticleInfo = ({ articleId, articleSimpleInfo }: Props) => {
                 className="mr-1"
               />
               {articleSimpleInfo.meetingLocation}
-              <div className="flex ml-auto items-center gap-1">
+              <div className="ml-auto flex items-center gap-1">
                 <UsersRoundIcon size={16} className="text-gray-700" />
                 {articleSimpleInfo.currentParticipants}/
                 {articleSimpleInfo.maxParticipants}

@@ -54,7 +54,7 @@ const TermForm = () => {
 
   return (
     <>
-      <div className="flex flex-col gap-3 mt-6">
+      <div className="mt-6 flex flex-col gap-3">
         <div className="flex items-center space-x-2 bg-gray-100 p-4">
           <Checkbox
             id="all"
@@ -67,7 +67,7 @@ const TermForm = () => {
         {items.map((item) => (
           <div
             key={item.name}
-            className="flex items-center space-x-2 mr-1 px-4"
+            className="mr-1 flex items-center space-x-2 px-4"
           >
             <Checkbox
               id={item.name}
@@ -80,7 +80,7 @@ const TermForm = () => {
             <Label htmlFor={item.name} className="flex-1">
               [{item.required ? '필수' : '선택'}] {item.value}
             </Label>
-            <Button className="bg-transparent underline text-gray-600 p-0 h-fit">
+            <Button className="h-fit bg-transparent p-0 text-gray-600 underline">
               보기
             </Button>
           </div>
@@ -88,7 +88,7 @@ const TermForm = () => {
       </div>
       <Link href={allRequiredChecked ? '/register/accounts' : '#'}>
         <Button
-          className="bg-primary text-white font-bold text-lg w-full h-12 mt-4"
+          className="mt-4 h-12 w-full bg-primary text-lg font-bold text-white"
           disabled={!allRequiredChecked}
         >
           다음

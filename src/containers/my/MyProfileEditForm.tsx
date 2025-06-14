@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { IMAGE_MAX_SIZE } from '@/constants/image';
 import { EditProfileDTO } from '@/types/profile';
 import { resizeFile } from '@/utils/image';
-import { useRef, useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -190,7 +190,7 @@ const MyProfileEditForm = () => {
     }
   };
 
-  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const image = (await resizeFile(e.target.files[0])) as File;
 
@@ -270,10 +270,10 @@ const MyProfileEditForm = () => {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-4 flex flex-col items-center pt-8 pb-4"
+          className="flex flex-col items-center space-y-4 pb-4 pt-8"
         >
           <Avatar
-            className="overflow-hidden size-24 mb-8 relative cursor-pointer"
+            className="relative mb-8 size-24 cursor-pointer overflow-hidden"
             onClick={handleAddImageButtonClick}
           >
             <AvatarImage
@@ -285,7 +285,7 @@ const MyProfileEditForm = () => {
               className="rounded-full object-cover"
             />
             <div
-              className="absolute bottom-0 left-1/2 -translate-x-1/2 bg-primary w-24 text-center text-xs py-1 text-white font-semibold"
+              className="absolute bottom-0 left-1/2 w-24 -translate-x-1/2 bg-primary py-1 text-center text-xs font-semibold text-white"
               color="black"
             >
               EDIT
@@ -311,7 +311,7 @@ const MyProfileEditForm = () => {
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>닉네임</FormLabel>
-                <div className="flex items-center gap-2 mt-1">
+                <div className="mt-1 flex items-center gap-2">
                   <FormControl>
                     <Input
                       placeholder={formState.nickname}
@@ -324,7 +324,7 @@ const MyProfileEditForm = () => {
                   </FormControl>
                   <Button
                     type="button"
-                    className="text-white font-semibold"
+                    className="font-semibold text-white"
                     onClick={verifyNickname}
                     disabled={uniqueNickname || !field.value}
                   >
@@ -332,11 +332,11 @@ const MyProfileEditForm = () => {
                   </Button>
                 </div>
                 {uniqueNickname && (
-                  <p className="text-sm text-green-600 ml-1 mt-1">
+                  <p className="ml-1 mt-1 text-sm text-green-600">
                     사용 가능한 닉네임입니다.
                   </p>
                 )}
-                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
               </FormItem>
             )}
           />
@@ -355,7 +355,7 @@ const MyProfileEditForm = () => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
               </FormItem>
             )}
           />
@@ -368,7 +368,7 @@ const MyProfileEditForm = () => {
                   <FormItem className="w-full">
                     <FormLabel>비밀번호</FormLabel>
                     <FormControl className="mt-1">
-                      <div className="flex items-center gap-2 mt-1">
+                      <div className="mt-1 flex items-center gap-2">
                         <FormControl>
                           <Input
                             type="password"
@@ -382,7 +382,7 @@ const MyProfileEditForm = () => {
                         </FormControl>
                         <Button
                           type="button"
-                          className="text-white font-semibold"
+                          className="font-semibold text-white"
                           onClick={verifyPassword}
                           disabled={showNewPasswordInput || !field.value}
                         >
@@ -390,7 +390,7 @@ const MyProfileEditForm = () => {
                         </Button>
                       </div>
                     </FormControl>
-                    <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                    <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
                   </FormItem>
                 )}
               />
@@ -407,7 +407,7 @@ const MyProfileEditForm = () => {
                           {...field}
                         />
                       </FormControl>
-                      <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                      <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
                     </FormItem>
                   )}
                 />
@@ -418,7 +418,7 @@ const MyProfileEditForm = () => {
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>휴대폰 번호</FormLabel>
-                    <div className="flex items-center gap-2 mt-1">
+                    <div className="mt-1 flex items-center gap-2">
                       <FormControl>
                         <Input
                           placeholder="01012345678"
@@ -433,14 +433,14 @@ const MyProfileEditForm = () => {
                       </FormControl>
                       <Button
                         type="button"
-                        className="text-white font-semibold"
+                        className="font-semibold text-white"
                         onClick={sendPhoneCertificationNumber}
                         disabled={!field.value || showPhoneVerifyCodeInput}
                       >
                         인증번호 전송
                       </Button>
                     </div>
-                    <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                    <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
                   </FormItem>
                 )}
               />
@@ -463,7 +463,7 @@ const MyProfileEditForm = () => {
                         </FormControl>
                         <Button
                           type="button"
-                          className="text-white font-semibold"
+                          className="font-semibold text-white"
                           onClick={verifyPhone}
                           disabled={verifiedPhone}
                         >
@@ -471,11 +471,11 @@ const MyProfileEditForm = () => {
                         </Button>
                       </div>
                       {verifiedPhone && (
-                        <p className="text-sm text-green-600 ml-1 mt-1">
+                        <p className="ml-1 mt-1 text-sm text-green-600">
                           인증에 성공하였습니다.
                         </p>
                       )}
-                      <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                      <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
                     </FormItem>
                   )}
                 />

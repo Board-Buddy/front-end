@@ -46,7 +46,7 @@ const LoginForm = () => {
               <FormControl>
                 <Input placeholder="아이디 입력" type="text" {...field} />
               </FormControl>
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+              <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
             </FormItem>
           )}
         />
@@ -58,13 +58,15 @@ const LoginForm = () => {
               <FormControl>
                 <Input placeholder="비밀번호 입력" type="password" {...field} />
               </FormControl>
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+              <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
             </FormItem>
           )}
         />
         <Button
           type="submit"
-          className={cn('bg-primary text-white font-bold text-md w-full h-12')}
+          className={cn(
+            'bg-primary text-white font-bold text-base w-full h-12',
+          )}
         >
           보드버디 시작하기
         </Button>

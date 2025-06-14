@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const Profile = ({ author }: { author: Author }) => {
   return (
-    <div className="flex items-center border-b-[1px] border-gray-200 p-4">
+    <div className="flex items-center border-b border-gray-200 p-4">
       <CustomAvatar
         src={author.profileImageS3SavedURL || null}
         rank={author.rank}
@@ -18,7 +18,7 @@ const Profile = ({ author }: { author: Author }) => {
       </div>
       <div className="ml-auto">
         <Link href={`/profile/${author.nickname}`}>
-          <ChevronRight className="w-5 h-5 text-gray-700" />
+          <ChevronRight className="size-5 text-gray-700" />
         </Link>
       </div>
     </div>

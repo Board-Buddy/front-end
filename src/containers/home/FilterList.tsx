@@ -38,7 +38,7 @@ const FilterList = ({
   ];
 
   return (
-    <div className="flex gap-1 mb-3">
+    <div className="mb-3 flex gap-1">
       {filterList.map((item) => (
         <button
           key={item.title}

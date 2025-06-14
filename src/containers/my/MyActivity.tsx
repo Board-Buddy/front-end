@@ -5,7 +5,7 @@ import MyJoinedArticle from './MyJoinedArticle';
 const MyActivity = () => {
   return (
     <Tabs defaultValue="myArticle" className="w-full">
-      <TabsList className="grid w-full grid-cols-2 mb-4">
+      <TabsList className="mb-4 grid w-full grid-cols-2">
         <TabsTrigger value="myArticle">내가 작성한 모집글</TabsTrigger>
         <TabsTrigger value="joinedArticle">참가한 모집글</TabsTrigger>
       </TabsList>

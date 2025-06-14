@@ -3,9 +3,9 @@ import Image from 'next/image';
 
 const page = () => {
   return (
-    <div className="h-[100vh] relative w-full flex flex-col items-center overflow-hidden">
-      <div className="self-start pt-16 pb-24 px-8">
-        <div className="text-primary pb-2 text-3xl">
+    <div className="relative flex h-screen w-full flex-col items-center overflow-hidden">
+      <div className="self-start px-8 pb-24 pt-16">
+        <div className="pb-2 text-3xl text-primary">
           <p>
             <span className="font-extrabold">보드</span>
             게임할사람,
@@ -14,7 +14,7 @@ const page = () => {
             여기<span className="font-extrabold">버디</span> 모여라
           </p>
         </div>
-        <div className="bg-primary flex pl-1 pr-2 py-1.5 h-7 text-white gap-1 rounded-md text-sm w-fit items-center">
+        <div className="flex h-7 w-fit items-center gap-1 rounded-md bg-primary py-1.5 pl-1 pr-2 text-sm text-white">
           <Image
             src="/images/logo/boardbuddy_small_logo_white.png"
             alt="보드버디 흰색 로고"

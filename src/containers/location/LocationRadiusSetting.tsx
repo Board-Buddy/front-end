@@ -26,8 +26,8 @@ const LocationRadiusSetting = ({ radius }: Props) => {
   };
 
   return (
-    <div className="bg-white rounded-t-2xl shadow-[0_-2px_10px_0_rgba(48,48,48,0.1)]">
-      <div className="flex flex-col p-4 gap-4">
+    <div className="rounded-t-2xl bg-white shadow-[0_-2px_10px_0_rgba(48,48,48,0.1)]">
+      <div className="flex flex-col gap-4 p-4">
         <span className="font-semibold">내 동네 설정</span>
         <LocationSettingComboBox
           popOverWidth={416}

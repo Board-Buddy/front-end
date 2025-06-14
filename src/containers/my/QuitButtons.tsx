@@ -3,7 +3,7 @@ import WithdrawalButton from './WithdrawalButton';
 
 const QuitButtons = () => {
   return (
-    <div className="flex pt-8 gap-4">
+    <div className="flex gap-4 pt-8">
       <LogoutButton />
       <WithdrawalButton />
     </div>

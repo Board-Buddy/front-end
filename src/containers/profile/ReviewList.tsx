@@ -11,7 +11,7 @@ const ReviewList = ({
   totalBadCount: number;
 }) => {
   return (
-    <div className="py-6 relative">
+    <div className="relative py-6">
       <Image
         src="/images/sundy/sundy_heart_shadow.png"
         width={80}
@@ -19,7 +19,7 @@ const ReviewList = ({
         alt="하트를 들고 있는 썬디"
         className="absolute bottom-4 right-0"
       />
-      <div className="flex text-xl text-gray-600 font-bold pb-4">받은후기</div>
+      <div className="flex pb-4 text-xl font-bold text-gray-600">받은후기</div>
       <ReviewItem
         imageSrc="/images/icon/excellent_review_icon.png"
         altText="excellent review"

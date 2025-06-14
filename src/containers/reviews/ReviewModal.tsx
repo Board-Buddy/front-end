@@ -31,7 +31,7 @@ const ReviewModal = ({ open, nickname, setOpen, onSubmit }: Props) => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="text-center mb-4">
+          <DialogTitle className="mb-4 text-center">
             {nickname} 평가하기
           </DialogTitle>
           <DialogDescription>
@@ -94,13 +94,13 @@ const ReviewModal = ({ open, nickname, setOpen, onSubmit }: Props) => {
         </DialogHeader>
         <div className="flex grow text-center">
           <div
-            className="w-full bg-gray-300 h-10 font-semibold rounded-bl-lg place-content-center cursor-pointer text-sm"
+            className="h-10 w-full cursor-pointer place-content-center rounded-bl-lg bg-gray-300 text-sm font-semibold"
             onClick={() => setOpen(false)}
           >
             <p>취소</p>
           </div>
           <div
-            className="w-full bg-primary text-white font-semibold rounded-br-lg place-content-center cursor-pointer text-sm"
+            className="w-full cursor-pointer place-content-center rounded-br-lg bg-primary text-sm font-semibold text-white"
             onClick={() => onSubmit(selected)}
           >
             <p>후기 보내기</p>

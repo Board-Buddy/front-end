@@ -12,8 +12,8 @@ interface Props {
 
 const BadgeList = ({ badges, nickname }: Props) => {
   return (
-    <div className="pt-6 pb-4">
-      <div className="flex justify-between items-center font-bold mb-4 text-xl text-gray-600">
+    <div className="pb-4 pt-6">
+      <div className="mb-4 flex items-center justify-between text-xl font-bold text-gray-600">
         <div className="flex gap-2">뱃지목록</div>
         <Link href={nickname ? `${nickname}/badges` : '/my/badges'}>
           <div
@@ -23,7 +23,7 @@ const BadgeList = ({ badges, nickname }: Props) => {
             )}
           >
             <p className="text-xs">전체목록</p>
-            <ChevronRight className="w-4 h-4 text-white" />
+            <ChevronRight className="size-4 text-white" />
           </div>
         </Link>
       </div>
@@ -40,7 +40,7 @@ const BadgeList = ({ badges, nickname }: Props) => {
           (badge) =>
             badge && (
               <div key={badge.badgeYearMonth}>
-                <div className="bg-bgGray rounded-full size-24 flex justify-center items-center">
+                <div className="flex size-24 items-center justify-center rounded-full bg-bgGray">
                   <Image
                     src={
                       badge.badgeImageS3SavedURL ||
@@ -52,7 +52,7 @@ const BadgeList = ({ badges, nickname }: Props) => {
                     className="bg-transparent"
                   />
                 </div>
-                <div className="mt-2 text-sm text-center font-bold text-gray-600">
+                <div className="mt-2 text-center text-sm font-bold text-gray-600">
                   {badge.badgeYearMonth}
                 </div>
               </div>

@@ -16,8 +16,8 @@ const OAuthLoginFailure = ({ messageCode }: Props) => {
 
   return (
     <>
-      <div className="w-full h-full flex justify-center items-center">
-        <LoaderCircleIcon className="animate-spin text-primary size-6" />
+      <div className="flex size-full items-center justify-center">
+        <LoaderCircleIcon className="size-6 animate-spin text-primary" />
       </div>
       <CustomAlert
         open={open}

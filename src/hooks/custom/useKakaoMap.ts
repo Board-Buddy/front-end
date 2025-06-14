@@ -42,7 +42,7 @@ const useKakaoMap = (
 
     script.onload = () => {
       window.kakao.maps.load(() => {
-        setCenter({ lat: location.latitude, lng: location.latitude });
+        setCenter({ lat: location.latitude, lng: location.longitude });
 
         const container = mapRef.current;
         const options = {
@@ -147,6 +147,7 @@ const useKakaoMap = (
     setShowReloadButton,
     setStatic,
     radiusSetting,
+    isMarkerSundy,
   ]);
 
   return { mapRef, mapObject, markersRef, radius, center };

@@ -2,7 +2,7 @@ import Search from '@/containers/search/Search';
 
 const page = () => {
   return (
-    <div className="pt-3 pb-4 px-4">
+    <div className="px-4 pb-4 pt-3">
       <Search />
     </div>
   );

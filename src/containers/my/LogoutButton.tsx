@@ -13,7 +13,7 @@ const LogoutButton = () => {
   return (
     <div className="basis-1/2">
       <Button
-        className="w-full text-gray-400 text-sm h-8 rounded-xl bg-bgGray"
+        className="h-8 w-full rounded-xl bg-bgGray text-sm text-gray-400"
         onClick={handleClick}
       >
         로그아웃

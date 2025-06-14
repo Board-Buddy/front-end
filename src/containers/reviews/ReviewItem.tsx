@@ -34,7 +34,7 @@ const ReviewItem = ({
 
   return (
     <>
-      <div className="flex items-center pb-3 border-b border-slate-100">
+      <div className="flex items-center border-b border-slate-100 pb-3">
         <CustomAvatar
           src={profileImage}
           rank={rank}
@@ -43,7 +43,7 @@ const ReviewItem = ({
         />
         <span className="ml-2">{nickname}</span>
         <Button
-          className="text-white rounded-lg px-3 py-2 h-8 ml-auto disabled:bg-slate-300 disabled:text-slate-600"
+          className="ml-auto h-8 rounded-lg px-3 py-2 text-white disabled:bg-slate-300 disabled:text-slate-600"
           disabled={hasReviewed}
           onClick={() => setOpen(true)}
         >

@@ -5,9 +5,9 @@ const NotificationButton = () => {
   return (
     <Link
       href="/notifications"
-      className="absolute top-[30px] right-[30px] z-50"
+      className="absolute right-[30px] top-[30px] z-50"
     >
-      <div className="bg-white rounded-lg p-2">
+      <div className="rounded-lg bg-white p-2">
         <Bell size={20} className="text-gray-400" fill="#94a3b8" />
       </div>
     </Link>

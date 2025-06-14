@@ -51,8 +51,8 @@ const ProfileInfo = ({
         avatarSize="lg"
       />
       <div className="w-full">
-        <div className="pt-2 flex items-center gap-2">
-          <span className="text-gray-600 font-bold text-xl">
+        <div className="flex items-center gap-2 pt-2">
+          <span className="text-xl font-bold text-gray-600">
             {nickname || myNickname}
           </span>
           <div onClick={handleClick}>
@@ -66,7 +66,7 @@ const ProfileInfo = ({
             </div>
           </div>
         </div>
-        <p className="text-gray-600 text-sm mt-1 line-clamp-2 ">
+        <p className="mt-1 line-clamp-2 text-sm text-gray-600 ">
           {description}
         </p>
         <BuddyPoint score={buddyScore} />

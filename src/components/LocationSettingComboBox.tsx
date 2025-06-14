@@ -55,7 +55,7 @@ const LocationSettingComboBox = ({ popOverWidth, onSelect }: Props) => {
           )}
         >
           {displayName}
-          <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronDown className="ml-2 size-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent side="bottom" className={cn('p-0 bg-white')}>

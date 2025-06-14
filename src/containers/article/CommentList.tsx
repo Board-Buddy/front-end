@@ -83,14 +83,14 @@ const CommentList = ({ articleId }: { articleId: Article['id'] }) => {
   return (
     <>
       <div className="p-4">
-        <span className="text-gray-700 text-lg font-bold">댓글</span>
+        <span className="text-lg font-bold text-gray-700">댓글</span>
         {commentList.map((comment) => (
           <div key={comment.id}>
             <div
               key={comment.id}
-              className="p-4 my-2 last-of-type:border-none border-b-[1px] border-gray-200"
+              className="my-2 border-b border-gray-200 p-4 last-of-type:border-none"
             >
-              <div className="flex items-center gap-2 mb-2">
+              <div className="mb-2 flex items-center gap-2">
                 <CustomAvatar
                   src={comment.author.profileImageS3SavedURL || ''}
                   rank={comment.author.rank}
@@ -101,7 +101,7 @@ const CommentList = ({ articleId }: { articleId: Article['id'] }) => {
                 <div className="ml-auto flex gap-2">
                   <Button className="bg-transparent p-0">
                     <MessageSquare
-                      className="text-gray-400 size-4"
+                      className="size-4 text-gray-400"
                       onClick={() =>
                         handleReplyButtonClick(
                           comment.id,
@@ -119,10 +119,10 @@ const CommentList = ({ articleId }: { articleId: Article['id'] }) => {
                         'ml-auto cursor-pointer',
                       )}
                     >
-                      <Ellipsis className="text-gray-400 size-4" />
-                      <DropdownMenuContent className="bg-white -mt-2 -ml-8 w-16">
+                      <Ellipsis className="size-4 text-gray-400" />
+                      <DropdownMenuContent className="-ml-8 -mt-2 w-16 bg-white">
                         <DropdownMenuItem
-                          className="hover:bg-slate-50 transition-all"
+                          className="transition-all hover:bg-slate-50"
                           onClick={() =>
                             handleEditButtonClick(comment.id, comment.content)
                           }
@@ -130,7 +130,7 @@ const CommentList = ({ articleId }: { articleId: Article['id'] }) => {
                           수정
                         </DropdownMenuItem>
                         <DropdownMenuItem
-                          className="hover:bg-slate-50 transition-all"
+                          className="transition-all hover:bg-slate-50"
                           onClick={() => {
                             setOpenCommentDeleteAlert(true);
                             setDeleteCommentId(comment.id);
@@ -144,14 +144,14 @@ const CommentList = ({ articleId }: { articleId: Article['id'] }) => {
                 </div>
               </div>
               <p className="text-sm">{comment.content}</p>
-              <p className="text-sm mt-2 text-gray-500">
+              <p className="mt-2 text-sm text-gray-500">
                 {commentTime(comment.createdAt)}
               </p>
             </div>
             <div>
               {comment.children?.map((reply) => (
-                <div key={reply.id} className="p-4 my-2 bg-gray-100 rounded-lg">
-                  <div className="flex items-center gap-2 mb-2">
+                <div key={reply.id} className="my-2 rounded-lg bg-gray-100 p-4">
+                  <div className="mb-2 flex items-center gap-2">
                     <CornerDownRight size={16} className="text-gray-700" />
                     <CustomAvatar
                       src={reply.author.profileImageS3SavedURL || ''}
@@ -163,7 +163,7 @@ const CommentList = ({ articleId }: { articleId: Article['id'] }) => {
                     <div className="ml-auto flex gap-2">
                       <Button className="bg-transparent p-0">
                         <MessageSquare
-                          className="text-gray-400 size-4"
+                          className="size-4 text-gray-400"
                           onClick={() =>
                             handleReplyButtonClick(
                               reply.id,
@@ -181,10 +181,10 @@ const CommentList = ({ articleId }: { articleId: Article['id'] }) => {
                             'bg-transparent p-0',
                           )}
                         >
-                          <Ellipsis className="text-gray-400 size-4" />
-                          <DropdownMenuContent className="bg-white -mt-2 -ml-8 w-16">
+                          <Ellipsis className="size-4 text-gray-400" />
+                          <DropdownMenuContent className="-ml-8 -mt-2 w-16 bg-white">
                             <DropdownMenuItem
-                              className="hover:bg-slate-50 transition-all"
+                              className="transition-all hover:bg-slate-50"
                               onClick={() =>
                                 handleEditButtonClick(reply.id, reply.content)
                               }
@@ -192,7 +192,7 @@ const CommentList = ({ articleId }: { articleId: Article['id'] }) => {
                               수정
                             </DropdownMenuItem>
                             <DropdownMenuItem
-                              className="hover:bg-slate-50 transition-all"
+                              className="transition-all hover:bg-slate-50"
                               onClick={() => {
                                 setOpenReplyDeleteAlert(true);
                                 setDeleteCommentId(comment.id);
@@ -205,8 +205,8 @@ const CommentList = ({ articleId }: { articleId: Article['id'] }) => {
                       </DropdownMenu>
                     </div>
                   </div>
-                  <p className="text-sm pl-6">{reply.content}</p>
-                  <p className="text-sm pl-6 mt-2 text-gray-500">
+                  <p className="pl-6 text-sm">{reply.content}</p>
+                  <p className="mt-2 pl-6 text-sm text-gray-500">
                     {commentTime(reply.createdAt)}
                   </p>
                 </div>

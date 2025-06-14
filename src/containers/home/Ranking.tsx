@@ -25,7 +25,7 @@ const Ranking = () => {
   ];
 
   return (
-    <div className="my-2 flex justify-center items-center">
+    <div className="my-2 flex items-center justify-center">
       {rankingData.map((person) => (
         <RankingCard
           key={person.rank}

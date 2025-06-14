@@ -24,7 +24,7 @@ const NavBar = () => {
   );
 
   return (
-    <ul className="flex items-center h-16 px-6 py-4 border-t border-gray-200">
+    <ul className="flex h-16 items-center border-t border-gray-200 px-6 py-4">
       {navBarList.map((item) => (
         <li
           key={item.title}

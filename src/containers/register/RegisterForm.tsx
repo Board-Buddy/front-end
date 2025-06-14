@@ -270,7 +270,7 @@ const RegisterForm = () => {
                   </FormControl>
                   <Button
                     type="button"
-                    className="text-white font-semibold"
+                    className="font-semibold text-white"
                     onClick={verifyId}
                     disabled={uniqueId || !field.value}
                   >
@@ -278,11 +278,11 @@ const RegisterForm = () => {
                   </Button>
                 </div>
                 {uniqueId && (
-                  <p className="text-sm text-green-600 ml-1 mt-1">
+                  <p className="ml-1 mt-1 text-sm text-green-600">
                     사용 가능한 아이디입니다.
                   </p>
                 )}
-                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
               </FormItem>
             )}
           />
@@ -298,7 +298,7 @@ const RegisterForm = () => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
               </FormItem>
             )}
           />
@@ -314,7 +314,7 @@ const RegisterForm = () => {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
               </FormItem>
             )}
           />
@@ -326,7 +326,7 @@ const RegisterForm = () => {
                 <FormControl>
                   <Input placeholder="이메일 입력" type="email" {...field} />
                 </FormControl>
-                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
               </FormItem>
             )}
           />
@@ -348,7 +348,7 @@ const RegisterForm = () => {
                   </FormControl>
                   <Button
                     type="button"
-                    className="text-white font-semibold"
+                    className="font-semibold text-white"
                     onClick={verifyNickname}
                     disabled={uniqueNickname || !field.value}
                   >
@@ -356,11 +356,11 @@ const RegisterForm = () => {
                   </Button>
                 </div>
                 {uniqueNickname && (
-                  <p className="text-sm text-green-600 ml-1 mt-1">
+                  <p className="ml-1 mt-1 text-sm text-green-600">
                     사용 가능한 닉네임입니다.
                   </p>
                 )}
-                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
               </FormItem>
             )}
           />
@@ -377,7 +377,7 @@ const RegisterForm = () => {
                     }}
                   />
                 </FormControl>
-                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
               </FormItem>
             )}
           />
@@ -401,14 +401,14 @@ const RegisterForm = () => {
                   </FormControl>
                   <Button
                     type="button"
-                    className="text-white font-semibold"
+                    className="font-semibold text-white"
                     onClick={sendPhoneCertificationNumber}
                     disabled={!field.value || showPhoneVerifyCodeInput}
                   >
                     인증번호 전송
                   </Button>
                 </div>
-                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
               </FormItem>
             )}
           />
@@ -431,7 +431,7 @@ const RegisterForm = () => {
                     </FormControl>
                     <Button
                       type="button"
-                      className="text-white font-semibold"
+                      className="font-semibold text-white"
                       onClick={verifyPhone}
                       disabled={verifiedPhone}
                     >
@@ -439,11 +439,11 @@ const RegisterForm = () => {
                     </Button>
                   </div>
                   {verifiedPhone && (
-                    <p className="text-sm text-green-600 ml-1 mt-1">
+                    <p className="ml-1 mt-1 text-sm text-green-600">
                       인증에 성공하였습니다.
                     </p>
                   )}
-                  <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+                  <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
                 </FormItem>
               )}
             />

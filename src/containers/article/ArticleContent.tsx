@@ -79,7 +79,7 @@ const ArticleContent = ({
   return (
     <>
       <div className="p-4">
-        <div className="text-lg flex gap-2 font-bold">
+        <div className="flex gap-2 text-lg font-bold">
           <span
             className={cn(
               status === 'open' ? 'text-primary' : 'text-gray-500',
@@ -88,7 +88,7 @@ const ArticleContent = ({
           >
             {ARTICLE_STATUS[status]}
           </span>
-          <span className="text-gray-800 line-clamp-1">{title}</span>
+          <span className="line-clamp-1 text-gray-800">{title}</span>
           <DropdownMenu>
             <DropdownMenuTrigger
               className={cn(
@@ -97,15 +97,15 @@ const ArticleContent = ({
               )}
             >
               <EllipsisVerticalIcon />
-              <DropdownMenuContent className="bg-white mt-1 -ml-8 w-16">
+              <DropdownMenuContent className="-ml-8 mt-1 w-16 bg-white">
                 <DropdownMenuItem
-                  className="hover:bg-slate-50 transition-all"
+                  className="transition-all hover:bg-slate-50"
                   onClick={handleEditButtonClick}
                 >
                   수정
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  className="hover:bg-slate-50 transition-all"
+                  className="transition-all hover:bg-slate-50"
                   onClick={() => setOpen(true)}
                 >
                   삭제
@@ -114,13 +114,13 @@ const ArticleContent = ({
             </DropdownMenuTrigger>
           </DropdownMenu>
         </div>
-        <div className="text-md mt-2 text-gray-800 py-4">{description}</div>
+        <div className="mt-2 py-4 text-base text-gray-800">{description}</div>
         <div className="text-sm">
-          <div className="mr-auto text-gray-500 py-3">
+          <div className="mr-auto py-3 text-gray-500">
             {formatRelativeTime(createdAt)}
           </div>
           <div>
-            <div className="text-gray-600 flex items-center">
+            <div className="flex items-center text-gray-600">
               <Image
                 src="/images/icon/participants_icon.png"
                 alt="participants"
@@ -130,7 +130,7 @@ const ArticleContent = ({
               />
               {currentParticipants}/{maxParticipants}명 참여
             </div>
-            <div className="text-gray-700 flex items-center">
+            <div className="flex items-center text-gray-700">
               <Image
                 src="/images/icon/clock_icon.png"
                 alt="clock"
@@ -143,8 +143,8 @@ const ArticleContent = ({
           </div>
         </div>
         <div className="mt-10">
-          <span className="text-gray-700 text-lg font-bold">위치</span>
-          <div className="text-secondary flex items-center text-sm mt-2 mb-2">
+          <span className="text-lg font-bold text-gray-700">위치</span>
+          <div className="my-2 flex items-center text-sm text-secondary">
             <Image
               src="/images/icon/map_icon.png"
               alt="map"

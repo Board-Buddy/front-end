@@ -19,16 +19,16 @@ const LocationSettingButton = () => {
   };
 
   return (
-    <div className="flex items-center my-4 gap-2" onClick={onClick}>
+    <div className="my-4 flex items-center gap-2" onClick={onClick}>
       <Image
         src="/images/sundy/sundy_map.png"
         alt="map_sundy"
         width={18}
         height={28}
       />
-      <div className="flex items-center p-0 bg-transparent w-[300px]">
+      <div className="flex w-[300px] items-center bg-transparent p-0">
         <span className="text-lg font-bold text-gray-800">{emd}</span>
-        <ChevronDown className="ml-1 h-4 w-4 shrink-0" />
+        <ChevronDown className="ml-1 size-4 shrink-0" />
       </div>
     </div>
   );

@@ -17,13 +17,13 @@ const ReloadButton = ({ show, onClick, isPending }: Props) => {
       )}
     >
       <Button
-        className="border border-gray-300 text-primary font-bold bg-white rounded-3xl px-3 py-0 text-sm shadow-md"
+        className="rounded-3xl border border-gray-300 bg-white px-3 py-0 text-sm font-bold text-primary shadow-md"
         onClick={onClick}
       >
         {isPending ? (
-          <LoaderCircleIcon className="animate-spin size-4 mr-1" />
+          <LoaderCircleIcon className="mr-1 size-4 animate-spin" />
         ) : (
-          <RotateCcwIcon className="size-4 mr-1" />
+          <RotateCcwIcon className="mr-1 size-4" />
         )}
         현 지도에서 검색
       </Button>

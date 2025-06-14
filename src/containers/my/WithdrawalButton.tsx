@@ -13,7 +13,7 @@ const WithdrawalButton = () => {
     <>
       <div className="basis-1/2">
         <Button
-          className="w-full text-primary text-sm h-8 bg-[#f9ecd1] rounded-xl"
+          className="h-8 w-full rounded-xl bg-[#f9ecd1] text-sm text-primary"
           onClick={() => setOpen(true)}
         >
           탈퇴하기

@@ -1,6 +1,7 @@
 'use client';
 
 import { ChevronLeft } from 'lucide-react';
+import React from 'react';
 
 export default function Layout({
   children,
@@ -9,10 +10,10 @@ export default function Layout({
 }>) {
   return (
     <div className="overflow-y-scroll">
-      <div className="p-4 flex items-center">
+      <div className="flex items-center p-4">
         <div className="basis-1/3">
           <ChevronLeft
-            className="w-6 h-6 cursor-pointer"
+            className="size-6 cursor-pointer"
             onClick={() => {
               window.history.back();
             }}

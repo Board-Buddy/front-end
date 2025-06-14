@@ -8,9 +8,9 @@ import Link from 'next/link';
 const ReviewButton = ({ articleId }: { articleId: Article['id'] }) => {
   return (
     <Link href={`${articleId}/reviews`}>
-      <div className="px-4 mb-8">
+      <div className="mb-8 px-4">
         <Button
-          className={cn('w-full text-white font-bold text-md h-12 shadow-md')}
+          className={cn('w-full text-white font-bold text-base h-12 shadow-md')}
         >
           후기 작성
         </Button>

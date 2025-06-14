@@ -45,7 +45,7 @@ const BadgeListDetail = ({ nickname }: Props) => {
           (badge) =>
             badge && (
               <div key={badge.badgeYearMonth}>
-                <div className="bg-bgGray rounded-full size-24 flex justify-center items-center">
+                <div className="flex size-24 items-center justify-center rounded-full bg-bgGray">
                   <Image
                     src={
                       badge.badgeImageS3SavedURL ||
@@ -57,7 +57,7 @@ const BadgeListDetail = ({ nickname }: Props) => {
                     className="bg-transparent"
                   />
                 </div>
-                <div className="mt-2 text-sm text-center font-bold text-gray-600">
+                <div className="mt-2 text-center text-sm font-bold text-gray-600">
                   {badge.badgeYearMonth}
                 </div>
               </div>

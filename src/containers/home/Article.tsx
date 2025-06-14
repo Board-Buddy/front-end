@@ -35,7 +35,7 @@ const Article = ({
   return (
     <Card className="mb-3" onClick={onClick}>
       <CardHeader>
-        <CardTitle className="flex text-md font-semibold text-gray-600 items-center">
+        <CardTitle className="flex items-center text-base font-semibold text-gray-600">
           <div
             className={cn(
               'border rounded-md px-2 py-0.5 mr-2 flex-none',
@@ -53,7 +53,7 @@ const Article = ({
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col text-sm">
-        <div className="text-secondary flex items-center">
+        <div className="flex items-center text-secondary">
           <Image
             src="/images/icon/map_icon.png"
             alt="map"
@@ -63,7 +63,7 @@ const Article = ({
           />
           {meetingLocation}
         </div>
-        <div className="text-gray-600 flex items-center">
+        <div className="flex items-center text-gray-600">
           <Image
             src="/images/icon/participants_icon.png"
             alt="participants"
@@ -73,7 +73,7 @@ const Article = ({
           />
           {currentParticipants}/{maxParticipants}명 참여
         </div>
-        <div className="text-gray-700 flex items-center">
+        <div className="flex items-center text-gray-700">
           <Image
             src="/images/icon/clock_icon.png"
             alt="clock"

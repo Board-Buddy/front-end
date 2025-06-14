@@ -32,10 +32,10 @@ const Splash = () => {
           priority
           className="pb-6"
         />
-        <p className="text-white text-lg">
+        <p className="text-lg text-white">
           <span className="font-extrabold">보드</span>게임할사람
         </p>
-        <p className="text-white text-lg">
+        <p className="text-lg text-white">
           여기<span className="font-extrabold">버디</span> 모여라
         </p>
       </div>

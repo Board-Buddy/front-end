@@ -7,6 +7,7 @@ import ReactQueryProviders from '@/utils/reactQueryProvider';
 import Header from '@/components/Header';
 import { Toaster } from 'react-hot-toast';
 import { ExistingProfileInfoContextProvider } from '@/context/ExistingProfileInfoContext';
+import React from 'react';
 
 const fontSans = FontSans({
   subsets: ['latin'],

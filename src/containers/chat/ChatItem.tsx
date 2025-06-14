@@ -14,28 +14,28 @@ const ChatItem = ({
       href={`/chat/${gatherArticleSimpleInfo.gatherArticleId}/${chatRoomId}`}
     >
       <div className="flex min-h-28 w-full justify-center">
-        <div className="bg-white basis-2/3 rounded-xl px-4 py-3">
+        <div className="basis-2/3 rounded-xl bg-white px-4 py-3">
           <div className="flex items-center">
-            <p className="font-bold text-primary text-lg tracking-tighter max-w-48 truncate">
+            <p className="max-w-48 truncate text-lg font-bold tracking-tighter text-primary">
               {gatherArticleSimpleInfo.title}
             </p>
-            <p className="ml-auto text-xs text-gray-400 tracking-tighter font-semibold">
+            <p className="ml-auto text-xs font-semibold tracking-tighter text-gray-400">
               {getLastMessageSentTime(latestChatMessageInfo.sentAt)}
             </p>
           </div>
-          <p className="text-sm text-gray-500 line-clamp-3">
+          <p className="line-clamp-3 text-sm text-gray-500">
             {latestChatMessageInfo.content}
           </p>
         </div>
-        <div className="relative bg-white basis-1/3 rounded-xl">
-          <div className="w-full bg-primary rounded-t-xl h-7 place-content-center">
-            <p className="text-white text-xs tracking-tighter text-center font-semibold">
+        <div className="relative basis-1/3 rounded-xl bg-white">
+          <div className="h-7 w-full place-content-center rounded-t-xl bg-primary">
+            <p className="text-center text-xs font-semibold tracking-tighter text-white">
               게임정보를 확인해요!
             </p>
           </div>
-          <div className="flex flex-col p-3 gap-1 tracking-tighter">
+          <div className="flex flex-col gap-1 p-3 tracking-tighter">
             <div className="flex items-start gap-1">
-              <div className="bg-primary rounded-full p-1 w-fit">
+              <div className="w-fit rounded-full bg-primary p-1">
                 <MapPinIcon strokeWidth={2} size={10} color="white" />
               </div>
               <p className="text-xs text-gray-500">
@@ -43,7 +43,7 @@ const ChatItem = ({
               </p>
             </div>
             <div className="flex items-center gap-1">
-              <div className="bg-primary rounded-full p-1 w-fit">
+              <div className="w-fit rounded-full bg-primary p-1">
                 <UserRound strokeWidth={2} size={10} color="white" />
               </div>
               <p className="text-xs text-gray-500">
@@ -56,7 +56,7 @@ const ChatItem = ({
             width={20}
             height={20}
             alt="보드버디 로고"
-            className="absolute opacity-30 right-2 bottom-2"
+            className="absolute bottom-2 right-2 opacity-30"
           />
         </div>
       </div>

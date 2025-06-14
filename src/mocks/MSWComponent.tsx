@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { MSW_MOCKING } from '@/constants/env';
 import { useEffect, useState } from 'react';
 

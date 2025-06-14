@@ -10,7 +10,7 @@ interface Props {
 
 const MyParticipation = ({ joinCount, nickname }: Props) => {
   return (
-    <div className="bg-[#f9ecd1] mt-8 mb-8 w-full px-5 py-4 rounded-2xl">
+    <div className="my-8 w-full rounded-2xl bg-[#f9ecd1] px-5 py-4">
       <div className="flex items-center">
         <div className="text-gray-600">
           <p className="text-sm">참여 횟수</p>
@@ -25,15 +25,15 @@ const MyParticipation = ({ joinCount, nickname }: Props) => {
         />
       </div>
       {!nickname && (
-        <div className="flex gap-4 text-gray-700 mt-2">
+        <div className="mt-2 flex gap-4 text-gray-700">
           <Link href="/setting/location" className="basis-1/2">
-            <Button className="bg-white text-md font-bold w-full">
+            <Button className="text-base w-full bg-white font-bold">
               <MapPinIcon color="var(--main-color)" />
               <p className="ml-1">위치 재설정</p>
             </Button>
           </Link>
           <Link href="my/activity" className="basis-1/2">
-            <Button className="bg-white text-md font-bold w-full">
+            <Button className="text-base w-full bg-white font-bold">
               <MessageSquareMoreIcon color="var(--main-color)" />
               <p className="ml-1">나의 활동</p>
             </Button>

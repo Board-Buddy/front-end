@@ -26,7 +26,7 @@ const SearchResult = ({ keyword, isRefetching }: Props) => {
 
   if (isError) {
     return (
-      <div className="flex justify-center pt-4 text-gray-500 text-sm">
+      <div className="flex justify-center pt-4 text-sm text-gray-500">
         {error.response?.data.message}
       </div>
     );

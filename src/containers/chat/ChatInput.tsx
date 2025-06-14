@@ -1,5 +1,6 @@
 'use client';
 
+import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/utils/tailwind';
@@ -31,7 +32,7 @@ const ChatInput = ({
   };
 
   return (
-    <div className="flex items-center gap-2 fixed bottom-0 p-4 max-w-md w-full bg-white">
+    <div className="fixed bottom-0 flex w-full max-w-md items-center gap-2 bg-white p-4">
       <Input
         className="bg-gray-100"
         value={value}

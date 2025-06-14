@@ -18,8 +18,8 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
 
-export default [
-  ...compat.extends('next/core-web-vitals', 'next/typescript'),
+const configArray = [
+  ...compat.extends('next/core-web-vitals'),
 
   {
     languageOptions: {
@@ -34,6 +34,7 @@ export default [
       },
     },
     files: ['**/*.{js,jsx,ts,tsx}'],
+    ignores: ['src/components/ui/**/*', 'public/mockServiceWorker.js'],
     plugins: {
       '@typescript-eslint': tseslint.plugin,
       react,
@@ -51,9 +52,6 @@ export default [
       ...jsxA11y.configs.recommended.rules,
       ...prettier.configs.recommended.rules,
       ...tailwindcss.configs.recommended.rules,
-
-      // prettier
-      'prettier/prettier': ['error', { endOfLine: 'auto' }],
 
       // typescript
       'no-unused-vars': 'off',
@@ -107,3 +105,5 @@ export default [
     },
   },
 ];
+
+export default configArray;

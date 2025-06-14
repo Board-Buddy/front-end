@@ -22,7 +22,7 @@ const ParticipantItem = ({
   onRejectButtonClick,
 }: Props) => {
   return (
-    <div className="px-4 py-2 flex items-center gap-3 border-b border-b-slate-100">
+    <div className="flex items-center gap-3 border-b border-b-slate-100 px-4 py-2">
       <CustomAvatar
         src={profileImageS3SavedURL}
         rank={rank}
@@ -30,15 +30,15 @@ const ParticipantItem = ({
         avatarSize="sm"
       />
       <span>{nickname}</span>
-      <div className="ml-auto flex gap-1 items-center">
+      <div className="ml-auto flex items-center gap-1">
         <Button
-          className="text-white rounded-lg h-8"
+          className="h-8 rounded-lg text-white"
           onClick={() => onApproveButtonClick(id, nickname)}
         >
           승인
         </Button>
         <Button
-          className="shadow-[inset_0_0_0_1px] text-primary bg-white rounded-lg h-8"
+          className="h-8 rounded-lg bg-white text-primary shadow-[inset_0_0_0_1px]"
           onClick={() => onRejectButtonClick(id, nickname)}
         >
           거절

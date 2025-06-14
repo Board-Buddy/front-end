@@ -1,9 +1,6 @@
 'use client';
 
-import {
-  useGetArticleSimpleInfo,
-  useGetExistingMessages,
-} from '@/hooks/useChat';
+import { useGetArticleSimpleInfo } from '@/hooks/useChat';
 import { ChatRoom as ChatRoomType, Message } from '@/types/chat';
 import { Article } from '@/types/article';
 import ArticleInfo from './ArticleInfo';

@@ -25,7 +25,7 @@ const Map = ({ lat, lng }: Props) => {
     true,
   );
 
-  return <div ref={mapRef} className="w-full h-[250px] bg-gray-200" />;
+  return <div ref={mapRef} className="h-[250px] w-full bg-gray-200" />;
 };
 
 export default Map;

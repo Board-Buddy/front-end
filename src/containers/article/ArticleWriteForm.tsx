@@ -115,8 +115,8 @@ const ArticleWriteForm = () => {
                 <Input placeholder="제목" {...field} maxLength={50} />
               </FormControl>
               <div className="flex">
-                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
-                <FormDescription className="text-right pt-1 ml-auto text-gray-500">
+                <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
+                <FormDescription className="ml-auto pt-1 text-right text-gray-500">
                   {field.value.length > 50 ? 50 : field.value.length}/50
                 </FormDescription>
               </div>
@@ -128,7 +128,7 @@ const ArticleWriteForm = () => {
           name="date"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="font-semibold pb-1">모임 날짜</FormLabel>
+              <FormLabel className="pb-1 font-semibold">모임 날짜</FormLabel>
               <FormControl className="mt-2">
                 <Popover>
                   <PopoverTrigger asChild>
@@ -145,7 +145,7 @@ const ArticleWriteForm = () => {
                         ) : (
                           <span>모임 날짜 선택</span>
                         )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        <CalendarIcon className="ml-auto size-4 opacity-50" />
                       </Button>
                     </FormControl>
                   </PopoverTrigger>
@@ -158,14 +158,14 @@ const ArticleWriteForm = () => {
                         date < getYesterday() || date > oneMonthLater()
                       }
                       initialFocus
-                      className="bg-white rounded-md"
+                      className="rounded-md bg-white"
                     />
                   </PopoverContent>
                 </Popover>
               </FormControl>
               <div className="flex">
-                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
-                <FormDescription className="text-right ml-auto pt-1 text-gray-500">
+                <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
+                <FormDescription className="ml-auto pt-1 text-right text-gray-500">
                   한 달 뒤까지만 선택 가능합니다.
                 </FormDescription>
               </div>
@@ -176,7 +176,7 @@ const ArticleWriteForm = () => {
           <FormLabel className="font-semibold">
             모임 시작/종료 예상 시간
           </FormLabel>
-          <div className="flex items-center justify-between !mt-2 mb-4">
+          <div className="!mt-2 mb-4 flex items-center justify-between">
             <FormField
               control={form.control}
               name="startHour"
@@ -186,7 +186,7 @@ const ArticleWriteForm = () => {
                     <FormControl>
                       <SelectTrigger className="w-20">
                         <SelectValue placeholder="시" />
-                        <SelectContent className="bg-white h-[150px]">
+                        <SelectContent className="h-[150px] bg-white">
                           {Array.from({ length: 24 }, (_, i) => i + 1).map(
                             (num) => (
                               <SelectItem key={num} value={num.toString()}>
@@ -211,12 +211,17 @@ const ArticleWriteForm = () => {
                     <FormControl className="w-20">
                       <SelectTrigger className="w-20">
                         <SelectValue placeholder="분" />
-                        <SelectContent className="bg-white h-[150px]">
-                          {Array.from({ length: 12 }).map((num) => (
-                            <SelectItem key={num} value={(num * 5).toString()}>
-                              {(num * 5).toString().padStart(2, '0')}
-                            </SelectItem>
-                          ))}
+                        <SelectContent className="h-[150px] bg-white">
+                          {Array.from({ length: 12 }, (_, i) => i).map(
+                            (num) => (
+                              <SelectItem
+                                key={num}
+                                value={(num * 5).toString()}
+                              >
+                                {(num * 5).toString().padStart(2, '0')}
+                              </SelectItem>
+                            ),
+                          )}
                         </SelectContent>
                       </SelectTrigger>
                     </FormControl>
@@ -234,7 +239,7 @@ const ArticleWriteForm = () => {
                     <FormControl className="w-20">
                       <SelectTrigger className="w-20">
                         <SelectValue placeholder="시" />
-                        <SelectContent className="bg-white h-[150px]">
+                        <SelectContent className="h-[150px] bg-white">
                           {Array.from({ length: 24 }, (_, i) => i + 1).map(
                             (num) => (
                               <SelectItem key={num} value={num.toString()}>
@@ -259,7 +264,7 @@ const ArticleWriteForm = () => {
                     <FormControl className="w-20">
                       <SelectTrigger className="w-20">
                         <SelectValue placeholder="분" />
-                        <SelectContent className="bg-white h-[150px]">
+                        <SelectContent className="h-[150px] bg-white">
                           {[...Array(12)].map((_, index) => (
                             <SelectItem
                               key={index}
@@ -279,7 +284,7 @@ const ArticleWriteForm = () => {
           <div className="flex">
             <FormMessage
               className={cn(
-                'font-sm text-red-600 ml-1 mt-1',
+                'text-sm text-red-600 ml-1 mt-1',
                 timeErrorMessage ? 'opacity-100' : 'opacity-0',
               )}
             >
@@ -300,13 +305,13 @@ const ArticleWriteForm = () => {
               <FormControl className="mt-2">
                 <Button
                   type="button"
-                  className="mt-2 block w-full bg-transparent text-left border border-slate-40 font-normal px-3"
+                  className="mt-2 block w-full border border-slate-400 bg-transparent px-3 text-left font-normal"
                   onClick={handleLocationSettingButton}
                 >
                   {field.value || '위치 선택'}
                 </Button>
               </FormControl>
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+              <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
             </FormItem>
           )}
         />
@@ -322,7 +327,7 @@ const ArticleWriteForm = () => {
                     <SelectValue placeholder="모집 인원 선택" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent className="bg-white w-20 h-[150px]">
+                <SelectContent className="h-[150px] w-20 bg-white">
                   {[...Array(9)].map((_, index) => (
                     <SelectItem key={index} value={(index + 2).toString()}>
                       {index + 2}
@@ -331,8 +336,8 @@ const ArticleWriteForm = () => {
                 </SelectContent>
               </Select>
               <div className="flex">
-                <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
-                <FormDescription className="text-right pt-1 ml-auto text-gray-500">
+                <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
+                <FormDescription className="ml-auto pt-1 text-right text-gray-500">
                   최소 2명에서 최대 10명까지 선택 가능합니다.
                 </FormDescription>
               </div>
@@ -345,10 +350,10 @@ const ArticleWriteForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel className="font-semibold">내용</FormLabel>
-              <FormControl className="w-full h-40 resize-none mt-2">
+              <FormControl className="mt-2 h-40 w-full resize-none">
                 <Textarea {...field} placeholder="모집글 내용을 입력하세요." />
               </FormControl>
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+              <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
             </FormItem>
           )}
         />
@@ -362,10 +367,10 @@ const ArticleWriteForm = () => {
                   {...field}
                   type="text"
                   placeholder="x"
-                  className="h-0 p-0 border-none"
+                  className="h-0 border-none p-0"
                 />
               </FormControl>
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+              <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
             </FormItem>
           )}
         />
@@ -379,10 +384,10 @@ const ArticleWriteForm = () => {
                   {...field}
                   type="text"
                   placeholder="x"
-                  className="h-0 p-0 border-none"
+                  className="h-0 border-none p-0"
                 />
               </FormControl>
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+              <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
             </FormItem>
           )}
         />
@@ -396,10 +401,10 @@ const ArticleWriteForm = () => {
                   {...field}
                   type="text"
                   placeholder="x"
-                  className="h-0 p-0 border-none"
+                  className="h-0 border-none p-0"
                 />
               </FormControl>
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+              <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
             </FormItem>
           )}
         />
@@ -413,10 +418,10 @@ const ArticleWriteForm = () => {
                   {...field}
                   type="text"
                   placeholder="x"
-                  className="h-0 p-0 border-none"
+                  className="h-0 border-none p-0"
                 />
               </FormControl>
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+              <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
             </FormItem>
           )}
         />
@@ -430,10 +435,10 @@ const ArticleWriteForm = () => {
                   {...field}
                   type="text"
                   placeholder="y"
-                  className="h-0 p-0 border-none"
+                  className="h-0 border-none p-0"
                 />
               </FormControl>
-              <FormMessage className="font-sm text-red-600 ml-1 mt-1" />
+              <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
             </FormItem>
           )}
         />

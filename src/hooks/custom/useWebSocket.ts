@@ -1,6 +1,6 @@
 'use client';
 
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import { Client, IMessage } from '@stomp/stompjs';
 import { ChatRoom, Message } from '@/types/chat';
 import { useQueryClient } from '@tanstack/react-query';
@@ -17,22 +17,6 @@ const useWebSocket = (
 
   const clientRef = useRef<Client | null>(null);
 
-  const handleWebSocketConnect = () => {
-    console.log('WebSocket Connected');
-
-    clientRef.current?.subscribe(
-      `${ENDPOINT.CHAT_ROOM.DETAIL.MESSAGE_SUBSCRIPTION(Number(chatRoomId))}`,
-      (message: IMessage) => {
-        try {
-          const newMessage = JSON.parse(message.body) as Message;
-          setMessages((prevMessages) => [...(prevMessages || []), newMessage]);
-        } catch (error: unknown) {
-          console.error('Failed to parse message:', error);
-        }
-      },
-    );
-  };
-
   const handleSendMessage = (message: string) => {
     if (clientRef.current?.connected) {
       clientRef.current?.publish({
@@ -48,6 +32,25 @@ const useWebSocket = (
   };
 
   useEffect(() => {
+    const handleWebSocketConnect = () => {
+      console.log('WebSocket Connected');
+
+      clientRef.current?.subscribe(
+        `${ENDPOINT.CHAT_ROOM.DETAIL.MESSAGE_SUBSCRIPTION(Number(chatRoomId))}`,
+        (message: IMessage) => {
+          try {
+            const newMessage = JSON.parse(message.body) as Message;
+            setMessages((prevMessages) => [
+              ...(prevMessages || []),
+              newMessage,
+            ]);
+          } catch (error: unknown) {
+            console.error('Failed to parse message:', error);
+          }
+        },
+      );
+    };
+
     clientRef.current = new Client({
       brokerURL: `${WS_BASE_URL}${ENDPOINT.CHAT_ROOM.DETAIL.CONNECTION()}`,
       onConnect: () => handleWebSocketConnect(),
@@ -66,7 +69,7 @@ const useWebSocket = (
       clientRef.current?.deactivate();
       clientRef.current = null;
     };
-  }, []);
+  }, [chatRoomId, setMessages]);
 
   return { handleSendMessage };
 };

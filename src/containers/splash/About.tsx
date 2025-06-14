@@ -57,17 +57,17 @@ const About = () => {
   });
 
   return (
-    <div className="relative w-full h-[100vh]">
+    <div className="relative h-screen w-full">
       <Carousel setApi={setApi}>
         <CarouselContent>
           {items.map((item, index) => (
             <CarouselItem key={index}>
-              <div className="w-full h-[100vh] flex flex-col justify-center p-14 -translate-y-14">
-                <div className="text-primary flex items-center pb-4 gap-0.5">
+              <div className="flex h-screen w-full -translate-y-14 flex-col justify-center p-14">
+                <div className="flex items-center gap-0.5 pb-4 text-primary">
                   {item.icon}
                   <span className="font-extrabold">{item.title}</span>
                 </div>
-                <div className="text-3xl font-extrabold text-gray-700 pb-16">
+                <div className="pb-16 text-3xl font-extrabold text-gray-700">
                   {item.description.split('\n').map((line, i) => (
                     <Fragment key={i}>
                       {line}
@@ -89,20 +89,20 @@ const About = () => {
         </CarouselContent>
       </Carousel>
       {/* Indicators */}
-      <div className="absolute bottom-20 w-full flex justify-center space-x-2">
+      <div className="absolute bottom-20 flex w-full justify-center space-x-2">
         {items.map((_, index) => (
           <button
             aria-label="indicator-button"
             type="button"
             key={index}
-            className={`h-2 w-2 rounded-full cursor-default ${
+            className={`size-2 cursor-default rounded-full ${
               index === activeIndex ? 'bg-primary' : 'bg-gray-400'
             }`}
           />
         ))}
       </div>
       <Link href="/login-splash">
-        <div className="absolute bottom-0 w-full h-14 bg-primary text-white flex items-center justify-center font-bold cursor-pointer">
+        <div className="absolute bottom-0 flex h-14 w-full cursor-pointer items-center justify-center bg-primary font-bold text-white">
           시작하기
         </div>
       </Link>

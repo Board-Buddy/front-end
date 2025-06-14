@@ -36,14 +36,14 @@ const ChatContainer = ({ chatRoomId, messages, setMessages }: Props) => {
 
       return [...uniquePastMessages, ...(prev || [])];
     });
-  }, [data]);
+  }, [setMessages, data]);
 
   useEffect(() => {
     if (!isInitialMessagesLoaded && messages !== null) {
       // 최초 메시지 세팅 완료
       setIsInitialMessagesLoaded(true);
     }
-  }, [messages]);
+  }, [isInitialMessagesLoaded, messages]);
 
   if (isPending || isError || messages === null || !isInitialMessagesLoaded) {
     return <Loading />;
