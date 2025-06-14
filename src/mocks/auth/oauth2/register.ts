@@ -3,9 +3,6 @@ import { http, HttpResponse } from 'msw';
 
 interface RequestBody {
   phoneNumber: string;
-  sido: string;
-  sgg: string;
-  emd: string;
 }
 
 interface ResponseBody {

@@ -22,7 +22,6 @@ import {
   smsCertificationVerify,
 } from '@/services/auth';
 import { useRouter } from 'next/navigation';
-import LocationSettingComboBox from '@/components/LocationSettingComboBox';
 import { passwordRegex, phoneRegex } from '@/utils/regex';
 import CustomAlert from '@/components/CustomAlert';
 import { CustomAxiosError } from '@/types/api';
@@ -64,7 +63,6 @@ const RegisterForm = () => {
         .string()
         .min(1, { message: '이메일을 입력해주세요.' })
         .email({ message: '이메일 형태로 입력해주세요.' }),
-      location: z.string().min(1, { message: '지역을 선택해주세요.' }),
       nickname: z
         .string()
         .min(1, { message: '닉네임을 입력해주세요.' })
@@ -94,7 +92,6 @@ const RegisterForm = () => {
       password: '',
       passwordConfirm: '',
       email: '',
-      location: '',
       nickname: '',
       phone: '',
       phoneVerifyCode: '',
@@ -234,9 +231,6 @@ const RegisterForm = () => {
         email: values.email,
         nickname: values.nickname,
         phoneNumber: values.phone,
-        sido: values.location.split(' ')[0],
-        sgg: values.location.split(' ')[1],
-        emd: values.location.split(' ')[2],
       });
 
       setOpenRegisterSuccess(true);
@@ -360,23 +354,6 @@ const RegisterForm = () => {
                     사용 가능한 닉네임입니다.
                   </p>
                 )}
-                <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="location"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <LocationSettingComboBox
-                    popOverWidth={408}
-                    onSelect={(sido, sgg, emd) => {
-                      field.onChange(`${sido} ${sgg} ${emd}`);
-                    }}
-                  />
-                </FormControl>
                 <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
               </FormItem>
             )}

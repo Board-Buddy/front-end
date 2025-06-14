@@ -21,7 +21,6 @@ import {
 } from '@/services/auth';
 import { useRouter } from 'next/navigation';
 import { useUserLoginCheck } from '@/hooks/useAuth';
-import LocationSettingComboBox from '@/components/LocationSettingComboBox';
 import CustomAlert from '@/components/CustomAlert';
 import { CustomAxiosError } from '@/types/api';
 
@@ -44,7 +43,6 @@ const AdditionalSettingForm = () => {
   });
 
   const formSchema = z.object({
-    location: z.string().min(1, { message: '지역을 선택해주세요.' }),
     phone: z
       .string()
       .min(1, { message: '핸드폰 번호를 입력해주세요.' })
@@ -55,7 +53,6 @@ const AdditionalSettingForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      location: '',
       phone: '',
       phoneVerifyCode: '',
     },
@@ -123,9 +120,6 @@ const AdditionalSettingForm = () => {
     try {
       await oauthRegister({
         phoneNumber: values.phone,
-        sido: values.location.split(' ')[0],
-        sgg: values.location.split(' ')[1],
-        emd: values.location.split(' ')[2],
       });
 
       setGetUserInfo(true);
@@ -151,7 +145,7 @@ const AdditionalSettingForm = () => {
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-          <FormField
+          {/* <FormField
             control={form.control}
             name="location"
             render={({ field }) => (
@@ -167,7 +161,7 @@ const AdditionalSettingForm = () => {
                 <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
               </FormItem>
             )}
-          />
+          /> */}
           <FormField
             control={form.control}
             name="phone"
