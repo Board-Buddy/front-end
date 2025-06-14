@@ -32,7 +32,8 @@ export const useGetExistingMessages = ({
     },
     initialPageParam: undefined as string | undefined,
     getNextPageParam: () => undefined,
-    getPreviousPageParam: (page) => page.hasMore,
+    getPreviousPageParam: (page) =>
+      page.hasMore ? page.nextCursor : undefined,
     staleTime: 0,
   });
 
