@@ -19,6 +19,8 @@ const NotificationProvider = () => {
   };
 
   useEffect(() => {
+    if (process.env.NODE_ENV === 'development') return;
+
     const eventSource = new EventSource(SSE_SUBSCRIPTION_URL, {
       withCredentials: true,
     });
