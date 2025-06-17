@@ -273,7 +273,7 @@ const GATHER_ARTICLE_MOCK_DATA = [
   },
 ];
 
-const ARTICLE_COUNT_PER_PAGE = 3;
+const ARTICLE_COUNT_PER_PAGE = 5;
 
 export const getArticles = http.get(
   `${API_BASE_URL}/gather-articles`,
