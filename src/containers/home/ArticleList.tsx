@@ -46,23 +46,24 @@ const ArticleList = () => {
         <>
           {data.pages.map((group, i) => (
             <Fragment key={i}>
-              {group.posts.map((article: IArticle) => (
-                <Article
-                  onClick={() => router.push(`/article/${article.id}`)}
-                  key={article.id}
-                  id={article.id}
-                  title={article.title}
-                  description={article.description}
-                  author={article.author}
-                  meetingLocation={article.meetingLocation}
-                  maxParticipants={article.maxParticipants}
-                  currentParticipants={article.currentParticipants}
-                  startDateTime={article.startDateTime}
-                  endDateTime={article.endDateTime}
-                  createdAt={article.createdAt}
-                  status={article.status}
-                />
-              ))}
+              {group.posts &&
+                group.posts.map((article: IArticle) => (
+                  <Article
+                    onClick={() => router.push(`/article/${article.id}`)}
+                    key={article.id}
+                    id={article.id}
+                    title={article.title}
+                    description={article.description}
+                    author={article.author}
+                    meetingLocation={article.meetingLocation}
+                    maxParticipants={article.maxParticipants}
+                    currentParticipants={article.currentParticipants}
+                    startDateTime={article.startDateTime}
+                    endDateTime={article.endDateTime}
+                    createdAt={article.createdAt}
+                    status={article.status}
+                  />
+                ))}
             </Fragment>
           ))}
           <div className="translate-y-5 text-center text-sm text-gray-600">
