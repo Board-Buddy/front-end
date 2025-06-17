@@ -21,7 +21,7 @@ const LocationSettingButton = () => {
         height={28}
       />
       <div className="flex w-[300px] items-center bg-transparent p-0">
-        <span className="text-lg font-bold text-gray-800">잠실동(수정 필)</span>
+        <span className="text-lg font-bold text-gray-800">전체</span>
         <ChevronDown className="ml-1 size-4 shrink-0" />
       </div>
     </div>
