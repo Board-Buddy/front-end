@@ -49,7 +49,7 @@ const ArticleList = () => {
                   key={
                     group.posts.length > 0 ? group.posts[0].id : 'last-group'
                   }
-                  className="flex flex-col gap-y-4"
+                  className="flex flex-col gap-y-4 pb-4"
                 >
                   {group.posts.map((article: IArticle) => (
                     <Article
