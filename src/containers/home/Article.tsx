@@ -33,7 +33,7 @@ const Article = ({
     author && author.rank ? rankBadgeImageSrc(author.rank) : null;
 
   return (
-    <Card className="mb-3" onClick={onClick}>
+    <Card onClick={onClick}>
       <CardHeader>
         <CardTitle className="flex items-center text-base font-semibold text-gray-600">
           <div
