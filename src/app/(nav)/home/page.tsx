@@ -1,6 +1,5 @@
 import Banner from '@/containers/home/Banner';
 import Ranking from '@/containers/home/Ranking';
-import WriteButton from '@/containers/home/WriteButton';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { getRankings } from '@/services/ranking';
 import getQueryClient from '@/utils/getQueryClient';
@@ -28,7 +27,6 @@ const page = async () => {
         <Ranking />
       </HydrationBoundary>
       <ArticleList />
-      <WriteButton />
     </div>
   );
 };
