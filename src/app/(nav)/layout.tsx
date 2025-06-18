@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from 'next';
-import '../../styles/globals.css';
 import NavBar from '@/components/NavBar';
 import { BASE_URL } from '../layout';
 import React from 'react';
+import WriteButton from '@/containers/home/WriteButton';
 
 export const metadata: Metadata = {
   title: '보드버디',
@@ -33,15 +33,18 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-export default function RootLayout({
+export default function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <>
-      <main className="relative flex-1 overflow-y-auto">{children}</main>
-      <NavBar />
+      <main className="flex-1 overflow-y-auto">{children}</main>
+      <div className="relative">
+        <WriteButton />
+        <NavBar />
+      </div>
     </>
   );
 }
