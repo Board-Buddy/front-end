@@ -20,7 +20,7 @@ const page = async () => {
   });
 
   return (
-    <div className="relative">
+    <div>
       <NotificationButton />
       <Banner />
       <SearchInputMockUp />
