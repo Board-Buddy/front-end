@@ -71,9 +71,9 @@ const ArticleList = () => {
                 </div>
               ),
           )}
-          <div className="translate-y-5 text-center text-sm text-gray-600">
+          <div className="pt-12 text-center text-sm text-gray-600">
             {data.pages[0].posts === null || data.pages[0].posts.length === 0
-              ? '작성된 모집글이 없습니다.'
+              ? '작성된 모집글이 없습니다'
               : '모든 글을 확인하셨습니다'}
           </div>
           <div ref={setTarget} className="h-0" />
