@@ -1,25 +1,30 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import ProvinceSelector from './ProvinceSelector';
 import DistrictSelector from './DistrictSelector';
 import { District, Province } from '@/types/location';
+import Loading from '@/components/Loading';
+
+export const NATION_WIDE = { code: 'ALL', name: '전체' };
 
 const LocationFilter = () => {
-  const [selectedProvince, setSelectedProvince] = useState<Province>({
-    code: 'SEOUL',
-    name: '서울',
-  });
+  const [selectedProvince, setSelectedProvince] =
+    useState<Province>(NATION_WIDE);
   const [selectedDistrict, setSelectedDistrict] = useState<District>();
 
   return (
-    <div className="flex items-start">
-      <ProvinceSelector
-        selectedProvince={selectedProvince}
-        setSelectedProvince={setSelectedProvince}
-      />
-      <DistrictSelector province={selectedProvince} />
-    </div>
+    <Suspense fallback={<Loading />}>
+      <div className="flex items-start">
+        <ProvinceSelector
+          selectedProvince={selectedProvince}
+          onSelectProvince={setSelectedProvince}
+        />
+        <Suspense fallback={null}>
+          <DistrictSelector province={selectedProvince} />
+        </Suspense>
+      </div>
+    </Suspense>
   );
 };
 
