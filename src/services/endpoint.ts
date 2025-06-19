@@ -27,12 +27,13 @@ export const ENDPOINT = {
       `/auth/locations/search?emd=${keyword}` as const,
     SEARCH_BY_USER: (keyword: string) =>
       `/locations/search?emd=${keyword}` as const,
+    PROVINCES: () => `/regions/provinces` as const,
+    DISTRICTS: (provinceCode: string) =>
+      `/regions/provinces/${provinceCode}/districts` as const,
   },
   MY: {
     GATHER_ARTICLES: () => `/my/gather-articles` as const,
     JOINED_ARTICLES: () => `/my/participations` as const,
-    NEIGHBORHOODS: () => `/my/neighborhoods` as const,
-    RADIUS: () => `/my/radius` as const,
     PROFILE: {
       UPDATE: () => `/profiles` as const,
     },
