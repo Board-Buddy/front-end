@@ -40,7 +40,7 @@ const Header = () => {
       leftArrow: false,
     },
     '/setting/location': {
-      title: '동네 설정',
+      title: '지역 설정',
       leftArrow: true,
     },
     '/write/locationSetting': {
@@ -128,7 +128,7 @@ const Header = () => {
           )}
         </>
       ) : (
-        <div className="flex items-center border-b border-gray-200 px-2 py-3">
+        <div className="flex h-14 items-center border-b border-gray-200 px-2 py-3">
           <div className="left-section basis-1/12">
             {leftArrow && (
               <ChevronLeft
