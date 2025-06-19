@@ -40,7 +40,7 @@ export default function Layout({
 }>) {
   return (
     <>
-      <main className="flex-1 overflow-y-auto">{children}</main>
+      <main className="relative flex-1 overflow-y-auto">{children}</main>
       <div className="relative">
         <WriteButton />
         <NavBar />
