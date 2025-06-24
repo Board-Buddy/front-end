@@ -1,22 +1,19 @@
 'use client';
 
 import { Input } from '@/components/ui/input';
+import { useSearchFilterStore } from '@/store/searchFilterStore';
 import { SearchIcon } from 'lucide-react';
 import Image from 'next/image';
-import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
-interface Props {
-  keyword: string;
-  setKeyword: Dispatch<SetStateAction<string>>;
-  refetch: () => void;
-}
+const SearchInput = () => {
+  const setKeyword = useSearchFilterStore((state) => state.setKeyword);
 
-const SearchInput = ({ keyword, setKeyword, refetch }: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const activeEnter = (e: unknown) => {
-    if (e instanceof KeyboardEvent && e.key === 'Enter') {
-      refetch();
+  const activeEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      setKeyword(inputRef.current?.value ?? '');
     }
   };
 
@@ -27,7 +24,7 @@ const SearchInput = ({ keyword, setKeyword, refetch }: Props) => {
   }, []);
 
   return (
-    <div className="mb-4 ml-6 flex items-center rounded-3xl border border-gray-200 shadow-md">
+    <div className="flex w-full items-center rounded-3xl border border-gray-200 shadow-md">
       <Image
         src="/images/logo/boardbuddy_small_logo_orange.png"
         width={24}
@@ -37,13 +34,14 @@ const SearchInput = ({ keyword, setKeyword, refetch }: Props) => {
       />
       <Input
         className="border-none"
-        value={keyword}
-        onChange={(e) => setKeyword(e.target.value)}
-        onKeyDown={(e) => activeEnter(e)}
+        onKeyDown={activeEnter}
         placeholder="검색어를 입력하세요."
         ref={inputRef}
       />
-      <SearchIcon className="mr-4 text-gray-400" onClick={() => refetch()} />
+      <SearchIcon
+        className="mr-4 text-gray-400"
+        onClick={() => setKeyword(inputRef.current?.value ?? '')}
+      />
     </div>
   );
 };

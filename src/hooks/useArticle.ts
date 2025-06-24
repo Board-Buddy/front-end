@@ -23,7 +23,8 @@ export const useGetArticles = ({
   sido,
   sgg,
   keyword,
-}: GetArticleRequestParams) =>
+  search,
+}: GetArticleRequestParams & { search: boolean }) =>
   useInfiniteQuery<
     {
       posts: Article[];
@@ -43,8 +44,9 @@ export const useGetArticles = ({
     initialPageParam: 0,
     getNextPageParam: (lastPage, _, lastPageParam) =>
       lastPage.last ? undefined : lastPageParam + 1,
-    staleTime: 30 * 1000,
+    staleTime: 5 * 60 * 1000,
     gcTime: 5 * 60 * 1000,
+    enabled: search ? !!keyword : true,
   });
 
 export const useGetArticle = (articleId: Article['id']) =>
