@@ -29,7 +29,7 @@ const DistrictSelector = ({ province }: Props) => {
               setSido(province.name);
               setSgg(district.name === '전체' ? null : district.name);
 
-              router.push('/home');
+              router.back();
             }}
           >
             <p className="text-base text-gray-900">{district.name}</p>

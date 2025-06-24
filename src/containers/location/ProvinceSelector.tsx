@@ -34,7 +34,7 @@ const ProvinceSelector = ({
           setSido(null);
           setSgg(null);
 
-          router.push('/home');
+          router.back();
         }}
       />
       {data.map((province) => (
