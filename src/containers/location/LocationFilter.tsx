@@ -3,15 +3,18 @@
 import { Suspense, useState } from 'react';
 import ProvinceSelector from './ProvinceSelector';
 import DistrictSelector from './DistrictSelector';
-import { District, Province } from '@/types/location';
+import { Province } from '@/types/location';
 import Loading from '@/components/Loading';
+import { useProvinceSelector } from '@/store/articleParamsStore';
 
 export const NATION_WIDE = { code: 'ALL', name: '전체' };
 
 const LocationFilter = () => {
-  const [selectedProvince, setSelectedProvince] =
-    useState<Province>(NATION_WIDE);
-  const [selectedDistrict, setSelectedDistrict] = useState<District>();
+  const province = useProvinceSelector();
+
+  const [selectedProvince, setSelectedProvince] = useState<Province>(
+    province ?? NATION_WIDE,
+  );
 
   return (
     <Suspense fallback={<Loading />}>

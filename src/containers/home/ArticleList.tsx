@@ -1,7 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-import { Article as IArticle, SearchParams } from '@/types/article';
 import { useRouter } from 'next/navigation';
 import { useIntersectionObserver } from '@/hooks/custom/useIntersectionObserver';
 import { useGetArticles } from '@/hooks/useArticle';
@@ -9,14 +7,22 @@ import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
 import Selectors from './Selectors';
 import Article from './Article';
+import {
+  useKeywordSelector,
+  useSggSelector,
+  useSidoSelector,
+  useSortSelector,
+  useStatusSelector,
+} from '@/store/articleParamsStore';
 
 const ArticleList = () => {
   const router = useRouter();
 
-  const [filter, setFilter] = useState<Omit<SearchParams, 'location'>>({
-    status: null,
-    sort: null,
-  });
+  const status = useStatusSelector();
+  const sort = useSortSelector();
+  const sido = useSidoSelector();
+  const sgg = useSggSelector();
+  const keyword = useKeywordSelector();
 
   const {
     data,
@@ -26,7 +32,7 @@ const ArticleList = () => {
     isError,
     error,
     refetch,
-  } = useGetArticles(filter.status, filter.sort);
+  } = useGetArticles({ status, sort, sido, sgg, keyword });
 
   const { setTarget } = useIntersectionObserver({
     hasNextPage,
@@ -35,7 +41,7 @@ const ArticleList = () => {
 
   return (
     <div className="p-8 pt-2">
-      <Selectors filter={filter} setFilter={setFilter} />
+      <Selectors />
       {isPending && <Loading />}
       {isError && (
         <ErrorFallback reset={refetch} errMsg={error.response!.data.message} />
@@ -51,7 +57,7 @@ const ArticleList = () => {
                   }
                   className="flex flex-col gap-y-4 pb-4"
                 >
-                  {group.posts.map((article: IArticle) => (
+                  {group.posts.map((article) => (
                     <Article
                       onClick={() => router.push(`/article/${article.id}`)}
                       key={article.id}

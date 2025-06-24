@@ -1,7 +1,5 @@
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
-import { SearchParams } from '@/types/article';
-import { Dispatch, SetStateAction } from 'react';
 import { ChevronDown } from 'lucide-react';
 import {
   DropdownMenu,
@@ -11,23 +9,26 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu';
 import { Button } from '@/components/ui/button';
+import {
+  useArticleParamsStore,
+  useSortSelector,
+  useStatusSelector,
+} from '@/store/articleParamsStore';
 
-const FilterList = ({
-  filter,
-  setFilter,
-}: {
-  filter: Omit<SearchParams, 'location'>;
-  setFilter: Dispatch<SetStateAction<Omit<SearchParams, 'location'>>>;
-}) => {
+const FilterList = () => {
+  const status = useStatusSelector();
+  const sort = useSortSelector();
+
+  const setStatus = useArticleParamsStore((state) => state.setStatus);
+  const setSort = useArticleParamsStore((state) => state.setSort);
+
   return (
     <div className="mb-3 flex gap-1">
       <div className="flex items-center space-x-2">
         <Switch
           id="article-status-switch"
-          checked={filter.status === 'open' ? true : false}
-          onCheckedChange={(checked) =>
-            setFilter((prev) => ({ ...prev, status: checked ? 'open' : null }))
-          }
+          checked={status === 'open' ? true : false}
+          onCheckedChange={(checked) => setStatus(checked ? 'open' : null)}
         />
         <Label htmlFor="article-status-switch">모집중만 보기</Label>
       </div>
@@ -36,20 +37,15 @@ const FilterList = ({
         <DropdownMenuTrigger asChild>
           <Button className="ml-auto flex items-center bg-white p-0">
             <p className="text-sm font-medium">
-              {filter.sort === null ? '최신순' : '임박순'}
+              {sort === null ? '최신순' : '임박순'}
             </p>
             <ChevronDown className="ml-1 size-3 shrink-0" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-24 bg-white" align="end">
           <DropdownMenuRadioGroup
-            value={filter.sort ?? 'null'}
-            onValueChange={(value) =>
-              setFilter((prev) => ({
-                ...prev,
-                sort: value === 'null' ? null : value,
-              }))
-            }
+            value={sort ?? 'null'}
+            onValueChange={(value) => setSort(value === 'null' ? null : value)}
           >
             <DropdownMenuRadioItem value="null">최신순</DropdownMenuRadioItem>
             <DropdownMenuRadioItem value="soon">임박순</DropdownMenuRadioItem>

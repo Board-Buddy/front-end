@@ -1,18 +1,11 @@
-import { Dispatch, SetStateAction } from 'react';
-import { SearchParams } from '@/types/article';
 import FilterList from './FilterList';
 import LocationSettingButton from './LocationSettingButton';
 
-interface Props {
-  filter: Omit<SearchParams, 'location'>;
-  setFilter: Dispatch<SetStateAction<Omit<SearchParams, 'location'>>>;
-}
-
-const Selectors = ({ filter, setFilter }: Props) => {
+const Selectors = () => {
   return (
     <>
       <LocationSettingButton />
-      <FilterList filter={filter} setFilter={setFilter} />
+      <FilterList />
     </>
   );
 };

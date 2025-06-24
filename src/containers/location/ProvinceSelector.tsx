@@ -3,6 +3,8 @@ import { Province } from '@/types/location';
 import { Dispatch, SetStateAction } from 'react';
 import ProvinceSelectItem from './ProvinceSelectItem';
 import { NATION_WIDE } from './LocationFilter';
+import { useRouter } from 'next/navigation';
+import { useArticleParamsStore } from '@/store/articleParamsStore';
 
 export interface ProvinceSelectorProps {
   selectedProvince: Province;
@@ -13,6 +15,12 @@ const ProvinceSelector = ({
   selectedProvince,
   onSelectProvince,
 }: ProvinceSelectorProps) => {
+  const router = useRouter();
+
+  const setSido = useArticleParamsStore((state) => state.setSido);
+  const setSgg = useArticleParamsStore((state) => state.setSgg);
+  const setProvince = useArticleParamsStore((state) => state.setProvince);
+
   const { data } = useGetProvinceList();
 
   return (
@@ -21,7 +29,13 @@ const ProvinceSelector = ({
         key={NATION_WIDE['code']}
         province={NATION_WIDE}
         selectedProvince={selectedProvince}
-        onSelectProvince={onSelectProvince}
+        onSelectProvince={() => {
+          setProvince(NATION_WIDE);
+          setSido(null);
+          setSgg(null);
+
+          router.push('/home');
+        }}
       />
       {data.map((province) => (
         <ProvinceSelectItem
