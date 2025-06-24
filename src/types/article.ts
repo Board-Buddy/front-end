@@ -38,10 +38,12 @@ export interface SearchParams {
   sort: string | null;
 }
 
-export interface ArticleRequest {
-  pageParam: number;
-  status: string | null;
-  sort: string | null;
+export interface GetArticleRequestParams {
+  status?: string | null;
+  sort?: string | null;
+  sido?: string | null;
+  sgg?: string | null;
+  keyword?: string | null;
 }
 
 export interface NewArticle {

@@ -1,15 +1,22 @@
 import api from '@/services';
-import { Article, ArticleRequest, NewArticle } from '@/types/article';
+import { Article, GetArticleRequestParams, NewArticle } from '@/types/article';
 import { SuccessResponse } from '@/types/api';
 import { ENDPOINT } from './endpoint';
 
 /** 모집글 리스트 조회 API */
-export const getArticles = ({ pageParam, status, sort }: ArticleRequest) =>
+export const getArticles = ({
+  pageParam,
+  status,
+  sort,
+  sido,
+  sgg,
+  keyword,
+}: GetArticleRequestParams & { pageParam: number }) =>
   api
     .get<SuccessResponse<{ posts: Article[]; last: boolean }>>(
       ENDPOINT.GATHER_ARTICLE.LIST(),
       {
-        params: { page: pageParam, status, sort },
+        params: { page: pageParam, status, sort, sido, sgg, keyword },
       },
     )
     .then((response) => response.data.data);
@@ -42,14 +49,3 @@ export const deleteArticle = (articleId: Article['id']) =>
   api.delete<SuccessResponse<{ post: { id: number } }>>(
     ENDPOINT.GATHER_ARTICLE.DETAIL(articleId),
   );
-
-/** 모집글 검색 API */
-export const searchArticles = (keyword: string) =>
-  api
-    .get<SuccessResponse<{ posts: Article[] }>>(
-      ENDPOINT.GATHER_ARTICLE.SEARCH(),
-      {
-        params: { query: keyword },
-      },
-    )
-    .then((response) => response.data.data.posts);

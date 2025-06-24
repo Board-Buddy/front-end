@@ -4,10 +4,9 @@ import {
   editArticle,
   getArticle,
   getArticles,
-  searchArticles,
 } from '@/services/article';
 import { CustomAxiosError } from '@/types/api';
-import { Article, NewArticle } from '@/types/article';
+import { Article, GetArticleRequestParams, NewArticle } from '@/types/article';
 import { successToast } from '@/utils/customToast';
 import {
   InfiniteData,
@@ -18,7 +17,13 @@ import {
 } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 
-export const useGetArticles = (status: string | null, sort: string | null) =>
+export const useGetArticles = ({
+  status,
+  sort,
+  sido,
+  sgg,
+  keyword,
+}: GetArticleRequestParams) =>
   useInfiniteQuery<
     {
       posts: Article[];
@@ -29,18 +34,15 @@ export const useGetArticles = (status: string | null, sort: string | null) =>
       posts: Article[];
       last: boolean;
     }>,
-    [string, { status: string | null; sort: string | null }],
+    [string, Omit<GetArticleRequestParams, 'pageParam'>],
     number
   >({
-    queryKey: ['articles', { status, sort }],
-    queryFn: ({ pageParam = 0 }) => getArticles({ pageParam, status, sort }),
+    queryKey: ['articles', { status, sort, sido, sgg, keyword }],
+    queryFn: ({ pageParam = 0 }) =>
+      getArticles({ pageParam, status, sort, sido, sgg, keyword }),
     initialPageParam: 0,
-    getNextPageParam: (lastPage, _, lastPageParam) => {
-      if (lastPage.last) {
-        return undefined;
-      }
-      return lastPageParam + 1;
-    },
+    getNextPageParam: (lastPage, _, lastPageParam) =>
+      lastPage.last ? undefined : lastPageParam + 1,
     staleTime: 30 * 1000,
     gcTime: 5 * 60 * 1000,
   });
@@ -103,12 +105,3 @@ export const useDeleteArticle = (articleId: Article['id']) => {
     },
   });
 };
-
-export const useSearchArticles = (query: string) =>
-  useQuery<Article[], CustomAxiosError>({
-    queryKey: ['search', { query }],
-    queryFn: () => searchArticles(query),
-    enabled: false,
-    staleTime: 1 * 60 * 1000,
-    gcTime: 1 * 60 * 1000,
-  });
