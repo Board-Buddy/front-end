@@ -1,4 +1,4 @@
-import LocationFilterContainer from '@/containers/home/LocationFilterContainer';
+import LocationFilterContainer from '@/containers/search/LocationFilterContainer';
 
 const page = () => {
   return (

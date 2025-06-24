@@ -4,22 +4,23 @@ import { Dispatch, SetStateAction } from 'react';
 import ProvinceSelectItem from './ProvinceSelectItem';
 import { NATION_WIDE } from './LocationFilter';
 import { useRouter } from 'next/navigation';
-import { useArticleParamsStore } from '@/store/articleParamsStore';
 
 export interface ProvinceSelectorProps {
   selectedProvince: Province;
   onSelectProvince: Dispatch<SetStateAction<Province>>;
+  setSido: (sido: string | null) => void;
+  setSgg: (sgg: string | null) => void;
+  setProvince: (province: Province | null) => void;
 }
 
 const ProvinceSelector = ({
   selectedProvince,
   onSelectProvince,
+  setSido,
+  setSgg,
+  setProvince,
 }: ProvinceSelectorProps) => {
   const router = useRouter();
-
-  const setSido = useArticleParamsStore((state) => state.setSido);
-  const setSgg = useArticleParamsStore((state) => state.setSgg);
-  const setProvince = useArticleParamsStore((state) => state.setProvince);
 
   const { data } = useGetProvinceList();
 

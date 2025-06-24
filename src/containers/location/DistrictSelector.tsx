@@ -1,18 +1,21 @@
 import { useGetDistrictList } from '@/hooks/useLocation';
-import { useArticleParamsStore } from '@/store/articleParamsStore';
 import { Province } from '@/types/location';
 import { useRouter } from 'next/navigation';
 
 interface Props {
   province: Province;
+  setSido: (sido: string | null) => void;
+  setSgg: (sgg: string | null) => void;
+  setProvince: (province: Province | null) => void;
 }
 
-const DistrictSelector = ({ province }: Props) => {
+const DistrictSelector = ({
+  province,
+  setSido,
+  setSgg,
+  setProvince,
+}: Props) => {
   const router = useRouter();
-
-  const setSido = useArticleParamsStore((state) => state.setSido);
-  const setSgg = useArticleParamsStore((state) => state.setSgg);
-  const setProvince = useArticleParamsStore((state) => state.setProvince);
 
   const { data } = useGetDistrictList(province.code);
 

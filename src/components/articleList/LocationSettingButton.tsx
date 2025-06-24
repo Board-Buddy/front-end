@@ -1,23 +1,24 @@
 'use client';
 
-import { useSggSelector, useSidoSelector } from '@/store/articleParamsStore';
+import { GetArticleRequestParams } from '@/types/article';
 import { ChevronDown } from 'lucide-react';
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-const LocationSettingButton = () => {
+interface Props extends Pick<GetArticleRequestParams, 'sido' | 'sgg'> {
+  route: string;
+}
+
+const LocationSettingButton = ({ sido, sgg, route }: Props) => {
   const router = useRouter();
 
-  const sido = useSidoSelector();
-  const sgg = useSggSelector();
-
   const onClick = () => {
-    router.push('/setting/location');
+    router.push(route);
   };
 
   return (
-    <div className="my-4 flex items-center gap-2" onClick={onClick}>
+    <div className="mb-2 mt-4 flex items-center gap-2" onClick={onClick}>
       <Image
         src="/images/sundy/sundy_map.png"
         alt="map_sundy"

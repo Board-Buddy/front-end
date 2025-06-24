@@ -1,9 +1,11 @@
 import { Province } from '@/types/location';
 import { cn } from '@/utils/tailwind';
-import { ProvinceSelectorProps } from './ProvinceSelector';
+import { Dispatch, SetStateAction } from 'react';
 
-interface Props extends ProvinceSelectorProps {
+interface Props {
   province: Province;
+  selectedProvince: Province;
+  onSelectProvince: Dispatch<SetStateAction<Province>>;
 }
 
 const ProvinceSelectItem = ({
