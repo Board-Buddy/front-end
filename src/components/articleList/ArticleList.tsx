@@ -1,28 +1,34 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useIntersectionObserver } from '@/hooks/custom/useIntersectionObserver';
 import { useGetArticles } from '@/hooks/useArticle';
 import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
 import Selectors from './Selectors';
-import Article from './Article';
-import {
-  useKeywordSelector,
-  useSggSelector,
-  useSidoSelector,
-  useSortSelector,
-  useStatusSelector,
-} from '@/store/articleParamsStore';
+import Article from '../../containers/home/Article';
+import { GetArticleRequestParams } from '@/types/article';
 
-const ArticleList = () => {
+export interface ArticleListProps extends GetArticleRequestParams {
+  emptyGuideMessage: string;
+  setStatus: (status: string | null) => void;
+  setSort: (sort: string | null) => void;
+}
+
+const ArticleList = ({
+  emptyGuideMessage,
+  status,
+  sort,
+  sido,
+  sgg,
+  keyword,
+  setStatus,
+  setSort,
+}: ArticleListProps) => {
   const router = useRouter();
 
-  const status = useStatusSelector();
-  const sort = useSortSelector();
-  const sido = useSidoSelector();
-  const sgg = useSggSelector();
-  const keyword = useKeywordSelector();
+  const pathname = usePathname();
+  const search = pathname.includes('/search');
 
   const {
     data,
@@ -32,7 +38,7 @@ const ArticleList = () => {
     isError,
     error,
     refetch,
-  } = useGetArticles({ status, sort, sido, sgg, keyword });
+  } = useGetArticles({ status, sort, sido, sgg, keyword, search });
 
   const { setTarget } = useIntersectionObserver({
     hasNextPage,
@@ -40,8 +46,15 @@ const ArticleList = () => {
   });
 
   return (
-    <div className="p-8 pt-2">
-      <Selectors />
+    <div>
+      <Selectors
+        sido={sido}
+        sgg={sgg}
+        status={status}
+        sort={sort}
+        setStatus={setStatus}
+        setSort={setSort}
+      />
       {isPending && <Loading />}
       {isError && (
         <ErrorFallback reset={refetch} errMsg={error.response!.data.message} />
@@ -77,9 +90,9 @@ const ArticleList = () => {
                 </div>
               ),
           )}
-          <div className="pt-12 text-center text-sm text-gray-600">
+          <div className="py-12 text-center text-sm text-gray-600">
             {data.pages[0].posts === null || data.pages[0].posts.length === 0
-              ? '작성된 모집글이 없습니다'
+              ? emptyGuideMessage
               : '모든 글을 확인하셨습니다'}
           </div>
           <div ref={setTarget} className="h-0" />

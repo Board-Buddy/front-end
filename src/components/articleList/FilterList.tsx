@@ -9,19 +9,14 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu';
 import { Button } from '@/components/ui/button';
-import {
-  useArticleParamsStore,
-  useSortSelector,
-  useStatusSelector,
-} from '@/store/articleParamsStore';
+import { ArticleListProps } from '../../components/articleList/ArticleList';
 
-const FilterList = () => {
-  const status = useStatusSelector();
-  const sort = useSortSelector();
-
-  const setStatus = useArticleParamsStore((state) => state.setStatus);
-  const setSort = useArticleParamsStore((state) => state.setSort);
-
+const FilterList = ({
+  status,
+  sort,
+  setStatus,
+  setSort,
+}: Omit<ArticleListProps, 'emptyGuideMessage'>) => {
   return (
     <div className="mb-3 flex gap-1">
       <div className="flex items-center space-x-2">
