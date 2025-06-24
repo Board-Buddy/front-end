@@ -8,7 +8,6 @@ import {
   editComment,
   getComments,
 } from './[gatherArticleId]/comments';
-import { searchArticles } from './search';
 
 const GATHER_ARTICLE_MOCK_DATA = [
   {
@@ -347,5 +346,4 @@ export const articleHandlers = [
   addReply,
   editComment,
   deleteComment,
-  searchArticles,
 ];
