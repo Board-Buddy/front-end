@@ -1,11 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { useCancelParticipation } from '@/hooks/useParticipation';
 import { cn } from '@/utils/tailwind';
-import { useQueryClient } from '@tanstack/react-query';
-import { UserInfo } from '@/types/user';
 import { useState } from 'react';
 import CustomAlert from '@/components/CustomAlert';
 import { Article } from '@/types/article';
+import { useUserInfo } from '@/hooks/custom/useUserInfo';
 
 interface Props {
   articleId: Article['id'];
@@ -13,8 +12,7 @@ interface Props {
 }
 
 const CancelButtonForApproved = ({ articleId, startDateTime }: Props) => {
-  const cache = useQueryClient();
-  const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
+  const userInfo = useUserInfo();
   const { nickname } = userInfo;
 
   const [open, setOpen] = useState(false);

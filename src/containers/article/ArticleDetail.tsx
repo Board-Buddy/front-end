@@ -1,8 +1,6 @@
 'use client';
 
 import { useGetArticle } from '@/hooks/useArticle';
-import { useQueryClient } from '@tanstack/react-query';
-import { UserInfo } from '@/types/user';
 import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
 import { Article } from '@/types/article';
@@ -15,10 +13,10 @@ import DisabledButton from './DisabledButton';
 import CancelButtonForApproved from './CancelButtonForApproved';
 import ParticipantsListButton from './ParticipantsListButton';
 import ReviewButton from './ReviewButton';
+import { useUserInfo } from '@/hooks/custom/useUserInfo';
 
 const ArticleDetail = ({ id }: { id: Article['id'] }) => {
-  const cache = useQueryClient();
-  const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
+  const userInfo = useUserInfo();
   const { nickname } = userInfo;
 
   const {

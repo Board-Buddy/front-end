@@ -3,8 +3,6 @@
 import CustomAvatar from '@/components/CustomAvatar';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/tailwind';
-import { useQueryClient } from '@tanstack/react-query';
-import { UserInfo } from '@/types/user';
 import { CornerDownRight, Ellipsis, MessageSquare } from 'lucide-react';
 import { commentTime } from '@/utils/date';
 import { useDeleteComment, useGetComments } from '@/hooks/useComment';
@@ -21,10 +19,10 @@ import ErrorFallback from '@/components/ErrorFallback';
 import { Article } from '@/types/article';
 import { Reply } from '@/types/comment';
 import CommentInput from './CommentInput';
+import { useUserInfo } from '@/hooks/custom/useUserInfo';
 
 const CommentList = ({ articleId }: { articleId: Article['id'] }) => {
-  const cache = useQueryClient();
-  const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
+  const userInfo = useUserInfo();
   const { nickname } = userInfo;
 
   const [openCommentDeleteAlert, setOpenCommentDeleteAlert] = useState(false);

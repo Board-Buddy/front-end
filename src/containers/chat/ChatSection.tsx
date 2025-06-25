@@ -1,16 +1,13 @@
 'use client';
 
 import { Message } from '@/types/chat';
-import {
-  InfiniteQueryObserverResult,
-  useQueryClient,
-} from '@tanstack/react-query';
-import { UserInfo } from '@/types/user';
+import { InfiniteQueryObserverResult } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 import ReceivedMessage from './ReceivedMessage';
 import SentMessage from './SentMessage';
 import EnterExitMessage from './EnterExitMessage';
 import { useChatInfiniteScrollObserver } from '@/hooks/custom/useChatInfiniteScrollObserver';
+import { useUserInfo } from '@/hooks/custom/useUserInfo';
 
 interface Props {
   messages: Message[];
@@ -23,8 +20,7 @@ const ChatSection = ({
   hasPreviousPage,
   fetchPreviousPage,
 }: Props) => {
-  const cache = useQueryClient();
-  const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
+  const userInfo = useUserInfo();
   const { nickname } = userInfo;
 
   const scrollRef = useRef<HTMLDivElement>(null);
