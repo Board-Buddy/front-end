@@ -16,7 +16,6 @@ const ProvinceSelectItem = ({
   return (
     <button
       type="button"
-      key={province.code}
       className={cn(
         'px-9 py-4',
         selectedProvince?.code === province.code &&
