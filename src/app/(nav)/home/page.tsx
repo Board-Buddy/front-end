@@ -8,7 +8,6 @@ import SearchInputMockUp from '@/containers/search/SearchInputMockUp';
 import ArticleListContainer from '@/containers/home/ArticleListContainer';
 
 export const dynamic = 'force-dynamic';
-export const fetchCache = 'force-no-store';
 
 const page = async () => {
   const queryClient = getQueryClient();
