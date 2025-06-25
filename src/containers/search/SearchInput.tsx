@@ -13,6 +13,8 @@ const SearchInput = () => {
 
   const activeEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
+      if (inputRef.current?.value === '') return;
+
       setKeyword(inputRef.current?.value ?? '');
     }
   };
@@ -35,7 +37,7 @@ const SearchInput = () => {
       <Input
         className="border-none"
         onKeyDown={activeEnter}
-        placeholder="검색어를 입력하세요."
+        placeholder="검색어를 입력하세요"
         ref={inputRef}
       />
       <SearchIcon
