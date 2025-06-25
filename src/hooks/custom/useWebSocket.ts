@@ -20,7 +20,7 @@ const useWebSocket = (
   const handleSendMessage = (message: string) => {
     if (clientRef.current?.connected) {
       clientRef.current?.publish({
-        destination: `${ENDPOINT.CHAT_ROOM.DETAIL.MESSAGE_PUBLICATION(Number(chatRoomId))}`,
+        destination: `/ws${ENDPOINT.CHAT_ROOM.DETAIL.MESSAGE_PUBLICATION(Number(chatRoomId))}`,
         body: JSON.stringify({
           content: message,
           nickname,
@@ -36,7 +36,7 @@ const useWebSocket = (
       console.log('WebSocket Connected');
 
       clientRef.current?.subscribe(
-        `${ENDPOINT.CHAT_ROOM.DETAIL.MESSAGE_SUBSCRIPTION(Number(chatRoomId))}`,
+        `/ws${ENDPOINT.CHAT_ROOM.DETAIL.MESSAGE_SUBSCRIPTION(Number(chatRoomId))}`,
         (message: IMessage) => {
           try {
             const newMessage = JSON.parse(message.body) as Message;
