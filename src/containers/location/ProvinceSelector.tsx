@@ -25,7 +25,7 @@ const ProvinceSelector = ({
   const { data } = useGetProvinceList();
 
   return (
-    <div className="flex h-[calc(100vh-theme(spacing.14))] flex-col overflow-y-auto bg-gray-100">
+    <div className="flex h-[calc(100vh-theme(spacing.14))] flex-col overflow-y-auto border-r border-gray-100">
       <ProvinceSelectItem
         key={NATION_WIDE['code']}
         province={NATION_WIDE}

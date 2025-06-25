@@ -17,16 +17,16 @@ const ProvinceSelectItem = ({
     <button
       type="button"
       className={cn(
-        'px-9 py-4',
+        'px-9 py-4 text-start border-b border-gray-100 transition-colors hover:bg-orange-50',
         selectedProvince?.code === province.code &&
-          'bg-white border-y-gray-200 ',
+          'bg-primary border-y-gray-200 hover:bg-primary',
       )}
       onClick={() => onSelectProvince(province)}
     >
       <p
         className={cn(
           'text-base font-semibold text-gray-500',
-          selectedProvince?.code === province.code && 'text-gray-950',
+          selectedProvince?.code === province.code && 'text-white',
         )}
       >
         {province.name}

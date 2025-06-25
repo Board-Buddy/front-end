@@ -5,6 +5,7 @@ import ProvinceSelector from './ProvinceSelector';
 import DistrictSelector from './DistrictSelector';
 import { Province } from '@/types/location';
 import Loading from '@/components/Loading';
+import NationwideFallback from './NationwideFallback';
 
 export const NATION_WIDE = { code: 'ALL', name: '전체' };
 
@@ -31,12 +32,18 @@ const LocationFilter = ({ province, setSido, setSgg, setProvince }: Props) => {
           setProvince={setProvince}
         />
         <Suspense fallback={null}>
-          <DistrictSelector
-            province={selectedProvince}
-            setSido={setSido}
-            setSgg={setSgg}
-            setProvince={setProvince}
-          />
+          <div className="h-[calc(100vh-theme(spacing.14))] flex-1 overflow-y-auto px-6">
+            {selectedProvince.code === 'ALL' ? (
+              <NationwideFallback />
+            ) : (
+              <DistrictSelector
+                province={selectedProvince}
+                setSido={setSido}
+                setSgg={setSgg}
+                setProvince={setProvince}
+              />
+            )}
+          </div>
         </Suspense>
       </div>
     </Suspense>
