@@ -45,9 +45,7 @@ export const login = (data: { username: string; password: string }) =>
   api
     .post<
       SuccessResponse<{
-        profileDTO: Omit<UserInfo, 'awsS3SavedFileURL'> & {
-          profileImageS3SavedURL: string | null;
-        };
+        profileDTO: UserInfo;
       }>
     >(ENDPOINT.AUTH.LOGIN(), data)
     .then((response) => response.data.data.profileDTO);
@@ -57,9 +55,7 @@ export const checkUserLogin = () =>
   api
     .get<
       SuccessResponse<{
-        profileDTO: Omit<UserInfo, 'awsS3SavedFileURL'> & {
-          profileImageS3SavedURL: string | null;
-        };
+        profileDTO: UserInfo;
       }>
     >(ENDPOINT.AUTH.STATUS())
     .then((response) => response.data.data.profileDTO);

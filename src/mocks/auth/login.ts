@@ -37,7 +37,7 @@ export const login = http.post<any, RequestBody>(
           nickname: 'yubin',
           memberType: 'REGULAR',
           isPhoneNumberVerified: true,
-          awsS3SavedFileURL: null,
+          profileImageS3SavedURL: null,
         },
       },
       message: '로그인에 성공하였습니다.',
