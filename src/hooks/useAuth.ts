@@ -21,8 +21,15 @@ export const useUserLogin = () => {
     mutationFn: (data: { username: string; password: string }) => login(data),
     onSuccess: async (data) => {
       const userInfo = data;
-      queryClient.setQueryData(['userInfo'], userInfo);
-      router.push('/home');
+
+      await queryClient.prefetchQuery({
+        queryKey: ['userInfo'],
+        queryFn: () => Promise.resolve(userInfo),
+        staleTime: Infinity,
+        gcTime: Infinity,
+      });
+
+      router.replace('/home');
     },
   });
 };
