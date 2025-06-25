@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useIntersectionObserver } from '@/hooks/custom/useIntersectionObserver';
 import { useGetArticles } from '@/hooks/useArticle';
 import Loading from '@/components/Loading';
@@ -8,6 +8,7 @@ import ErrorFallback from '@/components/ErrorFallback';
 import Selectors from './Selectors';
 import Article from '../../containers/home/Article';
 import { GetArticleRequestParams } from '@/types/article';
+import useSearchPageDetection from '@/hooks/custom/useSearchPageDetection';
 
 export interface ArticleListProps extends GetArticleRequestParams {
   emptyGuideMessage: string;
@@ -27,14 +28,14 @@ const ArticleList = ({
 }: ArticleListProps) => {
   const router = useRouter();
 
-  const pathname = usePathname();
-  const search = pathname.includes('/search');
+  const { isSearchPage: search } = useSearchPageDetection();
 
   const {
     data,
     fetchNextPage,
     hasNextPage,
     isPending,
+    isFetching,
     isError,
     error,
     refetch,
@@ -55,7 +56,7 @@ const ArticleList = ({
         setStatus={setStatus}
         setSort={setSort}
       />
-      {isPending && <Loading />}
+      {isPending && isFetching && <Loading />}
       {isError && (
         <ErrorFallback reset={refetch} errMsg={error.response!.data.message} />
       )}
@@ -91,9 +92,9 @@ const ArticleList = ({
               ),
           )}
           <div className="py-12 text-center text-sm text-gray-600">
-            {data.pages[0].posts === null || data.pages[0].posts.length === 0
-              ? emptyGuideMessage
-              : '모든 글을 확인하셨습니다'}
+            {(data.pages[0].posts === null ||
+              data.pages[0].posts.length === 0) &&
+              emptyGuideMessage}
           </div>
           <div ref={setTarget} className="h-0" />
         </>

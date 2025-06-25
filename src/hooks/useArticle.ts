@@ -35,10 +35,14 @@ export const useGetArticles = ({
       posts: Article[];
       last: boolean;
     }>,
-    [string, Omit<GetArticleRequestParams, 'pageParam'>],
+    [string, 'search' | 'browse', Omit<GetArticleRequestParams, 'pageParam'>],
     number
   >({
-    queryKey: ['articles', { status, sort, sido, sgg, keyword }],
+    queryKey: [
+      'articles',
+      search ? 'search' : 'browse',
+      { status, sort, sido, sgg, keyword },
+    ],
     queryFn: ({ pageParam = 0 }) =>
       getArticles({ pageParam, status, sort, sido, sgg, keyword }),
     initialPageParam: 0,
