@@ -119,7 +119,9 @@ const Header = () => {
         <>{leftArrow && <BackButton className="absolute mx-2 my-6" />}</>
       ) : (
         <div className="flex h-14 items-center border-b border-gray-200 px-2 py-3">
-          <div className="basis-1/12">{leftArrow && <BackButton />}</div>
+          <div className="flex basis-1/12 items-center justify-center">
+            {leftArrow && <BackButton />}
+          </div>
           <div className="basis-10/12 text-center">
             <span className="text-lg font-extrabold text-gray-600">
               {title}
