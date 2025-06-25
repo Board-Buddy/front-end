@@ -8,7 +8,6 @@ import {
   editComment,
   getComments,
 } from './[gatherArticleId]/comments';
-import { searchArticles } from './search';
 
 const GATHER_ARTICLE_MOCK_DATA = [
   {
@@ -282,6 +281,7 @@ export const getArticles = http.get(
     const page = Number(url.searchParams.get('page'));
     const status = url.searchParams.get('status');
     const sort = url.searchParams.get('sort');
+    const keyword = url.searchParams.get('keyword');
 
     if (!page && page !== 0) {
       return HttpResponse.json(
@@ -292,6 +292,14 @@ export const getArticles = http.get(
 
     // 기본값이 최신순이므로 reverse
     let filteredArticles = [...GATHER_ARTICLE_MOCK_DATA].toReversed();
+
+    if (keyword) {
+      filteredArticles = filteredArticles.filter(
+        (article) =>
+          article.title.includes(keyword) ||
+          article.description.includes(keyword),
+      );
+    }
 
     if (status === 'open') {
       filteredArticles = filteredArticles.filter(
@@ -347,5 +355,4 @@ export const articleHandlers = [
   addReply,
   editComment,
   deleteComment,
-  searchArticles,
 ];

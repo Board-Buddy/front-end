@@ -1,19 +1,24 @@
 'use client';
 
+import { GetArticleRequestParams } from '@/types/article';
 import { ChevronDown } from 'lucide-react';
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-const LocationSettingButton = () => {
+interface Props extends Pick<GetArticleRequestParams, 'sido' | 'sgg'> {
+  route: string;
+}
+
+const LocationSettingButton = ({ sido, sgg, route }: Props) => {
   const router = useRouter();
 
   const onClick = () => {
-    router.push('/setting/location');
+    router.push(route);
   };
 
   return (
-    <div className="my-4 flex items-center gap-2" onClick={onClick}>
+    <div className="mb-2 mt-4 flex items-center gap-2" onClick={onClick}>
       <Image
         src="/images/sundy/sundy_map.png"
         alt="map_sundy"
@@ -21,7 +26,9 @@ const LocationSettingButton = () => {
         height={28}
       />
       <div className="flex w-[300px] items-center bg-transparent p-0">
-        <span className="text-lg font-bold text-gray-800">전체</span>
+        <span className="text-lg font-bold text-gray-800">
+          {sgg ? sgg : (sido ?? '전체')}
+        </span>
         <ChevronDown className="ml-1 size-4 shrink-0" />
       </div>
     </div>

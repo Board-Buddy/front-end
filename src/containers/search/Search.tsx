@@ -1,26 +1,20 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { useSearchResultRefetch } from '@/hooks/custom/useSearchResultRefetch';
 import SearchInput from './SearchInput';
-import SearchResult from './SearchResult';
+import BackButton from '@/components/BackButton';
+import ArticleListContainer from './ArticleListContainer';
 
 const Search = () => {
-  const [keyword, setKeyword] = useState('');
-
-  const { refetch, isRefetching } = useSearchResultRefetch(keyword);
-
-  useEffect(() => {});
-
   return (
-    <div>
-      <SearchInput
-        keyword={keyword}
-        setKeyword={setKeyword}
-        refetch={refetch}
-      />
-      <SearchResult keyword={keyword} isRefetching={isRefetching} />
-    </div>
+    <>
+      <div className="flex items-center gap-2">
+        <BackButton />
+        <SearchInput />
+      </div>
+      <div className="px-2 pt-1">
+        <ArticleListContainer />
+      </div>
+    </>
   );
 };
 

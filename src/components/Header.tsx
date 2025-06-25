@@ -1,8 +1,8 @@
 'use client';
 
-import { ChevronLeft } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import NotificationProvider from './NotificationProvider';
+import BackButton from './BackButton';
 
 const Header = () => {
   const pathname = usePathname();
@@ -40,7 +40,11 @@ const Header = () => {
       leftArrow: false,
     },
     '/setting/location': {
-      title: '동네 설정',
+      title: '지역 설정',
+      leftArrow: true,
+    },
+    '/search/location': {
+      title: '지역 필터 선택',
       leftArrow: true,
     },
     '/write/locationSetting': {
@@ -108,38 +112,17 @@ const Header = () => {
     leftArrow = true;
   }
 
-  if (pathname.includes('search')) {
-    title = '검색';
-    leftArrow = true;
-  }
-
   return (
     <>
       <NotificationProvider />
-      {pathname.includes('search') || pathname.includes('/home') ? (
-        <>
-          {leftArrow && (
-            <ChevronLeft
-              className="absolute mx-2 my-6 size-5 cursor-pointer"
-              onClick={() => {
-                window.history.back();
-              }}
-            />
-          )}
-        </>
+      {pathname === '/search' || pathname.includes('/home') ? (
+        <>{leftArrow && <BackButton className="absolute mx-2 my-6" />}</>
       ) : (
-        <div className="flex items-center border-b border-gray-200 px-2 py-3">
-          <div className="left-section basis-1/12">
-            {leftArrow && (
-              <ChevronLeft
-                className="size-5 cursor-pointer"
-                onClick={() => {
-                  window.history.back();
-                }}
-              />
-            )}
+        <div className="flex h-14 items-center border-b border-gray-200 px-2 py-3">
+          <div className="flex basis-1/12 items-center justify-center">
+            {leftArrow && <BackButton />}
           </div>
-          <div className="title-section basis-10/12 text-center">
+          <div className="basis-10/12 text-center">
             <span className="text-lg font-extrabold text-gray-600">
               {title}
             </span>
