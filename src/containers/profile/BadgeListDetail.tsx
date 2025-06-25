@@ -2,10 +2,10 @@
 
 import ErrorFallback from '@/components/ErrorFallback';
 import Loading from '@/components/Loading';
+import { useUserInfo } from '@/hooks/custom/useUserInfo';
 import { useGetBadgeList } from '@/hooks/useProfile';
 import { UserInfo } from '@/types/user';
 import { cn } from '@/utils/tailwind';
-import { useQueryClient } from '@tanstack/react-query';
 import Image from 'next/image';
 
 interface Props {
@@ -13,8 +13,7 @@ interface Props {
 }
 
 const BadgeListDetail = ({ nickname }: Props) => {
-  const cache = useQueryClient();
-  const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
+  const userInfo = useUserInfo();
   const { nickname: myNickname } = userInfo;
 
   const {

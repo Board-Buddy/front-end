@@ -28,16 +28,16 @@ import {
   smsCertificationVerify,
 } from '@/services/auth';
 import { cn } from '@/utils/tailwind';
-import { useQueryClient } from '@tanstack/react-query';
-import { UserInfo } from '@/types/user';
 import CustomAlert from '@/components/CustomAlert';
 import { useExistingProfileInfoContext } from '@/context/ExistingProfileInfoContext';
 import { CustomAxiosError } from '@/types/api';
+import { useUserInfo } from '@/hooks/custom/useUserInfo';
 
 const MyProfileEditForm = () => {
   const [imageSizeAlertOpen, setImageSizeAlertOpen] = useState(false);
-  const queryClient = useQueryClient();
-  const { memberType } = queryClient.getQueryData(['userInfo']) as UserInfo;
+
+  const userInfo = useUserInfo();
+  const { memberType } = userInfo;
 
   const editProfileMutation = useEditProfile();
 

@@ -6,20 +6,19 @@ import MyParticipation from '@/containers/my/MyParticipation';
 import ReviewList from '@/containers/profile/ReviewList';
 
 import { useGetProfile } from '@/hooks/useProfile';
-import { useQueryClient } from '@tanstack/react-query';
 import { UserInfo } from '@/types/user';
 import { cn } from '@/utils/tailwind';
 import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
 import QuitButtons from '../my/QuitButtons';
+import { useUserInfo } from '@/hooks/custom/useUserInfo';
 
 interface Props {
   nickname?: UserInfo['nickname'];
 }
 
 const Profile = ({ nickname }: Props) => {
-  const cache = useQueryClient();
-  const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
+  const userInfo = useUserInfo();
   const { nickname: myNickname } = userInfo;
 
   const {

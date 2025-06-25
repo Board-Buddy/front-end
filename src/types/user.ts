@@ -2,5 +2,5 @@ export interface UserInfo {
   nickname: string;
   memberType: 'REGULAR' | 'SOCIAL';
   isPhoneNumberVerified: boolean;
-  awsS3SavedFileURL: string | null;
+  profileImageS3SavedURL: string | null;
 }

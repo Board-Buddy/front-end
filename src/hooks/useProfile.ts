@@ -13,6 +13,7 @@ import { blobToJson } from '@/utils/blobToJson';
 import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
+import { useUserInfo } from './custom/useUserInfo';
 
 export const useGetProfile = (nickname: string) => {
   return useQuery<Profile, CustomAxiosError>({
@@ -25,8 +26,9 @@ export const useGetProfile = (nickname: string) => {
 
 export const useEditProfile = () => {
   const queryClient = useQueryClient();
-  const userInfo = queryClient.getQueryData(['userInfo']);
-  const { nickname } = userInfo as UserInfo;
+
+  const userInfo = useUserInfo();
+  const { nickname } = userInfo;
 
   const router = useRouter();
 

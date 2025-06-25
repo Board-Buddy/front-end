@@ -3,16 +3,14 @@
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import { Client, IMessage } from '@stomp/stompjs';
 import { ChatRoom, Message } from '@/types/chat';
-import { useQueryClient } from '@tanstack/react-query';
-import { UserInfo } from '@/types/user';
 import { ENDPOINT, WS_BASE_URL } from '@/services/endpoint';
+import { useUserInfo } from './useUserInfo';
 
 const useWebSocket = (
   chatRoomId: ChatRoom['chatRoomId'],
   setMessages: Dispatch<SetStateAction<Message[] | null>>,
 ) => {
-  const cache = useQueryClient();
-  const userInfo = cache.getQueryData(['userInfo']) as UserInfo;
+  const userInfo = useUserInfo();
   const { nickname } = userInfo;
 
   const clientRef = useRef<Client | null>(null);
