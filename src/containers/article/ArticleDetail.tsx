@@ -32,6 +32,10 @@ const ArticleDetail = ({ id }: { id: Article['id'] }) => {
   }
 
   if (isError) {
+    if (error.response?.status === 401) {
+      throw error;
+    }
+
     return (
       <ErrorFallback errMsg={error.response?.data.message} reset={refetch} />
     );

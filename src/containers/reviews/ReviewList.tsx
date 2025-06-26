@@ -24,8 +24,12 @@ const ReviewList = ({ articleId }: Props) => {
   }
 
   if (isError) {
+    if (error.response?.status === 401) {
+      throw error;
+    }
+
     return (
-      <ErrorFallback errMsg={error.response?.data.message} reset={refetch} />
+      <ErrorFallback reset={refetch} errMsg={error.response!.data.message} />
     );
   }
 

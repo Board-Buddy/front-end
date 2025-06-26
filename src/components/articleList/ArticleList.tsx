@@ -49,6 +49,16 @@ const ArticleList = ({
     fetchNextPage,
   });
 
+  if (isError) {
+    if (error.response?.status === 401) {
+      throw error;
+    }
+
+    return (
+      <ErrorFallback reset={refetch} errMsg={error.response!.data.message} />
+    );
+  }
+
   return (
     <div>
       <Selectors
@@ -60,10 +70,7 @@ const ArticleList = ({
         setSort={setSort}
       />
       {isPending && isFetching && <Loading />}
-      {isError && (
-        <ErrorFallback reset={refetch} errMsg={error.response!.data.message} />
-      )}
-      {!isPending && !isError && (
+      {!isPending && (
         <>
           {data.pages.map(
             (group) =>
