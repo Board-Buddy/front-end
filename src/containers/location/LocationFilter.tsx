@@ -7,7 +7,7 @@ import { Province } from '@/types/location';
 import Loading from '@/components/Loading';
 import NationwideFallback from './NationwideFallback';
 
-export const NATION_WIDE = { code: 'ALL', name: '전체' };
+export const NATION_WIDE = { code: 'ALL', name: '전체', officialName: '전체' };
 
 interface Props {
   province: Province | null;
