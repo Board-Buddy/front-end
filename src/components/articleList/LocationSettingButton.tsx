@@ -1,16 +1,18 @@
 'use client';
 
 import { GetArticleRequestParams } from '@/types/article';
+import { Province } from '@/types/location';
 import { ChevronDown } from 'lucide-react';
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
-interface Props extends Pick<GetArticleRequestParams, 'sido' | 'sgg'> {
+interface Props extends Pick<GetArticleRequestParams, 'sgg'> {
   route: string;
+  province: Province | null;
 }
 
-const LocationSettingButton = ({ sido, sgg, route }: Props) => {
+const LocationSettingButton = ({ sgg, route, province }: Props) => {
   const router = useRouter();
 
   const onClick = () => {
@@ -27,7 +29,7 @@ const LocationSettingButton = ({ sido, sgg, route }: Props) => {
       />
       <div className="flex w-[300px] items-center bg-transparent p-0">
         <span className="text-lg font-bold text-gray-800">
-          {sgg ? sgg : (sido ?? '전체')}
+          {sgg ? sgg : (province?.name ?? '전체')}
         </span>
         <ChevronDown className="ml-1 size-4 shrink-0" />
       </div>

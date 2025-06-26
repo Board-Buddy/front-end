@@ -9,20 +9,23 @@ import Selectors from './Selectors';
 import Article from '../../containers/home/Article';
 import { GetArticleRequestParams } from '@/types/article';
 import useSearchPageDetection from '@/hooks/custom/useSearchPageDetection';
+import { Province } from '@/types/location';
 
 export interface ArticleListProps extends GetArticleRequestParams {
   emptyGuideMessage: string;
+  province: Province | null;
   setStatus: (status: string | null) => void;
   setSort: (sort: string | null) => void;
 }
 
 const ArticleList = ({
-  emptyGuideMessage,
   status,
   sort,
   sido,
   sgg,
   keyword,
+  emptyGuideMessage,
+  province,
   setStatus,
   setSort,
 }: ArticleListProps) => {
@@ -49,7 +52,7 @@ const ArticleList = ({
   return (
     <div>
       <Selectors
-        sido={sido}
+        province={province}
         sgg={sgg}
         status={status}
         sort={sort}

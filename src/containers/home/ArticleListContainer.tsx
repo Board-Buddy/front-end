@@ -3,6 +3,7 @@
 import {
   useArticleFilterStore,
   useKeywordSelector,
+  useProvinceSelector,
   useSggSelector,
   useSidoSelector,
   useSortSelector,
@@ -16,6 +17,7 @@ const ArticleListContainer = () => {
   const sido = useSidoSelector();
   const sgg = useSggSelector();
   const keyword = useKeywordSelector();
+  const province = useProvinceSelector();
 
   const setStatus = useArticleFilterStore((state) => state.setStatus);
   const setSort = useArticleFilterStore((state) => state.setSort);
@@ -30,6 +32,7 @@ const ArticleListContainer = () => {
       keyword={keyword}
       setStatus={setStatus}
       setSort={setSort}
+      province={province}
     />
   );
 };

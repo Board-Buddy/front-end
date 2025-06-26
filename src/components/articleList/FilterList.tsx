@@ -16,7 +16,7 @@ const FilterList = ({
   sort,
   setStatus,
   setSort,
-}: Omit<ArticleListProps, 'emptyGuideMessage'>) => {
+}: Omit<ArticleListProps, 'emptyGuideMessage' | 'province'>) => {
   return (
     <div className="mb-3 flex gap-1">
       <div className="flex items-center space-x-2">
