@@ -6,27 +6,19 @@ import { ArticleListProps } from './ArticleList';
 import { usePathname } from 'next/navigation';
 
 const Selectors = ({
-  sido,
   sgg,
   status,
   sort,
   setStatus,
   setSort,
+  province,
 }: Omit<ArticleListProps, 'emptyGuideMessage'>) => {
   const pathname = usePathname();
+  const route = pathname === '/home' ? '/setting/location' : '/search/location';
 
   return (
     <>
-      {pathname === '/home' && (
-        <LocationSettingButton
-          sido={sido}
-          sgg={sgg}
-          route="/setting/location"
-        />
-      )}
-      {pathname === '/search' && (
-        <LocationSettingButton sido={sido} sgg={sgg} route="/search/location" />
-      )}
+      <LocationSettingButton province={province} sgg={sgg} route={route} />
       <FilterList
         status={status}
         sort={sort}

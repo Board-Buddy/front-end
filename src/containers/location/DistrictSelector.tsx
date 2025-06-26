@@ -28,7 +28,7 @@ const DistrictSelector = ({
           type="button"
           onClick={() => {
             setProvince(province);
-            setSido(province.name);
+            setSido(province.officialName);
             setSgg(district.name === '전체' ? null : district.name);
 
             router.back();
