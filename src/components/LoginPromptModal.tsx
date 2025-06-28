@@ -7,34 +7,36 @@ import {
   DialogDescription,
   DialogHeader,
 } from './ui/dialog';
+import { useLoginPromptModal } from '@/store/modalStore';
 
-interface Props {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-}
-
-const LoginPromptModal = ({ open, onOpenChange }: Props) => {
+const LoginPromptModal = () => {
   const router = useRouter();
 
+  const open = useLoginPromptModal((state) => state.isOpen);
+  const close = useLoginPromptModal((state) => state.close);
+
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={open}>
       <DialogContent>
         <DialogHeader>
           <DialogDescription className="px-6 pb-2 text-center text-base font-semibold text-gray-800">
-            이 기능은 로그인 후 이용할 수 있어요. <br />
+            이 기능은 로그인 후 이용할 수 있어요 <br />
             지금 로그인하시겠어요?
           </DialogDescription>
         </DialogHeader>
         <div className="flex grow text-center">
           <div
             className="h-10 w-full cursor-pointer place-content-center rounded-bl-lg bg-gray-300 text-sm font-semibold"
-            onClick={() => onOpenChange(false)}
+            onClick={close}
           >
             <p>취소</p>
           </div>
           <div
             className="w-full cursor-pointer place-content-center rounded-br-lg bg-primary text-sm font-semibold text-white"
-            onClick={() => router.push('/login-splash')}
+            onClick={() => {
+              close();
+              router.push('/login-splash');
+            }}
           >
             <p>로그인하기</p>
           </div>
