@@ -1,9 +1,14 @@
 import Profile from '@/containers/profile/Profile';
+import ProfileContainer from '@/containers/profile/ProfileContainer';
 
 export const dynamic = 'force-dynamic';
 
 const page = () => {
-  return <Profile />;
+  return (
+    <ProfileContainer>
+      <Profile />
+    </ProfileContainer>
+  );
 };
 
 export default page;
