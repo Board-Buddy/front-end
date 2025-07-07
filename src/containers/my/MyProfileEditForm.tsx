@@ -37,7 +37,7 @@ const MyProfileEditForm = () => {
   const [imageSizeAlertOpen, setImageSizeAlertOpen] = useState(false);
 
   const userInfo = useUserInfo();
-  const { memberType } = userInfo;
+  const memberType = userInfo?.memberType;
 
   const editProfileMutation = useEditProfile();
 

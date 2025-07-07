@@ -27,7 +27,7 @@ const ProfileInfo = ({
   const router = useRouter();
 
   const userInfo = useUserInfo();
-  const { nickname: myNickname } = userInfo;
+  const myNickname = userInfo?.nickname || '';
 
   const { setFormState } = useExistingProfileInfoContext();
 

@@ -23,7 +23,7 @@ import { useUserInfo } from '@/hooks/custom/useUserInfo';
 
 const CommentList = ({ articleId }: { articleId: Article['id'] }) => {
   const userInfo = useUserInfo();
-  const { nickname } = userInfo;
+  const nickname = userInfo?.nickname;
 
   const [openCommentDeleteAlert, setOpenCommentDeleteAlert] = useState(false);
   const [deleteCommentId, setDeleteCommentId] = useState<number | null>(null);

@@ -17,7 +17,7 @@ import { useUserInfo } from '@/hooks/custom/useUserInfo';
 
 const ArticleDetail = ({ id }: { id: Article['id'] }) => {
   const userInfo = useUserInfo();
-  const { nickname } = userInfo;
+  const nickname = userInfo?.nickname;
 
   const {
     data: article,

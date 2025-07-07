@@ -11,7 +11,7 @@ const useWebSocket = (
   setMessages: Dispatch<SetStateAction<Message[] | null>>,
 ) => {
   const userInfo = useUserInfo();
-  const { nickname } = userInfo;
+  const nickname = userInfo?.nickname;
 
   const clientRef = useRef<Client | null>(null);
 
