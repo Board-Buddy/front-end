@@ -20,7 +20,7 @@ const LoginPromptModal = () => {
       <DialogContent>
         <DialogHeader>
           <DialogDescription className="px-6 pb-2 text-center text-base font-semibold text-gray-800">
-            이 기능은 로그인 후 이용할 수 있어요 <br />
+            이 기능은 로그인 후 이용하실 수 있어요 <br />
             지금 로그인하시겠어요?
           </DialogDescription>
         </DialogHeader>
