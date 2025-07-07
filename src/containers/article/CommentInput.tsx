@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useLoginRequiredAction } from '@/hooks/custom/useLoginRequiredAction';
 import { useAddComment, useEditComment } from '@/hooks/useComment';
 import { Article } from '@/types/article';
 import { Reply } from '@/types/comment';
@@ -39,6 +40,8 @@ const CommentInput = ({
   editingComment,
   setEditingComment,
 }: Props) => {
+  const { runIfLoggedIn } = useLoginRequiredAction();
+
   const [value, setValue] = useState('');
   const [editValue, setEditValue] = useState(editingComment?.content || '');
 
@@ -46,30 +49,34 @@ const CommentInput = ({
   const editCommentMutation = useEditComment(articleId);
 
   const handleSubmit = () => {
-    if (parentComment) {
-      addCommentMutation.mutate(
-        { content: value, parentId: parentComment.parentId },
-        {
-          onSuccess: () => {
-            setParentComment(null);
+    runIfLoggedIn(() => {
+      if (parentComment) {
+        addCommentMutation.mutate(
+          { content: value, parentId: parentComment.parentId },
+          {
+            onSuccess: () => {
+              setParentComment(null);
+            },
           },
-        },
-      );
-    } else {
-      addCommentMutation.mutate({ content: value });
-    }
-    setValue('');
+        );
+      } else {
+        addCommentMutation.mutate({ content: value });
+      }
+      setValue('');
+    });
   };
 
   const handleEdit = () => {
-    editCommentMutation.mutate(
-      { commentId: Number(editingComment!.id), content: editValue! },
-      {
-        onSuccess: () => {
-          setEditingComment(null);
+    runIfLoggedIn(() => {
+      editCommentMutation.mutate(
+        { commentId: Number(editingComment!.id), content: editValue! },
+        {
+          onSuccess: () => {
+            setEditingComment(null);
+          },
         },
-      },
-    );
+      );
+    });
   };
 
   return (
