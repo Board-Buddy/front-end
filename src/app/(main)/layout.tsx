@@ -1,13 +1,13 @@
-import AuthGuard from '@/components/AuthGuard';
+import AuthStatusLoader from '@/components/AuthStatusLoader';
 import LoginPromptModal from '@/components/LoginPromptModal';
 import { ReactNode } from 'react';
 
 const Layout = ({ children }: Readonly<{ children: ReactNode }>) => {
   return (
-    <AuthGuard>
+    <AuthStatusLoader>
       {children}
       <LoginPromptModal />
-    </AuthGuard>
+    </AuthStatusLoader>
   );
 };
 
