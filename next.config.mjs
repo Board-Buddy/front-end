@@ -13,6 +13,13 @@ const nextConfig = {
     }
     return config;
   },
+  redirects: async () => [
+    {
+      source: '/',
+      destination: '/home',
+      permanent: true,
+    },
+  ],
   images: {
     remotePatterns: [
       {

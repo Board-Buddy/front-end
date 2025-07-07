@@ -56,6 +56,8 @@ export const ENDPOINT = {
         `/gather-articles/${articleId}/comments/${commentId}` as const,
     },
     PARTICIPATION: {
+      STATUS: (articleId: number) =>
+        `/gather-articles/${articleId}/participation-status` as const,
       APPLICATION: (articleId: number) =>
         `/gather-articles/${articleId}/participation` as const,
       APPROVAL: (

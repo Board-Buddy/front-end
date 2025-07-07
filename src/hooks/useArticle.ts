@@ -3,6 +3,7 @@ import {
   deleteArticle,
   editArticle,
   getArticle,
+  getArticleParticipationStatus,
   getArticles,
 } from '@/services/article';
 import { CustomAxiosError } from '@/types/api';
@@ -54,9 +55,25 @@ export const useGetArticles = ({
   });
 
 export const useGetArticle = (articleId: Article['id']) =>
-  useQuery<Omit<Article, 'id'>, CustomAxiosError>({
+  useQuery<
+    Omit<Article, 'id' | 'participationApplicationStatus'>,
+    CustomAxiosError
+  >({
     queryKey: ['article', { articleId }],
     queryFn: () => getArticle(articleId),
+    staleTime: 0,
+    gcTime: 0,
+  });
+
+export const useGetArticleParticipationStatus = (articleId: Article['id']) =>
+  useQuery<
+    {
+      participationApplicationStatus: Article['participationApplicationStatus'];
+    },
+    CustomAxiosError
+  >({
+    queryKey: ['article', 'participation-status', { articleId }],
+    queryFn: () => getArticleParticipationStatus(articleId),
     staleTime: 0,
     gcTime: 0,
   });

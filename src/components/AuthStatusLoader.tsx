@@ -8,7 +8,7 @@ interface Props {
   children: ReactNode;
 }
 
-const AuthGuard = ({ children }: Props) => {
+const AuthStatusLoader = ({ children }: Props) => {
   const { isPending } = useUserLoginCheck({ isReady: true });
 
   if (isPending) return <Loading />;
@@ -16,4 +16,4 @@ const AuthGuard = ({ children }: Props) => {
   return <>{children}</>;
 };
 
-export default AuthGuard;
+export default AuthStatusLoader;

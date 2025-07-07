@@ -6,18 +6,18 @@ import ErrorFallback from '@/components/ErrorFallback';
 import { Article } from '@/types/article';
 import ArticleContent from './ArticleContent';
 import Profile from './Profile';
-import ApplyButton from './ApplyButton';
 import CommentList from './CommentList';
-import CancelButton from './CancelButton';
-import DisabledButton from './DisabledButton';
-import CancelButtonForApproved from './CancelButtonForApproved';
-import ParticipantsListButton from './ParticipantsListButton';
-import ReviewButton from './ReviewButton';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
+import ArticleParticipationStatus from './ArticleParticipationStatus';
+import { useLoginPromptModal } from '@/store/modalStore';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/utils/tailwind';
 
 const ArticleDetail = ({ id }: { id: Article['id'] }) => {
   const userInfo = useUserInfo();
-  const { nickname } = userInfo;
+  const nickname = userInfo?.nickname;
+
+  const openModal = useLoginPromptModal((state) => state.open);
 
   const {
     data: article,
@@ -65,29 +65,25 @@ const ArticleDetail = ({ id }: { id: Article['id'] }) => {
         status={article.status}
         isAuthor={nickname === article.author!.nickname}
       />
-      {isCompleted && article.participationApplicationStatus === 'approved' && (
-        <ReviewButton articleId={id} />
-      )}
-      {!isCompleted && isAuthor && <ParticipantsListButton articleId={id} />}
-      {!isCompleted && !isAuthor && (
-        <>
-          {(article.participationApplicationStatus === 'none' ||
-            article.participationApplicationStatus === 'canceled') && (
-            <ApplyButton articleId={id} />
-          )}
-          {article.participationApplicationStatus === 'pending' && (
-            <CancelButton articleId={id} />
-          )}
-          {article.participationApplicationStatus === 'approved' && (
-            <CancelButtonForApproved
-              articleId={id}
-              startDateTime={article.startDateTime}
-            />
-          )}
-          {article.participationApplicationStatus === 'rejected' && (
-            <DisabledButton />
-          )}
-        </>
+      {userInfo ? (
+        <ArticleParticipationStatus
+          isCompleted={isCompleted}
+          isAuthor={isAuthor}
+          id={id}
+          startDateTime={article.startDateTime}
+        />
+      ) : (
+        /* 비로그인 사용자를 위한 UI */
+        <div className="mb-8 px-4">
+          <Button
+            className={cn(
+              'w-full text-white font-bold text-base h-12 shadow-md',
+            )}
+            onClick={openModal}
+          >
+            참가 신청
+          </Button>
+        </div>
       )}
       <CommentList articleId={id} />
     </div>

@@ -8,8 +8,9 @@ import {
   editComment,
   getComments,
 } from './[gatherArticleId]/comments';
+import { getArticleParticipationStatus } from './[gatherArticleId]/participation-status';
 
-const GATHER_ARTICLE_MOCK_DATA = [
+export const GATHER_ARTICLE_MOCK_DATA = [
   {
     id: 1,
     title: '퇴근 후 보드게임 ㄱㄱ하실분 1',
@@ -347,6 +348,7 @@ export const addArticle = http.post(`${API_BASE_URL}/gather-articles`, () => {
 export const articleHandlers = [
   getArticles,
   getArticle,
+  getArticleParticipationStatus,
   addArticle,
   editArticle,
   deleteArticle,

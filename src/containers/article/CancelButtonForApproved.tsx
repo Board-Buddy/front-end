@@ -13,7 +13,7 @@ interface Props {
 
 const CancelButtonForApproved = ({ articleId, startDateTime }: Props) => {
   const userInfo = useUserInfo();
-  const { nickname } = userInfo;
+  const nickname = userInfo?.nickname;
 
   const [open, setOpen] = useState(false);
   const cancelMutation = useCancelParticipation(articleId);

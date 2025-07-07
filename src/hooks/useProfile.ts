@@ -28,7 +28,7 @@ export const useEditProfile = () => {
   const queryClient = useQueryClient();
 
   const userInfo = useUserInfo();
-  const { nickname } = userInfo;
+  const nickname = userInfo?.nickname;
 
   const router = useRouter();
 

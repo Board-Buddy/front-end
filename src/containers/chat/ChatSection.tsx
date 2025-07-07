@@ -21,7 +21,7 @@ const ChatSection = ({
   fetchPreviousPage,
 }: Props) => {
   const userInfo = useUserInfo();
-  const { nickname } = userInfo;
+  const nickname = userInfo?.nickname;
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const messageEndRef = useRef<HTMLDivElement>(null);
