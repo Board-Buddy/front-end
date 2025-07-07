@@ -6,14 +6,9 @@ import ErrorFallback from '@/components/ErrorFallback';
 import { Article } from '@/types/article';
 import ArticleContent from './ArticleContent';
 import Profile from './Profile';
-import ApplyButton from './ApplyButton';
 import CommentList from './CommentList';
-import CancelButton from './CancelButton';
-import DisabledButton from './DisabledButton';
-import CancelButtonForApproved from './CancelButtonForApproved';
-import ParticipantsListButton from './ParticipantsListButton';
-import ReviewButton from './ReviewButton';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
+import ArticleParticipationStatus from './ArticleParticipationStatus';
 
 const ArticleDetail = ({ id }: { id: Article['id'] }) => {
   const userInfo = useUserInfo();
@@ -65,29 +60,13 @@ const ArticleDetail = ({ id }: { id: Article['id'] }) => {
         status={article.status}
         isAuthor={nickname === article.author!.nickname}
       />
-      {isCompleted && article.participationApplicationStatus === 'approved' && (
-        <ReviewButton articleId={id} />
-      )}
-      {!isCompleted && isAuthor && <ParticipantsListButton articleId={id} />}
-      {!isCompleted && !isAuthor && (
-        <>
-          {(article.participationApplicationStatus === 'none' ||
-            article.participationApplicationStatus === 'canceled') && (
-            <ApplyButton articleId={id} />
-          )}
-          {article.participationApplicationStatus === 'pending' && (
-            <CancelButton articleId={id} />
-          )}
-          {article.participationApplicationStatus === 'approved' && (
-            <CancelButtonForApproved
-              articleId={id}
-              startDateTime={article.startDateTime}
-            />
-          )}
-          {article.participationApplicationStatus === 'rejected' && (
-            <DisabledButton />
-          )}
-        </>
+      {userInfo && (
+        <ArticleParticipationStatus
+          isCompleted={isCompleted}
+          isAuthor={isAuthor}
+          id={id}
+          startDateTime={article.startDateTime}
+        />
       )}
       <CommentList articleId={id} />
     </div>

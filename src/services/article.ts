@@ -25,7 +25,9 @@ export const getArticles = ({
 export const getArticle = (articleId: Article['id']) =>
   api
     .get<
-      SuccessResponse<{ post: Omit<Article, 'id'> }>
+      SuccessResponse<{
+        post: Omit<Article, 'id' | 'participationApplicationStatus'>;
+      }>
     >(ENDPOINT.GATHER_ARTICLE.DETAIL(articleId))
     .then((response) => response.data.data.post);
 
@@ -49,3 +51,15 @@ export const deleteArticle = (articleId: Article['id']) =>
   api.delete<SuccessResponse<{ post: { id: number } }>>(
     ENDPOINT.GATHER_ARTICLE.DETAIL(articleId),
   );
+
+/** 모집글 참가 신청 현황 조회 API */
+export const getArticleParticipationStatus = (articleId: Article['id']) =>
+  api
+    .get<
+      SuccessResponse<{
+        post: {
+          participationApplicationStatus: Article['participationApplicationStatus'];
+        };
+      }>
+    >(ENDPOINT.GATHER_ARTICLE.PARTICIPATION.STATUS(articleId))
+    .then((response) => response.data.data.post);
