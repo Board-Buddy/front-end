@@ -1,6 +1,7 @@
 export const isWebView = () => {
   if (typeof window === 'undefined') {
     console.log('window가 정의되지 않음');
+    return false;
   }
 
   if (window && !window.ReactNativeWebView) {
