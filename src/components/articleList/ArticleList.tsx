@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useIntersectionObserver } from '@/hooks/custom/useIntersectionObserver';
 import { useGetArticles } from '@/hooks/useArticle';
 import Loading from '@/components/Loading';
@@ -10,6 +9,7 @@ import Article from '../../containers/home/Article';
 import { GetArticleRequestParams } from '@/types/article';
 import useSearchPageDetection from '@/hooks/custom/useSearchPageDetection';
 import { Province } from '@/types/location';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 
 export interface ArticleListProps extends GetArticleRequestParams {
   emptyGuideMessage: string;
@@ -29,7 +29,7 @@ const ArticleList = ({
   setStatus,
   setSort,
 }: ArticleListProps) => {
-  const router = useRouter();
+  const router = useAppRouter();
 
   const { isSearchPage: search } = useSearchPageDetection();
 
@@ -83,7 +83,9 @@ const ArticleList = ({
                 >
                   {group.posts.map((article) => (
                     <Article
-                      onClick={() => router.push(`/article/${article.id}`)}
+                      onClick={() =>
+                        router.navigate('PUSH', `/article/${article.id}`)
+                      }
                       key={article.id}
                       id={article.id}
                       title={article.title}
