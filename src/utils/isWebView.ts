@@ -1,12 +1,12 @@
 export const isWebView = () => {
-  if (typeof window === 'undefined') {
-    console.log('window가 정의되지 않음');
-    return false;
-  }
+  if (typeof window === 'undefined') return;
 
-  if (window) {
-    console.log('window.ReactNativeWebView: ', window.ReactNativeWebView);
-  }
+  window.ReactNativeWebView?.postMessage(
+    JSON.stringify({
+      type: 'DEBUG',
+      payload: 'ReactNativeWebView가 정상적으로 주입됨',
+    }),
+  );
 
   return typeof window !== 'undefined' && !!window.ReactNativeWebView;
 };
