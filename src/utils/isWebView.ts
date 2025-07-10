@@ -4,8 +4,8 @@ export const isWebView = () => {
     return false;
   }
 
-  if (window && !window.ReactNativeWebView) {
-    console.log('window는 존재하지만 ReactNativeWebview가 존재하지 않음');
+  if (window) {
+    console.log('window.ReactNativeWebView: ', window.ReactNativeWebView);
   }
 
   return typeof window !== 'undefined' && !!window.ReactNativeWebView;
