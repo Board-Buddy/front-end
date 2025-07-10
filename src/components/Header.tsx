@@ -3,9 +3,15 @@
 import { usePathname } from 'next/navigation';
 import NotificationProvider from './NotificationProvider';
 import BackButton from './BackButton';
+import { isWebView } from '@/utils/isWebView';
 
 const Header = () => {
   const pathname = usePathname();
+
+  // 웹뷰라면 헤더를 렌더링하지 않는다.
+  if (isWebView()) {
+    return null;
+  }
 
   if (
     pathname === '/' ||
