@@ -10,8 +10,6 @@ const useAppRouter = () => {
   const navigate = (
     method: NavigateMethod,
     href?: string,
-    screenName?: string,
-    data?: Record<string, unknown>,
     options?: NavigateOptions,
   ) => {
     if (isWebView()) {
@@ -20,8 +18,6 @@ const useAppRouter = () => {
           type: 'ROUTER_EVENT',
           method,
           href,
-          screenName,
-          data,
         }),
       );
     }
