@@ -1,5 +1,5 @@
 export interface Profile {
-  profileImageS3SavedURL: string | null;
+  profileImageSignedURL: string | null;
   description: string;
   rank: number | null;
   buddyScore: number;
@@ -25,6 +25,6 @@ export interface ExistingProfileInfo {
 }
 
 export interface Badge {
-  badgeImageS3SavedURL: string;
+  badgeImageSignedURL: string;
   badgeYearMonth: string;
 }

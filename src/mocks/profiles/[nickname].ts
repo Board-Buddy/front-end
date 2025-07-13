@@ -8,21 +8,21 @@ export const getUserProfile = http.get(
       status: 'success',
       data: {
         profile: {
-          profileImageS3SavedURL: '/images/banner/banner_1.jpeg',
+          profileImageSignedURL: '/images/banner/banner_1.jpeg',
           description: '안녕하세요',
           rank: 2,
           buddyScore: 68,
           badges: [
             {
-              badgeImageS3SavedURL: null,
+              badgeImageSignedURL: null,
               badgeYearMonth: '2024.09',
             },
             {
-              badgeImageS3SavedURL: null,
+              badgeImageSignedURL: null,
               badgeYearMonth: '2024.08',
             },
             {
-              badgeImageS3SavedURL: null,
+              badgeImageSignedURL: null,
               badgeYearMonth: '2024.07',
             },
           ],

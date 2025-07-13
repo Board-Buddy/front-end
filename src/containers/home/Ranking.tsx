@@ -34,7 +34,7 @@ const Ranking = () => {
         <RankingCard
           key={person.rank}
           nickname={person.nickname}
-          profileUrl={person.profileImageS3SavedURL}
+          profileUrl={person.profileImageSignedURL}
           rank={person.rank}
         />
       ))}

@@ -9,19 +9,19 @@ export const getReviewList = http.get(
       data: {
         users: [
           {
-            profileImageS3SavedURL: null,
+            profileImageSignedURL: null,
             rank: 2,
             nickname: '숨코다',
             hasReviewed: false,
           },
           {
-            profileImageS3SavedURL: null,
+            profileImageSignedURL: null,
             rank: null,
             nickname: '냠냠',
             hasReviewed: false,
           },
           {
-            profileImageS3SavedURL: null,
+            profileImageSignedURL: null,
             rank: null,
             nickname: '보드조아',
             hasReviewed: true,

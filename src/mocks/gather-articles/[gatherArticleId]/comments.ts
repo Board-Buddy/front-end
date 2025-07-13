@@ -28,7 +28,7 @@ export const addComment = http.post<any, { content: string }>(
       author: {
         nickname: 'yubin',
         rank: 0,
-        profileImageS3SavedURL: '',
+        profileImageSignedURL: '',
       },
       content,
       createdAt: '2024-07-28 23:12',
@@ -55,7 +55,7 @@ export const addReply = http.post<any, { content: string }>(
       author: {
         nickname: 'yubin',
         rank: 1,
-        profileImageS3SavedURL: '',
+        profileImageSignedURL: '',
       },
       content,
       createdAt: '2024-07-28 23:12',

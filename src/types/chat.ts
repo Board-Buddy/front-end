@@ -5,7 +5,7 @@ export interface Message {
   sentAt: string;
   nickname?: string;
   rank?: number | null;
-  profileImageS3SavedURL?: string | null;
+  profileImageSignedURL?: string | null;
 }
 
 export interface ChatRoom {

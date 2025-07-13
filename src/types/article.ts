@@ -28,7 +28,7 @@ export type JoinedArticle = RequiredOnly<Article> & { author: Author };
 export interface Author {
   nickname: string;
   rank: number | null;
-  profileImageS3SavedURL?: string;
+  profileImageSignedURL?: string;
   description?: string;
 }
 
@@ -64,5 +64,5 @@ export interface ParticipantInfo {
   id: number;
   rank: number | null;
   nickname: string;
-  profileImageS3SavedURL: string | null;
+  profileImageSignedURL: string | null;
 }

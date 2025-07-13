@@ -9,15 +9,15 @@ export const getBadgeList = http.get(
       data: {
         badges: [
           {
-            badgeImageS3SavedURL: null,
+            badgeImageSignedURL: null,
             badgeYearMonth: '2024.09',
           },
           {
-            badgeImageS3SavedURL: null,
+            badgeImageSignedURL: null,
             badgeYearMonth: '2024.08',
           },
           {
-            badgeImageS3SavedURL: null,
+            badgeImageSignedURL: null,
             badgeYearMonth: '2024.07',
           },
         ],
