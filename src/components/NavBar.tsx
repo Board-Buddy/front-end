@@ -57,7 +57,10 @@ const NavBar = () => {
                 focusedItem === item.title ? 'text-primary' : 'text-muted',
               )}
             >
-              {item.title} {isWebView}
+              {item.title}{' '}
+              {typeof window === 'undefined'
+                ? 'server'
+                : !!window?.ReactNativeWebView}
             </p>
           </Link>
         </li>
