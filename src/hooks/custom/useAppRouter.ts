@@ -1,3 +1,4 @@
+import { isWebView } from '@/utils/isWebView';
 import { NavigateOptions } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { useRouter } from 'next/navigation';
 
@@ -5,15 +6,13 @@ type NavigateMethod = 'PUSH' | 'REPLACE' | 'BACK' | 'FORWARD';
 
 const useAppRouter = () => {
   const router = useRouter();
-  const isWebView =
-    typeof window !== 'undefined' && !!window.ReactNativeWebView;
 
   const navigate = (
     method: NavigateMethod,
     href?: string,
     options?: NavigateOptions,
   ) => {
-    if (isWebView) {
+    if (isWebView()) {
       return window.ReactNativeWebView?.postMessage(
         JSON.stringify({
           type: 'ROUTER_EVENT',
