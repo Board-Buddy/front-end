@@ -3,22 +3,42 @@ import { useRouter } from 'next/navigation';
 import useIsWebView from './useIsWebView';
 
 type NavigateMethod = 'PUSH' | 'REPLACE' | 'BACK' | 'FORWARD';
+type ScreenName = 'HomeScreen' | 'ChatScreen' | 'MapScreen' | 'MyPageScreen';
+
+const screenMap = {
+  HomeScreen: '',
+  ChatScreen: 'chat',
+  MapScreen: 'map',
+  MyPageScreen: 'my',
+} as Record<ScreenName, string>;
+
+interface NavigateParams {
+  method: NavigateMethod;
+  href: string;
+  options?: NavigateOptions;
+  screenName?: ScreenName;
+  headerTitle?: string;
+}
 
 const useAppRouter = () => {
   const router = useRouter();
   const isWebView = useIsWebView();
 
-  const navigate = (
-    method: NavigateMethod,
-    href?: string,
-    options?: NavigateOptions,
-  ) => {
+  const navigate = ({
+    method,
+    href,
+    options,
+    screenName,
+    headerTitle,
+  }: NavigateParams) => {
     if (isWebView) {
       return window.ReactNativeWebView?.postMessage(
         JSON.stringify({
           type: 'ROUTER_EVENT',
           method,
-          href,
+          webUrl: href,
+          targetScreen: screenName ? screenMap[screenName] : 'webview',
+          headerTitle,
         }),
       );
     }
