@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation';
 import NotificationProvider from './NotificationProvider';
 import BackButton from './BackButton';
-import { isWebView } from '@/utils/isWebView';
+import { isWebView } from '@/hooks/custom/useAppRouter';
 
 const Header = () => {
   const pathname = usePathname();

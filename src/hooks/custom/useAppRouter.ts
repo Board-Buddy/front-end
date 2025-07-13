@@ -1,8 +1,10 @@
-import { isWebView } from '@/utils/isWebView';
 import { NavigateOptions } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { useRouter } from 'next/navigation';
 
 type NavigateMethod = 'PUSH' | 'REPLACE' | 'BACK' | 'FORWARD';
+
+export const isWebView = () =>
+  typeof window !== 'undefined' && !!window.ReactNativeWebView;
 
 const useAppRouter = () => {
   const router = useRouter();

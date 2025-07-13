@@ -8,7 +8,7 @@ import HomeIcon from './svg/HomeIcon';
 import MapIcon from './svg/MapIcon';
 import ChatIcon from './svg/ChatIcon';
 import MyIcon from './svg/MyIcon';
-import { isWebView } from '@/utils/isWebView';
+import { isWebView } from '@/hooks/custom/useAppRouter';
 
 const NavBar = () => {
   const pathname = usePathname();

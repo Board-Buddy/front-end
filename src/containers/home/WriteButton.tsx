@@ -1,8 +1,8 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { isWebView } from '@/hooks/custom/useAppRouter';
 import { useLoginRequiredAction } from '@/hooks/custom/useLoginRequiredAction';
-import { isWebView } from '@/utils/isWebView';
 import { cn } from '@/utils/tailwind';
 import { PlusIcon } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
