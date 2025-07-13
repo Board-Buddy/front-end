@@ -1,7 +1,6 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { isWebView } from '@/hooks/custom/useAppRouter';
 import { useLoginRequiredAction } from '@/hooks/custom/useLoginRequiredAction';
 import { cn } from '@/utils/tailwind';
 import { PlusIcon } from 'lucide-react';
@@ -12,6 +11,9 @@ const WriteButton = () => {
   const router = useRouter();
 
   const { runIfLoggedIn } = useLoginRequiredAction();
+
+  const isWebView =
+    typeof window !== 'undefined' && !!window.ReactNativeWebView;
 
   const handleClick = () => {
     runIfLoggedIn(() => {
@@ -26,7 +28,7 @@ const WriteButton = () => {
     <div
       className={cn(
         'absolute bottom-20 right-4',
-        isWebView() ? 'bottom-4' : 'bottom-20',
+        isWebView ? 'bottom-4' : 'bottom-20',
       )}
     >
       <Button

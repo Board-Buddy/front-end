@@ -8,7 +8,6 @@ import HomeIcon from './svg/HomeIcon';
 import MapIcon from './svg/MapIcon';
 import ChatIcon from './svg/ChatIcon';
 import MyIcon from './svg/MyIcon';
-import { isWebView } from '@/hooks/custom/useAppRouter';
 
 const NavBar = () => {
   const pathname = usePathname();
@@ -24,8 +23,11 @@ const NavBar = () => {
     navBarList.filter((nav) => pathname.includes(nav.to))[0].title,
   );
 
+  const isWebView =
+    typeof window !== 'undefined' && !!window.ReactNativeWebView;
+
   // 웹뷰라면 내비게이션 바를 렌더링하지 않는다
-  if (isWebView()) {
+  if (isWebView) {
     return null;
   }
 

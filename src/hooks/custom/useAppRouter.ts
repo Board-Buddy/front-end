@@ -3,18 +3,17 @@ import { useRouter } from 'next/navigation';
 
 type NavigateMethod = 'PUSH' | 'REPLACE' | 'BACK' | 'FORWARD';
 
-export const isWebView = () =>
-  typeof window !== 'undefined' && !!window.ReactNativeWebView;
-
 const useAppRouter = () => {
   const router = useRouter();
+  const isWebView =
+    typeof window !== 'undefined' && !!window.ReactNativeWebView;
 
   const navigate = (
     method: NavigateMethod,
     href?: string,
     options?: NavigateOptions,
   ) => {
-    if (isWebView()) {
+    if (isWebView) {
       return window.ReactNativeWebView?.postMessage(
         JSON.stringify({
           type: 'ROUTER_EVENT',
