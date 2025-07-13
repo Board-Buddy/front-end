@@ -3,13 +3,14 @@
 import { usePathname } from 'next/navigation';
 import NotificationProvider from './NotificationProvider';
 import BackButton from './BackButton';
-import { isWebView } from '@/utils/isWebView';
+import useIsWebView from '@/hooks/custom/useIsWebView';
 
 const Header = () => {
   const pathname = usePathname();
+  const isWebView = useIsWebView();
 
   // 웹뷰라면 헤더를 렌더링하지 않는다.
-  if (isWebView()) {
+  if (isWebView) {
     return null;
   }
 

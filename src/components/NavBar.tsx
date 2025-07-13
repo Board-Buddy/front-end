@@ -8,10 +8,11 @@ import HomeIcon from './svg/HomeIcon';
 import MapIcon from './svg/MapIcon';
 import ChatIcon from './svg/ChatIcon';
 import MyIcon from './svg/MyIcon';
-import { isWebView } from '@/utils/isWebView';
+import useIsWebView from '@/hooks/custom/useIsWebView';
 
 const NavBar = () => {
   const pathname = usePathname();
+  const isWebView = useIsWebView();
 
   const navBarList = [
     { icon: HomeIcon, to: '/home', title: '홈' },
@@ -25,7 +26,7 @@ const NavBar = () => {
   );
 
   // 웹뷰라면 내비게이션 바를 렌더링하지 않는다
-  if (isWebView()) {
+  if (isWebView) {
     return null;
   }
 

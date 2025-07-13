@@ -1,8 +1,8 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import useIsWebView from '@/hooks/custom/useIsWebView';
 import { useLoginRequiredAction } from '@/hooks/custom/useLoginRequiredAction';
-import { isWebView } from '@/utils/isWebView';
 import { cn } from '@/utils/tailwind';
 import { PlusIcon } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
@@ -10,6 +10,8 @@ import { usePathname, useRouter } from 'next/navigation';
 const WriteButton = () => {
   const pathname = usePathname();
   const router = useRouter();
+
+  const isWebView = useIsWebView();
 
   const { runIfLoggedIn } = useLoginRequiredAction();
 
@@ -26,7 +28,7 @@ const WriteButton = () => {
     <div
       className={cn(
         'absolute bottom-20 right-4',
-        isWebView() ? 'bottom-4' : 'bottom-20',
+        isWebView ? 'bottom-4' : 'bottom-20',
       )}
     >
       <Button
