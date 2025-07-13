@@ -6,7 +6,7 @@ const ReceivedMessage = ({ message }: { message: Message }) => {
   return (
     <div className="flex gap-2">
       <CustomAvatar
-        src={message.profileImageS3SavedURL!}
+        src={message.profileImageSignedURL!}
         rank={message.rank!}
         nickname={message.nickname!}
         avatarSize="xs"

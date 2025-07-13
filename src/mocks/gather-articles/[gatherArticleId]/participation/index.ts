@@ -10,19 +10,19 @@ const participationMap = new Map<number, ParticipantInfo[]>([
         id: 1,
         nickname: 'kong1',
         rank: 1,
-        profileImageS3SavedURL: null,
+        profileImageSignedURL: null,
       },
       {
         id: 2,
         nickname: 'kong2',
         rank: 2,
-        profileImageS3SavedURL: null,
+        profileImageSignedURL: null,
       },
       {
         id: 3,
         nickname: 'kong3',
         rank: null,
-        profileImageS3SavedURL: null,
+        profileImageSignedURL: null,
       },
     ],
   ],
@@ -57,7 +57,7 @@ export const applyParticipation = http.post(
       id: participants.length + 1,
       nickname: 'yubin',
       rank: null,
-      profileImageS3SavedURL: null,
+      profileImageSignedURL: null,
     };
 
     participants.push(newParticipation);

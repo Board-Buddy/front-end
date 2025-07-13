@@ -8,15 +8,15 @@ export const getRankings = http.get(`${API_BASE_URL}/rankings`, () => {
       rankings: [
         {
           nickname: '김송송',
-          profileImageS3SavedURL: null,
+          profileImageSignedURL: null,
         },
         {
           nickname: '김구구',
-          profileImageS3SavedURL: null,
+          profileImageSignedURL: null,
         },
         {
           nickname: '김나나',
-          profileImageS3SavedURL: null,
+          profileImageSignedURL: null,
         },
       ],
     },

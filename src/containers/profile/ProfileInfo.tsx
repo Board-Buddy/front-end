@@ -14,7 +14,7 @@ interface Props {
   description: Profile['description'];
   rank: Profile['rank'];
   buddyScore: Profile['buddyScore'];
-  profileImageS3SavedURL?: Profile['profileImageS3SavedURL'];
+  profileImageSignedURL?: Profile['profileImageSignedURL'];
 }
 
 const ProfileInfo = ({
@@ -22,7 +22,7 @@ const ProfileInfo = ({
   description,
   rank,
   buddyScore,
-  profileImageS3SavedURL,
+  profileImageSignedURL,
 }: Props) => {
   const router = useRouter();
 
@@ -35,7 +35,7 @@ const ProfileInfo = ({
     setFormState({
       nickname: nickname || myNickname,
       description,
-      profileImageFile: profileImageS3SavedURL || null,
+      profileImageFile: profileImageSignedURL || null,
     });
 
     router.push('/my/edit');
@@ -44,7 +44,7 @@ const ProfileInfo = ({
   return (
     <div className="flex gap-4">
       <CustomAvatar
-        src={profileImageS3SavedURL || null}
+        src={profileImageSignedURL || null}
         rank={rank}
         nickname={nickname || myNickname}
         avatarSize="lg"

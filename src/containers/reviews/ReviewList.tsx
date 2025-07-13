@@ -41,7 +41,7 @@ const ReviewList = ({ articleId }: Props) => {
           key={review.nickname}
           nickname={review.nickname}
           rank={review.rank}
-          profileImage={review.profileImageS3SavedURL}
+          profileImage={review.profileImageSignedURL}
           hasReviewed={review.hasReviewed}
         />
       ))}

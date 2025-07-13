@@ -11,7 +11,7 @@ import ReviewModal from './ReviewModal';
 
 interface Props {
   nickname: UserInfo['nickname'];
-  profileImage: Profile['profileImageS3SavedURL'];
+  profileImage: Profile['profileImageSignedURL'];
   rank: Profile['rank'];
   hasReviewed: boolean;
   articleId: Article['id'];

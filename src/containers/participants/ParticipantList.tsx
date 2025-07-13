@@ -72,7 +72,7 @@ const ParticipantList = ({ articleId }: Props) => {
           key={participant.id}
           id={participant.id}
           nickname={participant.nickname}
-          profileImageS3SavedURL={participant.profileImageS3SavedURL}
+          profileImageSignedURL={participant.profileImageSignedURL}
           rank={participant.rank}
           onApproveButtonClick={onApproveButtonClick}
           onRejectButtonClick={onRejectButtonClick}

@@ -5,7 +5,7 @@ import { cn } from '@/utils/tailwind';
 
 interface Props {
   nickname: Ranking['nickname'];
-  profileUrl: Ranking['profileImageS3SavedURL'];
+  profileUrl: Ranking['profileImageSignedURL'];
   rank: number;
 }
 

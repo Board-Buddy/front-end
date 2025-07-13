@@ -16,7 +16,7 @@ interface Props extends ParticipantInfo {
 const ParticipantItem = ({
   id,
   nickname,
-  profileImageS3SavedURL,
+  profileImageSignedURL,
   rank,
   onApproveButtonClick,
   onRejectButtonClick,
@@ -24,7 +24,7 @@ const ParticipantItem = ({
   return (
     <div className="flex items-center gap-3 border-b border-b-slate-100 px-4 py-2">
       <CustomAvatar
-        src={profileImageS3SavedURL}
+        src={profileImageSignedURL}
         rank={rank}
         nickname={nickname}
         avatarSize="sm"
