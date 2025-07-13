@@ -57,10 +57,12 @@ const NavBar = () => {
                 focusedItem === item.title ? 'text-primary' : 'text-muted',
               )}
             >
-              {item.title}{' '}
+              {item.title}
               {typeof window === 'undefined'
                 ? 'server'
-                : !!window?.ReactNativeWebView}
+                : window?.ReactNativeWebView
+                  ? 'true'
+                  : 'false'}
             </p>
           </Link>
         </li>
