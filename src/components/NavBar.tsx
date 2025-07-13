@@ -57,7 +57,7 @@ const NavBar = () => {
                 focusedItem === item.title ? 'text-primary' : 'text-muted',
               )}
             >
-              {item.title}
+              {item.title} {isWebView}
             </p>
           </Link>
         </li>
