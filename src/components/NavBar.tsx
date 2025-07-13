@@ -56,11 +56,6 @@ const NavBar = () => {
               )}
             >
               {item.title}
-              {typeof window === 'undefined'
-                ? 'server'
-                : window?.ReactNativeWebView
-                  ? 'true'
-                  : 'false'}
             </p>
           </Link>
         </li>
