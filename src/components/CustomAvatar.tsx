@@ -1,7 +1,7 @@
-import Link from 'next/link';
 import Image from 'next/image';
 import { cn } from '@/utils/tailwind';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import AppLink from './AppLink';
 
 interface Props {
   src: string | null;
@@ -32,7 +32,10 @@ const CustomAvatar = ({ src, rank, nickname, avatarSize }: Props) => {
   };
 
   return (
-    <Link href={`/profile/${nickname}`}>
+    <AppLink
+      href={`/profile/${nickname}`}
+      headerTitle={`${nickname} 님의 프로필`}
+    >
       <Avatar
         className={cn(
           `overflow-visible ${avatarSizeTW[avatarSize]} flex flex-col items-center`,
@@ -65,7 +68,7 @@ const CustomAvatar = ({ src, rank, nickname, avatarSize }: Props) => {
           )}
         </div>
       </Avatar>
-    </Link>
+    </AppLink>
   );
 };
 

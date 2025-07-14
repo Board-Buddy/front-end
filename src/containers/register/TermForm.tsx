@@ -1,9 +1,9 @@
 'use client';
 
+import AppLink from '@/components/AppLink';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import Link from 'next/link';
 import { useState } from 'react';
 
 const TermForm = () => {
@@ -86,14 +86,14 @@ const TermForm = () => {
           </div>
         ))}
       </div>
-      <Link href={allRequiredChecked ? '/register/accounts' : '#'}>
+      <AppLink href={allRequiredChecked ? '/register/accounts' : '#'}>
         <Button
           className="mt-4 h-12 w-full bg-primary text-lg font-bold text-white"
           disabled={!allRequiredChecked}
         >
           다음
         </Button>
-      </Link>
+      </AppLink>
     </>
   );
 };

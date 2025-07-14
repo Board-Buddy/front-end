@@ -1,7 +1,7 @@
+import AppLink from '@/components/AppLink';
 import { Button } from '@/components/ui/button';
 import { Cafe } from '@/types/map';
 import { Link as LinkIcon, MapPin, Phone } from 'lucide-react';
-import Link from 'next/link';
 
 interface Props {
   cafe: Cafe | null;
@@ -40,9 +40,9 @@ const CafeInfo = ({ cafe, onClick, buttonTitle }: Props) => {
               <div className="rounded-full bg-[#FFF7EA] p-1.5">
                 <LinkIcon className="size-5 text-secondary" />
               </div>
-              <Link href={placeUrl} target="_blank">
+              <AppLink href={placeUrl}>
                 <span className="underline underline-offset-2">{placeUrl}</span>
-              </Link>
+              </AppLink>
             </div>
           )}
         </div>

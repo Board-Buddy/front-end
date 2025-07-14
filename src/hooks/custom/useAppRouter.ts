@@ -12,7 +12,7 @@ const screenMap = {
   MyPageScreen: '/my',
 } as Record<ScreenName, string>;
 
-interface NavigateArgs {
+export interface NavigateArgs {
   href: string;
   options?: NavigateOptions;
   headerTitle?: string;

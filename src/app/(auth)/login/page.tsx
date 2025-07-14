@@ -1,6 +1,6 @@
+import AppLink from '@/components/AppLink';
 import LoginForm from '@/containers/login/LoginForm';
 import Image from 'next/image';
-import Link from 'next/link';
 
 const page = () => {
   return (
@@ -26,7 +26,7 @@ const page = () => {
         <div className="mt-6 w-full border-t border-dashed" />
         <div>
           <div className="mt-6 flex items-center justify-center gap-2 text-sm font-semibold text-gray-600">
-            <Link href="/register/terms">회원가입</Link>
+            <AppLink href="/register/terms">회원가입</AppLink>
             <div className="h-[12px] border border-gray-500" />
             <p>아이디 찾기</p>
             <div className="h-[12px] border border-gray-500" />
