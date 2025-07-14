@@ -6,10 +6,10 @@ type NavigateMethod = 'PUSH' | 'REPLACE' | 'BACK' | 'FORWARD';
 type ScreenName = 'HomeScreen' | 'ChatScreen' | 'MapScreen' | 'MyPageScreen';
 
 const screenMap = {
-  HomeScreen: '',
-  ChatScreen: 'chat',
-  MapScreen: 'map',
-  MyPageScreen: 'my',
+  HomeScreen: '/',
+  ChatScreen: '/chat',
+  MapScreen: '/map',
+  MyPageScreen: '/my',
 } as Record<ScreenName, string>;
 
 interface NavigateParams {
@@ -37,7 +37,7 @@ const useAppRouter = () => {
           type: 'ROUTER_EVENT',
           method,
           webUrl: href,
-          targetScreen: screenName ? screenMap[screenName] : 'webview',
+          targetPath: screenName ? screenMap[screenName] : '/webview',
           headerTitle,
         }),
       );
