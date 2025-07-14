@@ -1,5 +1,6 @@
 import TermForm from '@/containers/register/TermForm';
 import Image from 'next/image';
+import { Suspense } from 'react';
 
 const page = () => {
   return (
@@ -18,7 +19,9 @@ const page = () => {
             필수항목 및 선택항목 약관에 동의해 주세요.
           </p>
         </div>
-        <TermForm />
+        <Suspense>
+          <TermForm />
+        </Suspense>
       </div>
     </div>
   );

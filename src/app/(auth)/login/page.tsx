@@ -1,6 +1,7 @@
 import AppLink from '@/components/AppLink';
 import LoginForm from '@/containers/login/LoginForm';
 import Image from 'next/image';
+import { Suspense } from 'react';
 
 const page = () => {
   return (
@@ -26,7 +27,9 @@ const page = () => {
         <div className="mt-6 w-full border-t border-dashed" />
         <div>
           <div className="mt-6 flex items-center justify-center gap-2 text-sm font-semibold text-gray-600">
-            <AppLink href="/register/terms">회원가입</AppLink>
+            <Suspense>
+              <AppLink href="/register/terms">회원가입</AppLink>
+            </Suspense>
             <div className="h-[12px] border border-gray-500" />
             <p>아이디 찾기</p>
             <div className="h-[12px] border border-gray-500" />
