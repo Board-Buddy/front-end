@@ -6,61 +6,52 @@ type NavigateMethod = 'PUSH' | 'REPLACE' | 'BACK' | 'FORWARD';
 type ScreenName = 'HomeScreen' | 'ChatScreen' | 'MapScreen' | 'MyPageScreen';
 
 const screenMap = {
-  HomeScreen: '/',
+  HomeScreen: '/home',
   ChatScreen: '/chat',
   MapScreen: '/map',
   MyPageScreen: '/my',
 } as Record<ScreenName, string>;
 
-interface NavigateParams {
-  method: NavigateMethod;
+interface NavigateArgs {
   href: string;
   options?: NavigateOptions;
-  screenName?: ScreenName;
   headerTitle?: string;
+  screenName?: ScreenName;
 }
 
 const useAppRouter = () => {
   const router = useRouter();
   const isWebView = useIsWebView();
 
-  const navigate = ({
-    method,
-    href,
-    options,
-    screenName,
-    headerTitle,
-  }: NavigateParams) => {
-    if (isWebView) {
-      return window.ReactNativeWebView?.postMessage(
-        JSON.stringify({
-          type: 'ROUTER_EVENT',
-          method,
-          webUrl: href,
-          targetPath: screenName ? screenMap[screenName] : '/webview',
-          headerTitle,
-        }),
-      );
-    }
+  const sendToWebView = (
+    method: NavigateMethod,
+    href?: string,
+    headerTitle?: string,
+    screenName?: ScreenName,
+  ) =>
+    window.ReactNativeWebView?.postMessage(
+      JSON.stringify({
+        type: 'ROUTER_EVENT',
+        method,
+        webUrl: href,
+        targetPath: screenName ? screenMap[screenName] : '/webview',
+        headerTitle,
+      }),
+    );
 
-    switch (method) {
-      case 'PUSH':
-        if (!href) throw new Error('href 설정 오류');
-        return router.push(href, options);
+  const push = ({ href, options, headerTitle, screenName }: NavigateArgs) =>
+    isWebView
+      ? sendToWebView('PUSH', href, headerTitle, screenName)
+      : router.push(href, options);
 
-      case 'REPLACE':
-        if (!href) throw new Error('href 설정 오류');
-        return router.replace(href, options);
+  const replace = ({ href, options, headerTitle, screenName }: NavigateArgs) =>
+    isWebView
+      ? sendToWebView('REPLACE', href, headerTitle, screenName)
+      : router.replace(href, options);
 
-      case 'BACK':
-        return router.back();
+  const back = () => (isWebView ? sendToWebView('BACK') : router.back());
 
-      case 'FORWARD':
-        return router.forward();
-    }
-  };
-
-  return { navigate };
+  return { push, replace, back };
 };
 
 export default useAppRouter;
