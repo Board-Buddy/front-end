@@ -4,6 +4,8 @@ import { Dispatch, SetStateAction } from 'react';
 import ProvinceSelectItem from './ProvinceSelectItem';
 import { NATION_WIDE } from './LocationFilter';
 import useAppRouter from '@/hooks/custom/useAppRouter';
+import { cn } from '@/utils/tailwind';
+import useIsWebView from '@/hooks/custom/useIsWebView';
 
 export interface ProvinceSelectorProps {
   selectedProvince: Province;
@@ -21,11 +23,17 @@ const ProvinceSelector = ({
   setProvince,
 }: ProvinceSelectorProps) => {
   const router = useAppRouter();
+  const isWebView = useIsWebView();
 
   const { data } = useGetProvinceList();
 
   return (
-    <div className="flex h-[calc(100vh-theme(spacing.14))] flex-col overflow-y-auto border-r border-gray-100">
+    <div
+      className={cn(
+        'flex flex-col overflow-y-auto border-r border-gray-100',
+        isWebView ? 'h-dvh' : 'h-[calc(100vh-theme(spacing.14))]',
+      )}
+    >
       <ProvinceSelectItem
         key={NATION_WIDE['code']}
         province={NATION_WIDE}
