@@ -8,6 +8,7 @@ import { useExistingProfileInfoContext } from '@/context/ExistingProfileInfoCont
 import { Profile } from '@/types/profile';
 import BuddyPoint from './BuddyPoint';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 
 interface Props {
   nickname?: UserInfo['nickname'];
@@ -24,7 +25,7 @@ const ProfileInfo = ({
   buddyScore,
   profileImageS3SavedURL,
 }: Props) => {
-  const router = useRouter();
+  const router = useAppRouter();
 
   const userInfo = useUserInfo();
   const myNickname = userInfo?.nickname || '';
@@ -38,7 +39,7 @@ const ProfileInfo = ({
       profileImageFile: profileImageS3SavedURL || null,
     });
 
-    router.push('/my/edit');
+    router.push({ href: '/my/edit', headerTitle: '프로필 수정' });
   };
 
   return (
