@@ -84,7 +84,10 @@ const ArticleList = ({
                   {group.posts.map((article) => (
                     <Article
                       onClick={() =>
-                        router.navigate('PUSH', `/article/${article.id}`)
+                        router.push({
+                          href: `/article/${article.id}`,
+                          headerTitle: '모집글 상세',
+                        })
                       }
                       key={article.id}
                       id={article.id}

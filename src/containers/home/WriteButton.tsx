@@ -1,15 +1,16 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 import useIsWebView from '@/hooks/custom/useIsWebView';
 import { useLoginRequiredAction } from '@/hooks/custom/useLoginRequiredAction';
 import { cn } from '@/utils/tailwind';
 import { PlusIcon } from 'lucide-react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
 const WriteButton = () => {
   const pathname = usePathname();
-  const router = useRouter();
+  const router = useAppRouter();
 
   const isWebView = useIsWebView();
 
@@ -17,7 +18,10 @@ const WriteButton = () => {
 
   const handleClick = () => {
     runIfLoggedIn(() => {
-      router.push('/article/write');
+      router.push({
+        href: '/article/write',
+        headerTitle: '모집글 작성',
+      });
     });
   };
 

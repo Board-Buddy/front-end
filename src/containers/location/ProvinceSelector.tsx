@@ -3,7 +3,7 @@ import { Province } from '@/types/location';
 import { Dispatch, SetStateAction } from 'react';
 import ProvinceSelectItem from './ProvinceSelectItem';
 import { NATION_WIDE } from './LocationFilter';
-import { useRouter } from 'next/navigation';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 
 export interface ProvinceSelectorProps {
   selectedProvince: Province;
@@ -20,7 +20,7 @@ const ProvinceSelector = ({
   setSgg,
   setProvince,
 }: ProvinceSelectorProps) => {
-  const router = useRouter();
+  const router = useAppRouter();
 
   const { data } = useGetProvinceList();
 

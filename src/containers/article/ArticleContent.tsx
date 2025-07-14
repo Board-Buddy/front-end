@@ -16,12 +16,12 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useWriteFormContext } from '@/context/WriteFormContext';
-import { useRouter } from 'next/navigation';
 import { ARTICLE_STATUS } from '@/constants/article';
 import { useDeleteArticle } from '@/hooks/useArticle';
 import CustomAlert from '@/components/CustomAlert';
 import { useState } from 'react';
 import Map from './Map';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 
 interface Props extends Omit<Article, 'author'> {
   isAuthor: boolean;
@@ -46,7 +46,7 @@ const ArticleContent = ({
   isAuthor,
 }: Props) => {
   const { setFormState } = useWriteFormContext();
-  const router = useRouter();
+  const router = useAppRouter();
 
   const [open, setOpen] = useState(false);
 
@@ -73,7 +73,7 @@ const ArticleContent = ({
       date: new Date(startDateTime),
     });
 
-    router.push(`/article/${id}/edit`);
+    router.push({ href: `/article/${id}/edit`, headerTitle: '모집글 수정' });
   };
 
   return (

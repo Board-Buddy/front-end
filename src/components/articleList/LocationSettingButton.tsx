@@ -1,11 +1,11 @@
 'use client';
 
+import useAppRouter from '@/hooks/custom/useAppRouter';
 import { GetArticleRequestParams } from '@/types/article';
 import { Province } from '@/types/location';
 import { ChevronDown } from 'lucide-react';
 
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 
 interface Props extends Pick<GetArticleRequestParams, 'sgg'> {
   route: string;
@@ -13,10 +13,10 @@ interface Props extends Pick<GetArticleRequestParams, 'sgg'> {
 }
 
 const LocationSettingButton = ({ sgg, route, province }: Props) => {
-  const router = useRouter();
+  const router = useAppRouter();
 
   const onClick = () => {
-    router.push(route);
+    router.push({ href: route, headerTitle: '지역 필터 선택' });
   };
 
   return (

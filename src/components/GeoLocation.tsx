@@ -3,12 +3,13 @@
 import { LoaderCircleIcon } from 'lucide-react';
 import { useState } from 'react';
 import { Cafe } from '@/types/map';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useWriteFormContext } from '@/context/WriteFormContext';
 import { GEOLOCATION_OPTIONS } from '@/constants/map';
 import useGeoLocation from '@/hooks/custom/useGeoLocation';
 import CafeInfo from '../containers/map/CafeInfo';
 import Map from '../containers/map/Map';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 
 interface Props {
   redirectionURL?: string;
@@ -16,7 +17,7 @@ interface Props {
 
 const GeoLocation = ({ redirectionURL }: Props) => {
   const pathname = usePathname();
-  const router = useRouter();
+  const router = useAppRouter();
 
   const { formState, setFormState } = useWriteFormContext();
   const { location, error } = useGeoLocation(GEOLOCATION_OPTIONS);
@@ -36,7 +37,7 @@ const GeoLocation = ({ redirectionURL }: Props) => {
       y: cafeInfo!.y.toString(),
     });
 
-    router.push(redirectionURL!);
+    router.push({ href: redirectionURL!, headerTitle: '모임 위치 선택' });
   };
 
   if (!location || error) {
