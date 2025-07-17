@@ -1,10 +1,10 @@
 'use client';
 
 import { ChevronsDown, ChevronsUp } from 'lucide-react';
-import Link from 'next/link';
 import { useState } from 'react';
 import { cn } from '@/utils/tailwind';
 import { API_BASE_URL, ENDPOINT } from '@/services/endpoint';
+import AppLink from '@/components/AppLink';
 
 const LoginDrawer = () => {
   const [toggleShowAll, setToggleShowAll] = useState(false);
@@ -36,7 +36,7 @@ const LoginDrawer = () => {
 
       <p className="mb-3 mt-1 font-extrabold">지금 바로 함께해요!</p>
       <div className="flex w-4/5 flex-col items-center gap-2">
-        <Link
+        <AppLink
           href={`${API_BASE_URL}${ENDPOINT.AUTH.SOCIAL_LOGIN.KAKAO()}`}
           className="w-full"
         >
@@ -46,8 +46,8 @@ const LoginDrawer = () => {
               카카오로 계속하기
             </p>
           </div>
-        </Link>
-        <Link
+        </AppLink>
+        <AppLink
           href={`${API_BASE_URL}${ENDPOINT.AUTH.SOCIAL_LOGIN.NAVER()}`}
           className="w-full"
         >
@@ -57,8 +57,8 @@ const LoginDrawer = () => {
               네이버로 계속하기
             </p>
           </div>
-        </Link>
-        <Link
+        </AppLink>
+        <AppLink
           href={`${API_BASE_URL}${ENDPOINT.AUTH.SOCIAL_LOGIN.GOOGLE()}`}
           className="w-full"
         >
@@ -68,15 +68,15 @@ const LoginDrawer = () => {
               구글로 계속하기
             </p>
           </div>
-        </Link>
+        </AppLink>
       </div>
-      <Link href="/login">
+      <AppLink href="/login">
         <div className="mt-4 pb-2">
           <p className="text-sm font-semibold underline">
             이메일 또는 아이디로 계속하기
           </p>
         </div>
-      </Link>
+      </AppLink>
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import RegisterForm from '@/containers/register/RegisterForm';
 import Image from 'next/image';
+import { Suspense } from 'react';
 
 const page = () => {
   return (
@@ -18,9 +19,11 @@ const page = () => {
             회원가입에 필요한 정보를 입력해주세요.
           </p>
         </div>
-        <div className="mt-6">
-          <RegisterForm />
-        </div>
+        <Suspense>
+          <div className="mt-6">
+            <RegisterForm />
+          </div>
+        </Suspense>
       </div>
     </div>
   );

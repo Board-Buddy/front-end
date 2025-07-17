@@ -6,6 +6,8 @@ import DistrictSelector from './DistrictSelector';
 import { Province } from '@/types/location';
 import Loading from '@/components/Loading';
 import NationwideFallback from './NationwideFallback';
+import useIsWebView from '@/hooks/custom/useIsWebView';
+import { cn } from '@/utils/tailwind';
 
 export const NATION_WIDE = { code: 'ALL', name: '전체', officialName: '전체' };
 
@@ -17,6 +19,8 @@ interface Props {
 }
 
 const LocationFilter = ({ province, setSido, setSgg, setProvince }: Props) => {
+  const isWebView = useIsWebView();
+
   const [selectedProvince, setSelectedProvince] = useState<Province>(
     province ?? NATION_WIDE,
   );
@@ -32,7 +36,12 @@ const LocationFilter = ({ province, setSido, setSgg, setProvince }: Props) => {
           setProvince={setProvince}
         />
         <Suspense fallback={null}>
-          <div className="h-[calc(100vh-theme(spacing.14))] flex-1 overflow-y-auto px-6">
+          <div
+            className={cn(
+              'flex-1 overflow-y-auto px-6',
+              isWebView ? 'h-dvh' : 'h-[calc(100vh-theme(spacing.14))]',
+            )}
+          >
             {selectedProvince.code === 'ALL' ? (
               <NationwideFallback />
             ) : (

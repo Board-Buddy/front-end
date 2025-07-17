@@ -1,14 +1,14 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useGetMyArticles } from '@/hooks/useProfile';
 import Loading from '@/components/Loading';
 import { Article as IArticle } from '@/types/article';
 import ErrorFallback from '@/components/ErrorFallback';
 import Article from '../home/Article';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 
 const MyArticle = () => {
-  const router = useRouter();
+  const router = useAppRouter();
 
   const {
     data: posts,
@@ -36,7 +36,12 @@ const MyArticle = () => {
     <>
       {posts.map((article: IArticle) => (
         <Article
-          onClick={() => router.push(`/article/${article.id}`)}
+          onClick={() =>
+            router.push({
+              href: `/article/${article.id}`,
+              headerTitle: '모집글 상세',
+            })
+          }
           key={article.id}
           id={article.id}
           title={article.title}

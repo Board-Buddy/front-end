@@ -1,7 +1,7 @@
 import { checkUserLogin, login, logout, withdrawal } from '@/services/auth';
 import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
+import useAppRouter from './custom/useAppRouter';
 
 export const useUserLoginCheck = ({ isReady }: { isReady: boolean }) => {
   return useQuery({
@@ -15,7 +15,7 @@ export const useUserLoginCheck = ({ isReady }: { isReady: boolean }) => {
 
 export const useUserLogin = () => {
   const queryClient = useQueryClient();
-  const router = useRouter();
+  const router = useAppRouter();
 
   return useMutation({
     mutationFn: (data: { username: string; password: string }) => login(data),
@@ -29,20 +29,22 @@ export const useUserLogin = () => {
         gcTime: Infinity,
       });
 
-      router.replace('/home');
+      router.replace({ href: '/home', screenName: 'HomeScreen' });
     },
   });
 };
 
 export const useLogout = () => {
   const queryClient = useQueryClient();
-  const router = useRouter();
+  const router = useAppRouter();
 
   return useMutation({
     mutationFn: logout,
     onSuccess: () => {
       queryClient.invalidateQueries();
-      router.push('/');
+
+      router.replace({ href: '/home', screenName: 'HomeScreen' });
+
       successToast('logout', '로그아웃되었습니다.');
     },
   });
@@ -50,13 +52,15 @@ export const useLogout = () => {
 
 export const useWithdrawal = () => {
   const queryClient = useQueryClient();
-  const router = useRouter();
+  const router = useAppRouter();
 
   return useMutation({
     mutationFn: withdrawal,
     onSuccess: () => {
       queryClient.invalidateQueries();
-      router.push('/');
+
+      router.replace({ href: '/home', screenName: 'HomeScreen' });
+
       successToast('withdrawal', '탈퇴되었습니다.');
     },
   });

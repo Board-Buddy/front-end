@@ -1,6 +1,6 @@
+import useAppRouter from '@/hooks/custom/useAppRouter';
 import { useGetDistrictList } from '@/hooks/useLocation';
 import { Province } from '@/types/location';
-import { useRouter } from 'next/navigation';
 
 interface Props {
   province: Province;
@@ -15,7 +15,7 @@ const DistrictSelector = ({
   setSgg,
   setProvince,
 }: Props) => {
-  const router = useRouter();
+  const router = useAppRouter();
 
   const { data } = useGetDistrictList(province.code);
 

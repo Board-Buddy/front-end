@@ -39,11 +39,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { useRouter } from 'next/navigation';
 import { useAddArticle } from '@/hooks/useArticle';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 
 const ArticleWriteForm = () => {
-  const router = useRouter();
+  const router = useAppRouter();
 
   const { formState, setFormState } = useWriteFormContext();
   const [timeErrorMessage, setTimeErrorMessage] = useState<string | null>(null);
@@ -63,7 +63,10 @@ const ArticleWriteForm = () => {
     setFormState(form.getValues());
 
     // 위치 선택 페이지로 이동
-    router.push('/write/locationSetting');
+    router.push({
+      href: '/write/locationSetting',
+      headerTitle: '보드게임 카페 선택 ',
+    });
   };
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {

@@ -1,7 +1,7 @@
+import AppLink from '@/components/AppLink';
 import CustomAvatar from '@/components/CustomAvatar';
 import { Author } from '@/types/article';
 import { ChevronRight } from 'lucide-react';
-import Link from 'next/link';
 
 const Profile = ({ author }: { author: Author }) => {
   return (
@@ -17,9 +17,12 @@ const Profile = ({ author }: { author: Author }) => {
         <p className="text-sm text-gray-600">{author.description}</p>
       </div>
       <div className="ml-auto">
-        <Link href={`/profile/${author.nickname}`}>
+        <AppLink
+          href={`/profile/${author.nickname}`}
+          headerTitle={`${author.nickname} 님의 프로필`}
+        >
           <ChevronRight className="size-5 text-gray-700" />
-        </Link>
+        </AppLink>
       </div>
     </div>
   );

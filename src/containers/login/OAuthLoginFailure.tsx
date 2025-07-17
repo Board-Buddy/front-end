@@ -2,8 +2,8 @@
 
 import CustomAlert from '@/components/CustomAlert';
 import { OAUTH_LOGIN_MESSAGE_CODE } from '@/constants/auth';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 import { LoaderCircleIcon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const OAuthLoginFailure = ({ messageCode }: Props) => {
-  const router = useRouter();
+  const router = useAppRouter();
   const [open, setOpen] = useState(true);
 
   return (
@@ -24,7 +24,7 @@ const OAuthLoginFailure = ({ messageCode }: Props) => {
         setOpen={setOpen}
         title={OAUTH_LOGIN_MESSAGE_CODE[messageCode]}
         confirmText="다시 로그인"
-        onConfirm={() => router.push('/login-splash')}
+        onConfirm={() => router.push({ href: '/login-splash' })}
       />
     </>
   );
