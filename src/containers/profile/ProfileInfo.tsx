@@ -3,7 +3,6 @@
 import CustomAvatar from '@/components/CustomAvatar';
 import { UserInfo } from '@/types/user';
 import { cn } from '@/utils/tailwind';
-import { useRouter } from 'next/navigation';
 import { useExistingProfileInfoContext } from '@/context/ExistingProfileInfoContext';
 import { Profile } from '@/types/profile';
 import BuddyPoint from './BuddyPoint';
