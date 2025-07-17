@@ -6,7 +6,7 @@ type NavigateMethod = 'PUSH' | 'REPLACE' | 'BACK' | 'FORWARD';
 type ScreenName = 'HomeScreen' | 'ChatScreen' | 'MapScreen' | 'MyPageScreen';
 
 const screenMap = {
-  HomeScreen: '/home',
+  HomeScreen: '/',
   ChatScreen: '/chat',
   MapScreen: '/map',
   MyPageScreen: '/my',
