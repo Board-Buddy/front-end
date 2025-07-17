@@ -21,9 +21,11 @@ const page = () => {
           className="absolute -top-[77px] right-4"
         />
         <span className="text-xl font-bold text-gray-800">LOGIN</span>
-        <div className="mt-8">
-          <LoginForm />
-        </div>
+        <Suspense>
+          <div className="mt-8">
+            <LoginForm />
+          </div>
+        </Suspense>
         <div className="mt-6 w-full border-t border-dashed" />
         <div>
           <div className="mt-6 flex items-center justify-center gap-2 text-sm font-semibold text-gray-600">
