@@ -37,7 +37,12 @@ const GeoLocation = ({ redirectionURL }: Props) => {
       y: cafeInfo!.y.toString(),
     });
 
-    router.push({ href: redirectionURL!, headerTitle: '모임 위치 선택' });
+    router.replace({
+      href: redirectionURL!,
+      headerTitle: redirectionURL?.includes('edit')
+        ? '모집글 수정'
+        : '모집글 작성',
+    });
   };
 
   if (!location || error) {
