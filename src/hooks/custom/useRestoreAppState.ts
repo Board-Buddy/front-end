@@ -1,5 +1,6 @@
 import { StateKey } from '@/utils/appState';
 import { useEffect } from 'react';
+import useIsWebView from './useIsWebView';
 
 type RestoreStateCallback<T> = (state: T) => void;
 
@@ -7,7 +8,13 @@ const useRestoreAppState = <T>(
   key: StateKey,
   onRestore: RestoreStateCallback<T>,
 ) => {
+  const isWebView = useIsWebView();
+
   useEffect(() => {
+    if (!isWebView) {
+      return;
+    }
+
     // 앱 상태 구독 메시지 전송 함수
     const sendRegisterState = () => {
       window.ReactNativeWebView?.postMessage(
@@ -42,7 +49,7 @@ const useRestoreAppState = <T>(
       window.removeEventListener('message', handleRestoreState);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [key, onRestore]);
+  }, [key, onRestore, isWebView]);
 };
 
 export default useRestoreAppState;
