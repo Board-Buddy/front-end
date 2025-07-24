@@ -1,7 +1,8 @@
 import useAppRouter from '@/hooks/custom/useAppRouter';
+import useGetStateKey from '@/hooks/custom/useGetStateKey';
 import { useGetDistrictList } from '@/hooks/useLocation';
 import { Province } from '@/types/location';
-import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
+import { saveStateToApp } from '@/utils/appState';
 
 interface Props {
   province: Province;
@@ -20,6 +21,8 @@ const DistrictSelector = ({
 
   const { data } = useGetDistrictList(province.code);
 
+  const stateKey = useGetStateKey();
+
   return (
     <div className="flex flex-col divide-y divide-gray-100">
       {data.map((district) => (
@@ -32,7 +35,7 @@ const DistrictSelector = ({
             setSido(province.officialName);
             setSgg(district.name === '전체' ? null : district.name);
 
-            saveStateToApp(STATE_KEYS.ARTICLE_FILTER, {
+            saveStateToApp(stateKey, {
               province,
               sido: province.officialName,
               sgg: district.name === '전체' ? null : district.name,

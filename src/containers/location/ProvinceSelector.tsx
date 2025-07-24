@@ -6,7 +6,8 @@ import { NATION_WIDE } from './LocationFilter';
 import useAppRouter from '@/hooks/custom/useAppRouter';
 import { cn } from '@/utils/tailwind';
 import useIsWebView from '@/hooks/custom/useIsWebView';
-import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
+import { saveStateToApp } from '@/utils/appState';
+import useGetStateKey from '@/hooks/custom/useGetStateKey';
 
 export interface ProvinceSelectorProps {
   selectedProvince: Province;
@@ -28,6 +29,8 @@ const ProvinceSelector = ({
 
   const { data } = useGetProvinceList();
 
+  const stateKey = useGetStateKey();
+
   return (
     <div
       className={cn(
@@ -44,7 +47,7 @@ const ProvinceSelector = ({
           setSido(null);
           setSgg(null);
 
-          saveStateToApp(STATE_KEYS.ARTICLE_FILTER, { province: NATION_WIDE });
+          saveStateToApp(stateKey, { province: NATION_WIDE });
 
           router.back();
         }}
