@@ -10,6 +10,8 @@ import useGeoLocation from '@/hooks/custom/useGeoLocation';
 import CafeInfo from '../containers/map/CafeInfo';
 import Map from '../containers/map/Map';
 import useAppRouter from '@/hooks/custom/useAppRouter';
+import { saveStateToApp } from '@/utils/appState';
+import useGetStateKey from '@/hooks/custom/useGetStateKey';
 
 interface Props {
   redirectionURL?: string;
@@ -24,10 +26,22 @@ const GeoLocation = ({ redirectionURL }: Props) => {
 
   const [cafeInfo, setCafeInfo] = useState<Cafe | null>(null);
 
+  const stateKey = useGetStateKey();
+
   const handleDirectionButtonClick = () => {};
 
   const handleSelectButtonClick = () => {
     setFormState({
+      ...formState,
+      meetingLocation: cafeInfo!.placeName,
+      sido: cafeInfo!.sido,
+      sgg: cafeInfo!.sgg,
+      emd: cafeInfo!.emd,
+      x: cafeInfo!.x.toString(),
+      y: cafeInfo!.y.toString(),
+    });
+
+    saveStateToApp(stateKey, {
       ...formState,
       meetingLocation: cafeInfo!.placeName,
       sido: cafeInfo!.sido,
