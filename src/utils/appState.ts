@@ -15,12 +15,20 @@ export type StateKey = (typeof STATE_KEYS)[keyof typeof STATE_KEYS];
  */
 export const saveStateToApp = (stateKey: StateKey, state: unknown) => {
   if (window.ReactNativeWebView?.postMessage) {
-    window.ReactNativeWebView.postMessage(
-      JSON.stringify({
-        type: 'SAVE_STATE',
-        key: stateKey,
-        state,
-      }),
+    try {
+      window.ReactNativeWebView.postMessage(
+        JSON.stringify({
+          type: 'SAVE_STATE',
+          key: stateKey,
+          state,
+        }),
+      );
+    } catch (error) {
+      console.error('앱에 상태를 저장하는 데 실패했습니다', error);
+    }
+  } else {
+    console.warn(
+      'ReactNativeWebView를 사용할 수 없어 상태가 저장되지 않았습니다',
     );
   }
 };

@@ -39,15 +39,30 @@ const useAppRouter = () => {
       }),
     );
 
-  const push = ({ href, options, headerTitle, screenName }: NavigateArgs) =>
-    isWebView
+  const push = ({ href, options, headerTitle, screenName }: NavigateArgs) => {
+    if (!href) {
+      throw new Error('href is required for push navigation');
+    }
+
+    return isWebView
       ? sendToWebView('PUSH', href, headerTitle, screenName)
       : router.push(href, options);
+  };
 
-  const replace = ({ href, options, headerTitle, screenName }: NavigateArgs) =>
-    isWebView
+  const replace = ({
+    href,
+    options,
+    headerTitle,
+    screenName,
+  }: NavigateArgs) => {
+    if (!href) {
+      throw new Error('href is required for replace navigation');
+    }
+
+    return isWebView
       ? sendToWebView('REPLACE', href, headerTitle, screenName)
       : router.replace(href, options);
+  };
 
   const back = () => (isWebView ? sendToWebView('BACK') : router.back());
 
