@@ -1,6 +1,7 @@
 import useAppRouter from '@/hooks/custom/useAppRouter';
 import { useGetDistrictList } from '@/hooks/useLocation';
 import { Province } from '@/types/location';
+import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
 
 interface Props {
   province: Province;
@@ -30,6 +31,12 @@ const DistrictSelector = ({
             setProvince(province);
             setSido(province.officialName);
             setSgg(district.name === '전체' ? null : district.name);
+
+            saveStateToApp(STATE_KEYS.ARTICLE_FILTER, {
+              province,
+              sido: province.officialName,
+              sgg: district.name === '전체' ? null : district.name,
+            });
 
             router.back();
           }}
