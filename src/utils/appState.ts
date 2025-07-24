@@ -1,6 +1,5 @@
 export const STATE_KEYS = {
   ARTICLE_WRITE_FORM: 'article-write-form',
-  ARTICLE_EDIT_FORM: 'article-edit-form',
   PROFILE_INFO: 'profile-info',
   ARTICLE_FILTER: 'article-filter',
   SEARCH_FILTER: 'search-filter',

@@ -81,7 +81,7 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
   const handleLocationSettingButton = () => {
     setFormState(form.getValues());
 
-    saveStateToApp(STATE_KEYS.ARTICLE_EDIT_FORM, form.getValues());
+    saveStateToApp(STATE_KEYS.ARTICLE_WRITE_FORM, form.getValues());
 
     // 위치 선택 페이지로 이동
     router.push({
@@ -124,7 +124,7 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
         y: values.y!,
       });
 
-      saveStateToApp(STATE_KEYS.ARTICLE_EDIT_FORM, null);
+      saveStateToApp(STATE_KEYS.ARTICLE_WRITE_FORM, null);
     }
   };
 
