@@ -36,8 +36,8 @@ const AppLink = ({
     <Element
       onClick={handleClick}
       href={as === 'a' ? href : undefined}
-      role={as === 'a' ? 'link' : undefined}
-      aria-label={headerTitle ?? href}
+      type={as === 'button' ? 'button' : undefined}
+      aria-label={headerTitle || (typeof href === 'string' ? href : undefined)}
       className={className}
       {...props}
     >
