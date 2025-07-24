@@ -17,7 +17,7 @@ import { useCallback, useMemo, useState } from 'react';
 
 const ArticleListContainer = () => {
   const [restoredState, setRestoredState] =
-    useState<Partial<ArticleParams | null>>(null);
+    useState<Partial<ArticleParams> | null>(null);
 
   const onRestore = useCallback((state: Partial<ArticleParams>) => {
     setRestoredState(state);
