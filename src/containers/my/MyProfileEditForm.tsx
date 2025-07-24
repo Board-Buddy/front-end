@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { IMAGE_MAX_SIZE } from '@/constants/image';
 import { EditProfileDTO } from '@/types/profile';
 import { resizeFile } from '@/utils/image';
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useCallback, useRef, useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -32,6 +32,8 @@ import CustomAlert from '@/components/CustomAlert';
 import { useExistingProfileInfoContext } from '@/context/ExistingProfileInfoContext';
 import { CustomAxiosError } from '@/types/api';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
+import useRestoreAppState from '@/hooks/custom/useRestoreAppState';
+import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
 
 const MyProfileEditForm = () => {
   const [imageSizeAlertOpen, setImageSizeAlertOpen] = useState(false);
@@ -87,6 +89,20 @@ const MyProfileEditForm = () => {
       phoneVerifyCode: undefined,
     },
   });
+
+  const onRestore = useCallback(
+    (state: z.infer<typeof formSchema> | null) => {
+      if (state) {
+        form.reset(state);
+      }
+    },
+    [form],
+  );
+
+  useRestoreAppState<z.infer<typeof formSchema> | null>(
+    STATE_KEYS.PROFILE_INFO,
+    onRestore,
+  );
 
   const [formData, setFormData] = useState<EditProfileDTO>({
     nickname: '',
@@ -263,6 +279,8 @@ const MyProfileEditForm = () => {
     );
 
     editProfileMutation.mutate(formDataRequest);
+
+    saveStateToApp(STATE_KEYS.PROFILE_INFO, null);
   };
 
   return (

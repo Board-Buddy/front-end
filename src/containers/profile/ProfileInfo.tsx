@@ -8,6 +8,7 @@ import { Profile } from '@/types/profile';
 import BuddyPoint from './BuddyPoint';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
 import useAppRouter from '@/hooks/custom/useAppRouter';
+import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
 
 interface Props {
   nickname?: UserInfo['nickname'];
@@ -38,7 +39,13 @@ const ProfileInfo = ({
       profileImageFile: profileImageS3SavedURL || null,
     });
 
-    router.push({ href: '/my/edit', headerTitle: '프로필 수정' });
+    saveStateToApp(STATE_KEYS.PROFILE_INFO, {
+      nickname: nickname || myNickname,
+      description,
+      profileImageFile: profileImageS3SavedURL || null,
+    });
+
+    router.replace({ href: '/my/edit', headerTitle: '프로필 수정' });
   };
 
   return (
