@@ -9,7 +9,11 @@ import NationwideFallback from './NationwideFallback';
 import useIsWebView from '@/hooks/custom/useIsWebView';
 import { cn } from '@/utils/tailwind';
 
-export const NATION_WIDE = { code: 'ALL', name: '전체', officialName: '전체' };
+export const NATION_WIDE = {
+  code: 'ALL',
+  name: '전체',
+  officialName: '전체',
+} as const;
 
 interface Props {
   province: Province | null;
