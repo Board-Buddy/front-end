@@ -60,7 +60,7 @@ export default function RootLayout({
       >
         <div
           className={cn(
-            'max-w-md bg-white mx-auto min-h-dvh max-h-dvh flex flex-col shadow-md',
+            'max-w-md bg-white mx-auto h-dvh max-h-dvh flex flex-col shadow-md',
           )}
         >
           <MSWComponent>
