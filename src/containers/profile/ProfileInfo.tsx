@@ -45,7 +45,7 @@ const ProfileInfo = ({
       profileImageFile: profileImageS3SavedURL || null,
     });
 
-    router.replace({ href: '/my/edit', headerTitle: '프로필 수정' });
+    router.push({ href: '/my/edit', headerTitle: '프로필 수정' });
   };
 
   return (

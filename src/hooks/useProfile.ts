@@ -51,7 +51,7 @@ export const useEditProfile = () => {
         queryKey: ['profile', { nickname: newNickname ?? nickname }],
       });
 
-      router.push({ href: '/my', screenName: 'MyPageScreen' });
+      router.replace({ href: '/my', screenName: 'MyPageScreen' });
       successToast('profile update', '프로필이 수정되었습니다.');
     },
     retry: 0,
