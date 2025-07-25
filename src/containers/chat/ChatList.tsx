@@ -29,7 +29,7 @@ const ChatList = () => {
   }
 
   return (
-    <div className="flex w-full flex-col gap-3 bg-gray-100 px-8 py-4">
+    <div className="flex w-full flex-col gap-3 px-8 py-4">
       {chatRooms.map((chat) => (
         <ChatItem
           key={chat.chatRoomId}

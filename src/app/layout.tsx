@@ -7,7 +7,7 @@ import ReactQueryProviders from '@/utils/reactQueryProvider';
 import Header from '@/components/Header';
 import { Toaster } from 'react-hot-toast';
 import { ExistingProfileInfoContextProvider } from '@/context/ExistingProfileInfoContext';
-import React from 'react';
+import React, { Suspense } from 'react';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -60,14 +60,16 @@ export default function RootLayout({
       >
         <div
           className={cn(
-            'max-w-md bg-white mx-auto min-h-dvh max-h-dvh flex flex-col shadow-md',
+            'max-w-md bg-white mx-auto h-dvh max-h-dvh flex flex-col shadow-md',
           )}
         >
           <MSWComponent>
             <ReactQueryProviders>
               <ExistingProfileInfoContextProvider>
                 <Toaster />
-                <Header />
+                <Suspense>
+                  <Header />
+                </Suspense>
                 {children}
               </ExistingProfileInfoContextProvider>
             </ReactQueryProviders>

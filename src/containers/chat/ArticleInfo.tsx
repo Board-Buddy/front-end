@@ -1,9 +1,9 @@
+import AppLink from '@/components/AppLink';
 import { Article } from '@/types/article';
 import { ArticleSimpleInfo } from '@/types/chat';
 import { formatMeetingTime } from '@/utils/date';
 import { UsersRoundIcon } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 
 interface Props {
   articleId: Article['id'];
@@ -12,7 +12,7 @@ interface Props {
 
 const ArticleInfo = ({ articleId, articleSimpleInfo }: Props) => {
   return (
-    <Link href={`/article/${articleId}`}>
+    <AppLink href={`/article/${articleId}`} headerTitle="모집글 상세">
       <div className="border-b border-slate-200 px-4 py-3">
         <h1 className="mb-2 text-base">
           <span>&quot;{articleSimpleInfo.title}&quot;</span> 채팅방입니다.
@@ -52,7 +52,7 @@ const ArticleInfo = ({ articleId, articleSimpleInfo }: Props) => {
           </div>
         </div>
       </div>
-    </Link>
+    </AppLink>
   );
 };
 

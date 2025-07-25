@@ -1,8 +1,8 @@
 import { ChatRoom } from '@/types/chat';
 import { getLastMessageSentTime } from '@/utils/date';
 import { MapPinIcon, UserRound } from 'lucide-react';
-import Link from 'next/link';
 import Image from 'next/image';
+import AppLink from '@/components/AppLink';
 
 const ChatItem = ({
   chatRoomId,
@@ -10,8 +10,9 @@ const ChatItem = ({
   latestChatMessageInfo,
 }: ChatRoom) => {
   return (
-    <Link
+    <AppLink
       href={`/chat/${gatherArticleSimpleInfo.gatherArticleId}/${chatRoomId}`}
+      headerTitle="채팅"
     >
       <div className="flex min-h-28 w-full justify-center">
         <div className="basis-2/3 rounded-xl bg-white px-4 py-3">
@@ -60,7 +61,7 @@ const ChatItem = ({
           />
         </div>
       </div>
-    </Link>
+    </AppLink>
   );
 };
 

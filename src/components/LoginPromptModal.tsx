@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import {
   Dialog,
   DialogContent,
@@ -8,9 +7,10 @@ import {
   DialogHeader,
 } from './ui/dialog';
 import { useLoginPromptModal } from '@/store/modalStore';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 
 const LoginPromptModal = () => {
-  const router = useRouter();
+  const router = useAppRouter();
 
   const open = useLoginPromptModal((state) => state.isOpen);
   const close = useLoginPromptModal((state) => state.close);
@@ -35,7 +35,7 @@ const LoginPromptModal = () => {
             className="w-full cursor-pointer place-content-center rounded-br-lg bg-primary text-sm font-semibold text-white"
             onClick={() => {
               close();
-              router.push('/login-splash');
+              router.push({ href: '/login-splash' });
             }}
           >
             <p>로그인하기</p>

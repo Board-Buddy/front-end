@@ -1,13 +1,16 @@
 'use client';
 
 import { ReactNode, useState } from 'react';
-import { cn } from '@/utils/tailwind';
 import { Cafe, Location } from '@/types/map';
 import { useGetBoardCafes } from '@/hooks/useMap';
 import useKakaoMap from '@/hooks/custom/useKakaoMap';
 import useCafesMarkers from '@/hooks/custom/useCafesMarkers';
 import usePanToCafe from '@/hooks/custom/usePanToCafe';
 import ReloadButton from './ReloadButton';
+import useIsWebView from '@/hooks/custom/useIsWebView';
+
+const headerHeight = 56;
+const infoHeight = 250;
 
 interface Props {
   location: Location;
@@ -20,6 +23,8 @@ const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
   const [showInfo, setShowInfo] = useState(false);
   const [showReloadButton, setShowReloadButton] = useState(false);
 
+  const isWebView = useIsWebView();
+
   const { mapRef, mapObject, markersRef, radius, center } = useKakaoMap(
     location,
     true,
@@ -28,7 +33,7 @@ const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
   );
 
   const {
-    data: cafes,
+    data: cafes = [],
     isPending,
     isError,
     refetch,
@@ -39,7 +44,7 @@ const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
   });
 
   const clickListener = useCafesMarkers(
-    cafes || [],
+    cafes,
     mapObject,
     markersRef,
     setShowInfo,
@@ -55,18 +60,29 @@ const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
     setShowReloadButton(false);
 
     if (isError) {
-      console.log('error');
+      console.log('카페 데이터 조회 에러');
     }
+  };
+
+  const getMapHeight = () => {
+    let px = 0;
+
+    if (showInfo) {
+      px += infoHeight;
+      if (!isWebView) px += headerHeight;
+    } else {
+      if (!isWebView) px += headerHeight;
+    }
+
+    return `calc(100dvh - ${px}px)`;
   };
 
   return (
     <div className="relative">
       <div
         ref={mapRef}
-        className={cn(
-          'w-full bg-gray-200 transition-all ease-in',
-          showInfo ? 'h-[calc(100dvh-300px)]' : 'h-[calc(100dvh-50px)]',
-        )}
+        style={{ height: getMapHeight() }}
+        className="w-full bg-gray-200 transition-all ease-in"
       />
       <ReloadButton
         show={showReloadButton}

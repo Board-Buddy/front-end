@@ -29,7 +29,7 @@ import {
   oneMonthLater,
 } from '@/utils/date';
 import { cn } from '@/utils/tailwind';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { formSchema, useWriteFormContext } from '@/context/WriteFormContext';
 import {
   Select,
@@ -39,14 +39,18 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { useRouter } from 'next/navigation';
 import { useAddArticle } from '@/hooks/useArticle';
+import useAppRouter from '@/hooks/custom/useAppRouter';
+import useRestoreAppState from '@/hooks/custom/useRestoreAppState';
+import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
 
 const ArticleWriteForm = () => {
-  const router = useRouter();
+  const router = useAppRouter();
 
   const { formState, setFormState } = useWriteFormContext();
   const [timeErrorMessage, setTimeErrorMessage] = useState<string | null>(null);
+
+  const didRestoreRef = useRef(false);
 
   const mutation = useAddArticle();
 
@@ -55,15 +59,37 @@ const ArticleWriteForm = () => {
     defaultValues: formState,
   });
 
+  const onRestore = useCallback(
+    (state: z.infer<typeof formSchema> | null) => {
+      if (state) {
+        form.reset({ ...state, date: new Date(state.date) });
+        didRestoreRef.current = true;
+      }
+    },
+    [form],
+  );
+
+  useRestoreAppState<z.infer<typeof formSchema> | null>(
+    STATE_KEYS.ARTICLE_WRITE_FORM,
+    onRestore,
+  );
+
   useEffect(() => {
-    form.reset(formState);
+    if (!didRestoreRef.current) {
+      form.reset(formState);
+    }
   }, [formState, form]);
 
   const handleLocationSettingButton = () => {
     setFormState(form.getValues());
 
+    saveStateToApp(STATE_KEYS.ARTICLE_WRITE_FORM, form.getValues());
+
     // 위치 선택 페이지로 이동
-    router.push('/write/locationSetting');
+    router.push({
+      href: '/write/locationSetting',
+      headerTitle: '보드게임 카페 선택 ',
+    });
   };
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
@@ -99,6 +125,8 @@ const ArticleWriteForm = () => {
         x: values.x!,
         y: values.y!,
       });
+
+      saveStateToApp(STATE_KEYS.ARTICLE_WRITE_FORM, null);
     }
   };
 

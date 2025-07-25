@@ -1,13 +1,13 @@
 'use client';
 
 import CustomAlert from '@/components/CustomAlert';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 import { useUserLoginCheck } from '@/hooks/useAuth';
 import { LoaderCircleIcon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const OAuthLoginSuccess = () => {
-  const router = useRouter();
+  const router = useAppRouter();
   const { isError, isSuccess } = useUserLoginCheck({
     isReady: true,
   });
@@ -16,7 +16,7 @@ const OAuthLoginSuccess = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      router.push('/home');
+      router.push({ href: '/home', screenName: 'HomeScreen' });
     } else if (isError) {
       setOpenError(true);
     }
@@ -32,7 +32,7 @@ const OAuthLoginSuccess = () => {
         setOpen={setOpenError}
         title="로그인 실패"
         confirmText="다시 로그인"
-        onConfirm={() => router.push('/login-splash')}
+        onConfirm={() => router.push({ href: '/login-splash' })}
       />
     </>
   );

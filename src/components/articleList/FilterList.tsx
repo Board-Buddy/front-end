@@ -10,6 +10,8 @@ import {
 import { DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { ArticleListProps } from '../../components/articleList/ArticleList';
+import { saveStateToApp } from '@/utils/appState';
+import useGetStateKey from '@/hooks/custom/useGetStateKey';
 
 const FilterList = ({
   status,
@@ -17,13 +19,21 @@ const FilterList = ({
   setStatus,
   setSort,
 }: Omit<ArticleListProps, 'emptyGuideMessage' | 'province'>) => {
+  const stateKey = useGetStateKey();
+
   return (
     <div className="mb-3 flex gap-1">
       <div className="flex items-center space-x-2">
         <Switch
           id="article-status-switch"
           checked={status === 'open' ? true : false}
-          onCheckedChange={(checked) => setStatus(checked ? 'open' : null)}
+          onCheckedChange={(checked) => {
+            setStatus(checked ? 'open' : null);
+
+            saveStateToApp(stateKey, {
+              status: checked ? 'open' : null,
+            });
+          }}
         />
         <Label htmlFor="article-status-switch">모집중만 보기</Label>
       </div>
@@ -40,7 +50,13 @@ const FilterList = ({
         <DropdownMenuContent className="w-24 bg-white" align="end">
           <DropdownMenuRadioGroup
             value={sort ?? 'null'}
-            onValueChange={(value) => setSort(value === 'null' ? null : value)}
+            onValueChange={(value) => {
+              setSort(value === 'null' ? null : value);
+
+              saveStateToApp(stateKey, {
+                sort: value === 'null' ? null : value,
+              });
+            }}
           >
             <DropdownMenuRadioItem value="null">최신순</DropdownMenuRadioItem>
             <DropdownMenuRadioItem value="soon">임박순</DropdownMenuRadioItem>

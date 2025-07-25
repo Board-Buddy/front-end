@@ -29,7 +29,7 @@ import {
   oneMonthLater,
 } from '@/utils/date';
 import { cn } from '@/utils/tailwind';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { formSchema, useWriteFormContext } from '@/context/WriteFormContext';
 import {
   Select,
@@ -39,14 +39,18 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { useRouter } from 'next/navigation';
 import { useEditArticle } from '@/hooks/useArticle';
+import useAppRouter from '@/hooks/custom/useAppRouter';
+import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
+import useRestoreAppState from '@/hooks/custom/useRestoreAppState';
 
 const ArticleEditForm = ({ articleId }: { articleId: number }) => {
-  const router = useRouter();
+  const router = useAppRouter();
 
   const { formState, setFormState } = useWriteFormContext();
   const [timeErrorMessage, setTimeErrorMessage] = useState<string | null>(null);
+
+  const didRestoreRef = useRef(false);
 
   const mutation = useEditArticle(articleId);
 
@@ -55,6 +59,21 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
     defaultValues: formState,
   });
 
+  const onRestore = useCallback(
+    (state: z.infer<typeof formSchema> | null) => {
+      if (state) {
+        form.reset({ ...state, date: new Date(state.date) });
+        didRestoreRef.current = true;
+      }
+    },
+    [form],
+  );
+
+  useRestoreAppState<z.infer<typeof formSchema> | null>(
+    STATE_KEYS.ARTICLE_WRITE_FORM,
+    onRestore,
+  );
+
   useEffect(() => {
     form.reset(formState);
   }, [formState, form]);
@@ -62,8 +81,13 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
   const handleLocationSettingButton = () => {
     setFormState(form.getValues());
 
+    saveStateToApp(STATE_KEYS.ARTICLE_WRITE_FORM, form.getValues());
+
     // 위치 선택 페이지로 이동
-    router.push('edit/locationSetting');
+    router.push({
+      href: 'edit/locationSetting',
+      headerTitle: '보드게임 카페 선택 ',
+    });
   };
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
@@ -99,6 +123,8 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
         x: values.x!,
         y: values.y!,
       });
+
+      saveStateToApp(STATE_KEYS.ARTICLE_WRITE_FORM, null);
     }
   };
 
@@ -307,7 +333,7 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
               <FormControl className="mt-2">
                 <Button
                   type="button"
-                  className="mt-2 block w-full border border-slate-400 bg-transparent px-3 text-left font-normal"
+                  className="mt-2 block w-full border border-input bg-transparent px-3 text-left font-normal"
                   onClick={handleLocationSettingButton}
                 >
                   {field.value || '위치 선택'}

@@ -3,12 +3,14 @@
 import { LoaderCircleIcon } from 'lucide-react';
 import { useState } from 'react';
 import { Cafe } from '@/types/map';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useWriteFormContext } from '@/context/WriteFormContext';
 import { GEOLOCATION_OPTIONS } from '@/constants/map';
 import useGeoLocation from '@/hooks/custom/useGeoLocation';
 import CafeInfo from '../containers/map/CafeInfo';
 import Map from '../containers/map/Map';
+import useAppRouter from '@/hooks/custom/useAppRouter';
+import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
 
 interface Props {
   redirectionURL?: string;
@@ -16,7 +18,7 @@ interface Props {
 
 const GeoLocation = ({ redirectionURL }: Props) => {
   const pathname = usePathname();
-  const router = useRouter();
+  const router = useAppRouter();
 
   const { formState, setFormState } = useWriteFormContext();
   const { location, error } = useGeoLocation(GEOLOCATION_OPTIONS);
@@ -36,7 +38,22 @@ const GeoLocation = ({ redirectionURL }: Props) => {
       y: cafeInfo!.y.toString(),
     });
 
-    router.push(redirectionURL!);
+    saveStateToApp(STATE_KEYS.ARTICLE_WRITE_FORM, {
+      ...formState,
+      meetingLocation: cafeInfo!.placeName,
+      sido: cafeInfo!.sido,
+      sgg: cafeInfo!.sgg,
+      emd: cafeInfo!.emd,
+      x: cafeInfo!.x.toString(),
+      y: cafeInfo!.y.toString(),
+    });
+
+    router.replace({
+      href: redirectionURL!,
+      headerTitle: redirectionURL?.includes('edit')
+        ? '모집글 수정'
+        : '모집글 작성',
+    });
   };
 
   if (!location || error) {

@@ -1,5 +1,6 @@
 import AdditionalSettingForm from '@/containers/register/AdditionalSettingForm';
 import Image from 'next/image';
+import { Suspense } from 'react';
 
 const page = () => {
   return (
@@ -18,9 +19,11 @@ const page = () => {
             서비스를 이용하시려면 휴대폰 인증이 필요합니다.
           </p>
         </div>
-        <div className="mt-6">
-          <AdditionalSettingForm />
-        </div>
+        <Suspense>
+          <div className="mt-6">
+            <AdditionalSettingForm />
+          </div>
+        </Suspense>
       </div>
     </div>
   );
