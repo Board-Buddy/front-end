@@ -333,7 +333,7 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
               <FormControl className="mt-2">
                 <Button
                   type="button"
-                  className="mt-2 block w-full border border-slate-400 bg-transparent px-3 text-left font-normal"
+                  className="mt-2 block w-full border border-input bg-transparent px-3 text-left font-normal"
                   onClick={handleLocationSettingButton}
                 >
                   {field.value || '위치 선택'}
