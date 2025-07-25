@@ -41,7 +41,7 @@ const ProfileInfo = ({
 
     saveStateToApp(STATE_KEYS.PROFILE_INFO, {
       nickname: nickname || myNickname,
-      description,
+      description: description ?? '', // 서버에서 null을 보내는 경우가 있어 기본값 설정
       profileImageFile: profileImageS3SavedURL || null,
     });
 
