@@ -22,6 +22,7 @@ import CustomAlert from '@/components/CustomAlert';
 import { useState } from 'react';
 import Map from './Map';
 import useAppRouter from '@/hooks/custom/useAppRouter';
+import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
 
 interface Props extends Omit<Article, 'author'> {
   isAuthor: boolean;
@@ -57,6 +58,23 @@ const ArticleContent = ({
       getTimeFormParameters(startDateTime, endDateTime);
 
     setFormState({
+      title,
+      description,
+      meetingLocation,
+      maxParticipants: maxParticipants.toString(),
+      startHour,
+      startMinute,
+      endHour,
+      endMinute,
+      sido: sido!,
+      sgg: sgg!,
+      emd: emd!,
+      x: x!.toString(),
+      y: y!.toString(),
+      date: new Date(startDateTime),
+    });
+
+    saveStateToApp(STATE_KEYS.ARTICLE_WRITE_FORM, {
       title,
       description,
       meetingLocation,
