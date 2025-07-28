@@ -32,7 +32,7 @@ const ChatInput = ({
   };
 
   return (
-    <div className="fixed bottom-0 flex w-full max-w-md items-center gap-2 bg-white p-4">
+    <div className="fixed bottom-0 flex w-full max-w-md items-center gap-2 bg-white px-4 pb-4 pt-1">
       <Input
         className="bg-gray-100"
         value={value}
