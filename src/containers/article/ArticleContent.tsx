@@ -172,7 +172,9 @@ const ArticleContent = ({
             />
             {meetingLocation}
           </div>
-          <Map lat={y!} lng={x!} />
+          <div className="pointer-events-none">
+            <Map lat={y!} lng={x!} />
+          </div>
         </div>
       </div>
       <CustomAlert
