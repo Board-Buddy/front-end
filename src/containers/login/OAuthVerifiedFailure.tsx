@@ -1,14 +1,14 @@
 'use client';
 
 import Loading from '@/components/Loading';
-import { useRouter } from 'next/navigation';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 import { useEffect } from 'react';
 
 const OAuthVerifiedFailure = () => {
-  const router = useRouter();
+  const router = useAppRouter();
 
   useEffect(() => {
-    router.push('/register/additionalSettings');
+    router.push({ href: '/register/additionalSettings' });
   }, [router]);
 
   return <Loading />;

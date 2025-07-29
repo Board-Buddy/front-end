@@ -2,9 +2,11 @@ import { Province } from './../types/location';
 import { GetArticleRequestParams } from '@/types/article';
 import { create } from 'zustand';
 
-interface ArticleParamsState extends GetArticleRequestParams {
+export type ArticleParams = GetArticleRequestParams & {
   province: Province | null;
+};
 
+interface ArticleParamsState extends ArticleParams {
   setStatus: (status: string | null) => void;
   setSort: (sort: string | null) => void;
   setSido: (sido: string | null) => void;

@@ -8,6 +8,8 @@ import SentMessage from './SentMessage';
 import EnterExitMessage from './EnterExitMessage';
 import { useChatInfiniteScrollObserver } from '@/hooks/custom/useChatInfiniteScrollObserver';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
+import useIsWebView from '@/hooks/custom/useIsWebView';
+import { cn } from '@/utils/tailwind';
 
 interface Props {
   messages: Message[];
@@ -25,6 +27,8 @@ const ChatSection = ({
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const messageEndRef = useRef<HTMLDivElement>(null);
+
+  const isWebView = useIsWebView();
 
   const { setTarget } = useChatInfiniteScrollObserver({
     hasPreviousPage,
@@ -53,7 +57,15 @@ const ChatSection = ({
   }, [messages]);
 
   return (
-    <div className="h-[calc(100dvh-222px)] overflow-y-auto" ref={scrollRef}>
+    <div
+      className={cn(
+        'overflow-y-auto',
+        isWebView
+          ? 'h-[calc(100dvh-100px)] pb-[70px]'
+          : 'h-[calc(100dvh-222px)]',
+      )}
+      ref={scrollRef}
+    >
       <div>
         <div ref={setTarget} className="h-0" />
         <div className="flex flex-col gap-4 p-4">

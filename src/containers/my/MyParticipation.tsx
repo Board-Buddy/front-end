@@ -1,3 +1,4 @@
+import AppLink from '@/components/AppLink';
 import { Button } from '@/components/ui/button';
 import { MapPinIcon, MessageSquareMoreIcon } from 'lucide-react';
 import Image from 'next/image';
@@ -26,18 +27,22 @@ const MyParticipation = ({ joinCount, nickname }: Props) => {
       </div>
       {!nickname && (
         <div className="mt-2 flex gap-4 text-gray-700">
-          <Link href="/setting/location" className="basis-1/2">
+          {/* <Link href="/setting/location" className="basis-1/2">
             <Button className="text-base w-full bg-white font-bold">
               <MapPinIcon color="var(--main-color)" />
               <p className="ml-1">위치 재설정</p>
             </Button>
-          </Link>
-          <Link href="my/activity" className="basis-1/2">
-            <Button className="text-base w-full bg-white font-bold">
+          </Link> */}
+          <AppLink
+            href="my/activity"
+            className="w-full"
+            headerTitle="나의 활동"
+          >
+            <Button className="w-full bg-white text-base font-bold">
               <MessageSquareMoreIcon color="var(--main-color)" />
               <p className="ml-1">나의 활동</p>
             </Button>
-          </Link>
+          </AppLink>
         </div>
       )}
     </div>

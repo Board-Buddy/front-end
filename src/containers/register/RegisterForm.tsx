@@ -21,10 +21,10 @@ import {
   smsCertificationSend,
   smsCertificationVerify,
 } from '@/services/auth';
-import { useRouter } from 'next/navigation';
 import { passwordRegex, phoneRegex } from '@/utils/regex';
 import CustomAlert from '@/components/CustomAlert';
 import { CustomAxiosError } from '@/types/api';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 
 const RegisterForm = () => {
   const [openRegisterSuccess, setOpenRegisterSuccess] = useState(false);
@@ -37,7 +37,7 @@ const RegisterForm = () => {
     useState(false);
   const [verifiedPhone, setVerifiedPhone] = useState(false);
 
-  const router = useRouter();
+  const router = useAppRouter();
 
   const formSchema = z
     .object({
@@ -440,7 +440,7 @@ const RegisterForm = () => {
         setOpen={setOpenRegisterSuccess}
         title="회원가입 성공"
         confirmText="로그인하러 가기"
-        onConfirm={() => router.push('/login')}
+        onConfirm={() => router.push({ href: '/login' })}
       />
       <CustomAlert
         open={openRegisterError}
@@ -448,7 +448,7 @@ const RegisterForm = () => {
         title="로그인 실패"
         description={msg}
         confirmText="다시 시도"
-        onConfirm={() => router.push('/')}
+        onConfirm={() => router.push({ href: '/' })}
       />
     </>
   );

@@ -16,12 +16,13 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useWriteFormContext } from '@/context/WriteFormContext';
-import { useRouter } from 'next/navigation';
 import { ARTICLE_STATUS } from '@/constants/article';
 import { useDeleteArticle } from '@/hooks/useArticle';
 import CustomAlert from '@/components/CustomAlert';
 import { useState } from 'react';
 import Map from './Map';
+import useAppRouter from '@/hooks/custom/useAppRouter';
+import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
 
 interface Props extends Omit<Article, 'author'> {
   isAuthor: boolean;
@@ -46,7 +47,7 @@ const ArticleContent = ({
   isAuthor,
 }: Props) => {
   const { setFormState } = useWriteFormContext();
-  const router = useRouter();
+  const router = useAppRouter();
 
   const [open, setOpen] = useState(false);
 
@@ -73,7 +74,24 @@ const ArticleContent = ({
       date: new Date(startDateTime),
     });
 
-    router.push(`/article/${id}/edit`);
+    saveStateToApp(STATE_KEYS.ARTICLE_WRITE_FORM, {
+      title,
+      description,
+      meetingLocation,
+      maxParticipants: maxParticipants.toString(),
+      startHour,
+      startMinute,
+      endHour,
+      endMinute,
+      sido: sido!,
+      sgg: sgg!,
+      emd: emd!,
+      x: x!.toString(),
+      y: y!.toString(),
+      date: new Date(startDateTime),
+    });
+
+    router.push({ href: `/article/${id}/edit`, headerTitle: '모집글 수정' });
   };
 
   return (
@@ -154,7 +172,9 @@ const ArticleContent = ({
             />
             {meetingLocation}
           </div>
-          <Map lat={y!} lng={x!} />
+          <div className="pointer-events-none">
+            <Map lat={y!} lng={x!} />
+          </div>
         </div>
       </div>
       <CustomAlert

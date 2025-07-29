@@ -1,7 +1,7 @@
 'use client';
 
+import AppLink from '@/components/AppLink';
 import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 
 const error = () => {
   return (
@@ -11,11 +11,11 @@ const error = () => {
         <br />
         보안을 위해 다시 로그인해 주세요
       </p>
-      <Link href="/login-splash" replace>
+      <AppLink href="/login-splash" replace>
         <Button className="h-8 w-28 rounded-3xl text-sm font-bold text-white">
           다시 로그인하기
         </Button>
-      </Link>
+      </AppLink>
     </div>
   );
 };

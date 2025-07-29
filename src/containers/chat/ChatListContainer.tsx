@@ -13,7 +13,7 @@ const ChatListContainer = ({ children }: Props) => {
   const userInfo = useUserInfo();
 
   return (
-    <div className="flex h-[calc(100vh-113px)] flex-col bg-gray-100">
+    <div className="flex h-full flex-col bg-gray-100">
       <div className="flex items-center border-b border-primary bg-white py-4">
         <div className="pl-8 text-3xl">
           <p className="text-gray-700">

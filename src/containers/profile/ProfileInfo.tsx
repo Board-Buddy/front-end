@@ -3,11 +3,12 @@
 import CustomAvatar from '@/components/CustomAvatar';
 import { UserInfo } from '@/types/user';
 import { cn } from '@/utils/tailwind';
-import { useRouter } from 'next/navigation';
 import { useExistingProfileInfoContext } from '@/context/ExistingProfileInfoContext';
 import { Profile } from '@/types/profile';
 import BuddyPoint from './BuddyPoint';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
+import useAppRouter from '@/hooks/custom/useAppRouter';
+import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
 
 interface Props {
   nickname?: UserInfo['nickname'];
@@ -24,7 +25,7 @@ const ProfileInfo = ({
   buddyScore,
   profileImageS3SavedURL,
 }: Props) => {
-  const router = useRouter();
+  const router = useAppRouter();
 
   const userInfo = useUserInfo();
   const myNickname = userInfo?.nickname || '';
@@ -38,7 +39,13 @@ const ProfileInfo = ({
       profileImageFile: profileImageS3SavedURL || null,
     });
 
-    router.push('/my/edit');
+    saveStateToApp(STATE_KEYS.PROFILE_INFO, {
+      nickname: nickname || myNickname,
+      description: description ?? '', // 서버에서 null을 보내는 경우가 있어 기본값 설정
+      profileImageFile: profileImageS3SavedURL || null,
+    });
+
+    router.push({ href: '/my/edit', headerTitle: '프로필 수정' });
   };
 
   return (

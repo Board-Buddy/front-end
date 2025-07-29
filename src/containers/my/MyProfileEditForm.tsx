@@ -4,12 +4,12 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { IMAGE_MAX_SIZE } from '@/constants/image';
 import { EditProfileDTO } from '@/types/profile';
 import { resizeFile } from '@/utils/image';
-import { ChangeEvent, useRef, useState } from 'react';
+import React, { ChangeEvent, useCallback, useRef, useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useEditProfile } from '@/hooks/useProfile';
-import { useForm } from 'react-hook-form';
+import { ControllerRenderProps, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -32,6 +32,39 @@ import CustomAlert from '@/components/CustomAlert';
 import { useExistingProfileInfoContext } from '@/context/ExistingProfileInfoContext';
 import { CustomAxiosError } from '@/types/api';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
+import useRestoreAppState from '@/hooks/custom/useRestoreAppState';
+import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
+
+type RestoredFormState = Pick<
+  EditProfileDTO,
+  'nickname' | 'description' | 'profileImageFile'
+> | null;
+
+const formSchema = z.object({
+  nickname: z
+    .string()
+    .min(2, {
+      message: '닉네임은 2자 이상 8자 이하로 입력하세요.',
+    })
+    .max(8, {
+      message: '닉네임은 2자 이상 8자 이하로 입력하세요.',
+    })
+    .optional(),
+  beforePassword: z.string().optional(),
+  password: z
+    .string()
+    .regex(
+      passwordRegex,
+      '비밀번호는 영문, 숫자, 특수문자 포함 8자 이상 20자 이하여야 합니다.',
+    )
+    .optional(),
+  phone: z
+    .string()
+    .regex(phoneRegex, '01012345678 형식에 맞춰 입력해주세요.')
+    .optional(),
+  phoneVerifyCode: z.string().optional(),
+  description: z.string().optional(),
+});
 
 const MyProfileEditForm = () => {
   const [imageSizeAlertOpen, setImageSizeAlertOpen] = useState(false);
@@ -51,32 +84,8 @@ const MyProfileEditForm = () => {
   const [verifiedPhone, setVerifiedPhone] = useState(false);
 
   const { formState } = useExistingProfileInfoContext();
-
-  const formSchema = z.object({
-    nickname: z
-      .string()
-      .min(2, {
-        message: '닉네임은 2자 이상 8자 이하로 입력하세요.',
-      })
-      .max(8, {
-        message: '닉네임은 2자 이상 8자 이하로 입력하세요.',
-      })
-      .optional(),
-    beforePassword: z.string().optional(),
-    password: z
-      .string()
-      .regex(
-        passwordRegex,
-        '비밀번호는 영문, 숫자, 특수문자 포함 8자 이상 20자 이하여야 합니다.',
-      )
-      .optional(),
-    phone: z
-      .string()
-      .regex(phoneRegex, '01012345678 형식에 맞춰 입력해주세요.')
-      .optional(),
-    phoneVerifyCode: z.string().optional(),
-    description: z.string().optional(),
-  });
+  const [restoredFormState, setRestoredFormState] =
+    useState<RestoredFormState>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -88,13 +97,44 @@ const MyProfileEditForm = () => {
     },
   });
 
-  const [formData, setFormData] = useState<EditProfileDTO>({
-    nickname: '',
-    password: '',
-    phoneNumber: '',
-    description: '',
-    profileImageFile: '',
-  });
+  useRestoreAppState<RestoredFormState>(
+    STATE_KEYS.PROFILE_INFO,
+    useCallback((state) => state && setRestoredFormState(state), []),
+  );
+
+  // placeholder 우선순위 함수
+  const getPlaceholder = (
+    key: 'nickname' | 'description' | 'profileImageFile',
+    fallback: string,
+  ) => restoredFormState?.[key] || formState[key] || fallback;
+
+  // 공통 onChange 핸들러
+  const handleFieldChange =
+    (
+      field: ControllerRenderProps<Record<string, unknown>, string>,
+      extra?: () => void,
+    ) =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (extra) extra();
+      field.onChange(e.target.value);
+    };
+
+  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const image = (await resizeFile(e.target.files[0])) as File;
+
+      if (image.size > IMAGE_MAX_SIZE) {
+        setImageSizeAlertOpen(true);
+        return;
+      }
+
+      setImageFile(image);
+    }
+  };
+
+  const handleAddImageButtonClick = () => {
+    imageInputRef.current?.click();
+  };
 
   const verifyNickname = async () => {
     const nicknameValue = form.getValues('nickname');
@@ -190,31 +230,6 @@ const MyProfileEditForm = () => {
     }
   };
 
-  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const image = (await resizeFile(e.target.files[0])) as File;
-
-      if (image.size > IMAGE_MAX_SIZE) {
-        setImageSizeAlertOpen(true);
-        return;
-      }
-
-      if (image) {
-        setImageFile(image);
-        setFormData({
-          ...formData,
-          profileImageFile: URL.createObjectURL(image),
-        });
-      }
-    }
-  };
-
-  const handleAddImageButtonClick = () => {
-    if (imageInputRef.current !== null) {
-      (imageInputRef.current as HTMLInputElement).click();
-    }
-  };
-
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     if (values.nickname && !uniqueNickname) {
       form.setError('nickname', {
@@ -249,10 +264,10 @@ const MyProfileEditForm = () => {
     }
 
     const updateProfileDTO = {
-      nickname: values.nickname ? values.nickname : null,
-      password: values.password ? values.password : null,
-      phoneNumber: values.phone ? values.phone : null,
-      description: values.description ? values.description : null,
+      nickname: values.nickname ?? null,
+      password: values.password ?? null,
+      phoneNumber: values.phone ?? null,
+      description: values.description ?? null,
     };
 
     formDataRequest.append(
@@ -263,6 +278,7 @@ const MyProfileEditForm = () => {
     );
 
     editProfileMutation.mutate(formDataRequest);
+    saveStateToApp(STATE_KEYS.PROFILE_INFO, null);
   };
 
   return (
@@ -278,9 +294,12 @@ const MyProfileEditForm = () => {
           >
             <AvatarImage
               src={
-                formData.profileImageFile ||
-                formState.profileImageFile ||
-                '/images/default_profile.png'
+                imageFile
+                  ? URL.createObjectURL(imageFile)
+                  : getPlaceholder(
+                      'profileImageFile',
+                      '/images/default_profile.png',
+                    )
               }
               className="rounded-full object-cover"
             />
@@ -314,12 +333,11 @@ const MyProfileEditForm = () => {
                 <div className="mt-1 flex items-center gap-2">
                   <FormControl>
                     <Input
-                      placeholder={formState.nickname}
+                      placeholder={getPlaceholder('nickname', '')}
                       {...field}
-                      onChange={(e) => {
-                        setUniqueNickname(false);
-                        field.onChange(e.target.value);
-                      }}
+                      onChange={handleFieldChange(field, () =>
+                        setUniqueNickname(false),
+                      )}
                     />
                   </FormControl>
                   <Button
@@ -348,9 +366,10 @@ const MyProfileEditForm = () => {
                 <FormLabel>자기소개</FormLabel>
                 <FormControl className="mt-1">
                   <Input
-                    placeholder={
-                      formState.description || '자기소개를 입력해주세요.'
-                    }
+                    placeholder={getPlaceholder(
+                      'description',
+                      '자기소개를 입력해주세요.',
+                    )}
                     type="text"
                     {...field}
                   />
@@ -374,10 +393,9 @@ const MyProfileEditForm = () => {
                             type="password"
                             placeholder="기존 비밀번호 입력"
                             {...field}
-                            onChange={(e) => {
-                              setUniqueNickname(false);
-                              field.onChange(e.target.value);
-                            }}
+                            onChange={handleFieldChange(field, () =>
+                              setUniqueNickname(false),
+                            )}
                           />
                         </FormControl>
                         <Button
@@ -423,12 +441,11 @@ const MyProfileEditForm = () => {
                         <Input
                           placeholder="01012345678"
                           {...field}
-                          onChange={(e) => {
+                          onChange={handleFieldChange(field, () => {
                             setShowPhoneVerifyCodeInput(false);
-                            field.onChange(e.target.value);
                             form.setValue('phoneVerifyCode', '');
                             setVerifiedPhone(false);
-                          }}
+                          })}
                         />
                       </FormControl>
                       <Button
@@ -455,10 +472,9 @@ const MyProfileEditForm = () => {
                           <Input
                             placeholder="휴대폰 인증번호 입력"
                             {...field}
-                            onChange={(e) => {
-                              setVerifiedPhone(false);
-                              field.onChange(e.target.value);
-                            }}
+                            onChange={handleFieldChange(field, () =>
+                              setVerifiedPhone(false),
+                            )}
                           />
                         </FormControl>
                         <Button

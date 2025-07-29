@@ -8,9 +8,11 @@ import HomeIcon from './svg/HomeIcon';
 import MapIcon from './svg/MapIcon';
 import ChatIcon from './svg/ChatIcon';
 import MyIcon from './svg/MyIcon';
+import useIsWebView from '@/hooks/custom/useIsWebView';
 
 const NavBar = () => {
   const pathname = usePathname();
+  const isWebView = useIsWebView();
 
   const navBarList = [
     { icon: HomeIcon, to: '/home', title: '홈' },
@@ -22,6 +24,11 @@ const NavBar = () => {
   const [focusedItem, setFocusedItem] = useState(
     navBarList.filter((nav) => pathname.includes(nav.to))[0].title,
   );
+
+  // 웹뷰라면 내비게이션 바를 렌더링하지 않는다
+  if (isWebView) {
+    return null;
+  }
 
   return (
     <ul className="flex h-16 items-center border-t border-gray-200 px-6 py-4">

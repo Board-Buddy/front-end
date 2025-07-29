@@ -12,8 +12,8 @@ import { UserInfo } from '@/types/user';
 import { blobToJson } from '@/utils/blobToJson';
 import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 import { useUserInfo } from './custom/useUserInfo';
+import useAppRouter from './custom/useAppRouter';
 
 export const useGetProfile = (nickname: string) => {
   return useQuery<Profile, CustomAxiosError>({
@@ -30,7 +30,7 @@ export const useEditProfile = () => {
   const userInfo = useUserInfo();
   const nickname = userInfo?.nickname;
 
-  const router = useRouter();
+  const router = useAppRouter();
 
   return useMutation({
     mutationFn: (data: FormData) => editProfile(data),
@@ -51,7 +51,7 @@ export const useEditProfile = () => {
         queryKey: ['profile', { nickname: newNickname ?? nickname }],
       });
 
-      router.push('/my');
+      router.replace({ href: '/my', screenName: 'MyPageScreen' });
       successToast('profile update', '프로필이 수정되었습니다.');
     },
     retry: 0,
