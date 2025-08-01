@@ -11,7 +11,7 @@ export const status = http.get(`${API_BASE_URL}/auth/status`, () => {
         sgg: '송파구',
         emd: '잠실동',
         isPhoneNumberVerified: true,
-        profileImageS3SavedURL: null,
+        profileImageSignedURL: null,
         memberType: 'SOCIAL',
       },
     },

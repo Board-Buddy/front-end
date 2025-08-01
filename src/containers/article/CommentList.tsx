@@ -94,7 +94,7 @@ const CommentList = ({ articleId }: { articleId: Article['id'] }) => {
             >
               <div className="mb-2 flex items-center gap-2">
                 <CustomAvatar
-                  src={comment.author.profileImageS3SavedURL || ''}
+                  src={comment.author.profileImageSignedURL || ''}
                   rank={comment.author.rank}
                   nickname={comment.author.nickname}
                   avatarSize="xs"
@@ -156,7 +156,7 @@ const CommentList = ({ articleId }: { articleId: Article['id'] }) => {
                   <div className="mb-2 flex items-center gap-2">
                     <CornerDownRight size={16} className="text-gray-700" />
                     <CustomAvatar
-                      src={reply.author.profileImageS3SavedURL || ''}
+                      src={reply.author.profileImageSignedURL || ''}
                       rank={reply.author.rank}
                       nickname={reply.author.nickname}
                       avatarSize="xs"
