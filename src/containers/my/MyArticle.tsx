@@ -33,7 +33,7 @@ const MyArticle = () => {
   }
 
   return (
-    <>
+    <div className="flex flex-col gap-y-4 pb-4">
       {posts.map((article: IArticle) => (
         <Article
           onClick={() =>
@@ -55,7 +55,7 @@ const MyArticle = () => {
           status={article.status}
         />
       ))}
-    </>
+    </div>
   );
 };
 
