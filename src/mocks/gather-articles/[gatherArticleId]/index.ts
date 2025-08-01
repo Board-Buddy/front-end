@@ -17,7 +17,7 @@ export const getArticle = http.get(
             author: {
               nickname: 'yubin',
               rank: 1,
-              profileImageS3SavedURL: '',
+              profileImageSignedURL: '',
               description: '자기소개',
             },
             meetingLocation: '레드버튼 신림점',
@@ -49,7 +49,7 @@ export const getArticle = http.get(
             author: {
               nickname: 'yubin',
               rank: 1,
-              profileImageS3SavedURL: '',
+              profileImageSignedURL: '',
               description: '자기소개',
             },
             meetingLocation: '레드버튼 신림점',
@@ -80,7 +80,7 @@ export const getArticle = http.get(
           author: {
             nickname: '김구구',
             rank: 1,
-            profileImageS3SavedURL: '',
+            profileImageSignedURL: '',
             description: '자기소개',
           },
           meetingLocation: '레드버튼 신림점',

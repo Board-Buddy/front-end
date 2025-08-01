@@ -7,7 +7,7 @@ const Profile = ({ author }: { author: Author }) => {
   return (
     <div className="flex items-center border-b border-gray-200 p-4">
       <CustomAvatar
-        src={author.profileImageS3SavedURL || null}
+        src={author.profileImageSignedURL || null}
         rank={author.rank}
         nickname={author.nickname}
         avatarSize="md"

@@ -50,7 +50,7 @@ const Profile = ({ nickname }: Props) => {
           nickname={nickname && decodeURIComponent(nickname)}
           description={profile.description}
           rank={profile.rank}
-          profileImageS3SavedURL={profile.profileImageS3SavedURL}
+          profileImageSignedURL={profile.profileImageSignedURL}
           buddyScore={profile.buddyScore}
         />
         <MyParticipation joinCount={profile.joinCount} nickname={nickname} />
