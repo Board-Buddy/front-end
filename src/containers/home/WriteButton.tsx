@@ -26,7 +26,9 @@ const WriteButton = () => {
   };
 
   // 홈 화면에서만 보인다.
-  if (!pathname.includes('home')) return;
+  if (!pathname.includes('home')) {
+    return null;
+  }
 
   return (
     <div
