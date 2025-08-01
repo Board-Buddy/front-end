@@ -106,11 +106,13 @@ const ArticleList = ({
                 </div>
               ),
           )}
-          <div className="py-12 text-center text-sm text-gray-600">
-            {(data.pages[0].posts === null ||
-              data.pages[0].posts.length === 0) &&
-              emptyGuideMessage}
-          </div>
+          {(data.pages[0].posts === null ||
+            data.pages[0].posts.length === 0) && (
+            <div className="py-12 text-center text-sm text-gray-600">
+              {emptyGuideMessage}
+            </div>
+          )}
+
           <div ref={setTarget} className="h-0" />
         </>
       )}
