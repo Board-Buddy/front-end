@@ -1,6 +1,6 @@
-import ChatList from '@/containers/chat/ChatList';
-import ChatListContainer from '@/containers/chat/ChatListContainer';
-import { getChatList } from '@/services/chat';
+import ChatRoomList from '@/containers/chat/ChatRoomList';
+import ChatRoomListContainer from '@/containers/chat/ChatRoomListContainer';
+import { getChatRoomList } from '@/services/chat';
 import getQueryClient from '@/utils/getQueryClient';
 import { chatQueryKeys } from '@/utils/queryKeys';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
@@ -10,14 +10,14 @@ const page = async () => {
 
   await queryClient.prefetchQuery({
     queryKey: chatQueryKeys.chatRoomList(),
-    queryFn: getChatList,
+    queryFn: getChatRoomList,
   });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <ChatListContainer>
-        <ChatList />
-      </ChatListContainer>
+      <ChatRoomListContainer>
+        <ChatRoomList />
+      </ChatRoomListContainer>
     </HydrationBoundary>
   );
 };

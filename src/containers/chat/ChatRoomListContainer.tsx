@@ -9,7 +9,7 @@ interface Props {
   children: ReactNode;
 }
 
-const ChatListContainer = ({ children }: Props) => {
+const ChatRoomListContainer = ({ children }: Props) => {
   const userInfo = useUserInfo();
 
   return (
@@ -36,4 +36,4 @@ const ChatListContainer = ({ children }: Props) => {
   );
 };
 
-export default ChatListContainer;
+export default ChatRoomListContainer;

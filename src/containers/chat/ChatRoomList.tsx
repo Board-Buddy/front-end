@@ -5,7 +5,7 @@ import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
 import ChatItem from './ChatItem';
 
-const ChatList = () => {
+const ChatRoomList = () => {
   const {
     data: chatRooms,
     isPending,
@@ -42,4 +42,4 @@ const ChatList = () => {
   );
 };
 
-export default ChatList;
+export default ChatRoomList;

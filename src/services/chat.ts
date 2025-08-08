@@ -4,8 +4,8 @@ import { Article } from '@/types/article';
 import { InfiniteScrollResponseData, SuccessResponse } from '@/types/api';
 import { ENDPOINT } from './endpoint';
 
-/** 채팅 목록 조회 API */
-export const getChatList = () =>
+/** 채팅방 목록 조회 API */
+export const getChatRoomList = () =>
   api
     .get<
       SuccessResponse<{ chatRoomDetailsList: ChatRoom[] }>
