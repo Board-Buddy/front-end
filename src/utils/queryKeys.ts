@@ -32,8 +32,12 @@ export const articleQueryKeys = {
       'participationStatus',
       { articleId },
     ] as const,
-  participationList: (articleId: Article['id']) =>
-    [...articleQueryKeys.all, 'participationList', { articleId }] as const,
+  participationRequestList: (articleId: Article['id']) =>
+    [
+      ...articleQueryKeys.all,
+      'participationRequestList',
+      { articleId },
+    ] as const,
 } as const;
 
 export const chatQueryKeys = {

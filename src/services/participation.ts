@@ -33,7 +33,7 @@ export const cancelParticipation = ({
   );
 
 /** 참가 신청 승인 API */
-export const approveParticipation = ({
+export const approveParticipationRequest = ({
   articleId,
   participationId,
   applicantNickname,
@@ -51,7 +51,7 @@ export const approveParticipation = ({
   );
 
 /** 참가 신청 거절 API */
-export const rejectParticipation = ({
+export const rejectParticipationRequest = ({
   articleId,
   participationId,
   applicantNickname,

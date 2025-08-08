@@ -1,9 +1,9 @@
 'use client';
 
 import {
-  useApproveParticipation,
+  useApproveParticipationRequest,
   useGetParticipationList,
-  useRejectParticipation,
+  useRejectParticipationRequest,
 } from '@/hooks/useParticipation';
 import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
@@ -23,8 +23,8 @@ const ParticipantList = ({ articleId }: Props) => {
     refetch,
   } = useGetParticipationList(articleId);
 
-  const approveMutation = useApproveParticipation(articleId);
-  const rejectMutation = useRejectParticipation(articleId);
+  const approveMutation = useApproveParticipationRequest(articleId);
+  const rejectMutation = useRejectParticipationRequest(articleId);
 
   if (isPending) {
     return <Loading />;

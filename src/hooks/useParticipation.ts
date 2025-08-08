@@ -1,9 +1,9 @@
 import {
   applyParticipation,
-  approveParticipation,
+  approveParticipationRequest,
   cancelParticipation,
   getParticipants,
-  rejectParticipation,
+  rejectParticipationRequest,
 } from '@/services/participation';
 import { CustomAxiosError } from '@/types/api';
 import { Article, ParticipantInfo } from '@/types/article';
@@ -14,7 +14,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const useGetParticipationList = (articleId: Article['id']) => {
   return useQuery<ParticipantInfo[], CustomAxiosError>({
-    queryKey: articleQueryKeys.participationList(articleId),
+    queryKey: articleQueryKeys.participationRequestList(articleId),
     queryFn: () => getParticipants({ articleId }),
     staleTime: 0,
     gcTime: 0,
@@ -55,7 +55,7 @@ export const useCancelParticipation = (articleId: Article['id']) => {
   });
 };
 
-export const useApproveParticipation = (articleId: Article['id']) => {
+export const useApproveParticipationRequest = (articleId: Article['id']) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -66,16 +66,20 @@ export const useApproveParticipation = (articleId: Article['id']) => {
       participationId: ParticipantInfo['id'];
       applicantNickname: UserInfo['nickname'];
     }) =>
-      approveParticipation({ articleId, participationId, applicantNickname }),
+      approveParticipationRequest({
+        articleId,
+        participationId,
+        applicantNickname,
+      }),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: articleQueryKeys.participationList(articleId),
+        queryKey: articleQueryKeys.participationRequestList(articleId),
       });
     },
   });
 };
 
-export const useRejectParticipation = (articleId: Article['id']) => {
+export const useRejectParticipationRequest = (articleId: Article['id']) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -86,10 +90,14 @@ export const useRejectParticipation = (articleId: Article['id']) => {
       participationId: ParticipantInfo['id'];
       applicantNickname: UserInfo['nickname'];
     }) =>
-      rejectParticipation({ articleId, participationId, applicantNickname }),
+      rejectParticipationRequest({
+        articleId,
+        participationId,
+        applicantNickname,
+      }),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: articleQueryKeys.participationList(articleId),
+        queryKey: articleQueryKeys.participationRequestList(articleId),
       });
     },
   });
