@@ -98,6 +98,7 @@ export const useAddArticle = () => {
 
 export const useEditArticle = (articleId: Article['id']) => {
   const queryClient = useQueryClient();
+  const router = useAppRouter();
 
   return useMutation({
     mutationFn: (data: NewArticle) => editArticle(data, articleId),
@@ -105,6 +106,8 @@ export const useEditArticle = (articleId: Article['id']) => {
       queryClient.invalidateQueries({
         queryKey: ['article', { articleId }],
       });
+
+      router.replace({ href: `/article/${articleId}` });
 
       successToast('article edit', '모집글이 수정되었습니다.');
     },
