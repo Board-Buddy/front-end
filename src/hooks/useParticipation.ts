@@ -71,10 +71,15 @@ export const useApproveParticipationRequest = (articleId: Article['id']) => {
         participationId,
         applicantNickname,
       }),
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
         queryKey: articleQueryKeys.participationRequestList(articleId),
       });
+
+      successToast(
+        'approve participation request',
+        `${variables.applicantNickname}님의 참가 신청을 승인했습니다.`,
+      );
     },
   });
 };
@@ -95,10 +100,15 @@ export const useRejectParticipationRequest = (articleId: Article['id']) => {
         participationId,
         applicantNickname,
       }),
-    onSuccess: () => {
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
         queryKey: articleQueryKeys.participationRequestList(articleId),
       });
+
+      successToast(
+        'reject participation request',
+        `${variables.applicantNickname}님의 참가 신청을 거절했습니다.`,
+      );
     },
   });
 };
