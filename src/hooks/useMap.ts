@@ -1,5 +1,6 @@
 import { getBoardCafes } from '@/services/map';
 import { Cafe } from '@/types/map';
+import { boardCafeQueryKeys } from '@/utils/queryKeys';
 import { useQuery } from '@tanstack/react-query';
 
 /** 보드게임 카페 조회 query
@@ -16,7 +17,7 @@ export const useGetBoardCafes = ({
   radius: number;
 }) => {
   return useQuery<Cafe[]>({
-    queryKey: ['cafe'],
+    queryKey: boardCafeQueryKeys.all,
     queryFn: () => getBoardCafes({ x, y, radius }),
     staleTime: 0,
     gcTime: 0,

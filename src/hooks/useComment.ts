@@ -8,11 +8,12 @@ import { CustomAxiosError } from '@/types/api';
 import { Article } from '@/types/article';
 import { Comment, Reply } from '@/types/comment';
 import { successToast } from '@/utils/customToast';
+import { articleQueryKeys } from '@/utils/queryKeys';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const useGetComments = (articleId: Article['id']) => {
   return useQuery<Comment[], CustomAxiosError>({
-    queryKey: ['comments', { articleId }],
+    queryKey: articleQueryKeys.comment(articleId),
     queryFn: () => getComments({ gatherArticleId: articleId }),
     staleTime: 0,
     gcTime: 3 * 60 * 1000,
@@ -36,8 +37,9 @@ export const useAddComment = (articleId: Article['id']) => {
         parentId,
       }),
     onSuccess: () => {
-      // 성공 시 댓글 쿼리 리스트 무효화
-      queryClient.invalidateQueries({ queryKey: ['comments', { articleId }] });
+      queryClient.invalidateQueries({
+        queryKey: articleQueryKeys.comment(articleId),
+      });
     },
     retry: 0,
   });
@@ -60,8 +62,9 @@ export const useEditComment = (articleId: Article['id']) => {
         commentId,
       }),
     onSuccess: () => {
-      // 성공 시 댓글 쿼리 리스트 무효화
-      queryClient.invalidateQueries({ queryKey: ['comments', { articleId }] });
+      queryClient.invalidateQueries({
+        queryKey: articleQueryKeys.comment(articleId),
+      });
     },
     retry: 0,
   });
@@ -77,8 +80,10 @@ export const useDeleteComment = (articleId: Article['id']) => {
         commentId,
       }),
     onSuccess: () => {
-      // 성공 시 댓글 리스트 쿼리 무효화
-      queryClient.invalidateQueries({ queryKey: ['comments', { articleId }] });
+      queryClient.invalidateQueries({
+        queryKey: articleQueryKeys.comment(articleId),
+      });
+
       successToast('comment delete', '댓글이 삭제되었습니다.');
     },
     retry: 0,

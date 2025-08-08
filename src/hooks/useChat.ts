@@ -8,11 +8,20 @@ import {
 import { CustomAxiosError, InfiniteScrollResponseData } from '@/types/api';
 import { Article } from '@/types/article';
 import { ArticleSimpleInfo, ChatRoom, Message } from '@/types/chat';
+import { chatQueryKeys } from '@/utils/queryKeys';
 import {
   useInfiniteQuery,
   useQuery,
   useSuspenseQuery,
 } from '@tanstack/react-query';
+
+export const useGetChatList = () => {
+  return useQuery<ChatRoom[], CustomAxiosError>({
+    queryKey: chatQueryKeys.chatRoomList(),
+    queryFn: getChatList,
+    staleTime: 30 * 1000,
+  });
+};
 
 export const useGetExistingMessages = ({
   chatRoomId,
@@ -20,7 +29,7 @@ export const useGetExistingMessages = ({
   chatRoomId: ChatRoom['chatRoomId'];
 }) =>
   useInfiniteQuery<InfiniteScrollResponseData<Message>, CustomAxiosError>({
-    queryKey: ['chat', { chatRoomId }],
+    queryKey: chatQueryKeys.messageList(chatRoomId),
     queryFn: ({ pageParam }) => {
       const direction = pageParam === undefined ? 'initial' : 'older';
 
@@ -37,21 +46,12 @@ export const useGetExistingMessages = ({
     staleTime: 0,
   });
 
-export const useGetChatList = () => {
-  return useQuery<ChatRoom[], CustomAxiosError>({
-    queryKey: ['chat'],
-    queryFn: getChatList,
-    staleTime: 60 * 1000,
-    gcTime: 0,
-  });
-};
-
 export const useGetArticleSimpleInfo = (
   chatRoomId: ChatRoom['chatRoomId'],
   articleId: Article['id'],
 ) => {
   return useSuspenseQuery<Omit<ArticleSimpleInfo, 'id'>>({
-    queryKey: ['articlePreview', { chatRoomId, articleId }],
+    queryKey: chatQueryKeys.articleSimpleInfo(chatRoomId, articleId),
     queryFn: () => getArticleSimpleInfo(chatRoomId, articleId),
     staleTime: 30 * 1000,
     gcTime: 5 * 60 * 1000,
