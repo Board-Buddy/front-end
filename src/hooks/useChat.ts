@@ -2,7 +2,7 @@
 
 import {
   getArticleSimpleInfo,
-  getChatList,
+  getChatRoomList,
   getExistingMessages,
 } from '@/services/chat';
 import { CustomAxiosError, InfiniteScrollResponseData } from '@/types/api';
@@ -15,10 +15,10 @@ import {
   useSuspenseQuery,
 } from '@tanstack/react-query';
 
-export const useGetChatList = () => {
+export const useGetChatRoomList = () => {
   return useQuery<ChatRoom[], CustomAxiosError>({
     queryKey: chatQueryKeys.chatRoomList(),
-    queryFn: getChatList,
+    queryFn: getChatRoomList,
     staleTime: 30 * 1000,
   });
 };

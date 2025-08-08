@@ -1,6 +1,6 @@
 'use client';
 
-import { useGetChatList } from '@/hooks/useChat';
+import { useGetChatRoomList } from '@/hooks/useChat';
 import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
 import ChatItem from './ChatItem';
@@ -12,7 +12,7 @@ const ChatRoomList = () => {
     isError,
     error,
     refetch,
-  } = useGetChatList();
+  } = useGetChatRoomList();
 
   if (isPending) {
     return <Loading />;
