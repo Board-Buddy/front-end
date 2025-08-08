@@ -108,6 +108,10 @@ export const useEditArticle = (articleId: Article['id']) => {
     mutationFn: (data: NewArticle) => editArticle(data, articleId),
     onSuccess: () => {
       queryClient.invalidateQueries({
+        queryKey: articleQueryKeys.listAll(),
+      });
+
+      queryClient.invalidateQueries({
         queryKey: articleQueryKeys.detail(articleId),
       });
 
