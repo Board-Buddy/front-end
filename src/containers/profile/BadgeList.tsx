@@ -35,7 +35,7 @@ const BadgeList = ({ badges, nickname }: Props) => {
       <div
         className={cn(
           'flex justify-center items-center space-x-10',
-          badges.length === 0 ? 'pb-4' : 'p-4',
+          badges.length === 0 ? 'pb-6' : 'p-4',
         )}
       >
         {badges.length === 0 && (
