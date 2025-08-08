@@ -98,13 +98,10 @@ export const useAddArticle = () => {
 
 export const useEditArticle = (articleId: Article['id']) => {
   const queryClient = useQueryClient();
-  const router = useAppRouter();
 
   return useMutation({
     mutationFn: (data: NewArticle) => editArticle(data, articleId),
     onSuccess: () => {
-      router.replace({ href: '/home', screenName: 'HomeScreen' });
-
       queryClient.invalidateQueries({
         queryKey: ['article', { articleId }],
       });
