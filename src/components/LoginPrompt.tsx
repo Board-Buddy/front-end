@@ -1,11 +1,15 @@
-import { Button } from '@/components/ui/button';
-import AppLink from '@/components/AppLink';
+import AppLink from './AppLink';
+import { Button } from './ui/button';
 
-const ChatListLoginPrompt = () => {
+interface Props {
+  feature: string;
+}
+
+const LoginPrompt = ({ feature }: Props) => {
   return (
-    <div className="pt-12 text-center">
+    <div className="pt-16 text-center">
       <p className="mb-4 text-center font-semibold text-gray-800">
-        로그인하시면 채팅 기능을 이용하실 수 있어요
+        로그인하시면 {feature} 기능을 이용하실 수 있어요
       </p>
       <AppLink href="/login-splash" replace>
         <Button className="h-8 w-28 rounded-3xl text-sm font-bold text-white">
@@ -16,4 +20,4 @@ const ChatListLoginPrompt = () => {
   );
 };
 
-export default ChatListLoginPrompt;
+export default LoginPrompt;

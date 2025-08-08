@@ -3,7 +3,7 @@
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
 import Image from 'next/image';
 import { ReactNode } from 'react';
-import ChatListLoginPrompt from './ChatListLoginPrompt';
+import LoginPrompt from '@/components/LoginPrompt';
 
 interface Props {
   children: ReactNode;
@@ -31,7 +31,7 @@ const ChatListContainer = ({ children }: Props) => {
           className="ml-auto"
         />
       </div>
-      {userInfo ? children : <ChatListLoginPrompt />}
+      {userInfo ? children : <LoginPrompt feature="채팅" />}
     </div>
   );
 };

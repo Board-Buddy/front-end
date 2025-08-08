@@ -2,7 +2,7 @@
 
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
 import { ReactNode } from 'react';
-import NotificationListLoginPrompt from './NotificationListLoginPrompt';
+import LoginPrompt from '@/components/LoginPrompt';
 
 interface Props {
   children: ReactNode;
@@ -11,7 +11,7 @@ interface Props {
 const NotificationListContainer = ({ children }: Props) => {
   const userInfo = useUserInfo();
 
-  return <>{userInfo ? children : <NotificationListLoginPrompt />}</>;
+  return <>{userInfo ? children : <LoginPrompt feature="알림" />}/</>;
 };
 
 export default NotificationListContainer;
