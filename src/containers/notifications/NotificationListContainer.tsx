@@ -11,7 +11,7 @@ interface Props {
 const NotificationListContainer = ({ children }: Props) => {
   const userInfo = useUserInfo();
 
-  return <>{userInfo ? children : <LoginPrompt feature="알림" />}/</>;
+  return <>{userInfo ? children : <LoginPrompt feature="알림" />}</>;
 };
 
 export default NotificationListContainer;
