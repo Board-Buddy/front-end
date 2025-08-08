@@ -89,8 +89,8 @@ export const myQueryKeys = {
   joinedArticle: () => [...myQueryKeys.all, 'joinedArticle'] as const,
 } as const;
 
-export const reviewQueryKeys = {
+export const reviewTargetUserQueryKeys = {
   all: ['review'] as const,
   list: (articleId: Article['id']) =>
-    [...reviewQueryKeys.all, 'list', { articleId }] as const,
+    [...reviewTargetUserQueryKeys.all, 'list', { articleId }] as const,
 } as const;

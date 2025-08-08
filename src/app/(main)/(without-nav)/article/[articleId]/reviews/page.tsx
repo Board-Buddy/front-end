@@ -1,9 +1,9 @@
-import ReviewList from '@/containers/reviews/ReviewList';
+import ReviewTargetUserList from '@/containers/reviews/ReviewTargetUserList';
 
 const page = ({ params }: { params: { articleId: string } }) => {
   return (
     <div className="p-4">
-      <ReviewList articleId={Number(params.articleId)} />
+      <ReviewTargetUserList articleId={Number(params.articleId)} />
     </div>
   );
 };

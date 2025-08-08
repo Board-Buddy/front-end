@@ -17,7 +17,7 @@ interface Props {
   articleId: Article['id'];
 }
 
-const ReviewItem = ({
+const ReviewTargetUserItem = ({
   nickname,
   profileImage,
   rank,
@@ -60,4 +60,4 @@ const ReviewItem = ({
   );
 };
 
-export default ReviewItem;
+export default ReviewTargetUserItem;

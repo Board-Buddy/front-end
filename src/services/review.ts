@@ -4,8 +4,8 @@ import { SuccessResponse } from '@/types/api';
 import { Review } from '@/types/review';
 import { ENDPOINT } from './endpoint';
 
-/** 후기 전송할 유저 조회 API */
-export const getReviewList = (gatherArticleId: Article['id']) =>
+/** 후기 전송 대상 유저 목록 조회 API */
+export const getReviewTargetUserList = (gatherArticleId: Article['id']) =>
   api
     .get<
       SuccessResponse<{ users: Review[] }>

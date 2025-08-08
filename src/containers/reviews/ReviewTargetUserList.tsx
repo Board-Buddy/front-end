@@ -1,23 +1,23 @@
 'use client';
 
-import { useGetReviewList } from '@/hooks/useReview';
+import { useGetReviewTargetUserList } from '@/hooks/useReview';
 import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
 import { Article } from '@/types/article';
-import ReviewItem from './ReviewItem';
+import ReviewTargetUserItem from './ReviewTargetUserItem';
 
 interface Props {
   articleId: Article['id'];
 }
 
-const ReviewList = ({ articleId }: Props) => {
+const ReviewTargetUserList = ({ articleId }: Props) => {
   const {
     data: reviewList,
     isPending,
     isError,
     error,
     refetch,
-  } = useGetReviewList(articleId);
+  } = useGetReviewTargetUserList(articleId);
 
   if (isPending) {
     return <Loading />;
@@ -36,7 +36,7 @@ const ReviewList = ({ articleId }: Props) => {
   return (
     <div className="flex flex-col gap-3">
       {reviewList.map((review) => (
-        <ReviewItem
+        <ReviewTargetUserItem
           articleId={articleId}
           key={review.nickname}
           nickname={review.nickname}
@@ -49,4 +49,4 @@ const ReviewList = ({ articleId }: Props) => {
   );
 };
 
-export default ReviewList;
+export default ReviewTargetUserList;
