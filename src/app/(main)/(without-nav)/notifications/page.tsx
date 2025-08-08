@@ -1,22 +1,11 @@
 import NotificationList from '@/containers/notifications/NotificationList';
-import { getNotificationList } from '@/services/notification';
-import getQueryClient from '@/utils/getQueryClient';
-import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+import NotificationListContainer from '@/containers/notifications/NotificationListContainer';
 
 const Page = async () => {
-  const queryClient = getQueryClient();
-
-  await queryClient.prefetchQuery({
-    queryKey: ['notifications'],
-    queryFn: getNotificationList,
-  });
-
   return (
-    <>
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <NotificationList />
-      </HydrationBoundary>
-    </>
+    <NotificationListContainer>
+      <NotificationList />
+    </NotificationListContainer>
   );
 };
 
