@@ -4,6 +4,8 @@ import { useGetNotificationList } from '@/hooks/useNotifications';
 import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
 import NotificationItem from './NotificationItem';
+import FallbackRender from '@/components/FallbackRender';
+import EmptyFallback from '@/components/EmptyFallback';
 
 const NotificationList = () => {
   const {
@@ -29,7 +31,10 @@ const NotificationList = () => {
   }
 
   return (
-    <>
+    <FallbackRender
+      render={notifications.length === 0}
+      component={<EmptyFallback message="모든 알림을 확인했어요🙂" />}
+    >
       {notifications.map((notification) => (
         <NotificationItem
           key={`${notification.message}-${notification.createdAt}`}
@@ -37,7 +42,7 @@ const NotificationList = () => {
           createdAt={notification.createdAt}
         />
       ))}
-    </>
+    </FallbackRender>
   );
 };
 
