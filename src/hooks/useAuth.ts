@@ -2,10 +2,11 @@ import { checkUserLogin, login, logout, withdrawal } from '@/services/auth';
 import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import useAppRouter from './custom/useAppRouter';
+import { authQueryKeys } from '@/utils/queryKeys';
 
 export const useUserLoginCheck = ({ isReady }: { isReady: boolean }) => {
   return useQuery({
-    queryKey: ['userInfo'],
+    queryKey: authQueryKeys.userInfo(),
     queryFn: checkUserLogin,
     enabled: isReady,
     staleTime: Infinity,
@@ -23,7 +24,7 @@ export const useUserLogin = () => {
       const userInfo = data;
 
       await queryClient.prefetchQuery({
-        queryKey: ['userInfo'],
+        queryKey: authQueryKeys.userInfo(),
         queryFn: () => Promise.resolve(userInfo),
         staleTime: Infinity,
         gcTime: Infinity,

@@ -6,6 +6,7 @@ import getQueryClient from '@/utils/getQueryClient';
 import NotificationButton from '@/containers/home/NotificationButton';
 import SearchInputMockUp from '@/containers/search/SearchInputMockUp';
 import ArticleListContainer from '@/containers/home/ArticleListContainer';
+import { rankingQueryKeys } from '@/utils/queryKeys';
 
 export const dynamic = 'force-dynamic';
 
@@ -13,7 +14,7 @@ const page = async () => {
   const queryClient = getQueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ['ranking'],
+    queryKey: rankingQueryKeys.all,
     queryFn: getRankings,
   });
 

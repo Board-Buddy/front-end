@@ -14,10 +14,15 @@ import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useUserInfo } from './custom/useUserInfo';
 import useAppRouter from './custom/useAppRouter';
+import {
+  authQueryKeys,
+  myQueryKeys,
+  profileQueryKeys,
+} from '@/utils/queryKeys';
 
 export const useGetProfile = (nickname: string) => {
   return useQuery<Profile, CustomAxiosError>({
-    queryKey: ['profile', { nickname }],
+    queryKey: profileQueryKeys.userProfile(nickname),
     queryFn: () => getProfile(nickname),
     staleTime: 5 * 60 * 1000,
     gcTime: 10 * 60 * 1000,
@@ -40,15 +45,18 @@ export const useEditProfile = () => {
       const newNickname = json.nickname;
 
       // 성공 시 userInfo 업데이트
-      await queryClient.setQueryData(['userInfo'], (old: UserInfo) => {
-        return {
-          ...old,
-          nickname: newNickname ?? old.nickname,
-        };
-      });
+      await queryClient.setQueryData(
+        authQueryKeys.userInfo(),
+        (old: UserInfo) => {
+          return {
+            ...old,
+            nickname: newNickname ?? old.nickname,
+          };
+        },
+      );
 
       queryClient.invalidateQueries({
-        queryKey: ['profile', { nickname: newNickname ?? nickname }],
+        queryKey: profileQueryKeys.userProfile(newNickname ?? nickname),
       });
 
       router.replace({ href: '/my', screenName: 'MyPageScreen' });
@@ -60,14 +68,14 @@ export const useEditProfile = () => {
 
 export const useGetBadgeList = (nickname: string) => {
   return useQuery<Badge[], CustomAxiosError>({
-    queryKey: ['badgeList', { nickname }],
+    queryKey: profileQueryKeys.badgeList(nickname),
     queryFn: () => getBadgeList(nickname),
   });
 };
 
 export const useGetMyArticles = () => {
   return useQuery<MyArticle[], CustomAxiosError>({
-    queryKey: ['myArticles'],
+    queryKey: myQueryKeys.postedArticle(),
     queryFn: () => getMyArticles(),
     staleTime: 0,
     gcTime: 0,
@@ -76,7 +84,7 @@ export const useGetMyArticles = () => {
 
 export const useGetJoinedArticles = () => {
   return useQuery<JoinedArticle[], CustomAxiosError>({
-    queryKey: ['myJoinedArticles'],
+    queryKey: myQueryKeys.joinedArticle(),
     queryFn: () => getJoinedArticles(),
     staleTime: 0,
     gcTime: 0,

@@ -17,6 +17,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import useAppRouter from './custom/useAppRouter';
+import { articleQueryKeys } from '@/utils/queryKeys';
 
 export const useGetArticles = ({
   status,
@@ -36,14 +37,17 @@ export const useGetArticles = ({
       posts: Article[];
       last: boolean;
     }>,
-    [string, 'search' | 'browse', Omit<GetArticleRequestParams, 'pageParam'>],
+    readonly [string, string, 'search' | 'browse', GetArticleRequestParams],
     number
   >({
-    queryKey: [
-      'articles',
-      search ? 'search' : 'browse',
-      { status, sort, sido, sgg, keyword },
-    ],
+    queryKey: articleQueryKeys.list({
+      status,
+      sort,
+      sido,
+      sgg,
+      keyword,
+      search,
+    }),
     queryFn: ({ pageParam = 0 }) =>
       getArticles({ pageParam, status, sort, sido, sgg, keyword }),
     initialPageParam: 0,
@@ -59,7 +63,7 @@ export const useGetArticle = (articleId: Article['id']) =>
     Omit<Article, 'id' | 'participationApplicationStatus'>,
     CustomAxiosError
   >({
-    queryKey: ['article', { articleId }],
+    queryKey: articleQueryKeys.detail(articleId),
     queryFn: () => getArticle(articleId),
     staleTime: 0,
     gcTime: 0,
@@ -72,7 +76,7 @@ export const useGetArticleParticipationStatus = (articleId: Article['id']) =>
     },
     CustomAxiosError
   >({
-    queryKey: ['article', 'participation-status', { articleId }],
+    queryKey: articleQueryKeys.participationStatus(articleId),
     queryFn: () => getArticleParticipationStatus(articleId),
     staleTime: 0,
     gcTime: 0,
@@ -88,7 +92,7 @@ export const useAddArticle = () => {
       router.push({ href: '/home', screenName: 'HomeScreen' });
 
       queryClient.invalidateQueries({
-        queryKey: ['articles'],
+        queryKey: articleQueryKeys.listAll(),
       });
 
       successToast('article create', '모집글이 등록되었습니다.');
@@ -104,7 +108,7 @@ export const useEditArticle = (articleId: Article['id']) => {
     mutationFn: (data: NewArticle) => editArticle(data, articleId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['article', { articleId }],
+        queryKey: articleQueryKeys.detail(articleId),
       });
 
       router.replace({ href: `/article/${articleId}` });
@@ -124,7 +128,7 @@ export const useDeleteArticle = (articleId: Article['id']) => {
       router.replace({ href: '/home', screenName: 'HomeScreen' });
 
       queryClient.invalidateQueries({
-        queryKey: ['articles'],
+        queryKey: articleQueryKeys.listAll(),
       });
 
       successToast('article delete', '모집글이 삭제되었습니다.');

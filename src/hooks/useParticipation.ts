@@ -9,11 +9,12 @@ import { CustomAxiosError } from '@/types/api';
 import { Article, ParticipantInfo } from '@/types/article';
 import { UserInfo } from '@/types/user';
 import { successToast } from '@/utils/customToast';
+import { articleQueryKeys, myQueryKeys } from '@/utils/queryKeys';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const useGetParticipationList = (articleId: Article['id']) => {
   return useQuery<ParticipantInfo[], CustomAxiosError>({
-    queryKey: ['participation', { articleId }],
+    queryKey: articleQueryKeys.participationList(articleId),
     queryFn: () => getParticipants({ articleId }),
     staleTime: 0,
     gcTime: 0,
@@ -26,10 +27,10 @@ export const useApplyParticipation = (articleId: Article['id']) => {
   return useMutation({
     mutationFn: () => applyParticipation({ articleId }),
     onSuccess: () => {
-      // 성공 시 모집글 상세 쿼리 무효화
       queryClient.invalidateQueries({
-        queryKey: ['article', { articleId }],
+        queryKey: articleQueryKeys.detail(articleId),
       });
+
       successToast('apply', '참가 신청되었습니다.');
     },
   });
@@ -41,14 +42,14 @@ export const useCancelParticipation = (articleId: Article['id']) => {
   return useMutation({
     mutationFn: () => cancelParticipation({ articleId }),
     onSuccess: () => {
-      // 성공 시 모집글 상세 쿼리 무효화
       queryClient.invalidateQueries({
-        queryKey: ['article', { articleId }],
+        queryKey: articleQueryKeys.detail(articleId),
       });
-      // TODO 쿼리 무효화 되는지 확인
+
       queryClient.invalidateQueries({
-        queryKey: ['myJoinedArticles'],
+        queryKey: myQueryKeys.joinedArticle(),
       });
+
       successToast('cancel', '참가 취소되었습니다.');
     },
   });
@@ -67,9 +68,8 @@ export const useApproveParticipation = (articleId: Article['id']) => {
     }) =>
       approveParticipation({ articleId, participationId, applicantNickname }),
     onSuccess: () => {
-      // 성공 시 참가 신청 목록 리스트 무효화
       queryClient.invalidateQueries({
-        queryKey: ['participation', { articleId }],
+        queryKey: articleQueryKeys.participationList(articleId),
       });
     },
   });
@@ -88,9 +88,8 @@ export const useRejectParticipation = (articleId: Article['id']) => {
     }) =>
       rejectParticipation({ articleId, participationId, applicantNickname }),
     onSuccess: () => {
-      // 성공 시 참가 신청 목록 리스트 무효화
       queryClient.invalidateQueries({
-        queryKey: ['participation', { articleId }],
+        queryKey: articleQueryKeys.participationList(articleId),
       });
     },
   });
