@@ -42,11 +42,17 @@ const useRestoreAppState = <T>(
 
     sendRegisterState();
 
-    window.addEventListener('message', handleRestoreState);
+    window.addEventListener('message', handleRestoreState); // ios
+    // @ts-ignore
+    document.addEventListener('message', handleRestoreState); // android
+
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
       window.removeEventListener('message', handleRestoreState);
+      // @ts-ignore
+      document.removeEventListener('message', handleRestoreState);
+
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, [key, onRestore, isWebView]);
