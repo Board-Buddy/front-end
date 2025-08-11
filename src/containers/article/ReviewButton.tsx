@@ -7,7 +7,7 @@ import { cn } from '@/utils/tailwind';
 
 const ReviewButton = ({ articleId }: { articleId: Article['id'] }) => {
   return (
-    <AppLink href={`${articleId}/reviews`} headerTitle="후기 작성">
+    <AppLink href={`/article/${articleId}/reviews`} headerTitle="후기 작성">
       <div className="mb-8 px-4">
         <Button
           className={cn('w-full text-white font-bold text-base h-12 shadow-md')}

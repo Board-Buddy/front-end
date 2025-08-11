@@ -16,7 +16,7 @@ const BadgeList = ({ badges, nickname }: Props) => {
       <div className="mb-4 flex items-center justify-between text-xl font-bold text-gray-600">
         <div className="flex gap-2">뱃지목록</div>
         <AppLink
-          href={nickname ? `${nickname}/badges` : '/my/badges'}
+          href={nickname ? `/profile/${nickname}/badges` : '/my/badges'}
           headerTitle={
             nickname ? `${nickname} 님의 뱃지 목록` : '나의 뱃지 목록'
           }

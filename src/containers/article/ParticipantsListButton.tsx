@@ -10,7 +10,10 @@ const ParticipantsListButton = ({
 }) => {
   return (
     <div className="mb-8 px-4">
-      <AppLink href={`${articleId}/participants`} headerTitle="참가 신청 목록">
+      <AppLink
+        href={`/article/${articleId}/participants`}
+        headerTitle="참가 신청 목록"
+      >
         <Button
           className={cn('w-full text-white font-bold text-base h-12 shadow-md')}
         >
