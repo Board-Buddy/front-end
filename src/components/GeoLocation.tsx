@@ -11,6 +11,7 @@ import CafeInfo from '../containers/map/CafeInfo';
 import Map from '../containers/map/Map';
 import useAppRouter from '@/hooks/custom/useAppRouter';
 import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
+import useAppLocation from '@/hooks/custom/useAppLocation';
 
 interface Props {
   redirectionURL?: string;
@@ -21,42 +22,43 @@ const GeoLocation = ({ redirectionURL }: Props) => {
   const router = useAppRouter();
 
   const { formState, setFormState } = useWriteFormContext();
-  const { location, error } = useGeoLocation(GEOLOCATION_OPTIONS);
+  const { location: webLocation, error: webLocationError } =
+    useGeoLocation(GEOLOCATION_OPTIONS);
+  const { location: appLocation } = useAppLocation();
 
   const [cafeInfo, setCafeInfo] = useState<Cafe | null>(null);
 
   const handleDirectionButtonClick = () => {};
 
   const handleSelectButtonClick = () => {
-    setFormState({
-      ...formState,
-      meetingLocation: cafeInfo!.placeName,
-      sido: cafeInfo!.sido,
-      sgg: cafeInfo!.sgg,
-      emd: cafeInfo!.emd,
-      x: cafeInfo!.x.toString(),
-      y: cafeInfo!.y.toString(),
-    });
+    if (!cafeInfo) return;
 
-    saveStateToApp(STATE_KEYS.ARTICLE_WRITE_FORM, {
+    const nextFormState = {
       ...formState,
-      meetingLocation: cafeInfo!.placeName,
-      sido: cafeInfo!.sido,
-      sgg: cafeInfo!.sgg,
-      emd: cafeInfo!.emd,
-      x: cafeInfo!.x.toString(),
-      y: cafeInfo!.y.toString(),
-    });
+      meetingLocation: cafeInfo.placeName,
+      sido: cafeInfo.sido,
+      sgg: cafeInfo.sgg,
+      emd: cafeInfo.emd,
+      x: cafeInfo.x.toString(),
+      y: cafeInfo.y.toString(),
+    };
 
-    router.replace({
-      href: redirectionURL!,
-      headerTitle: redirectionURL?.includes('edit')
-        ? '모집글 수정'
-        : '모집글 작성',
-    });
+    setFormState(nextFormState);
+
+    saveStateToApp(STATE_KEYS.ARTICLE_WRITE_FORM, nextFormState);
+
+    if (redirectionURL) {
+      router.replace({
+        href: redirectionURL,
+        headerTitle: redirectionURL?.includes('edit')
+          ? '모집글 수정'
+          : '모집글 작성',
+      });
+    }
   };
 
-  if (!location || error) {
+  // 위치 정보가 없거나 에러가 있을 때 로딩 표시
+  if (!appLocation && (!webLocation || webLocationError)) {
     return (
       <div className="flex h-[calc(100dvh-50px)] items-center justify-center text-primary">
         <LoaderCircleIcon className="size-9 animate-spin" />
@@ -65,7 +67,11 @@ const GeoLocation = ({ redirectionURL }: Props) => {
   }
 
   return (
-    <Map location={location} cafeInfo={cafeInfo} setCafeInfo={setCafeInfo}>
+    <Map
+      location={appLocation ?? webLocation!}
+      cafeInfo={cafeInfo}
+      setCafeInfo={setCafeInfo}
+    >
       {pathname.includes('map') && (
         <CafeInfo
           cafe={cafeInfo}
