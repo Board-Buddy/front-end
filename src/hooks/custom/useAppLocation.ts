@@ -5,6 +5,8 @@ import useRequestPermission from './useRequestPermission';
 import useIsWebView from './useIsWebView';
 import { errorToast } from '@/utils/customToast';
 import { Location } from '@/types/map';
+import { postRNMessage } from '@/utils/webview';
+import { MessageType } from '@/types/webview';
 
 const useAppLocation = () => {
   const isWebView = useIsWebView();
@@ -25,11 +27,7 @@ const useAppLocation = () => {
 
     if (permissionStatus === 'granted') {
       // 권한 허용되었을 때 위도, 경도 가져오기
-      window.ReactNativeWebView?.postMessage(
-        JSON.stringify({
-          type: 'GET_LOCATION',
-        }),
-      );
+      postRNMessage(MessageType.GET_LOCATION);
     } else if (permissionStatus === 'denied') {
       errorToast(
         'request denied',

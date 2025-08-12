@@ -1,3 +1,17 @@
+import {
+  MessagePayloadMap,
+  MessageType,
+  PermissionType,
+} from '@/types/webview';
+
+/**
+ * React Native 메시지 전송 함수
+ */
+export const postRNMessage = <T extends keyof MessagePayloadMap>(
+  type: T,
+  payload?: MessagePayloadMap[T],
+) => window.ReactNativeWebView?.postMessage(JSON.stringify({ type, payload }));
+
 export const STATE_KEYS = {
   ARTICLE_WRITE_FORM: 'article-write-form',
   PROFILE_INFO: 'profile-info',
@@ -15,13 +29,7 @@ export type StateKey = (typeof STATE_KEYS)[keyof typeof STATE_KEYS];
 export const saveStateToApp = (stateKey: StateKey, state: unknown) => {
   if (window.ReactNativeWebView?.postMessage) {
     try {
-      window.ReactNativeWebView.postMessage(
-        JSON.stringify({
-          type: 'SAVE_STATE',
-          key: stateKey,
-          state,
-        }),
-      );
+      postRNMessage(MessageType.SAVE_STATE, { key: stateKey, state });
     } catch (error) {
       console.error('앱에 상태를 저장하는 데 실패했습니다', error);
     }
@@ -30,4 +38,18 @@ export const saveStateToApp = (stateKey: StateKey, state: unknown) => {
       'ReactNativeWebView를 사용할 수 없어 상태가 저장되지 않았습니다',
     );
   }
+};
+
+/**
+ * 앱으로 로그 메시지를 전송하는 함수
+ */
+export const sendDebugLogToApp = (log: string) => {
+  postRNMessage(MessageType.DEBUG, { log });
+};
+
+/**
+ * 권한 요청 래퍼
+ */
+export const requestPermissionToRN = (permissionType: PermissionType) => {
+  postRNMessage(MessageType.PERMISSION_REQUEST, { permissionType });
 };

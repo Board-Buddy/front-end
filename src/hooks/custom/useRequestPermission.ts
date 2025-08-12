@@ -2,9 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import useIsWebView from './useIsWebView';
-
-type PermissionStatus = 'undefined' | 'granted' | 'denied';
-type PermissionType = 'media-library' | 'location' | 'notification';
+import { MessageType, PermissionStatus, PermissionType } from '@/types/webview';
+import { requestPermissionToRN } from '@/utils/webview';
 
 const useRequestPermission = (permissionType: PermissionType) => {
   const isWebView = useIsWebView();
@@ -14,12 +13,7 @@ const useRequestPermission = (permissionType: PermissionType) => {
   const requestPermission = () => {
     if (!isWebView) return;
 
-    window.ReactNativeWebView?.postMessage(
-      JSON.stringify({
-        type: 'PERMISSION_REQUEST',
-        permissionType,
-      }),
-    );
+    requestPermissionToRN(permissionType);
   };
 
   useEffect(() => {
@@ -29,7 +23,7 @@ const useRequestPermission = (permissionType: PermissionType) => {
       try {
         const { type, state } = JSON.parse(e.data);
 
-        if (type === 'PERMISSION_STATUS' && state) {
+        if (type === MessageType.PERMISSION_STATUS && state) {
           setPermissionStatus(state);
         }
       } catch (error) {

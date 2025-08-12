@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { IMAGE_MAX_SIZE } from '@/constants/image';
 import { EditProfileDTO } from '@/types/profile';
 import { resizeFile } from '@/utils/image';
-import React, { ChangeEvent, useCallback, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -33,7 +33,7 @@ import { useExistingProfileInfoContext } from '@/context/ExistingProfileInfoCont
 import { CustomAxiosError } from '@/types/api';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
 import useRestoreAppState from '@/hooks/custom/useRestoreAppState';
-import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
+import { saveStateToApp, STATE_KEYS } from '@/utils/webview';
 import useImagePicker from '@/hooks/custom/useImagePicker';
 
 type RestoredFormState = Pick<
@@ -99,7 +99,7 @@ const MyProfileEditForm = () => {
 
   useRestoreAppState<RestoredFormState>(
     STATE_KEYS.PROFILE_INFO,
-    useCallback((state) => state && setRestoredFormState(state), []),
+    (state) => state && setRestoredFormState(state),
   );
 
   // placeholder 우선순위 함수

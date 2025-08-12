@@ -1,6 +1,7 @@
-import { StateKey } from '@/utils/appState';
+import { postRNMessage, StateKey } from '@/utils/webview';
 import { useEffect } from 'react';
 import useIsWebView from './useIsWebView';
+import { MessageType } from '@/types/webview';
 
 type RestoreStateCallback<T> = (state: T) => void;
 
@@ -17,19 +18,14 @@ const useRestoreAppState = <T>(
 
     // 앱 상태 구독 메시지 전송 함수
     const sendRegisterState = () => {
-      window.ReactNativeWebView?.postMessage(
-        JSON.stringify({
-          type: 'REGISTER_STATE',
-          key,
-        }),
-      );
+      postRNMessage(MessageType.REGISTER_STATE, { key });
     };
 
     // 앱 상태 복원 메시지 핸들러
     const handleRestoreState = (e: MessageEvent) => {
       const { type, state } = JSON.parse(e.data);
 
-      if (type === 'RESTORE_STATE' && state) {
+      if (type === MessageType.RESTORE_STATE && state) {
         onRestore(state);
       }
     };
