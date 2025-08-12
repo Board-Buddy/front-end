@@ -33,8 +33,7 @@ const GeoLocation = ({ redirectionURL }: Props) => {
   const handleSelectButtonClick = () => {
     if (!cafeInfo) return;
 
-    const nextFormState = {
-      ...formState,
+    const locationFormState = {
       meetingLocation: cafeInfo.placeName,
       sido: cafeInfo.sido,
       sgg: cafeInfo.sgg,
@@ -42,19 +41,11 @@ const GeoLocation = ({ redirectionURL }: Props) => {
       x: cafeInfo.x.toString(),
       y: cafeInfo.y.toString(),
     };
+    setFormState({ ...formState, ...locationFormState });
 
-    setFormState(nextFormState);
+    saveStateToApp(STATE_KEYS.ARTICLE_WRITE_FORM, locationFormState);
 
-    saveStateToApp(STATE_KEYS.ARTICLE_WRITE_FORM, nextFormState);
-
-    if (redirectionURL) {
-      router.replace({
-        href: redirectionURL,
-        headerTitle: redirectionURL?.includes('edit')
-          ? '모집글 수정'
-          : '모집글 작성',
-      });
-    }
+    router.back();
   };
 
   // 위치 정보가 없거나 에러가 있을 때 로딩 표시
