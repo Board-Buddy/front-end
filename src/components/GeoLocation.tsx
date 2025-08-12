@@ -13,6 +13,7 @@ import { saveStateToApp, STATE_KEYS } from '@/utils/webview';
 import useAppLocation from '@/hooks/custom/useAppLocation';
 import useIsWebView from '@/hooks/custom/useIsWebView';
 import EmptyFallback from './EmptyFallback';
+import Loading from './Loading';
 
 const GeoLocation = () => {
   const pathname = usePathname();
@@ -49,13 +50,14 @@ const GeoLocation = () => {
   };
 
   const location = appLocation ?? webLocation;
+  const error = isWebView ? appLocationError : webLocationError;
 
   if (!location) {
-    return (
-      <EmptyFallback
-        message={isWebView ? appLocationError : webLocationError}
-      />
-    );
+    if (error) {
+      return <EmptyFallback message={error} />;
+    }
+
+    return <Loading />;
   }
 
   return (

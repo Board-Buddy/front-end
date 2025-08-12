@@ -10,7 +10,7 @@ import { MessageType } from '@/types/webview';
 const useAppLocation = () => {
   const isWebView = useIsWebView();
   const [location, setLocation] = useState<Location | null>(null);
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
   const { permissionStatus, requestPermission } =
     useRequestPermission('location');

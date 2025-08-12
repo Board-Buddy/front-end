@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 
 const useGeoLocation = (options = {}) => {
   const [location, setLocation] = useState<Location>();
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string | null>(null);
 
   const handleSuccess = (pos: GeolocationPosition) => {
     const { latitude, longitude } = pos.coords;
