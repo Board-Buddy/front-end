@@ -80,6 +80,12 @@ const ArticleWriteForm = () => {
     }
   }, [formState, form]);
 
+  useEffect(() => {
+    return () => {
+      saveStateToApp(STATE_KEYS.ARTICLE_WRITE_FORM, null);
+    };
+  }, []);
+
   const handleLocationSettingButton = () => {
     setFormState(form.getValues());
 

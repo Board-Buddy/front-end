@@ -78,6 +78,12 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
     form.reset(formState);
   }, [formState, form]);
 
+  useEffect(() => {
+    return () => {
+      saveStateToApp(STATE_KEYS.ARTICLE_WRITE_FORM, null);
+    };
+  }, []);
+
   const handleLocationSettingButton = () => {
     setFormState(form.getValues());
 
@@ -85,7 +91,7 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
 
     // 위치 선택 페이지로 이동
     router.push({
-      href: 'edit/locationSetting',
+      href: `/article/${articleId}/edit/locationSetting`,
       headerTitle: '보드게임 카페 선택 ',
     });
   };
