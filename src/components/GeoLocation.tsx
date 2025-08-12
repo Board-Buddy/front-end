@@ -13,11 +13,7 @@ import useAppRouter from '@/hooks/custom/useAppRouter';
 import { saveStateToApp, STATE_KEYS } from '@/utils/webview';
 import useAppLocation from '@/hooks/custom/useAppLocation';
 
-interface Props {
-  redirectionURL?: string;
-}
-
-const GeoLocation = ({ redirectionURL }: Props) => {
+const GeoLocation = () => {
   const pathname = usePathname();
   const router = useAppRouter();
 
