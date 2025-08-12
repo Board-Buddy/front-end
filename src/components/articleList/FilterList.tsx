@@ -10,7 +10,7 @@ import {
 import { DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { ArticleListProps } from '../../components/articleList/ArticleList';
-import { saveStateToApp } from '@/utils/appState';
+import { saveStateToApp } from '@/utils/webview';
 import useGetStateKey from '@/hooks/custom/useGetStateKey';
 
 const FilterList = ({

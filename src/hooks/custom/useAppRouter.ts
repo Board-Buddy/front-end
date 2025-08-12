@@ -1,16 +1,15 @@
 import { NavigateOptions } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 import { useRouter } from 'next/navigation';
 import useIsWebView from './useIsWebView';
-
-type NavigateMethod = 'PUSH' | 'REPLACE' | 'BACK' | 'FORWARD';
-type ScreenName = 'HomeScreen' | 'ChatScreen' | 'MapScreen' | 'MyPageScreen';
+import { MessageType, NavigateMethod, RoutePath } from '@/types/webview';
+import { postRNMessage } from '@/utils/webview';
 
 const screenMap = {
   HomeScreen: '/',
   ChatScreen: '/chat',
   MapScreen: '/map',
   MyPageScreen: '/my',
-} as Record<ScreenName, string>;
+} as Record<ScreenName, RoutePath>;
 
 export interface NavigateArgs {
   href: string;
@@ -18,6 +17,8 @@ export interface NavigateArgs {
   headerTitle?: string;
   screenName?: ScreenName;
 }
+
+type ScreenName = 'HomeScreen' | 'ChatScreen' | 'MapScreen' | 'MyPageScreen';
 
 const useAppRouter = () => {
   const router = useRouter();
@@ -29,15 +30,12 @@ const useAppRouter = () => {
     headerTitle?: string,
     screenName?: ScreenName,
   ) =>
-    window.ReactNativeWebView?.postMessage(
-      JSON.stringify({
-        type: 'ROUTER_EVENT',
-        method,
-        webUrl: href,
-        targetPath: screenName ? screenMap[screenName] : '/webview',
-        headerTitle,
-      }),
-    );
+    postRNMessage(MessageType.ROUTER, {
+      method,
+      webUrl: href,
+      targetPath: screenName ? screenMap[screenName] : '/webview',
+      headerTitle,
+    });
 
   const push = ({ href, options, headerTitle, screenName }: NavigateArgs) => {
     if (!href) {

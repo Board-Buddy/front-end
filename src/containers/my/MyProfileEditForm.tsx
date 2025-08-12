@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { IMAGE_MAX_SIZE } from '@/constants/image';
 import { EditProfileDTO } from '@/types/profile';
 import { resizeFile } from '@/utils/image';
-import React, { ChangeEvent, useCallback, useRef, useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -33,7 +33,8 @@ import { useExistingProfileInfoContext } from '@/context/ExistingProfileInfoCont
 import { CustomAxiosError } from '@/types/api';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
 import useRestoreAppState from '@/hooks/custom/useRestoreAppState';
-import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
+import { saveStateToApp, STATE_KEYS } from '@/utils/webview';
+import useImagePicker from '@/hooks/custom/useImagePicker';
 
 type RestoredFormState = Pick<
   EditProfileDTO,
@@ -67,15 +68,14 @@ const formSchema = z.object({
 });
 
 const MyProfileEditForm = () => {
+  const { imageInputRef, openPicker } = useImagePicker();
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageSizeAlertOpen, setImageSizeAlertOpen] = useState(false);
 
   const userInfo = useUserInfo();
   const memberType = userInfo?.memberType;
 
   const editProfileMutation = useEditProfile();
-
-  const imageInputRef = useRef<HTMLInputElement>(null);
-  const [imageFile, setImageFile] = useState<File | null>(null);
 
   const [uniqueNickname, setUniqueNickname] = useState(false);
   const [showNewPasswordInput, setShowNewPasswordInput] = useState(false);
@@ -130,10 +130,6 @@ const MyProfileEditForm = () => {
 
       setImageFile(image);
     }
-  };
-
-  const handleAddImageButtonClick = () => {
-    imageInputRef.current?.click();
   };
 
   const verifyNickname = async () => {
@@ -290,7 +286,7 @@ const MyProfileEditForm = () => {
         >
           <Avatar
             className="relative mb-8 size-24 cursor-pointer overflow-hidden"
-            onClick={handleAddImageButtonClick}
+            onClick={openPicker}
           >
             <AvatarImage
               src={

@@ -10,7 +10,7 @@ import {
   useStatusSelector,
 } from '@/store/articleFilterStore';
 import ArticleList from '../../components/articleList/ArticleList';
-import { STATE_KEYS } from '@/utils/appState';
+import { STATE_KEYS } from '@/utils/webview';
 import useRestoreAppState from '@/hooks/custom/useRestoreAppState';
 import { ArticleParams } from '@/store/createArticleFilterStore';
 import { useCallback, useMemo, useState } from 'react';

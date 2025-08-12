@@ -1,6 +1,6 @@
 'use client';
 
-import { STATE_KEYS } from '@/utils/appState';
+import { STATE_KEYS } from '@/utils/webview';
 import { usePathname, useSearchParams } from 'next/navigation';
 
 /**
