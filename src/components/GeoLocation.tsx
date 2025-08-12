@@ -10,7 +10,7 @@ import useGeoLocation from '@/hooks/custom/useGeoLocation';
 import CafeInfo from '../containers/map/CafeInfo';
 import Map from '../containers/map/Map';
 import useAppRouter from '@/hooks/custom/useAppRouter';
-import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
+import { saveStateToApp, STATE_KEYS } from '@/utils/webview';
 import useAppLocation from '@/hooks/custom/useAppLocation';
 
 interface Props {

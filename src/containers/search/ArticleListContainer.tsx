@@ -13,7 +13,7 @@ import {
 } from '@/store/searchFilterStore';
 import { ArticleParams } from '@/store/createArticleFilterStore';
 import useRestoreAppState from '@/hooks/custom/useRestoreAppState';
-import { STATE_KEYS } from '@/utils/appState';
+import { STATE_KEYS } from '@/utils/webview';
 
 const ArticleListContainer = () => {
   const [restoredState, setRestoredState] =

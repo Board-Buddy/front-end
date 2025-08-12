@@ -2,7 +2,7 @@ import useAppRouter from '@/hooks/custom/useAppRouter';
 import useGetStateKey from '@/hooks/custom/useGetStateKey';
 import { useGetDistrictList } from '@/hooks/useLocation';
 import { Province } from '@/types/location';
-import { saveStateToApp } from '@/utils/appState';
+import { saveStateToApp } from '@/utils/webview';
 
 interface Props {
   province: Province;
