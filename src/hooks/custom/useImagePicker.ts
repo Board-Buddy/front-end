@@ -28,10 +28,15 @@ const useImagePicker = () => {
     if (permissionStatus === 'granted') {
       imageInputRef.current?.click();
       setPending(false);
-    } else if (permissionStatus === 'denied') {
-      errorToast('request denied', '갤러리 접근 권한 요청이 거부되었습니다.');
-      setPending(false);
+      return;
     }
+
+    errorToast(
+      'request denied',
+      '갤러리 접근 권한이 없습니다. 설정에서 접근 권한을 허용해주세요.',
+    );
+
+    setPending(false);
   }, [isWebView, permissionStatus, pending]);
 
   return { imageInputRef, openPicker };

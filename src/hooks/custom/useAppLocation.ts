@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import useRequestPermission from './useRequestPermission';
 import useIsWebView from './useIsWebView';
-import { errorToast } from '@/utils/customToast';
 import { Location } from '@/types/map';
 import { postRNMessage, sendDebugLogToApp } from '@/utils/webview';
 import { MessageType } from '@/types/webview';
@@ -11,6 +10,7 @@ import { MessageType } from '@/types/webview';
 const useAppLocation = () => {
   const isWebView = useIsWebView();
   const [location, setLocation] = useState<Location | null>(null);
+  const [error, setError] = useState('');
 
   const { permissionStatus, requestPermission } =
     useRequestPermission('location');
@@ -28,12 +28,12 @@ const useAppLocation = () => {
     if (permissionStatus === 'granted') {
       // 권한 허용되었을 때 위도, 경도 가져오기
       postRNMessage(MessageType.GET_LOCATION);
-    } else if (permissionStatus === 'denied') {
-      errorToast(
-        'request denied',
-        '보드게임 카페 지도를 이용하시려면 위치 권한을 허용해주세요.',
-      );
+      return;
     }
+
+    setError(
+      `보드게임 카페 지도를 이용하시려면\n설정에서 위치 권한을 허용해주세요.`,
+    );
   }, [isWebView, permissionStatus]);
 
   // 위치 응답 처리
@@ -63,7 +63,7 @@ const useAppLocation = () => {
     };
   }, [isWebView]);
 
-  return { location };
+  return { location, error };
 };
 
 export default useAppLocation;

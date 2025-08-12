@@ -1,6 +1,5 @@
 'use client';
 
-import { LoaderCircleIcon } from 'lucide-react';
 import { useState } from 'react';
 import { Cafe } from '@/types/map';
 import { usePathname } from 'next/navigation';
@@ -12,15 +11,19 @@ import Map from '../containers/map/Map';
 import useAppRouter from '@/hooks/custom/useAppRouter';
 import { saveStateToApp, STATE_KEYS } from '@/utils/webview';
 import useAppLocation from '@/hooks/custom/useAppLocation';
+import useIsWebView from '@/hooks/custom/useIsWebView';
+import EmptyFallback from './EmptyFallback';
 
 const GeoLocation = () => {
   const pathname = usePathname();
   const router = useAppRouter();
 
+  const isWebView = useIsWebView();
+
   const { formState, setFormState } = useWriteFormContext();
   const { location: webLocation, error: webLocationError } =
     useGeoLocation(GEOLOCATION_OPTIONS);
-  const { location: appLocation } = useAppLocation();
+  const { location: appLocation, error: appLocationError } = useAppLocation();
 
   const [cafeInfo, setCafeInfo] = useState<Cafe | null>(null);
 
@@ -37,6 +40,7 @@ const GeoLocation = () => {
       x: cafeInfo.x.toString(),
       y: cafeInfo.y.toString(),
     };
+
     setFormState({ ...formState, ...locationFormState });
 
     saveStateToApp(STATE_KEYS.ARTICLE_WRITE_FORM, locationFormState);
@@ -44,21 +48,18 @@ const GeoLocation = () => {
     router.back();
   };
 
-  // 위치 정보가 없거나 에러가 있을 때 로딩 표시
-  if (!appLocation && (!webLocation || webLocationError)) {
+  const location = appLocation ?? webLocation;
+
+  if (!location) {
     return (
-      <div className="flex h-[calc(100dvh-50px)] items-center justify-center text-primary">
-        <LoaderCircleIcon className="size-9 animate-spin" />
-      </div>
+      <EmptyFallback
+        message={isWebView ? appLocationError : webLocationError}
+      />
     );
   }
 
   return (
-    <Map
-      location={appLocation ?? webLocation!}
-      cafeInfo={cafeInfo}
-      setCafeInfo={setCafeInfo}
-    >
+    <Map location={location} cafeInfo={cafeInfo} setCafeInfo={setCafeInfo}>
       {pathname.includes('map') && (
         <CafeInfo
           cafe={cafeInfo}
