@@ -22,7 +22,7 @@ import CustomAlert from '@/components/CustomAlert';
 import { useState } from 'react';
 import Map from './Map';
 import useAppRouter from '@/hooks/custom/useAppRouter';
-import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
+import { saveStateToApp, STATE_KEYS } from '@/utils/webview';
 
 interface Props extends Omit<Article, 'author'> {
   isAuthor: boolean;

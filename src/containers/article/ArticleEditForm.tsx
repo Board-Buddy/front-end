@@ -41,7 +41,7 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { useEditArticle } from '@/hooks/useArticle';
 import useAppRouter from '@/hooks/custom/useAppRouter';
-import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
+import { saveStateToApp, STATE_KEYS } from '@/utils/webview';
 import useRestoreAppState from '@/hooks/custom/useRestoreAppState';
 
 const ArticleEditForm = ({ articleId }: { articleId: number }) => {

@@ -1,7 +1,7 @@
 import GeoLocation from '@/components/GeoLocation';
 
 const page = () => {
-  return <GeoLocation redirectionURL="/article/write" />;
+  return <GeoLocation />;
 };
 
 export default page;

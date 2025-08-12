@@ -42,7 +42,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useAddArticle } from '@/hooks/useArticle';
 import useAppRouter from '@/hooks/custom/useAppRouter';
 import useRestoreAppState from '@/hooks/custom/useRestoreAppState';
-import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
+import { saveStateToApp, STATE_KEYS } from '@/utils/webview';
 
 const ArticleWriteForm = () => {
   const router = useAppRouter();

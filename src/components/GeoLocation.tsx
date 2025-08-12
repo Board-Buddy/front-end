@@ -1,6 +1,5 @@
 'use client';
 
-import { LoaderCircleIcon } from 'lucide-react';
 import { useState } from 'react';
 import { Cafe } from '@/types/map';
 import { usePathname } from 'next/navigation';
@@ -10,58 +9,55 @@ import useGeoLocation from '@/hooks/custom/useGeoLocation';
 import CafeInfo from '../containers/map/CafeInfo';
 import Map from '../containers/map/Map';
 import useAppRouter from '@/hooks/custom/useAppRouter';
-import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
+import { saveStateToApp, STATE_KEYS } from '@/utils/webview';
+import useAppLocation from '@/hooks/custom/useAppLocation';
+import useIsWebView from '@/hooks/custom/useIsWebView';
+import EmptyFallback from './EmptyFallback';
+import Loading from './Loading';
 
-interface Props {
-  redirectionURL?: string;
-}
-
-const GeoLocation = ({ redirectionURL }: Props) => {
+const GeoLocation = () => {
   const pathname = usePathname();
   const router = useAppRouter();
 
+  const isWebView = useIsWebView();
+
   const { formState, setFormState } = useWriteFormContext();
-  const { location, error } = useGeoLocation(GEOLOCATION_OPTIONS);
+  const { location: webLocation, error: webLocationError } =
+    useGeoLocation(GEOLOCATION_OPTIONS);
+  const { location: appLocation, error: appLocationError } = useAppLocation();
 
   const [cafeInfo, setCafeInfo] = useState<Cafe | null>(null);
 
   const handleDirectionButtonClick = () => {};
 
   const handleSelectButtonClick = () => {
-    setFormState({
-      ...formState,
-      meetingLocation: cafeInfo!.placeName,
-      sido: cafeInfo!.sido,
-      sgg: cafeInfo!.sgg,
-      emd: cafeInfo!.emd,
-      x: cafeInfo!.x.toString(),
-      y: cafeInfo!.y.toString(),
-    });
+    if (!cafeInfo) return;
 
-    saveStateToApp(STATE_KEYS.ARTICLE_WRITE_FORM, {
-      ...formState,
-      meetingLocation: cafeInfo!.placeName,
-      sido: cafeInfo!.sido,
-      sgg: cafeInfo!.sgg,
-      emd: cafeInfo!.emd,
-      x: cafeInfo!.x.toString(),
-      y: cafeInfo!.y.toString(),
-    });
+    const locationFormState = {
+      meetingLocation: cafeInfo.placeName,
+      sido: cafeInfo.sido,
+      sgg: cafeInfo.sgg,
+      emd: cafeInfo.emd,
+      x: cafeInfo.x.toString(),
+      y: cafeInfo.y.toString(),
+    };
 
-    router.replace({
-      href: redirectionURL!,
-      headerTitle: redirectionURL?.includes('edit')
-        ? '모집글 수정'
-        : '모집글 작성',
-    });
+    setFormState({ ...formState, ...locationFormState });
+
+    saveStateToApp(STATE_KEYS.ARTICLE_WRITE_FORM, locationFormState);
+
+    router.back();
   };
 
-  if (!location || error) {
-    return (
-      <div className="flex h-[calc(100dvh-50px)] items-center justify-center text-primary">
-        <LoaderCircleIcon className="size-9 animate-spin" />
-      </div>
-    );
+  const location = appLocation ?? webLocation;
+  const error = isWebView ? appLocationError : webLocationError;
+
+  if (!location) {
+    if (error) {
+      return <EmptyFallback message={error} />;
+    }
+
+    return <Loading />;
   }
 
   return (

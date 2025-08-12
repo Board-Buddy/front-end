@@ -8,7 +8,7 @@ import { Profile } from '@/types/profile';
 import BuddyPoint from './BuddyPoint';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
 import useAppRouter from '@/hooks/custom/useAppRouter';
-import { saveStateToApp, STATE_KEYS } from '@/utils/appState';
+import { saveStateToApp, STATE_KEYS } from '@/utils/webview';
 
 interface Props {
   nickname?: UserInfo['nickname'];

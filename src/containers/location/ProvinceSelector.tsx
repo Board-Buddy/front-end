@@ -6,7 +6,7 @@ import { NATION_WIDE } from './LocationFilter';
 import useAppRouter from '@/hooks/custom/useAppRouter';
 import { cn } from '@/utils/tailwind';
 import useIsWebView from '@/hooks/custom/useIsWebView';
-import { saveStateToApp } from '@/utils/appState';
+import { saveStateToApp } from '@/utils/webview';
 import useGetStateKey from '@/hooks/custom/useGetStateKey';
 
 export interface ProvinceSelectorProps {
