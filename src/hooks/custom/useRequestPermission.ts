@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import useIsWebView from './useIsWebView';
 import { MessageType, PermissionStatus, PermissionType } from '@/types/webview';
-import { requestPermissionToRN } from '@/utils/webview';
+import { requestPermissionToRN, sendDebugLogToApp } from '@/utils/webview';
 
 const useRequestPermission = (permissionType: PermissionType) => {
   const isWebView = useIsWebView();
@@ -27,7 +27,7 @@ const useRequestPermission = (permissionType: PermissionType) => {
           setPermissionStatus(state);
         }
       } catch (error) {
-        console.log('응답 형식이 맞지 않습니다. ', error);
+        sendDebugLogToApp(`응답 형식이 맞지 않습니다. ${error}`);
       }
     };
 

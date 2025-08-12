@@ -5,7 +5,7 @@ import useRequestPermission from './useRequestPermission';
 import useIsWebView from './useIsWebView';
 import { errorToast } from '@/utils/customToast';
 import { Location } from '@/types/map';
-import { postRNMessage } from '@/utils/webview';
+import { postRNMessage, sendDebugLogToApp } from '@/utils/webview';
 import { MessageType } from '@/types/webview';
 
 const useAppLocation = () => {
@@ -48,7 +48,7 @@ const useAppLocation = () => {
           setLocation({ latitude: state.latitude, longitude: state.longitude });
         }
       } catch (error) {
-        console.log('응답 형식이 맞지 않습니다. ', error);
+        sendDebugLogToApp(`응답 형식이 맞지 않습니다. ${error}`);
       }
     };
 

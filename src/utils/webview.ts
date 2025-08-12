@@ -12,6 +12,13 @@ export const postRNMessage = <T extends keyof MessagePayloadMap>(
   payload?: MessagePayloadMap[T],
 ) => window.ReactNativeWebView?.postMessage(JSON.stringify({ type, payload }));
 
+/**
+ * 앱으로 로그 메시지를 전송하는 함수
+ */
+export const sendDebugLogToApp = (log: string) => {
+  postRNMessage(MessageType.DEBUG, { log });
+};
+
 export const STATE_KEYS = {
   ARTICLE_WRITE_FORM: 'article-write-form',
   PROFILE_INFO: 'profile-info',
@@ -31,20 +38,13 @@ export const saveStateToApp = (stateKey: StateKey, state: unknown) => {
     try {
       postRNMessage(MessageType.SAVE_STATE, { key: stateKey, state });
     } catch (error) {
-      console.error('앱에 상태를 저장하는 데 실패했습니다', error);
+      sendDebugLogToApp(`앱에 상태를 저장하는 데 실패했습니다. ${error}`);
     }
   } else {
     console.warn(
       'ReactNativeWebView를 사용할 수 없어 상태가 저장되지 않았습니다',
     );
   }
-};
-
-/**
- * 앱으로 로그 메시지를 전송하는 함수
- */
-export const sendDebugLogToApp = (log: string) => {
-  postRNMessage(MessageType.DEBUG, { log });
 };
 
 /**
