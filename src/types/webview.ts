@@ -56,7 +56,7 @@ export interface RegisterStateMessage {
 }
 
 export type PermissionType = 'media-library' | 'location' | 'notification';
-export type PermissionStatus = 'undefined' | 'granted' | 'denied';
+export type PermissionStatus = 'undetermined' | 'granted' | 'denied';
 
 export interface PermissionRequestMessage {
   type: MessageType.PERMISSION_REQUEST;
