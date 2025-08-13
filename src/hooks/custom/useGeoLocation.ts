@@ -2,9 +2,12 @@
 
 import { Location } from '@/types/map';
 import { useEffect, useState } from 'react';
+import useIsWebView from './useIsWebView';
 
 const useGeoLocation = (options = {}) => {
-  const [location, setLocation] = useState<Location>();
+  const isWebView = useIsWebView();
+
+  const [location, setLocation] = useState<Location | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const handleSuccess = (pos: GeolocationPosition) => {
@@ -22,6 +25,8 @@ const useGeoLocation = (options = {}) => {
   };
 
   useEffect(() => {
+    if (isWebView) return;
+
     const { geolocation } = navigator;
 
     if (!geolocation) {
@@ -30,7 +35,7 @@ const useGeoLocation = (options = {}) => {
     }
 
     geolocation.getCurrentPosition(handleSuccess, handleError, options);
-  }, [options]);
+  }, [options, isWebView]);
 
   return { location, error };
 };
