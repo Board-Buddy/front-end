@@ -1,29 +1,46 @@
 'use client';
 
 import { Input } from '@/components/ui/input';
-import { useSearchFilterStore } from '@/store/searchFilterStore';
+import useRestoreAppState from '@/hooks/custom/useRestoreAppState';
+import {
+  useKeywordSelector,
+  useSearchFilterStore,
+} from '@/store/searchFilterStore';
+import { GetArticleRequestParams } from '@/types/article';
+import { STATE_KEYS } from '@/utils/webview';
 import { SearchIcon } from 'lucide-react';
 import Image from 'next/image';
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
 const SearchInput = () => {
+  const [restoredState, setRestoredState] =
+    useState<GetArticleRequestParams | null>(null);
+
+  useRestoreAppState(
+    STATE_KEYS.SEARCH_FILTER,
+    useCallback((state: GetArticleRequestParams) => {
+      setRestoredState(state);
+    }, []),
+  );
+
+  const keyword = useKeywordSelector();
+  const searchKeywordRef = useRef<HTMLInputElement>(null);
   const setKeyword = useSearchFilterStore((state) => state.setKeyword);
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  const getKeyword = () => searchKeywordRef.current?.value.trim() || '';
 
-  const activeEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      if (inputRef.current?.value === '') return;
+  const handleSearch = () => {
+    const keyword = getKeyword();
+    if (!keyword) return;
 
-      setKeyword(inputRef.current?.value ?? '');
-    }
+    setKeyword(keyword);
   };
 
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, []);
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') handleSearch();
+  };
+
+  const mergedKeyword = restoredState?.keyword || keyword || '';
 
   return (
     <div className="flex w-full items-center rounded-3xl border border-gray-200 shadow-md">
@@ -36,14 +53,11 @@ const SearchInput = () => {
       />
       <Input
         className="border-none"
-        onKeyDown={activeEnter}
-        placeholder="검색어를 입력하세요"
-        ref={inputRef}
+        onKeyDown={handleKeyDown}
+        defaultValue={mergedKeyword}
+        ref={searchKeywordRef}
       />
-      <SearchIcon
-        className="mr-4 text-gray-400"
-        onClick={() => setKeyword(inputRef.current?.value ?? '')}
-      />
+      <SearchIcon className="mr-4 text-gray-400" onClick={handleSearch} />
     </div>
   );
 };
