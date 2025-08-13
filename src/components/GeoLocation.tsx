@@ -49,7 +49,7 @@ const GeoLocation = () => {
     router.back();
   };
 
-  const location = appLocation ?? webLocation;
+  const location = isWebView ? appLocation : webLocation;
   const error = isWebView ? appLocationError : webLocationError;
 
   if (!location) {
