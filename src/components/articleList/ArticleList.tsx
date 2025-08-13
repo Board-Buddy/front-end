@@ -7,9 +7,9 @@ import ErrorFallback from '@/components/ErrorFallback';
 import Selectors from './Selectors';
 import Article from '../../containers/home/Article';
 import { GetArticleRequestParams } from '@/types/article';
-import useSearchPageDetection from '@/hooks/custom/useSearchPageDetection';
 import { Province } from '@/types/location';
 import useAppRouter from '@/hooks/custom/useAppRouter';
+import useIsSearchPage from '@/hooks/custom/useIsSearchPage';
 
 export interface ArticleListProps extends GetArticleRequestParams {
   emptyGuideMessage: string;
@@ -30,8 +30,7 @@ const ArticleList = ({
   setSort,
 }: ArticleListProps) => {
   const router = useAppRouter();
-
-  const { isSearchPage: search } = useSearchPageDetection();
+  const isSearchPage = useIsSearchPage();
 
   const {
     data,
@@ -42,7 +41,14 @@ const ArticleList = ({
     isError,
     error,
     refetch,
-  } = useGetArticles({ status, sort, sido, sgg, keyword, search });
+  } = useGetArticles({
+    status,
+    sort,
+    sido,
+    sgg,
+    keyword,
+    search: isSearchPage,
+  });
 
   const { setTarget } = useIntersectionObserver({
     hasNextPage,
@@ -59,16 +65,21 @@ const ArticleList = ({
     );
   }
 
+  const hasPosts =
+    data?.pages[0]?.posts !== undefined && data.pages[0].posts.length > 0;
+
   return (
     <div>
-      <Selectors
-        province={province}
-        sgg={sgg}
-        status={status}
-        sort={sort}
-        setStatus={setStatus}
-        setSort={setSort}
-      />
+      {(!isSearchPage || (isSearchPage && hasPosts)) && (
+        <Selectors
+          province={province}
+          sgg={sgg}
+          status={status}
+          sort={sort}
+          setStatus={setStatus}
+          setSort={setSort}
+        />
+      )}
       {isPending && isFetching && <Loading />}
       {!isPending && (
         <>

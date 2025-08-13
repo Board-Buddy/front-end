@@ -4,9 +4,9 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { getRankings } from '@/services/ranking';
 import getQueryClient from '@/utils/getQueryClient';
 import NotificationButton from '@/containers/home/NotificationButton';
-import SearchInputMockUp from '@/containers/search/SearchInputMockUp';
 import ArticleListContainer from '@/containers/home/ArticleListContainer';
 import { rankingQueryKeys } from '@/utils/queryKeys';
+import HomeSearchInput from '@/containers/search/HomeSearchInput';
 
 export const dynamic = 'force-dynamic';
 
@@ -22,7 +22,7 @@ const page = async () => {
     <div>
       <NotificationButton />
       <Banner />
-      <SearchInputMockUp />
+      <HomeSearchInput />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <Ranking />
       </HydrationBoundary>
