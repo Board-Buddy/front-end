@@ -10,6 +10,7 @@ export enum MessageType {
   PERMISSION_STATUS = 'PERMISSION_STATUS',
   LOCATION = 'LOCATION',
   GET_LOCATION = 'GET_LOCATION',
+  TOAST = 'TOAST',
 }
 
 export type NavigateMethod = 'PUSH' | 'REPLACE' | 'BACK' | 'FORWARD';
@@ -70,6 +71,16 @@ export interface GetLocationMessage {
   payload: null;
 }
 
+export interface ToastMessage {
+  type: MessageType.TOAST;
+  payload: {
+    type: 'success' | 'info' | 'error';
+    title: string;
+    description?: string;
+    duration?: number;
+  };
+}
+
 export type WebViewBridgeMessage =
   | RouterMessage
   | DebugMessage
@@ -77,7 +88,8 @@ export type WebViewBridgeMessage =
   | RestoreStateMessage
   | RegisterStateMessage
   | PermissionRequestMessage
-  | GetLocationMessage;
+  | GetLocationMessage
+  | ToastMessage;
 
 export type MessagePayloadMap = {
   [MessageType.ROUTER]: RouterMessage['payload'];
@@ -87,4 +99,5 @@ export type MessagePayloadMap = {
   [MessageType.REGISTER_STATE]: RegisterStateMessage['payload'];
   [MessageType.PERMISSION_REQUEST]: PermissionRequestMessage['payload'];
   [MessageType.GET_LOCATION]: GetLocationMessage['payload'];
+  [MessageType.TOAST]: ToastMessage['payload'];
 };
