@@ -42,7 +42,7 @@ const useAppLocation = () => {
       try {
         const { type, state } = JSON.parse(e.data);
 
-        if (type === 'LOCATION' && state) {
+        if (type === MessageType.LOCATION && state) {
           setLocation({ latitude: state.latitude, longitude: state.longitude });
         }
       } catch (error) {
