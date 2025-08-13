@@ -8,7 +8,7 @@ import { requestPermissionToRN, sendDebugLogToApp } from '@/utils/webview';
 const useRequestPermission = (permissionType: PermissionType) => {
   const isWebView = useIsWebView();
   const [permissionStatus, setPermissionStatus] =
-    useState<PermissionStatus>('undefined');
+    useState<PermissionStatus>('undetermined');
 
   const requestPermission = () => {
     if (!isWebView) return;
