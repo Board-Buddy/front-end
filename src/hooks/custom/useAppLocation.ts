@@ -26,14 +26,12 @@ const useAppLocation = () => {
     if (!isWebView) return;
 
     if (permissionStatus === 'granted') {
-      // 권한 허용되었을 때 위도, 경도 가져오기
       postRNMessage(MessageType.GET_LOCATION);
-      return;
+    } else if (permissionStatus === 'denied') {
+      setError(
+        `보드게임 카페 지도를 이용하시려면\n설정에서 위치 권한을 허용해주세요.`,
+      );
     }
-
-    setError(
-      `보드게임 카페 지도를 이용하시려면\n설정에서 위치 권한을 허용해주세요.`,
-    );
   }, [isWebView, permissionStatus]);
 
   // 위치 응답 처리
