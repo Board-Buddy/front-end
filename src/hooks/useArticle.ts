@@ -115,7 +115,10 @@ export const useEditArticle = (articleId: Article['id']) => {
         queryKey: articleQueryKeys.detail(articleId),
       });
 
-      router.replace({ href: `/article/${articleId}` });
+      router.replace({
+        href: `/article/${articleId}`,
+        headerTitle: '모집글 상세',
+      });
 
       successToast('article edit', '모집글이 수정되었습니다.');
     },
