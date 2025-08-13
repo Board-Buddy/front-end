@@ -1,6 +1,17 @@
 import toast from 'react-hot-toast';
+import { postRNMessage } from './webview';
+import { MessageType } from '@/types/webview';
 
 export const errorToast = (id: string, message: string) => {
+  if (window.ReactNativeWebView) {
+    postRNMessage(MessageType.TOAST, {
+      type: 'error',
+      title: message,
+    });
+
+    return;
+  }
+
   toast.error(message, {
     id,
     style: {
@@ -17,6 +28,15 @@ export const errorToast = (id: string, message: string) => {
 };
 
 export const successToast = (id: string, message: string) => {
+  if (window.ReactNativeWebView) {
+    postRNMessage(MessageType.TOAST, {
+      type: 'success',
+      title: message,
+    });
+
+    return;
+  }
+
   toast.success(message, {
     id,
     style: {

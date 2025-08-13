@@ -6,7 +6,7 @@ export const status = http.get(`${API_BASE_URL}/auth/status`, () => {
     status: 'success',
     data: {
       profileDTO: {
-        nickname: 'kong',
+        nickname: '김구구',
         sido: '서울특별시',
         sgg: '송파구',
         emd: '잠실동',

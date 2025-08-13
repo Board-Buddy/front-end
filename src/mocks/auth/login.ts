@@ -34,7 +34,7 @@ export const login = http.post<any, RequestBody>(
       status: 'success',
       data: {
         profileDTO: {
-          nickname: 'yubin',
+          nickname: '김구구',
           memberType: 'REGULAR',
           isPhoneNumberVerified: true,
           profileImageSignedURL: null,
