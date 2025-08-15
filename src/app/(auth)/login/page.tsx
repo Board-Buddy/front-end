@@ -19,7 +19,7 @@ const page = () => {
           alt="하트를 들고 있는 썬디"
           width={92}
           height={162}
-          className="absolute -top-[77px] right-4"
+          className="absolute right-4 top-[-88px]"
         />
         <span className="text-xl font-bold text-gray-800">LOGIN</span>
         <Suspense>
