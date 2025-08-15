@@ -3,6 +3,8 @@ import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import useAppRouter from './custom/useAppRouter';
 import { authQueryKeys } from '@/utils/queryKeys';
+import { postRNMessage } from '@/utils/webview';
+import { MessageType } from '@/types/webview';
 
 export const useUserLoginCheck = ({ isReady }: { isReady: boolean }) => {
   return useQuery({
@@ -30,7 +32,12 @@ export const useUserLogin = () => {
         gcTime: Infinity,
       });
 
+      postRNMessage(MessageType.LOGIN, userInfo);
+
       router.replace({ href: '/home', screenName: 'HomeScreen' });
+    },
+    onError: async () => {
+      postRNMessage(MessageType.LOGIN, null);
     },
   });
 };
@@ -43,6 +50,8 @@ export const useLogout = () => {
     mutationFn: logout,
     onSuccess: () => {
       queryClient.invalidateQueries();
+
+      postRNMessage(MessageType.LOGOUT);
 
       router.replace({ href: '/home', screenName: 'HomeScreen' });
 

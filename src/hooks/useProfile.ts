@@ -19,6 +19,8 @@ import {
   myQueryKeys,
   profileQueryKeys,
 } from '@/utils/queryKeys';
+import { postRNMessage } from '@/utils/webview';
+import { MessageType } from '@/types/webview';
 
 export const useGetProfile = (nickname: string) => {
   return useQuery<Profile, CustomAxiosError>({
@@ -58,6 +60,11 @@ export const useEditProfile = () => {
       queryClient.invalidateQueries({
         queryKey: profileQueryKeys.userProfile(newNickname ?? nickname),
       });
+
+      postRNMessage(MessageType.EDIT_USER_INFO, {
+        ...userInfo,
+        nickname: newNickname ?? userInfo?.nickname,
+      } as UserInfo);
 
       successToast('profile update', '프로필이 수정되었습니다.');
       router.replace({ href: '/my', screenName: 'MyPageScreen' });

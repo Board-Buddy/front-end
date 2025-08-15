@@ -8,6 +8,7 @@ import Header from '@/components/Header';
 import { Toaster } from 'react-hot-toast';
 import { ExistingProfileInfoContextProvider } from '@/context/ExistingProfileInfoContext';
 import React, { Suspense } from 'react';
+import AppUserInfoLoader from '@/components/AppUserInfoLoader';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -65,6 +66,7 @@ export default function RootLayout({
         >
           <MSWComponent>
             <ReactQueryProviders>
+              <AppUserInfoLoader />
               <ExistingProfileInfoContextProvider>
                 <Toaster />
                 <Suspense>
