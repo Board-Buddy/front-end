@@ -18,7 +18,6 @@ const Header = () => {
     pathname === '/' ||
     pathname === '/login' ||
     pathname === '/register/terms' ||
-    pathname === '/register/accounts' ||
     pathname === '/register/additionalSettings' ||
     pathname === '/login/oauth/callback' ||
     pathname === '/login-splash'
@@ -29,6 +28,10 @@ const Header = () => {
     '/': {
       title: '',
       leftArrow: false,
+    },
+    '/register/accounts': {
+      title: '회원가입',
+      leftArrow: true,
     },
     '/home': {
       title: '홈',
