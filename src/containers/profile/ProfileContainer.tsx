@@ -19,7 +19,7 @@ const ProfileContainer = ({ children }: Props) => {
         children
       ) : (
         <LoginPrompt
-          feature={pathname.includes('my') ? '마이페이지' : '프로필'}
+          feature={pathname?.includes('my') ? '마이페이지' : '프로필'}
         />
       )}
     </>
