@@ -13,7 +13,10 @@ const CredentialFindButton = ({ title }: Props) => {
   const handleClick = () => infoToast('prepare', '🚧 준비 중인 기능입니다.');
 
   return (
-    <Button onClick={handleClick} className="bg-transparent p-0">
+    <Button
+      onClick={handleClick}
+      className="bg-transparent p-0 text-sm font-semibold text-gray-600"
+    >
       {title} 찾기
     </Button>
   );
