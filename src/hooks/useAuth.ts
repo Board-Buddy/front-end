@@ -49,7 +49,7 @@ export const useLogout = () => {
   return useMutation({
     mutationFn: logout,
     onSuccess: () => {
-      queryClient.invalidateQueries();
+      queryClient.removeQueries();
 
       postRNMessage(MessageType.LOGOUT);
 
@@ -67,7 +67,7 @@ export const useWithdrawal = () => {
   return useMutation({
     mutationFn: withdrawal,
     onSuccess: () => {
-      queryClient.invalidateQueries();
+      queryClient.removeQueries();
 
       router.replace({ href: '/home', screenName: 'HomeScreen' });
 
