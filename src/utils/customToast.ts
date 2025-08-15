@@ -51,3 +51,25 @@ export const successToast = (id: string, message: string) => {
     },
   });
 };
+
+export const infoToast = (id: string, message: string) => {
+  if (window.ReactNativeWebView) {
+    postRNMessage(MessageType.TOAST, {
+      type: 'info',
+      title: message,
+    });
+
+    return;
+  }
+
+  toast.success(message, {
+    id,
+    style: {
+      fontSize: '14px',
+      fontWeight: '600',
+      border: '1px solid var(--main-color)',
+      color: 'var(--main-color)',
+    },
+    icon: null,
+  });
+};
