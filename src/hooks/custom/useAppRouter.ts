@@ -32,7 +32,7 @@ const useAppRouter = () => {
   ) => {
     // 로그인 스플래시 스킵
     // FIXME: 앱에서 소셜 로그인 기능 구현 후 제거
-    const webUrl = href === '/login/splash' ? '/login' : href;
+    const webUrl = href === '/login-splash' ? '/login' : href;
 
     postRNMessage(MessageType.ROUTER, {
       method,
