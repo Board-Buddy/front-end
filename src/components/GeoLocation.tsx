@@ -14,6 +14,7 @@ import useAppLocation from '@/hooks/custom/useAppLocation';
 import useIsWebView from '@/hooks/custom/useIsWebView';
 import EmptyFallback from './EmptyFallback';
 import Loading from './Loading';
+import { infoToast } from '@/utils/customToast';
 
 const GeoLocation = () => {
   const pathname = usePathname();
@@ -28,7 +29,8 @@ const GeoLocation = () => {
 
   const [cafeInfo, setCafeInfo] = useState<Cafe | null>(null);
 
-  const handleDirectionButtonClick = () => {};
+  const handleDirectionButtonClick = () =>
+    infoToast('prepare', '🚧 준비 중인 기능입니다.');
 
   const handleSelectButtonClick = () => {
     if (!cafeInfo) return;
