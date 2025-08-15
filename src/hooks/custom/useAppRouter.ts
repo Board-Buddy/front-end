@@ -29,13 +29,18 @@ const useAppRouter = () => {
     href?: string,
     headerTitle?: string,
     screenName?: ScreenName,
-  ) =>
+  ) => {
+    // 로그인 스플래시 스킵
+    // FIXME: 앱에서 소셜 로그인 기능 구현 후 제거
+    const webUrl = href === '/login/splash' ? '/login' : href;
+
     postRNMessage(MessageType.ROUTER, {
       method,
-      webUrl: href,
+      webUrl,
       targetPath: screenName ? screenMap[screenName] : '/webview',
       headerTitle,
     });
+  };
 
   const push = ({ href, options, headerTitle, screenName }: NavigateArgs) => {
     if (!href) {
