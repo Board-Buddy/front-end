@@ -31,7 +31,7 @@ const page = () => {
         <div>
           <div className="mt-6 flex items-center justify-center gap-2 text-sm font-semibold text-gray-600">
             <Suspense>
-              <AppLink href="/register/terms">회원가입</AppLink>
+              <AppLink href="/register/accounts">회원가입</AppLink>
             </Suspense>
             <div className="h-[12px] border border-gray-500" />
             <CredentialFindButton title="아이디" />

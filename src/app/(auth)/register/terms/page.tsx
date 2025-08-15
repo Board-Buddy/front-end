@@ -1,8 +1,11 @@
 import TermForm from '@/containers/register/TermForm';
 import Image from 'next/image';
+import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
 const page = () => {
+  notFound();
+
   return (
     <div className="h-[calc(100vh-56px)] w-full">
       <div className="px-8 pb-8 pt-4">
