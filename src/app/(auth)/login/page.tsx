@@ -1,4 +1,5 @@
 import AppLink from '@/components/AppLink';
+import CredentialFindButton from '@/containers/login/CredentialFindButton';
 import LoginForm from '@/containers/login/LoginForm';
 import Image from 'next/image';
 import { Suspense } from 'react';
@@ -33,9 +34,9 @@ const page = () => {
               <AppLink href="/register/terms">회원가입</AppLink>
             </Suspense>
             <div className="h-[12px] border border-gray-500" />
-            <p>아이디 찾기</p>
+            <CredentialFindButton title="아이디" />
             <div className="h-[12px] border border-gray-500" />
-            <p>비밀번호 찾기</p>
+            <CredentialFindButton title="비밀번호" />
           </div>
         </div>
       </div>
