@@ -1,19 +1,15 @@
 'use client';
 
 import { useEffect } from 'react';
-import useIsWebView from './useIsWebView';
 import { MessageType } from '@/types/webview';
 import { postRNMessage, sendDebugLogToApp } from '@/utils/webview';
 import { useQueryClient } from '@tanstack/react-query';
 import { authQueryKeys } from '@/utils/queryKeys';
 
 const useAppUserInfo = () => {
-  const isWebView = useIsWebView();
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    if (!isWebView) return;
-
     postRNMessage(MessageType.GET_USER_INFO);
 
     const handleUserInfoResponse = async (e: MessageEvent) => {
@@ -44,7 +40,7 @@ const useAppUserInfo = () => {
       // @ts-ignore
       document.removeEventListener('message', handleUserInfoResponse);
     };
-  }, [isWebView, queryClient]);
+  }, [queryClient]);
 };
 
 export default useAppUserInfo;

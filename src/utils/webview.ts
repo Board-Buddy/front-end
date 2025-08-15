@@ -10,7 +10,7 @@ import {
 export const postRNMessage = <T extends keyof MessagePayloadMap>(
   type: T,
   payload?: MessagePayloadMap[T],
-) => window.ReactNativeWebView?.postMessage(JSON.stringify({ type, payload }));
+) => window?.ReactNativeWebView?.postMessage(JSON.stringify({ type, payload }));
 
 /**
  * 앱으로 로그 메시지를 전송하는 함수
