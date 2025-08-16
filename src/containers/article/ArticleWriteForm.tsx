@@ -43,6 +43,8 @@ import { useAddArticle } from '@/hooks/useArticle';
 import useAppRouter from '@/hooks/custom/useAppRouter';
 import useRestoreAppState from '@/hooks/custom/useRestoreAppState';
 import { saveStateToApp, STATE_KEYS } from '@/utils/webview';
+import { ko } from 'date-fns/locale';
+import { format } from 'date-fns';
 
 const ArticleWriteForm = () => {
   const router = useAppRouter();
@@ -183,7 +185,7 @@ const ArticleWriteForm = () => {
                       </Button>
                     </FormControl>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
+                  <PopoverContent className="w-auto p-0" align="center">
                     <Calendar
                       mode="single"
                       selected={field.value}
@@ -193,6 +195,11 @@ const ArticleWriteForm = () => {
                       }
                       initialFocus
                       className="rounded-md bg-white"
+                      locale={ko}
+                      formatters={{
+                        formatCaption: (date) =>
+                          format(date, 'yyyy년 M월', { locale: ko }),
+                      }}
                     />
                   </PopoverContent>
                 </Popover>

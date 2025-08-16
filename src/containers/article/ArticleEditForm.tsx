@@ -43,6 +43,8 @@ import { useEditArticle } from '@/hooks/useArticle';
 import useAppRouter from '@/hooks/custom/useAppRouter';
 import { saveStateToApp, STATE_KEYS } from '@/utils/webview';
 import useRestoreAppState from '@/hooks/custom/useRestoreAppState';
+import { ko } from 'date-fns/locale';
+import { format } from 'date-fns';
 
 const ArticleEditForm = ({ articleId }: { articleId: number }) => {
   const router = useAppRouter();
@@ -191,6 +193,11 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
                       }
                       initialFocus
                       className="rounded-md bg-white"
+                      locale={ko}
+                      formatters={{
+                        formatCaption: (date) =>
+                          format(date, 'yyyy년 M월', { locale: ko }),
+                      }}
                     />
                   </PopoverContent>
                 </Popover>
