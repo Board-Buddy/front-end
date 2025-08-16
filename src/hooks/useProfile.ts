@@ -14,13 +14,10 @@ import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useUserInfo } from './custom/useUserInfo';
 import useAppRouter from './custom/useAppRouter';
-import {
-  authQueryKeys,
-  myQueryKeys,
-  profileQueryKeys,
-} from '@/utils/queryKeys';
+import { myQueryKeys, profileQueryKeys } from '@/utils/queryKeys';
 import { postRNMessage } from '@/utils/webview';
 import { MessageType } from '@/types/webview';
+import { useSetUserInfo } from './useAuth';
 
 export const useGetProfile = (nickname: string) => {
   return useQuery<Profile, CustomAxiosError>({
@@ -38,6 +35,7 @@ export const useEditProfile = () => {
   const nickname = userInfo?.nickname;
 
   const router = useAppRouter();
+  const setUserInfo = useSetUserInfo();
 
   return useMutation({
     mutationFn: (data: FormData) => editProfile(data),
@@ -46,15 +44,9 @@ export const useEditProfile = () => {
       const json = await blobToJson(updatedData);
       const newNickname = json.nickname;
 
-      // 성공 시 userInfo 업데이트
-      await queryClient.setQueryData(
-        authQueryKeys.userInfo(),
-        (old: UserInfo) => {
-          return {
-            ...old,
-            nickname: newNickname ?? old.nickname,
-          };
-        },
+      setUserInfo(
+        (old) =>
+          ({ ...old, nickname: newNickname ?? old!.nickname }) as UserInfo, // 프로필 수정 시에는 기존 userInfo(old)가 무조건 존재한다.
       );
 
       queryClient.invalidateQueries({

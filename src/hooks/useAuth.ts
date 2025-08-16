@@ -5,32 +5,51 @@ import useAppRouter from './custom/useAppRouter';
 import { authQueryKeys } from '@/utils/queryKeys';
 import { postRNMessage } from '@/utils/webview';
 import { MessageType } from '@/types/webview';
+import { UserInfo } from '@/types/user';
+import { useRef } from 'react';
+
+export const useSetUserInfo = () => {
+  const queryClient = useQueryClient();
+  const defaultsSet = useRef(false);
+
+  const setUserInfo = (
+    updater: (prev: UserInfo | null | undefined) => UserInfo | null | undefined,
+  ) => {
+    if (!defaultsSet.current) {
+      queryClient.setQueryDefaults(authQueryKeys.userInfo(), {
+        staleTime: Infinity,
+        gcTime: Infinity,
+      });
+
+      defaultsSet.current = true;
+    }
+
+    queryClient.setQueryData<UserInfo | null>(authQueryKeys.userInfo(), (old) =>
+      updater(old),
+    );
+  };
+
+  return setUserInfo;
+};
 
 export const useUserLoginCheck = ({ isReady }: { isReady: boolean }) => {
   return useQuery({
     queryKey: authQueryKeys.userInfo(),
     queryFn: checkUserLogin,
     enabled: isReady,
-    staleTime: Infinity,
-    gcTime: Infinity,
   });
 };
 
 export const useUserLogin = () => {
-  const queryClient = useQueryClient();
   const router = useAppRouter();
+  const setUserInfo = useSetUserInfo();
 
   return useMutation({
     mutationFn: (data: { username: string; password: string }) => login(data),
     onSuccess: async (data) => {
       const userInfo = data;
 
-      await queryClient.prefetchQuery({
-        queryKey: authQueryKeys.userInfo(),
-        queryFn: () => Promise.resolve(userInfo),
-        staleTime: Infinity,
-        gcTime: Infinity,
-      });
+      setUserInfo(() => userInfo);
 
       postRNMessage(MessageType.LOGIN, userInfo);
 

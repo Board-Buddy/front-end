@@ -5,9 +5,11 @@ import { MessageType } from '@/types/webview';
 import { postRNMessage, sendDebugLogToApp } from '@/utils/webview';
 import { useQueryClient } from '@tanstack/react-query';
 import { authQueryKeys } from '@/utils/queryKeys';
+import { useSetUserInfo } from '../useAuth';
 
 const useAppUserInfo = () => {
   const queryClient = useQueryClient();
+  const setUserInfo = useSetUserInfo();
 
   useEffect(() => {
     postRNMessage(MessageType.GET_USER_INFO);
@@ -19,12 +21,7 @@ const useAppUserInfo = () => {
         if (type === MessageType.USER_INFO) {
           sendDebugLogToApp(`userInfo: ${JSON.stringify(state)}`);
 
-          await queryClient.prefetchQuery({
-            queryKey: authQueryKeys.userInfo(),
-            queryFn: () => Promise.resolve(state),
-            staleTime: Infinity,
-            gcTime: Infinity,
-          });
+          setUserInfo(state);
 
           sendDebugLogToApp(
             `queryData: ${JSON.stringify(queryClient.getQueryData(authQueryKeys.userInfo()))}`,
@@ -44,7 +41,7 @@ const useAppUserInfo = () => {
       // @ts-ignore
       document.removeEventListener('message', handleUserInfoResponse);
     };
-  }, [queryClient]);
+  }, [queryClient, setUserInfo]);
 };
 
 export default useAppUserInfo;
