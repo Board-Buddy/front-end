@@ -29,6 +29,10 @@ const Header = () => {
       title: '',
       leftArrow: false,
     },
+    '/register/additionalSettings': {
+      title: '회원가입',
+      leftArrow: false,
+    },
     '/register/accounts': {
       title: '회원가입',
       leftArrow: true,
