@@ -51,7 +51,7 @@ export interface SaveStateMessage {
 export interface RestoreStateMessage {
   type: MessageType.RESTORE_STATE;
   payload: {
-    key: string;
+    state: unknown;
   };
 }
 
@@ -69,6 +69,21 @@ export interface PermissionRequestMessage {
   type: MessageType.PERMISSION_REQUEST;
   payload: {
     permissionType: PermissionType;
+  };
+}
+
+export interface PermissionStatusMessage {
+  type: MessageType.PERMISSION_STATUS;
+  payload: {
+    status: PermissionStatus;
+  };
+}
+
+export interface LocationMessage {
+  type: MessageType.LOCATION;
+  payload: {
+    latitude: number;
+    longitude: number;
   };
 }
 
@@ -116,7 +131,9 @@ export type WebViewBridgeMessage =
   | RestoreStateMessage
   | RegisterStateMessage
   | PermissionRequestMessage
+  | PermissionStatusMessage
   | GetLocationMessage
+  | LocationMessage
   | ToastMessage
   | LoginMessage
   | LogoutMessage
@@ -130,7 +147,9 @@ export type MessagePayloadMap = {
   [MessageType.SAVE_STATE]: SaveStateMessage['payload'];
   [MessageType.RESTORE_STATE]: RestoreStateMessage['payload'];
   [MessageType.REGISTER_STATE]: RegisterStateMessage['payload'];
+  [MessageType.PERMISSION_STATUS]: PermissionStatusMessage['payload'];
   [MessageType.PERMISSION_REQUEST]: PermissionRequestMessage['payload'];
+  [MessageType.LOCATION]: LocationMessage['payload'];
   [MessageType.GET_LOCATION]: null;
   [MessageType.TOAST]: ToastMessage['payload'];
   [MessageType.LOGIN]: LoginMessage['payload'];

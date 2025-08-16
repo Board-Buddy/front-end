@@ -4,8 +4,9 @@ import { useState, useEffect } from 'react';
 import useRequestPermission from './useRequestPermission';
 import useIsWebView from './useIsWebView';
 import { Location } from '@/types/map';
-import { postRNMessage, sendDebugLogToApp } from '@/utils/webview';
+import { postRNMessage } from '@/utils/webview';
 import { MessageType } from '@/types/webview';
+import useWebViewMessageHandler from './useWebViewMessageHandler';
 
 const useAppLocation = () => {
   const isWebView = useIsWebView();
@@ -18,6 +19,7 @@ const useAppLocation = () => {
   // 권한 요청
   useEffect(() => {
     if (!isWebView) return;
+
     requestPermission();
   }, [isWebView, requestPermission]);
 
@@ -35,31 +37,9 @@ const useAppLocation = () => {
   }, [isWebView, permissionStatus]);
 
   // 위치 응답 처리
-  useEffect(() => {
-    if (!isWebView) return;
-
-    const handleLocationResponse = (e: MessageEvent) => {
-      try {
-        const { type, state } = JSON.parse(e.data);
-
-        if (type === MessageType.LOCATION && state) {
-          setLocation({ latitude: state.latitude, longitude: state.longitude });
-        }
-      } catch (error) {
-        sendDebugLogToApp(`응답 형식이 맞지 않습니다. ${error}`);
-      }
-    };
-
-    window.addEventListener('message', handleLocationResponse); // ios
-    // @ts-ignore
-    document.addEventListener('message', handleLocationResponse); // android
-
-    return () => {
-      window.removeEventListener('message', handleLocationResponse);
-      // @ts-ignore
-      document.removeEventListener('message', handleLocationResponse);
-    };
-  }, [isWebView]);
+  useWebViewMessageHandler(MessageType.LOCATION, (payload) =>
+    setLocation(payload),
+  );
 
   return { location, error };
 };
