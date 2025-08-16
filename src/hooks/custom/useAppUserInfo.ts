@@ -25,6 +25,10 @@ const useAppUserInfo = () => {
             staleTime: Infinity,
             gcTime: Infinity,
           });
+
+          sendDebugLogToApp(
+            `queryData: ${JSON.stringify(queryClient.getQueryData(authQueryKeys.userInfo()))}`,
+          );
         }
       } catch (error) {
         sendDebugLogToApp(`응답 형식이 맞지 않습니다. ${error}`);
