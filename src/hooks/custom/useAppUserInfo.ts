@@ -7,6 +7,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { authQueryKeys } from '@/utils/queryKeys';
 import { useSetUserInfo } from '../useAuth';
 
+// TODO: 이것도 같이 수정하기
 const useAppUserInfo = () => {
   const queryClient = useQueryClient();
   const setUserInfo = useSetUserInfo();
@@ -21,7 +22,7 @@ const useAppUserInfo = () => {
         if (type === MessageType.USER_INFO) {
           sendDebugLogToApp(`userInfo: ${JSON.stringify(state)}`);
 
-          setUserInfo(state);
+          setUserInfo(() => state);
 
           sendDebugLogToApp(
             `queryData: ${JSON.stringify(queryClient.getQueryData(authQueryKeys.userInfo()))}`,
