@@ -7,7 +7,7 @@ const SESSION_COOKIE_NAME = 'JSESSIONID';
 export const middleware = async (request: NextRequest) => {
   const sessionCookie = request.cookies.get(SESSION_COOKIE_NAME);
 
-  console.log(`cookie: ${request.cookies.getAll()}`);
+  console.log(`cookie: ${JSON.stringify(request.cookies.getAll())}`);
   console.log(`sessionCookie: ${sessionCookie}`);
 
   // 세션 쿠키에 값이 존재하면 로그인된 상태로 간주, 요청 진행
