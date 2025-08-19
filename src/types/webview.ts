@@ -1,5 +1,4 @@
 import { NavigateOptions } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import { UserInfo } from './user';
 
 export enum MessageType {
   ROUTER = 'ROUTER',
@@ -12,11 +11,6 @@ export enum MessageType {
   LOCATION = 'LOCATION',
   GET_LOCATION = 'GET_LOCATION',
   TOAST = 'TOAST',
-  LOGIN = 'LOGIN',
-  LOGOUT = 'LOGOUT',
-  USER_INFO = 'USER_INFO',
-  GET_USER_INFO = 'GET_USER_INFO',
-  EDIT_USER_INFO = 'EDIT_USER_INFO',
 }
 
 export type NavigateMethod = 'PUSH' | 'REPLACE' | 'BACK' | 'FORWARD';
@@ -101,29 +95,6 @@ export interface ToastMessage {
   };
 }
 
-export interface LoginMessage {
-  type: MessageType.LOGIN;
-  payload: UserInfo | null;
-}
-
-export interface LogoutMessage {
-  type: MessageType.LOGOUT;
-}
-
-export interface UserInfoMessage {
-  type: MessageType.USER_INFO;
-  payload: UserInfo;
-}
-
-export interface GetUserInfoMessage {
-  type: MessageType.GET_USER_INFO;
-}
-
-export interface EditUserInfoMessage {
-  type: MessageType.EDIT_USER_INFO;
-  payload: UserInfo;
-}
-
 export type WebViewBridgeMessage =
   | RouterMessage
   | DebugMessage
@@ -134,12 +105,7 @@ export type WebViewBridgeMessage =
   | PermissionStatusMessage
   | GetLocationMessage
   | LocationMessage
-  | ToastMessage
-  | LoginMessage
-  | LogoutMessage
-  | UserInfoMessage
-  | GetUserInfoMessage
-  | EditUserInfoMessage;
+  | ToastMessage;
 
 export type MessagePayloadMap = {
   [MessageType.ROUTER]: RouterMessage['payload'];
@@ -152,9 +118,4 @@ export type MessagePayloadMap = {
   [MessageType.LOCATION]: LocationMessage['payload'];
   [MessageType.GET_LOCATION]: null;
   [MessageType.TOAST]: ToastMessage['payload'];
-  [MessageType.LOGIN]: LoginMessage['payload'];
-  [MessageType.LOGOUT]: null;
-  [MessageType.USER_INFO]: UserInfoMessage['payload'];
-  [MessageType.GET_USER_INFO]: null;
-  [MessageType.EDIT_USER_INFO]: EditUserInfoMessage['payload'];
 };

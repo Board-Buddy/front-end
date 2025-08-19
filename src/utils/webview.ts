@@ -24,6 +24,7 @@ export const STATE_KEYS = {
   PROFILE_INFO: 'profile-info',
   ARTICLE_FILTER: 'article-filter',
   SEARCH_FILTER: 'search-filter',
+  USER_INFO: 'user-info',
 } as const;
 
 export type StateKey = (typeof STATE_KEYS)[keyof typeof STATE_KEYS];
