@@ -18,7 +18,7 @@ export const login = http.post<any, RequestBody>(
         message: '입력한 비밀번호가 올바르지 않습니다. 비밀번호를 확인하세요.',
       };
 
-      return HttpResponse.json(result, { status: 400 });
+      return HttpResponse.json(result, { status: 401 });
     }
     if (username === 'wrongusername') {
       const result = {
@@ -27,7 +27,7 @@ export const login = http.post<any, RequestBody>(
         message: '입력한 아이디가 올바르지 않습니다. 아이디를 확인하세요.',
       };
 
-      return HttpResponse.json(result, { status: 400 });
+      return HttpResponse.json(result, { status: 401 });
     }
 
     const result = {
