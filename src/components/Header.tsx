@@ -20,7 +20,8 @@ const Header = () => {
     pathname === '/register/terms' ||
     pathname === '/register/additionalSettings' ||
     pathname === '/login/oauth/callback' ||
-    pathname === '/login-splash'
+    pathname === '/login-splash' ||
+    pathname === '/login/guide'
   )
     return null;
 

@@ -3,34 +3,9 @@ import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import useAppRouter from './custom/useAppRouter';
 import { authQueryKeys } from '@/utils/queryKeys';
-import { postRNMessage } from '@/utils/webview';
+import { postRNMessage, STATE_KEYS } from '@/utils/webview';
 import { MessageType } from '@/types/webview';
-import { UserInfo } from '@/types/user';
-import { useRef } from 'react';
-
-export const useSetUserInfo = () => {
-  const queryClient = useQueryClient();
-  const defaultsSet = useRef(false);
-
-  const setUserInfo = (
-    updater: (prev: UserInfo | null | undefined) => UserInfo | null | undefined,
-  ) => {
-    if (!defaultsSet.current) {
-      queryClient.setQueryDefaults(authQueryKeys.userInfo(), {
-        staleTime: Infinity,
-        gcTime: Infinity,
-      });
-
-      defaultsSet.current = true;
-    }
-
-    queryClient.setQueryData<UserInfo | null>(authQueryKeys.userInfo(), (old) =>
-      updater(old),
-    );
-  };
-
-  return setUserInfo;
-};
+import { useUserInfoStore } from '@/store/userInfoStore';
 
 export const useUserLoginCheck = ({ isReady }: { isReady: boolean }) => {
   return useQuery({
@@ -42,21 +17,27 @@ export const useUserLoginCheck = ({ isReady }: { isReady: boolean }) => {
 
 export const useUserLogin = () => {
   const router = useAppRouter();
-  const setUserInfo = useSetUserInfo();
+  const setUserInfo = useUserInfoStore((state) => state.setUserInfo);
 
   return useMutation({
     mutationFn: (data: { username: string; password: string }) => login(data),
     onSuccess: async (data) => {
       const userInfo = data;
 
-      setUserInfo(() => userInfo);
+      setUserInfo(userInfo);
 
-      postRNMessage(MessageType.LOGIN, userInfo);
+      postRNMessage(MessageType.SAVE_STATE, {
+        key: STATE_KEYS.USER_INFO,
+        state: userInfo,
+      });
 
       router.replace({ href: '/home', screenName: 'HomeScreen' });
     },
     onError: async () => {
-      postRNMessage(MessageType.LOGIN, null);
+      postRNMessage(MessageType.SAVE_STATE, {
+        key: STATE_KEYS.USER_INFO,
+        state: null,
+      });
     },
   });
 };
@@ -70,7 +51,10 @@ export const useLogout = () => {
     onSuccess: () => {
       queryClient.removeQueries();
 
-      postRNMessage(MessageType.LOGOUT);
+      postRNMessage(MessageType.SAVE_STATE, {
+        key: STATE_KEYS.USER_INFO,
+        state: null,
+      });
 
       router.replace({ href: '/home', screenName: 'HomeScreen' });
 

@@ -12,6 +12,7 @@ import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
 import QuitButtons from '../my/QuitButtons';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
+import { useSetUserInfo } from '@/hooks/custom/useSetUserInfo';
 
 interface Props {
   nickname?: UserInfo['nickname'];
@@ -20,6 +21,8 @@ interface Props {
 const Profile = ({ nickname }: Props) => {
   const userInfo = useUserInfo();
   const myNickname = userInfo?.nickname || '';
+
+  const setUserInfo = useSetUserInfo();
 
   const {
     data: profile,
@@ -41,6 +44,11 @@ const Profile = ({ nickname }: Props) => {
     return (
       <ErrorFallback reset={refetch} errMsg={error.response!.data.message} />
     );
+  }
+
+  // 내 프로필 사진을 변경했을 경우, 전역 상태에도 반영
+  if (!nickname) {
+    setUserInfo({ profileImageSignedURL: profile.profileImageSignedURL });
   }
 
   return (

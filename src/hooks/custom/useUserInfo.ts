@@ -1,13 +1,23 @@
 'use client';
 
+import { useUserInfoSelector } from '@/store/userInfoStore';
 import { UserInfo } from '@/types/user';
-import { authQueryKeys } from '@/utils/queryKeys';
-import { useQueryClient } from '@tanstack/react-query';
+import useRestoreAppState from './useRestoreAppState';
+import { useCallback, useState } from 'react';
+import { STATE_KEYS } from '@/utils/webview';
 
 export const useUserInfo = () => {
-  const queryClient = useQueryClient();
+  const [appUserInfo, setAppUserInfo] = useState<UserInfo | null>(null);
 
-  const userInfo = queryClient.getQueryData<UserInfo>(authQueryKeys.userInfo());
+  const onRestore = useCallback((state: UserInfo | null) => {
+    if (state) {
+      setAppUserInfo(state);
+    }
+  }, []);
 
-  return userInfo;
+  useRestoreAppState(STATE_KEYS.USER_INFO, onRestore);
+
+  const webUserInfo = useUserInfoSelector();
+
+  return appUserInfo ?? webUserInfo;
 };

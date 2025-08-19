@@ -8,16 +8,13 @@ import {
 import { CustomAxiosError } from '@/types/api';
 import { JoinedArticle, MyArticle } from '@/types/article';
 import { Badge, Profile } from '@/types/profile';
-import { UserInfo } from '@/types/user';
 import { blobToJson } from '@/utils/blobToJson';
 import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useUserInfo } from './custom/useUserInfo';
 import useAppRouter from './custom/useAppRouter';
 import { myQueryKeys, profileQueryKeys } from '@/utils/queryKeys';
-import { postRNMessage } from '@/utils/webview';
-import { MessageType } from '@/types/webview';
-import { useSetUserInfo } from './useAuth';
+import { useUserInfoSelector } from '@/store/userInfoStore';
+import { useSetUserInfo } from './custom/useSetUserInfo';
 
 export const useGetProfile = (nickname: string) => {
   return useQuery<Profile, CustomAxiosError>({
@@ -31,11 +28,12 @@ export const useGetProfile = (nickname: string) => {
 export const useEditProfile = () => {
   const queryClient = useQueryClient();
 
-  const userInfo = useUserInfo();
-  const nickname = userInfo?.nickname;
+  const setUserInfo = useSetUserInfo();
+
+  const userInfo = useUserInfoSelector();
+  const previousNickname = userInfo?.nickname;
 
   const router = useAppRouter();
-  const setUserInfo = useSetUserInfo();
 
   return useMutation({
     mutationFn: (data: FormData) => editProfile(data),
@@ -44,19 +42,13 @@ export const useEditProfile = () => {
       const json = await blobToJson(updatedData);
       const newNickname = json.nickname;
 
-      setUserInfo(
-        (old) =>
-          ({ ...old, nickname: newNickname ?? old!.nickname }) as UserInfo, // 프로필 수정 시에는 기존 userInfo(old)가 무조건 존재한다.
-      );
+      if (newNickname) {
+        setUserInfo({ nickname: newNickname ?? previousNickname });
+      }
 
       queryClient.invalidateQueries({
-        queryKey: profileQueryKeys.userProfile(newNickname ?? nickname),
+        queryKey: profileQueryKeys.userProfile(newNickname ?? previousNickname),
       });
-
-      postRNMessage(MessageType.EDIT_USER_INFO, {
-        ...userInfo,
-        nickname: newNickname ?? userInfo?.nickname,
-      } as UserInfo);
 
       successToast('profile update', '프로필이 수정되었습니다.');
       router.replace({ href: '/my', screenName: 'MyPageScreen' });

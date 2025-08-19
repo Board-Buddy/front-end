@@ -95,7 +95,7 @@ const ArticleWriteForm = () => {
 
     // 위치 선택 페이지로 이동
     router.push({
-      href: '/write/locationSetting',
+      href: '/article/write/locationSetting',
       headerTitle: '보드게임 카페 선택 ',
     });
   };
