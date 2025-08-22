@@ -13,6 +13,7 @@ import ErrorFallback from '@/components/ErrorFallback';
 import QuitButtons from '../my/QuitButtons';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
 import { useSetUserInfo } from '@/hooks/custom/useSetUserInfo';
+import { useEffect } from 'react';
 
 interface Props {
   nickname?: UserInfo['nickname'];
@@ -32,6 +33,13 @@ const Profile = ({ nickname }: Props) => {
     refetch,
   } = useGetProfile(nickname || myNickname);
 
+  // 내 프로필 사진을 변경했을 경우, 전역 상태에도 반영
+  useEffect(() => {
+    if (!nickname && profile?.profileImageSignedURL) {
+      setUserInfo({ profileImageSignedURL: profile.profileImageSignedURL });
+    }
+  }, [nickname, profile?.profileImageSignedURL, setUserInfo]);
+
   if (isPending) {
     return <Loading />;
   }
@@ -44,11 +52,6 @@ const Profile = ({ nickname }: Props) => {
     return (
       <ErrorFallback reset={refetch} errMsg={error.response!.data.message} />
     );
-  }
-
-  // 내 프로필 사진을 변경했을 경우, 전역 상태에도 반영
-  if (!nickname) {
-    setUserInfo({ profileImageSignedURL: profile.profileImageSignedURL });
   }
 
   return (
