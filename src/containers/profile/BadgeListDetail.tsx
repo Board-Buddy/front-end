@@ -9,12 +9,15 @@ import { UserInfo } from '@/types/user';
 import { cn } from '@/utils/tailwind';
 import Image from 'next/image';
 import EmptyFallback from '@/components/EmptyFallback';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 
 interface Props {
   nickname?: UserInfo['nickname'];
 }
 
 const BadgeListDetail = ({ nickname }: Props) => {
+  const router = useAppRouter();
+
   const userInfo = useUserInfo();
   const myNickname = userInfo?.nickname || '';
 
@@ -32,7 +35,7 @@ const BadgeListDetail = ({ nickname }: Props) => {
 
   if (isError) {
     if (error.response?.status === 401) {
-      throw error;
+      router.push({ href: '/login/guide' });
     }
 
     return (

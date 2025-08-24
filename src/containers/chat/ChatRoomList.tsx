@@ -6,8 +6,11 @@ import ErrorFallback from '@/components/ErrorFallback';
 import ChatItem from './ChatItem';
 import FallbackRender from '@/components/FallbackRender';
 import EmptyFallback from '@/components/EmptyFallback';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 
 const ChatRoomList = () => {
+  const router = useAppRouter();
+
   const {
     data: chatRooms,
     isPending,
@@ -22,7 +25,7 @@ const ChatRoomList = () => {
 
   if (isError) {
     if (error.response?.status === 401) {
-      throw error;
+      router.push({ href: '/login/guide' });
     }
 
     return (

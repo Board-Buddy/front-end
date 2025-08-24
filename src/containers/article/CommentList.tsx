@@ -20,8 +20,11 @@ import { Article } from '@/types/article';
 import { Reply } from '@/types/comment';
 import CommentInput from './CommentInput';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 
 const CommentList = ({ articleId }: { articleId: Article['id'] }) => {
+  const router = useAppRouter();
+
   const userInfo = useUserInfo();
   const nickname = userInfo?.nickname;
 
@@ -55,7 +58,7 @@ const CommentList = ({ articleId }: { articleId: Article['id'] }) => {
 
   if (isError) {
     if (error.response?.status === 401) {
-      throw error;
+      router.push({ href: '/login/guide' });
     }
 
     return (

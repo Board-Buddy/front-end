@@ -12,8 +12,11 @@ import ArticleParticipationStatus from './ArticleParticipationStatus';
 import { useLoginPromptModal } from '@/store/modalStore';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/tailwind';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 
 const ArticleDetail = ({ id }: { id: Article['id'] }) => {
+  const router = useAppRouter();
+
   const userInfo = useUserInfo();
   const nickname = userInfo?.nickname;
 
@@ -33,7 +36,7 @@ const ArticleDetail = ({ id }: { id: Article['id'] }) => {
 
   if (isError) {
     if (error.response?.status === 401) {
-      throw error;
+      router.push({ href: '/login/guide' });
     }
 
     return (

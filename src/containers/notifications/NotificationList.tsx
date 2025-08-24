@@ -6,8 +6,10 @@ import ErrorFallback from '@/components/ErrorFallback';
 import NotificationItem from './NotificationItem';
 import FallbackRender from '@/components/FallbackRender';
 import EmptyFallback from '@/components/EmptyFallback';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 
 const NotificationList = () => {
+  const router = useAppRouter();
   const {
     data: notifications,
     isPending,
@@ -22,7 +24,7 @@ const NotificationList = () => {
 
   if (isError) {
     if (error.response?.status === 401) {
-      throw error;
+      router.push({ href: '/login/guide' });
     }
 
     return (

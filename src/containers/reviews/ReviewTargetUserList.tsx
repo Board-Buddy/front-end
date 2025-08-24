@@ -5,12 +5,14 @@ import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
 import { Article } from '@/types/article';
 import ReviewTargetUserItem from './ReviewTargetUserItem';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 
 interface Props {
   articleId: Article['id'];
 }
 
 const ReviewTargetUserList = ({ articleId }: Props) => {
+  const router = useAppRouter();
   const {
     data: reviewList,
     isPending,
@@ -25,7 +27,7 @@ const ReviewTargetUserList = ({ articleId }: Props) => {
 
   if (isError) {
     if (error.response?.status === 401) {
-      throw error;
+      router.push({ href: '/login/guide' });
     }
 
     return (

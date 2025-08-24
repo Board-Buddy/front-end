@@ -57,7 +57,7 @@ const ArticleList = ({
 
   if (isError) {
     if (error.response?.status === 401) {
-      throw error;
+      router.push({ href: '/login/guide' });
     }
 
     return (

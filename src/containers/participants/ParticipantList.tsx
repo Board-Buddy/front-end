@@ -9,12 +9,14 @@ import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
 import { Article, ParticipantInfo } from '@/types/article';
 import ParticipantItem from './ParticipantItem';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 
 interface Props {
   articleId: Article['id'];
 }
 
 const ParticipantList = ({ articleId }: Props) => {
+  const router = useAppRouter();
   const {
     data: participants,
     isPending,
@@ -32,7 +34,7 @@ const ParticipantList = ({ articleId }: Props) => {
 
   if (isError) {
     if (error.response?.status === 401) {
-      throw error;
+      router.push({ href: '/login/guide' });
     }
 
     return (

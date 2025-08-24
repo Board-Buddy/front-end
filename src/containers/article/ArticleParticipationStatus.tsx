@@ -7,6 +7,7 @@ import ReviewButton from './ReviewButton';
 import { Article } from '@/types/article';
 import { useGetArticleParticipationStatus } from '@/hooks/useArticle';
 import ErrorFallback from '@/components/ErrorFallback';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 
 interface Props extends Pick<Article, 'id' | 'startDateTime'> {
   isCompleted: boolean;
@@ -19,6 +20,8 @@ const ArticleParticipationStatus = ({
   id,
   startDateTime,
 }: Props) => {
+  const router = useAppRouter();
+
   const { data, isPending, isError, error, refetch } =
     useGetArticleParticipationStatus(id);
 
@@ -26,7 +29,7 @@ const ArticleParticipationStatus = ({
 
   if (isError) {
     if (error.response?.status === 401) {
-      throw error;
+      router.push({ href: '/login/guide' });
     }
 
     return (

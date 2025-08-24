@@ -14,12 +14,15 @@ import QuitButtons from '../my/QuitButtons';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
 import { useSetUserInfo } from '@/hooks/custom/useSetUserInfo';
 import { useEffect } from 'react';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 
 interface Props {
   nickname?: UserInfo['nickname'];
 }
 
 const Profile = ({ nickname }: Props) => {
+  const router = useAppRouter();
+
   const userInfo = useUserInfo();
   const myNickname = userInfo?.nickname || '';
 
@@ -46,7 +49,7 @@ const Profile = ({ nickname }: Props) => {
 
   if (isError) {
     if (error.response?.status === 401) {
-      throw error;
+      router.push({ href: '/login/guide' });
     }
 
     return (

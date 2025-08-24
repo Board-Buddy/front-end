@@ -4,8 +4,10 @@ import { useGetRankings } from '@/hooks/useRankings';
 import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
 import RankingCard from './RankingCard';
+import useAppRouter from '@/hooks/custom/useAppRouter';
 
 const Ranking = () => {
+  const router = useAppRouter();
   const { data, isPending, isError, error, refetch } = useGetRankings();
 
   if (isPending) {
@@ -14,7 +16,7 @@ const Ranking = () => {
 
   if (isError) {
     if (error.response?.status === 401) {
-      throw error;
+      router.push({ href: '/login/guide' });
     }
 
     return (
