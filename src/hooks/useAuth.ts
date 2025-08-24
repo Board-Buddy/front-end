@@ -6,6 +6,7 @@ import { authQueryKeys } from '@/utils/queryKeys';
 import { postRNMessage, STATE_KEYS } from '@/utils/webview';
 import { MessageType } from '@/types/webview';
 import { useUserInfoStore } from '@/store/userInfoStore';
+import { useSetUserInfo } from './custom/useSetUserInfo';
 
 export const useUserLoginCheck = ({ isReady }: { isReady: boolean }) => {
   return useQuery({
@@ -45,16 +46,14 @@ export const useUserLogin = () => {
 export const useLogout = () => {
   const queryClient = useQueryClient();
   const router = useAppRouter();
+  const setUserInfo = useSetUserInfo();
 
   return useMutation({
     mutationFn: logout,
     onSuccess: () => {
       queryClient.removeQueries();
 
-      postRNMessage(MessageType.SAVE_STATE, {
-        key: STATE_KEYS.USER_INFO,
-        state: null,
-      });
+      setUserInfo(null);
 
       router.replace({ href: '/home', screenName: 'HomeScreen' });
 
@@ -66,11 +65,14 @@ export const useLogout = () => {
 export const useWithdrawal = () => {
   const queryClient = useQueryClient();
   const router = useAppRouter();
+  const setUserInfo = useSetUserInfo();
 
   return useMutation({
     mutationFn: withdrawal,
     onSuccess: () => {
       queryClient.removeQueries();
+
+      setUserInfo(null);
 
       router.replace({ href: '/home', screenName: 'HomeScreen' });
 
