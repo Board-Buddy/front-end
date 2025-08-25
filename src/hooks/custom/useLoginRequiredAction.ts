@@ -2,17 +2,18 @@
 
 import { useLoginPromptModal } from '@/store/modalStore';
 import { useUserInfo } from './useUserInfo';
-import { sendDebugLogToApp } from '@/utils/webview';
+import { useEffect, useRef } from 'react';
 
 export const useLoginRequiredAction = () => {
   const { userInfo, isLoading } = useUserInfo();
   const open = useLoginPromptModal((state) => state.open);
+  const pendingActionRef = useRef<(() => void) | null>(null);
 
   const runIfLoggedIn = (action: () => void) => {
-    // TODO: 동작 확인 후 삭제
-    sendDebugLogToApp(`runIfLoggedIn userInfo: ${userInfo}`);
-
-    if (isLoading) return;
+    if (isLoading) {
+      pendingActionRef.current = action;
+      return;
+    }
 
     if (!userInfo) {
       open();
@@ -21,6 +22,18 @@ export const useLoginRequiredAction = () => {
 
     action();
   };
+
+  useEffect(() => {
+    if (!isLoading && pendingActionRef.current) {
+      if (!userInfo) {
+        open();
+      } else {
+        pendingActionRef.current();
+      }
+
+      pendingActionRef.current = null;
+    }
+  }, [isLoading, userInfo, open]);
 
   return { runIfLoggedIn };
 };
