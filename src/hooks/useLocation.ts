@@ -12,6 +12,6 @@ export const useGetProvinceList = () =>
 
 export const useGetDistrictList = (provinceCode: Province['code']) =>
   useSuspenseQuery<District[], CustomAxiosError>({
-    queryKey: locationQueryKeys.district(),
+    queryKey: locationQueryKeys.district(provinceCode),
     queryFn: () => getDistrictList(provinceCode),
   });

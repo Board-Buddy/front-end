@@ -1,5 +1,6 @@
 import { Article, GetArticleRequestParams } from '@/types/article';
 import { ChatRoom } from '@/types/chat';
+import { Province } from '@/types/location';
 
 export const authQueryKeys = {
   all: ['auth'] as const,
@@ -59,7 +60,8 @@ export const chatQueryKeys = {
 export const locationQueryKeys = {
   all: ['location'] as const,
   province: () => [...locationQueryKeys.all, 'province'] as const,
-  district: () => [...locationQueryKeys.all, 'district'] as const,
+  district: (provinceCode: Province['code']) =>
+    [...locationQueryKeys.all, 'district', { provinceCode }] as const,
 } as const;
 
 export const boardCafeQueryKeys = {
