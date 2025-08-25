@@ -47,12 +47,12 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const isWebView = getIsWebView();
+  const isWebView = await getIsWebView();
 
   return (
     <html lang="ko">
