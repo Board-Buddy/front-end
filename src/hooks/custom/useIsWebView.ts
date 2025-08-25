@@ -1,15 +1,11 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useWebViewContext } from '@/context/WebViewContext';
 
-// TODO: 웹뷰 판단 방식 query string -> http header로 변경
 /**
  * 웹뷰 여부를 판단하는 커스텀 훅
- * query string에 `?webview=true`가 있는 경우 true 반환
+ * 헤더에 x-webview: true가 포함되어 있으면 웹뷰로 간주
  */
-const useIsWebView = (): boolean => {
-  const searchParams = useSearchParams();
-  return searchParams.get('webview') === 'true';
-};
+const useIsWebView = (): boolean => useWebViewContext();
 
 export default useIsWebView;

@@ -2,7 +2,6 @@ import AppLink from '@/components/AppLink';
 import CredentialFindButton from '@/containers/login/CredentialFindButton';
 import LoginForm from '@/containers/login/LoginForm';
 import Image from 'next/image';
-import { Suspense } from 'react';
 
 const page = () => {
   return (
@@ -22,19 +21,16 @@ const page = () => {
           className="absolute right-4 top-[-88px]"
         />
         <span className="text-xl font-bold text-gray-800">LOGIN</span>
-        <Suspense>
-          <div className="mt-8">
-            <LoginForm />
-          </div>
-        </Suspense>
+        <div className="mt-8">
+          <LoginForm />
+        </div>
         <div className="mt-6 w-full border-t border-dashed" />
         <div>
           <div className="mt-6 flex items-center justify-center gap-2 text-sm font-semibold text-gray-600">
-            <Suspense>
-              <AppLink href="/register/accounts" headerTitle="회원가입">
-                회원가입
-              </AppLink>
-            </Suspense>
+            <AppLink href="/register/accounts" headerTitle="회원가입">
+              회원가입
+            </AppLink>
+
             <div className="h-[12px] border border-gray-500" />
             <CredentialFindButton title="아이디" />
             <div className="h-[12px] border border-gray-500" />

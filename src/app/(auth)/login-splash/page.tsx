@@ -1,6 +1,5 @@
 import LoginDrawer from '@/containers/login/LoginDrawer';
 import Image from 'next/image';
-import { Suspense } from 'react';
 
 const page = () => {
   return (
@@ -32,9 +31,7 @@ const page = () => {
         width={180}
         height={273.5}
       />
-      <Suspense>
-        <LoginDrawer />
-      </Suspense>
+      <LoginDrawer />
     </div>
   );
 };

@@ -7,7 +7,9 @@ import ReactQueryProviders from '@/utils/reactQueryProvider';
 import Header from '@/components/Header';
 import { Toaster } from 'react-hot-toast';
 import { ExistingProfileInfoContextProvider } from '@/context/ExistingProfileInfoContext';
-import React, { Suspense } from 'react';
+import React from 'react';
+import { WebViewProvider } from '@/context/WebViewContext';
+import { getIsWebView } from '@/utils/getIsWebView';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -50,6 +52,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isWebView = getIsWebView();
+
   return (
     <html lang="ko">
       <body
@@ -65,13 +69,13 @@ export default function RootLayout({
         >
           <MSWComponent>
             <ReactQueryProviders>
-              <ExistingProfileInfoContextProvider>
-                <Toaster />
-                <Suspense>
+              <WebViewProvider isWebView={isWebView}>
+                <ExistingProfileInfoContextProvider>
+                  <Toaster />
                   <Header />
-                </Suspense>
-                {children}
-              </ExistingProfileInfoContextProvider>
+                  {children}
+                </ExistingProfileInfoContextProvider>
+              </WebViewProvider>
             </ReactQueryProviders>
           </MSWComponent>
         </div>
