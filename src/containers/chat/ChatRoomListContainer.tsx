@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { ReactNode } from 'react';
 import LoginPrompt from '@/components/LoginPrompt';
 import Loading from '@/components/Loading';
-import { sendDebugLogToApp } from '@/utils/webview';
 
 interface Props {
   children: ReactNode;
@@ -13,10 +12,6 @@ interface Props {
 
 const ChatRoomListContainer = ({ children }: Props) => {
   const { userInfo, isLoading } = useUserInfo();
-
-  sendDebugLogToApp(
-    `userInfo: ${JSON.stringify(userInfo)}, isLoading: ${isLoading}`,
-  );
 
   return (
     <div className="flex h-full flex-col bg-gray-100">

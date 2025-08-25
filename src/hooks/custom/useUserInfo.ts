@@ -4,7 +4,7 @@ import { useUserInfoSelector } from '@/store/userInfoStore';
 import { UserInfo } from '@/types/user';
 import useRestoreAppState from './useRestoreAppState';
 import { useCallback, useState } from 'react';
-import { sendDebugLogToApp, STATE_KEYS } from '@/utils/webview';
+import { STATE_KEYS } from '@/utils/webview';
 import useIsWebView from './useIsWebView';
 
 export const useUserInfo = () => {
@@ -17,8 +17,6 @@ export const useUserInfo = () => {
 
   const onRestore = useCallback(
     (state: UserInfo | null) => {
-      sendDebugLogToApp(`Restored userInfo: ${JSON.stringify(state)}`);
-
       setAppUserInfo(state);
       setIsLoading(false);
     },
