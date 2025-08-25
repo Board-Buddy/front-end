@@ -12,7 +12,9 @@ export const useLoginRequiredAction = () => {
     // TODO: 동작 확인 후 삭제
     sendDebugLogToApp(`runIfLoggedIn userInfo: ${userInfo}`);
 
-    if (!isLoading && !userInfo) {
+    if (isLoading) return;
+
+    if (!userInfo) {
       open();
       return;
     }
