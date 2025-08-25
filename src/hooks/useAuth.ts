@@ -3,10 +3,8 @@ import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import useAppRouter from './custom/useAppRouter';
 import { authQueryKeys } from '@/utils/queryKeys';
-import { postRNMessage, STATE_KEYS } from '@/utils/webview';
-import { MessageType } from '@/types/webview';
-import { useUserInfoStore } from '@/store/userInfoStore';
 import { useSetUserInfo } from './custom/useSetUserInfo';
+import handleApiError from '@/utils/handleApiError';
 
 export const useUserLoginCheck = ({ isReady }: { isReady: boolean }) => {
   return useQuery({
@@ -18,7 +16,7 @@ export const useUserLoginCheck = ({ isReady }: { isReady: boolean }) => {
 
 export const useUserLogin = () => {
   const router = useAppRouter();
-  const setUserInfo = useUserInfoStore((state) => state.setUserInfo);
+  const setUserInfo = useSetUserInfo();
 
   return useMutation({
     mutationFn: (data: { username: string; password: string }) => login(data),
@@ -27,18 +25,11 @@ export const useUserLogin = () => {
 
       setUserInfo(userInfo);
 
-      postRNMessage(MessageType.SAVE_STATE, {
-        key: STATE_KEYS.USER_INFO,
-        state: userInfo,
-      });
-
       router.replace({ href: '/home', screenName: 'HomeScreen' });
     },
-    onError: async () => {
-      postRNMessage(MessageType.SAVE_STATE, {
-        key: STATE_KEYS.USER_INFO,
-        state: null,
-      });
+    onError: async (error) => {
+      handleApiError(error);
+      setUserInfo(null);
     },
   });
 };
