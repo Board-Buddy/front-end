@@ -12,8 +12,6 @@ import Loading from '@/components/Loading';
 import ErrorFallback from '@/components/ErrorFallback';
 import QuitButtons from '../my/QuitButtons';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
-import { useSetUserInfo } from '@/hooks/custom/useSetUserInfo';
-import { useEffect } from 'react';
 import useAppRouter from '@/hooks/custom/useAppRouter';
 
 interface Props {
@@ -23,10 +21,8 @@ interface Props {
 const Profile = ({ nickname }: Props) => {
   const router = useAppRouter();
 
-  const userInfo = useUserInfo();
+  const { userInfo } = useUserInfo();
   const myNickname = userInfo?.nickname || '';
-
-  const setUserInfo = useSetUserInfo();
 
   const {
     data: profile,
@@ -35,13 +31,6 @@ const Profile = ({ nickname }: Props) => {
     error,
     refetch,
   } = useGetProfile(nickname || myNickname);
-
-  // 내 프로필 사진을 변경했을 경우, 전역 상태에도 반영
-  useEffect(() => {
-    if (!nickname && profile?.profileImageSignedURL) {
-      setUserInfo({ profileImageSignedURL: profile.profileImageSignedURL });
-    }
-  }, [nickname, profile?.profileImageSignedURL, setUserInfo]);
 
   if (isPending) {
     return <Loading />;

@@ -25,7 +25,7 @@ import useAppRouter from '@/hooks/custom/useAppRouter';
 const CommentList = ({ articleId }: { articleId: Article['id'] }) => {
   const router = useAppRouter();
 
-  const userInfo = useUserInfo();
+  const { userInfo } = useUserInfo();
   const nickname = userInfo?.nickname;
 
   const [openCommentDeleteAlert, setOpenCommentDeleteAlert] = useState(false);

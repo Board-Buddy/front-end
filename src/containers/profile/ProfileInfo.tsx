@@ -27,7 +27,7 @@ const ProfileInfo = ({
 }: Props) => {
   const router = useAppRouter();
 
-  const userInfo = useUserInfo();
+  const { userInfo } = useUserInfo();
   const myNickname = userInfo?.nickname || '';
 
   const { setFormState } = useExistingProfileInfoContext();

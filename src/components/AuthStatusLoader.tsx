@@ -2,7 +2,6 @@
 
 import { ReactNode, useEffect } from 'react';
 import { useUserLoginCheck } from '@/hooks/useAuth';
-import Loading from './Loading';
 import { useSetUserInfo } from '@/hooks/custom/useSetUserInfo';
 
 interface Props {
@@ -14,10 +13,10 @@ const AuthStatusLoader = ({ children }: Props) => {
   const setUserInfo = useSetUserInfo();
 
   useEffect(() => {
-    setUserInfo(data ?? null);
-  }, [data, setUserInfo]);
-
-  if (isPending) return <Loading />;
+    if (!isPending) {
+      setUserInfo(data ?? null);
+    }
+  }, [data, setUserInfo, isPending]);
 
   return <>{children}</>;
 };

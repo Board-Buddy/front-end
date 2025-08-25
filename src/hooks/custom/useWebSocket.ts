@@ -10,7 +10,7 @@ const useWebSocket = (
   chatRoomId: ChatRoom['chatRoomId'],
   setMessages: Dispatch<SetStateAction<Message[] | null>>,
 ) => {
-  const userInfo = useUserInfo();
+  const { userInfo } = useUserInfo();
   const nickname = userInfo?.nickname;
 
   const clientRef = useRef<Client | null>(null);

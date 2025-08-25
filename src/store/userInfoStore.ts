@@ -10,6 +10,7 @@ export interface UserInfoStore {
 
 export const useUserInfoStore = create<UserInfoStore>()((set, get) => ({
   userInfo: null,
+
   setUserInfo: (info: Partial<UserInfo> | null) => {
     if (info === null) {
       set({ userInfo: null });

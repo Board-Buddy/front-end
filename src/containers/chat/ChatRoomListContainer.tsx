@@ -4,13 +4,14 @@ import { useUserInfo } from '@/hooks/custom/useUserInfo';
 import Image from 'next/image';
 import { ReactNode } from 'react';
 import LoginPrompt from '@/components/LoginPrompt';
+import Loading from '@/components/Loading';
 
 interface Props {
   children: ReactNode;
 }
 
 const ChatRoomListContainer = ({ children }: Props) => {
-  const userInfo = useUserInfo();
+  const { userInfo, isLoading } = useUserInfo();
 
   return (
     <div className="flex h-full flex-col bg-gray-100">
@@ -31,7 +32,13 @@ const ChatRoomListContainer = ({ children }: Props) => {
           className="ml-auto"
         />
       </div>
-      {userInfo ? children : <LoginPrompt feature="채팅" />}
+      {isLoading ? (
+        <Loading />
+      ) : userInfo ? (
+        children
+      ) : (
+        <LoginPrompt feature="채팅" />
+      )}
     </div>
   );
 };

@@ -11,16 +11,21 @@ export const useUserInfo = () => {
   const isWebView = useIsWebView();
 
   const [appUserInfo, setAppUserInfo] = useState<UserInfo | null>(null);
+  const webUserInfo = useUserInfoSelector();
 
-  const onRestore = useCallback((state: UserInfo | null) => {
-    if (state) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const onRestore = useCallback(
+    (state: UserInfo | null) => {
       setAppUserInfo(state);
-    }
-  }, []);
+      setIsLoading(false);
+    },
+    [setIsLoading],
+  );
 
   useRestoreAppState(STATE_KEYS.USER_INFO, onRestore);
 
-  const webUserInfo = useUserInfoSelector();
-
-  return isWebView ? appUserInfo : webUserInfo;
+  return isWebView
+    ? { userInfo: appUserInfo, isLoading }
+    : { userInfo: webUserInfo, isLoading: false };
 };

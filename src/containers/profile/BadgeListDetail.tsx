@@ -18,7 +18,7 @@ interface Props {
 const BadgeListDetail = ({ nickname }: Props) => {
   const router = useAppRouter();
 
-  const userInfo = useUserInfo();
+  const { userInfo } = useUserInfo();
   const myNickname = userInfo?.nickname || '';
 
   const {

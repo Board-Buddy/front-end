@@ -61,7 +61,10 @@ const ArticleList = ({
     }
 
     return (
-      <ErrorFallback reset={refetch} errMsg={error.response!.data.message} />
+      <ErrorFallback
+        reset={refetch}
+        errMsg={error.response?.data.message || error.message}
+      />
     );
   }
 

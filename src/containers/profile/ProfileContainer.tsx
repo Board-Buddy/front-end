@@ -4,18 +4,21 @@ import { useUserInfo } from '@/hooks/custom/useUserInfo';
 import { ReactNode } from 'react';
 import LoginPrompt from '@/components/LoginPrompt';
 import { usePathname } from 'next/navigation';
+import Loading from '@/components/Loading';
 
 interface Props {
   children: ReactNode;
 }
 
 const ProfileContainer = ({ children }: Props) => {
-  const userInfo = useUserInfo();
+  const { userInfo, isLoading } = useUserInfo();
   const pathname = usePathname();
 
   return (
     <>
-      {userInfo ? (
+      {isLoading ? (
+        <Loading />
+      ) : userInfo ? (
         children
       ) : (
         <LoginPrompt

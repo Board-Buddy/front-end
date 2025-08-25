@@ -17,7 +17,7 @@ import useAppRouter from '@/hooks/custom/useAppRouter';
 const ArticleDetail = ({ id }: { id: Article['id'] }) => {
   const router = useAppRouter();
 
-  const userInfo = useUserInfo();
+  const { userInfo, isLoading } = useUserInfo();
   const nickname = userInfo?.nickname;
 
   const openModal = useLoginPromptModal((state) => state.open);
@@ -30,7 +30,7 @@ const ArticleDetail = ({ id }: { id: Article['id'] }) => {
     refetch,
   } = useGetArticle(id);
 
-  if (isPending) {
+  if (isPending || isLoading) {
     return <Loading />;
   }
 

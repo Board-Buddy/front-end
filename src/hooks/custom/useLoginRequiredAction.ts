@@ -5,13 +5,14 @@ import { useUserInfo } from './useUserInfo';
 import { sendDebugLogToApp } from '@/utils/webview';
 
 export const useLoginRequiredAction = () => {
-  const userInfo = useUserInfo();
+  const { userInfo, isLoading } = useUserInfo();
   const open = useLoginPromptModal((state) => state.open);
 
   const runIfLoggedIn = (action: () => void) => {
+    // TODO: 동작 확인 후 삭제
     sendDebugLogToApp(`runIfLoggedIn userInfo: ${userInfo}`);
 
-    if (!userInfo) {
+    if (!isLoading && !userInfo) {
       open();
       return;
     }

@@ -72,7 +72,7 @@ const MyProfileEditForm = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageSizeAlertOpen, setImageSizeAlertOpen] = useState(false);
 
-  const userInfo = useUserInfo();
+  const { userInfo } = useUserInfo();
   const memberType = userInfo?.memberType;
 
   const editProfileMutation = useEditProfile();
@@ -274,6 +274,7 @@ const MyProfileEditForm = () => {
     );
 
     editProfileMutation.mutate(formDataRequest);
+
     saveStateToApp(STATE_KEYS.PROFILE_INFO, null);
   };
 
