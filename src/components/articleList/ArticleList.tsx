@@ -68,21 +68,16 @@ const ArticleList = ({
     );
   }
 
-  const hasPosts =
-    data?.pages[0]?.posts !== undefined && data.pages[0].posts.length > 0;
-
   return (
     <div>
-      {(!isSearchPage || (isSearchPage && hasPosts)) && (
-        <Selectors
-          province={province}
-          sgg={sgg}
-          status={status}
-          sort={sort}
-          setStatus={setStatus}
-          setSort={setSort}
-        />
-      )}
+      <Selectors
+        province={province}
+        sgg={sgg}
+        status={status}
+        sort={sort}
+        setStatus={setStatus}
+        setSort={setSort}
+      />
       {isPending && isFetching && <Loading />}
       {!isPending && (
         <>
