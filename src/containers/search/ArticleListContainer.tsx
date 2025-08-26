@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import ArticleList from '../../components/articleList/ArticleList';
 import {
   useKeywordSelector,
@@ -13,7 +13,8 @@ import {
 } from '@/store/searchFilterStore';
 import { ArticleParams } from '@/store/createArticleFilterStore';
 import useRestoreAppState from '@/hooks/custom/useRestoreAppState';
-import { STATE_KEYS } from '@/utils/webview';
+import { postRNMessage, STATE_KEYS } from '@/utils/webview';
+import { MessageType } from '@/types/webview';
 
 const ArticleListContainer = () => {
   const [restoredState, setRestoredState] =
@@ -49,6 +50,13 @@ const ArticleListContainer = () => {
     }),
     [restoredState, status, sort, sido, sgg, keyword, province],
   );
+
+  useEffect(() => {
+    // keyword가 바뀔 때마다 상태 복구 요청
+    postRNMessage(MessageType.REGISTER_STATE, {
+      key: STATE_KEYS.SEARCH_FILTER,
+    });
+  }, [keyword]);
 
   return (
     <ArticleList

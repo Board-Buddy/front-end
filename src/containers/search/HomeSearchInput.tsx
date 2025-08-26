@@ -38,7 +38,9 @@ const HomeSearchInput = () => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') handleSearch();
+    const confirmKeys = ['Enter', 'Go', 'Search', 'Done'];
+
+    if (confirmKeys.includes(e.key)) handleSearch();
   };
 
   return (
@@ -52,6 +54,7 @@ const HomeSearchInput = () => {
       />
       <div className="flex grow items-center">
         <Input
+          type="search"
           className="border-none"
           placeholder="검색어를 입력하세요"
           ref={searchKeywordRef}

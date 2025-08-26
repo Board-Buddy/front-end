@@ -7,7 +7,8 @@ import {
   useSearchFilterStore,
 } from '@/store/searchFilterStore';
 import { GetArticleRequestParams } from '@/types/article';
-import { STATE_KEYS } from '@/utils/webview';
+import { MessageType } from '@/types/webview';
+import { postRNMessage, STATE_KEYS } from '@/utils/webview';
 import { SearchIcon } from 'lucide-react';
 import Image from 'next/image';
 import React, { useCallback, useRef, useState } from 'react';
@@ -34,10 +35,17 @@ const SearchInput = () => {
     if (!keyword) return;
 
     setKeyword(keyword);
+
+    postRNMessage(MessageType.SAVE_STATE, {
+      key: STATE_KEYS.SEARCH_FILTER,
+      state: { keyword },
+    });
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') handleSearch();
+    const confirmKeys = ['Enter', 'Go', 'Search', 'Done'];
+
+    if (confirmKeys.includes(e.key)) handleSearch();
   };
 
   const mergedKeyword = restoredState?.keyword || keyword || '';
@@ -52,6 +60,7 @@ const SearchInput = () => {
         className="my-2 ml-4 mr-1"
       />
       <Input
+        type="search"
         className="border-none"
         onKeyDown={handleKeyDown}
         defaultValue={mergedKeyword}
