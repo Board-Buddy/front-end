@@ -1,11 +1,12 @@
 import { useEffect } from 'react';
 import useIsWebView from './useIsWebView';
-import { MessagePayloadMap } from '@/types/webview';
-import { sendDebugLogToApp } from '@/utils/webview';
+import { MessagePayloadMap, MessageType } from '@/types/webview';
+import { sendDebugLogToApp, StateKey } from '@/utils/webview';
 
 const useWebViewMessageHandler = <T extends keyof MessagePayloadMap>(
   messageType: T,
   callback: (payload: MessagePayloadMap[T]) => void,
+  key?: StateKey,
 ) => {
   const isWebView = useIsWebView();
 
@@ -16,12 +17,22 @@ const useWebViewMessageHandler = <T extends keyof MessagePayloadMap>(
       try {
         const { type, payload } = JSON.parse(e.data) as {
           type: keyof MessagePayloadMap;
-          payload: unknown;
+          payload: MessagePayloadMap[T];
         };
 
-        if (type === messageType) {
-          callback(payload as MessagePayloadMap[T]);
+        if (type !== messageType) return;
+
+        // RESTORE_STATE라면 key까지 비교
+        if (messageType === MessageType.RESTORE_STATE) {
+          const restoredPayload =
+            payload as MessagePayloadMap[MessageType.RESTORE_STATE];
+
+          if (!key || restoredPayload.key !== key) {
+            return;
+          }
         }
+
+        callback(payload as MessagePayloadMap[T]);
       } catch (error) {
         sendDebugLogToApp(
           `웹뷰 메시지 처리 중 오류 발생, type: ${messageType}, error: ${error}`,
@@ -38,7 +49,7 @@ const useWebViewMessageHandler = <T extends keyof MessagePayloadMap>(
       // @ts-ignore
       document.removeEventListener('message', handleWebViewMessage);
     };
-  }, [isWebView, messageType, callback]);
+  }, [isWebView, messageType, callback, key]);
 };
 
 export default useWebViewMessageHandler;

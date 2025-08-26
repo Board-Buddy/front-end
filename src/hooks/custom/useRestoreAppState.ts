@@ -12,8 +12,10 @@ const useRestoreAppState = <T>(
 ) => {
   const isWebView = useIsWebView();
 
-  useWebViewMessageHandler(MessageType.RESTORE_STATE, (payload) =>
-    onRestore(payload.state as T),
+  useWebViewMessageHandler(
+    MessageType.RESTORE_STATE,
+    (payload) => onRestore(payload.state as T),
+    key,
   );
 
   useEffect(() => {

@@ -1,3 +1,4 @@
+import { StateKey } from '@/utils/webview';
 import { NavigateOptions } from 'next/dist/shared/lib/app-router-context.shared-runtime';
 
 export enum MessageType {
@@ -45,6 +46,7 @@ export interface SaveStateMessage {
 export interface RestoreStateMessage {
   type: MessageType.RESTORE_STATE;
   payload: {
+    key: StateKey;
     state: unknown;
   };
 }

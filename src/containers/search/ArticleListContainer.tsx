@@ -60,7 +60,7 @@ const ArticleListContainer = () => {
       keyword={merged.keyword}
       setStatus={setStatus}
       setSort={setSort}
-      province={province}
+      province={merged.province}
     />
   );
 };
