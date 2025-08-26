@@ -34,20 +34,9 @@ export type StateKey = (typeof STATE_KEYS)[keyof typeof STATE_KEYS];
  * @param stateKey 상태를 식별하기 위한 키
  * @param state 저장할 상태
  */
-export const saveStateToApp = (stateKey: StateKey, state: unknown) => {
-  if (window.ReactNativeWebView?.postMessage) {
-    try {
+export const saveStateToApp = (stateKey: StateKey, state: unknown) =>
       postRNMessage(MessageType.SAVE_STATE, { key: stateKey, state });
-    } catch (error) {
-      sendDebugLogToApp(`앱에 상태를 저장하는 데 실패했습니다. ${error}`);
-    }
-  } else {
-    console.warn(
-      'ReactNativeWebView를 사용할 수 없어 상태가 저장되지 않았습니다',
-    );
-  }
-};
-
+    
 /**
  * 권한 요청 래퍼
  */
