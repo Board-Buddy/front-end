@@ -7,9 +7,6 @@ export const status = http.get(`${API_BASE_URL}/auth/status`, () => {
     data: {
       profileDTO: {
         nickname: '김구구',
-        sido: '서울특별시',
-        sgg: '송파구',
-        emd: '잠실동',
         isPhoneNumberVerified: true,
         profileImageSignedURL: null,
         memberType: 'SOCIAL',
