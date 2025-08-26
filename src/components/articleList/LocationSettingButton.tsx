@@ -1,16 +1,27 @@
 'use client';
 
+import { NATION_WIDE } from '@/containers/location/LocationFilter';
 import useAppRouter from '@/hooks/custom/useAppRouter';
 import { GetArticleRequestParams } from '@/types/article';
 import { Province } from '@/types/location';
 import { ChevronDown } from 'lucide-react';
-
 import Image from 'next/image';
 
 interface Props extends Pick<GetArticleRequestParams, 'sgg'> {
   route: string;
   province: Province | null;
 }
+
+const getLocationLabel = (
+  sgg: string | null | undefined,
+  province: Province | null,
+) => {
+  if (sgg) return sgg;
+  if (!province?.name || province.name === NATION_WIDE.name)
+    return NATION_WIDE.name;
+
+  return province.name;
+};
 
 const LocationSettingButton = ({ sgg, route, province }: Props) => {
   const router = useAppRouter();
@@ -29,7 +40,7 @@ const LocationSettingButton = ({ sgg, route, province }: Props) => {
       />
       <div className="flex w-[300px] items-center bg-transparent p-0">
         <span className="text-lg font-bold text-gray-800">
-          {sgg ? sgg : (province?.name ?? '전체')}
+          {getLocationLabel(sgg, province)}
         </span>
         <ChevronDown className="ml-1 size-4 shrink-0" />
       </div>

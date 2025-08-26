@@ -3,6 +3,7 @@ import useGetStateKey from '@/hooks/custom/useGetStateKey';
 import { useGetDistrictList } from '@/hooks/useLocation';
 import { Province } from '@/types/location';
 import { saveStateToApp } from '@/utils/webview';
+import { NATION_WIDE } from './LocationFilter';
 
 interface Props {
   province: Province;
@@ -33,12 +34,12 @@ const DistrictSelector = ({
           onClick={() => {
             setProvince(province);
             setSido(province.officialName);
-            setSgg(district.name === '전체' ? null : district.name);
+            setSgg(district.name === NATION_WIDE.name ? null : district.name);
 
             saveStateToApp(stateKey, {
               province,
               sido: province.officialName,
-              sgg: district.name === '전체' ? null : district.name,
+              sgg: district.name === NATION_WIDE.name ? null : district.name,
             });
 
             router.back();
