@@ -15,9 +15,8 @@ export const postRNMessage = <T extends keyof MessagePayloadMap>(
 /**
  * 앱으로 로그 메시지를 전송하는 함수
  */
-export const sendDebugLogToApp = (log: string) => {
+export const sendDebugLogToApp = (log: string) =>
   postRNMessage(MessageType.DEBUG, { log });
-};
 
 export const STATE_KEYS = {
   ARTICLE_WRITE_FORM: 'article-write-form',
@@ -35,11 +34,10 @@ export type StateKey = (typeof STATE_KEYS)[keyof typeof STATE_KEYS];
  * @param state 저장할 상태
  */
 export const saveStateToApp = (stateKey: StateKey, state: unknown) =>
-      postRNMessage(MessageType.SAVE_STATE, { key: stateKey, state });
-    
+  postRNMessage(MessageType.SAVE_STATE, { key: stateKey, state });
+
 /**
  * 권한 요청 래퍼
  */
-export const requestPermissionToRN = (permissionType: PermissionType) => {
+export const requestPermissionToRN = (permissionType: PermissionType) =>
   postRNMessage(MessageType.PERMISSION_REQUEST, { permissionType });
-};
