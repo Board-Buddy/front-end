@@ -5,86 +5,74 @@ import NotificationProvider from './NotificationProvider';
 import BackButton from './BackButton';
 import useIsWebView from '@/hooks/custom/useIsWebView';
 
+const headerParams: Record<string, { title: string; leftArrow: boolean }> = {
+  '/': {
+    title: '',
+    leftArrow: false,
+  },
+  '/register/additionalSettings': {
+    title: '회원가입',
+    leftArrow: false,
+  },
+  '/register/accounts': {
+    title: '회원가입',
+    leftArrow: true,
+  },
+  '/home': {
+    title: '홈',
+    leftArrow: false,
+  },
+  '/chat': {
+    title: '채팅 목록',
+    leftArrow: false,
+  },
+  '/map': {
+    title: '보드게임 카페 찾기',
+    leftArrow: true,
+  },
+  '/my': {
+    title: '마이페이지',
+    leftArrow: false,
+  },
+  '/setting/location': {
+    title: '지역 설정',
+    leftArrow: true,
+  },
+  '/search/location': {
+    title: '지역 필터 선택',
+    leftArrow: true,
+  },
+  '/write/locationSetting': {
+    title: '모임 위치 선택',
+    leftArrow: true,
+  },
+  '/notifications': {
+    title: '알림',
+    leftArrow: true,
+  },
+  '/my/edit': {
+    title: '프로필 수정',
+    leftArrow: true,
+  },
+  '/my/badges': {
+    title: '나의 뱃지 목록',
+    leftArrow: true,
+  },
+  '/my/activity': {
+    title: '나의 활동',
+    leftArrow: true,
+  },
+};
+
 const Header = () => {
   const pathname = usePathname();
   const isWebView = useIsWebView();
 
   // 웹뷰라면 헤더를 렌더링하지 않는다.
-  if (isWebView) {
-    return null;
-  }
+  if (isWebView) return null;
 
-  if (
-    pathname === '/' ||
-    pathname === '/login' ||
-    pathname === '/register/terms' ||
-    pathname === '/register/additionalSettings' ||
-    pathname === '/login/oauth/callback' ||
-    pathname === '/login-splash' ||
-    pathname === '/login/guide'
-  )
-    return null;
-
-  const headerParams: Record<string, { title: string; leftArrow: boolean }> = {
-    '/': {
-      title: '',
-      leftArrow: false,
-    },
-    '/register/additionalSettings': {
-      title: '회원가입',
-      leftArrow: false,
-    },
-    '/register/accounts': {
-      title: '회원가입',
-      leftArrow: true,
-    },
-    '/home': {
-      title: '홈',
-      leftArrow: false,
-    },
-    '/chat': {
-      title: '채팅 목록',
-      leftArrow: false,
-    },
-    '/map': {
-      title: '보드게임 카페 찾기',
-      leftArrow: true,
-    },
-    '/my': {
-      title: '마이페이지',
-      leftArrow: false,
-    },
-    '/setting/location': {
-      title: '지역 설정',
-      leftArrow: true,
-    },
-    '/search/location': {
-      title: '지역 필터 선택',
-      leftArrow: true,
-    },
-    '/write/locationSetting': {
-      title: '모임 위치 선택',
-      leftArrow: true,
-    },
-    '/notifications': {
-      title: '알림',
-      leftArrow: true,
-    },
-    '/my/edit': {
-      title: '프로필 수정',
-      leftArrow: true,
-    },
-    '/my/badges': {
-      title: '나의 뱃지 목록',
-      leftArrow: true,
-    },
-    '/my/activity': {
-      title: '나의 활동',
-      leftArrow: true,
-    },
-  };
-
-  let title = headerParams[pathname]?.title || '';
+  // 동적 조건 처리
+  let title = headerParams[pathname]?.title;
   let leftArrow = headerParams[pathname]?.leftArrow || false;
 
   if (pathname.startsWith('/article/')) {
@@ -98,34 +86,27 @@ const Header = () => {
       title = '모집글 상세';
       leftArrow = true;
     }
-  }
-
-  if (pathname.includes('participants')) {
+  } else if (pathname.includes('participants')) {
     title = '참가 신청 목록';
     leftArrow = true;
-  }
-
-  if (pathname.includes('chat') && pathname.split('/').length >= 3) {
+  } else if (pathname.includes('chat') && pathname.split('/').length >= 3) {
     title = '채팅';
     leftArrow = true;
-  }
-
-  if (pathname.includes('profile') && pathname.split('/').length >= 3) {
+  } else if (pathname.includes('profile') && pathname.split('/').length >= 3) {
     const nickname = decodeURIComponent(pathname.split('/').pop()!);
     title = `${nickname} 님의 프로필`;
     leftArrow = true;
-  }
-
-  if (pathname.includes('badges') && pathname.split('/').length >= 4) {
+  } else if (pathname.includes('badges') && pathname.split('/').length >= 4) {
     const nickname = decodeURIComponent(pathname.split('/')[2]!);
     title = `${nickname} 님의 뱃지 목록`;
     leftArrow = true;
-  }
-
-  if (pathname.includes('reviews')) {
+  } else if (pathname.includes('reviews')) {
     title = '후기 작성';
     leftArrow = true;
   }
+
+  // headerParams와 동적 조건에 모두 해당하지 않으면 null 반환
+  if (title === undefined) return null;
 
   return (
     <>
