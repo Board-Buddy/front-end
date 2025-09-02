@@ -2,6 +2,27 @@ import Image from 'next/image';
 import { cn } from '@/utils/tailwind';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import AppLink from './AppLink';
+import { useUserInfo } from '@/hooks/custom/useUserInfo';
+
+const rankBadge = [
+  '/images/badge/first_rank_badge.png',
+  '/images/badge/second_rank_badge.png',
+  '/images/badge/third_rank_badge.png',
+];
+
+const avatarSizeTW: { [key: string]: string } = {
+  xs: 'size-8',
+  sm: 'size-[55px]', // 랭킹 2, 3등
+  md: 'size-[75px]', // 랭킹 1등
+  lg: 'size-[130px]',
+};
+
+const badgeSizeTW: { [key: string]: number } = {
+  xs: 40,
+  sm: 50,
+  md: 60,
+  lg: 100,
+};
 
 interface Props {
   src: string | null;
@@ -11,29 +32,15 @@ interface Props {
 }
 
 const CustomAvatar = ({ src, rank, nickname, avatarSize }: Props) => {
-  const rankBadge = [
-    '/images/badge/first_rank_badge.png',
-    '/images/badge/second_rank_badge.png',
-    '/images/badge/third_rank_badge.png',
-  ];
-
-  const avatarSizeTW: { [key: string]: string } = {
-    xs: 'size-8',
-    sm: 'size-[55px]', // 랭킹 2, 3등
-    md: 'size-[75px]', // 랭킹 1등
-    lg: 'size-[130px]',
-  };
-
-  const badgeSizeTW: { [key: string]: number } = {
-    xs: 40,
-    sm: 50,
-    md: 60,
-    lg: 100,
-  };
+  const userInfo = useUserInfo();
 
   return (
     <AppLink
-      href={`/profile/${nickname}`}
+      href={
+        userInfo.userInfo?.nickname === nickname
+          ? `/my`
+          : `/profile/${nickname}`
+      }
       headerTitle={`${nickname} 님의 프로필`}
     >
       <Avatar
