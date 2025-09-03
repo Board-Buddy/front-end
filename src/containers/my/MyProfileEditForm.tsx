@@ -35,6 +35,7 @@ import { useUserInfo } from '@/hooks/custom/useUserInfo';
 import useRestoreAppState from '@/hooks/custom/useRestoreAppState';
 import { saveStateToApp, STATE_KEYS } from '@/utils/webview';
 import useImagePicker from '@/hooks/custom/useImagePicker';
+import { errorToast } from '@/utils/customToast';
 
 type RestoredFormState = Pick<
   EditProfileDTO,
@@ -68,7 +69,6 @@ const formSchema = z.object({
 });
 
 const MyProfileEditForm = () => {
-  const { imageInputRef, openPicker } = useImagePicker();
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imageSizeAlertOpen, setImageSizeAlertOpen] = useState(false);
 
@@ -119,16 +119,37 @@ const MyProfileEditForm = () => {
       field.onChange(e.target.value);
     };
 
-  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const image = (await resizeFile(e.target.files[0])) as File;
+  // 이미지 선택 콜백
+  const handlePickImage = useCallback(async (file: File) => {
+    try {
+      const resized = await resizeFile(file);
 
-      if (image.size > IMAGE_MAX_SIZE) {
+      if (resized.size > IMAGE_MAX_SIZE) {
         setImageSizeAlertOpen(true);
         return;
       }
 
-      setImageFile(image);
+      setImageFile(resized);
+    } catch (error: unknown) {
+      errorToast(
+        'image upload failed',
+        (error as Error).message || '이미지 업로드에 실패했습니다.',
+      );
+    }
+  }, []);
+
+  const { imageInputRef, openPicker } = useImagePicker({
+    onPick: handlePickImage,
+    onError: (error: unknown) =>
+      errorToast(
+        'image upload failed',
+        (error as Error).message || '이미지 업로드에 실패했습니다.',
+      ),
+  });
+
+  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files?.[0]) {
+      handlePickImage(e.target.files[0]);
     }
   };
 

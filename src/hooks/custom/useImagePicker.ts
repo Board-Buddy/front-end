@@ -1,42 +1,59 @@
 'use client';
 
-import { useRef, useState, useEffect, useCallback } from 'react';
-import useRequestPermission from './useRequestPermission';
+import { useRef, useCallback } from 'react';
 import useIsWebView from './useIsWebView';
-import { errorToast } from '@/utils/customToast';
+import { postRNMessage } from '@/utils/webview';
+import { MessageType } from '@/types/webview';
+import useWebViewMessageHandler from './useWebViewMessageHandler';
 
-const useImagePicker = () => {
+export const base64ToFile = (
+  base64: string,
+  filename = 'image.jpg',
+  mimeType = 'image/jpeg',
+): File => {
+  // base64 문자열에서 실제 데이터 부분만 추출
+  const base64Data = base64.split(',')[1];
+  const byteString = atob(base64Data);
+  const byteNumbers = new Array(byteString.length);
+
+  for (let i = 0; i < byteString.length; i++) {
+    byteNumbers[i] = byteString.charCodeAt(i);
+  }
+
+  const byteArray = new Uint8Array(byteNumbers);
+
+  return new File([byteArray], filename, { type: mimeType });
+};
+
+interface UseImagePickerOptions {
+  onPick: (file: File) => void;
+  onError?: (error: Error) => void;
+}
+
+const useImagePicker = ({ onPick, onError }: UseImagePickerOptions) => {
   const isWebView = useIsWebView();
   const imageInputRef = useRef<HTMLInputElement>(null);
-  const [pending, setPending] = useState(false);
-  const { permissionStatus, requestPermission } =
-    useRequestPermission('media-library');
 
+  // 웹/앱 환경에 따라 이미지 선택 트리거
   const openPicker = useCallback(() => {
     if (isWebView) {
-      setPending(true);
-      requestPermission();
+      postRNMessage(MessageType.PICK_IMAGE);
     } else {
       imageInputRef.current?.click();
     }
-  }, [isWebView, requestPermission]);
+  }, [isWebView]);
 
-  useEffect(() => {
-    if (!isWebView) return;
-    if (!pending) return;
+  // 웹뷰에서 이미지 URI 수신 시 File 변환 후 콜백
+  useWebViewMessageHandler(MessageType.IMAGE, async (payload) => {
+    try {
+      if (!payload?.data) return; // 이미지가 선택되지 않은 경우 아무 동작도 하지 않음
 
-    if (permissionStatus === 'granted') {
-      imageInputRef.current?.click();
-      setPending(false);
-    } else if (permissionStatus === 'denied') {
-      errorToast(
-        'request denied',
-        '갤러리 접근 권한이 없습니다. 설정에서 접근 권한을 허용해주세요.',
-      );
+      const file = base64ToFile(payload.data);
+      onPick(file);
+    } catch (err) {
+      onError?.(err as Error);
     }
-
-    setPending(false);
-  }, [isWebView, permissionStatus, pending]);
+  });
 
   return { imageInputRef, openPicker };
 };
