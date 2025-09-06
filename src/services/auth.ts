@@ -59,6 +59,10 @@ export const checkUserLogin = () =>
       if (status === 200) {
         return true;
       }
+
+      return false;
+    })
+    .catch(() => {
       return false;
     });
 
