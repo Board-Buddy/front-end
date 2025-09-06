@@ -5,12 +5,17 @@ import { useState } from 'react';
 import { cn } from '@/utils/tailwind';
 import { API_BASE_URL, ENDPOINT } from '@/services/endpoint';
 import AppLink from '@/components/AppLink';
+import { infoToast } from '@/utils/customToast';
 
 const LoginDrawer = () => {
   const [toggleShowAll, setToggleShowAll] = useState(false);
 
   const handleClick = () => {
     setToggleShowAll((prev) => !prev);
+  };
+
+  const showToast = () => {
+    infoToast('prepare', '🚧 준비 중인 기능입니다.');
   };
 
   return (
@@ -47,28 +52,32 @@ const LoginDrawer = () => {
             </p>
           </div>
         </AppLink>
-        <AppLink
+        {/* <AppLink
           href={`${API_BASE_URL}${ENDPOINT.AUTH.SOCIAL_LOGIN.NAVER()}`}
           className="w-full"
+        > */}
+        <div
+          className="flex h-11 items-center justify-center gap-1.5 rounded-3xl border-[3px] border-white bg-[#2db400]"
+          onClick={showToast}
         >
-          <div className="flex h-11 items-center justify-center gap-1.5 rounded-3xl border-[3px] border-white bg-[#2db400]">
-            <div className="size-3 rounded-full bg-white" />
-            <p className="text-sm font-extrabold text-white">
-              네이버로 계속하기
-            </p>
-          </div>
-        </AppLink>
+          <div className="size-3 rounded-full bg-white" />
+          <p className="text-sm font-extrabold text-white">네이버로 계속하기</p>
+        </div>
+        {/* </AppLink>
         <AppLink
           href={`${API_BASE_URL}${ENDPOINT.AUTH.SOCIAL_LOGIN.GOOGLE()}`}
           className="w-full"
+        > */}
+        <div
+          className="flex h-11 items-center justify-center gap-1.5 rounded-3xl border-[3px] border-white bg-gray-300"
+          onClick={showToast}
         >
-          <div className="flex h-11 items-center justify-center gap-1.5 rounded-3xl border-[3px] border-white bg-gray-300">
-            <div className="size-3 rounded-full bg-gray-700" />
-            <p className="text-sm font-extrabold text-gray-800">
-              구글로 계속하기
-            </p>
-          </div>
-        </AppLink>
+          <div className="size-3 rounded-full bg-gray-700" />
+          <p className="text-sm font-extrabold text-gray-800">
+            구글로 계속하기
+          </p>
+        </div>
+        {/* </AppLink> */}
       </div>
       <AppLink href="/login">
         <div className="mt-4 pb-2">
