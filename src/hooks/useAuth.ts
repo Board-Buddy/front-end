@@ -1,14 +1,20 @@
-import { checkUserLogin, login, logout, withdrawal } from '@/services/auth';
+import { authQueryKeys } from './../utils/queryKeys';
+import {
+  checkUserLogin,
+  getUserInfo,
+  login,
+  logout,
+  withdrawal,
+} from '@/services/auth';
 import { successToast } from '@/utils/customToast';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import useAppRouter from './custom/useAppRouter';
-import { authQueryKeys } from '@/utils/queryKeys';
 import { useSetUserInfo } from './custom/useSetUserInfo';
 import handleApiError from '@/utils/handleApiError';
 
 export const useUserLoginCheck = ({ isReady }: { isReady: boolean }) => {
   return useQuery({
-    queryKey: authQueryKeys.userInfo(),
+    queryKey: ['userLoginCheck'], // TODO: 임시 쿼리 사용, 추후 삭제
     queryFn: checkUserLogin,
     enabled: isReady,
   });
@@ -31,6 +37,14 @@ export const useUserLogin = () => {
       handleApiError(error);
       setUserInfo(null);
     },
+  });
+};
+
+export const useUserInfo = ({ isReady }: { isReady: boolean }) => {
+  return useQuery({
+    queryKey: authQueryKeys.userInfo(),
+    queryFn: getUserInfo,
+    enabled: isReady,
   });
 };
 
