@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { ReactNode } from 'react';
 import LoginPrompt from '@/components/LoginPrompt';
 import Loading from '@/components/Loading';
+import SundyChessPeeking from '@images/sundy/sundy_chess_peeking.png';
 
 interface Props {
   children: ReactNode;
@@ -25,7 +26,7 @@ const ChatRoomListContainer = ({ children }: Props) => {
           </p>
         </div>
         <Image
-          src="/images/sundy/sundy_chess_peeking.png"
+          src={SundyChessPeeking}
           alt="빼꼼 쳐다보는 썬디"
           width={120}
           height={147}

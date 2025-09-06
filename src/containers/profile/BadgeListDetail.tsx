@@ -10,6 +10,7 @@ import { cn } from '@/utils/tailwind';
 import Image from 'next/image';
 import EmptyFallback from '@/components/EmptyFallback';
 import useAppRouter from '@/hooks/custom/useAppRouter';
+import DefaultProfile from '@images/default_profile.png';
 
 interface Props {
   nickname?: UserInfo['nickname'];
@@ -60,10 +61,7 @@ const BadgeListDetail = ({ nickname }: Props) => {
                 <div key={badge.badgeYearMonth}>
                   <div className="flex size-24 items-center justify-center rounded-full bg-bgGray">
                     <Image
-                      src={
-                        badge.badgeImageSignedURL ||
-                        '/images/default_profile.png'
-                      }
+                      src={badge.badgeImageSignedURL || DefaultProfile}
                       alt="badge image"
                       width={65}
                       height={65}

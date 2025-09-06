@@ -1,8 +1,8 @@
 import AppLink from '@/components/AppLink';
 import { Button } from '@/components/ui/button';
-import { MapPinIcon, MessageSquareMoreIcon } from 'lucide-react';
+import { MessageSquareMoreIcon } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
+import SmallLogoOrange from '@images/logo/boardbuddy_small_logo_orange.png';
 
 interface Props {
   joinCount: number;
@@ -18,7 +18,7 @@ const MyParticipation = ({ joinCount, nickname }: Props) => {
           <p className="text-xl font-bold">{joinCount}번</p>
         </div>
         <Image
-          src="/images/logo/boardbuddy_small_logo_orange.png"
+          src={SmallLogoOrange}
           alt="보드버디 로고"
           width={50}
           height={50}
@@ -27,12 +27,6 @@ const MyParticipation = ({ joinCount, nickname }: Props) => {
       </div>
       {!nickname && (
         <div className="mt-2 flex gap-4 text-gray-700">
-          {/* <Link href="/setting/location" className="basis-1/2">
-            <Button className="text-base w-full bg-white font-bold">
-              <MapPinIcon color="var(--main-color)" />
-              <p className="ml-1">위치 재설정</p>
-            </Button>
-          </Link> */}
           <AppLink
             href="my/activity"
             className="w-full"

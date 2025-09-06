@@ -2,6 +2,7 @@
 
 import { cn } from '@/utils/tailwind';
 import Image from 'next/image';
+import SplashLogo from '@images/logo/splash_logo.png';
 import { useEffect, useState } from 'react';
 import About from './About';
 
@@ -25,7 +26,7 @@ const Splash = () => {
         )}
       >
         <Image
-          src="/images/logo/splash_logo.png"
+          src={SplashLogo}
           width={80}
           height={80}
           alt="splash logo"

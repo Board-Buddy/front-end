@@ -3,6 +3,7 @@ import { getLastMessageSentTime } from '@/utils/date';
 import { MapPinIcon, UserRound } from 'lucide-react';
 import Image from 'next/image';
 import AppLink from '@/components/AppLink';
+import SmallLogoOrange from '@images/logo/boardbuddy_small_logo_orange.png';
 
 const ChatItem = ({
   chatRoomId,
@@ -53,7 +54,7 @@ const ChatItem = ({
             </div>
           </div>
           <Image
-            src="/images/logo/boardbuddy_small_logo_orange.png"
+            src={SmallLogoOrange}
             width={20}
             height={20}
             alt="보드버디 로고"

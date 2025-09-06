@@ -23,6 +23,9 @@ import { useState } from 'react';
 import Map from './Map';
 import useAppRouter from '@/hooks/custom/useAppRouter';
 import { saveStateToApp, STATE_KEYS } from '@/utils/webview';
+import ParticipantsIcon from '@images/icon/participants_icon.png';
+import ClockIcon from '@images/icon/clock_icon.png';
+import MapIcon from '@images/icon/map_icon.png';
 
 interface Props extends Omit<Article, 'author'> {
   isAuthor: boolean;
@@ -140,7 +143,7 @@ const ArticleContent = ({
           <div>
             <div className="flex items-center text-gray-600">
               <Image
-                src="/images/icon/participants_icon.png"
+                src={ParticipantsIcon}
                 alt="participants"
                 width={12}
                 height={12}
@@ -150,7 +153,7 @@ const ArticleContent = ({
             </div>
             <div className="flex items-center text-gray-700">
               <Image
-                src="/images/icon/clock_icon.png"
+                src={ClockIcon}
                 alt="clock"
                 width={12}
                 height={12}
@@ -164,7 +167,7 @@ const ArticleContent = ({
           <span className="text-lg font-bold text-gray-700">위치</span>
           <div className="my-2 flex items-center text-sm text-secondary">
             <Image
-              src="/images/icon/map_icon.png"
+              src={MapIcon}
               alt="map"
               width={12}
               height={12}

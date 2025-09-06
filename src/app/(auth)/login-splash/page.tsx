@@ -1,5 +1,7 @@
 import LoginDrawer from '@/containers/login/LoginDrawer';
 import Image from 'next/image';
+import SmallLogoWhite from '@images/logo/boardbuddy_small_logo_white.png';
+import SundyDice from '@images/sundy/sundy_dice.png';
 
 const page = () => {
   return (
@@ -16,7 +18,7 @@ const page = () => {
         </div>
         <div className="flex h-7 w-fit items-center gap-1 rounded-md bg-primary py-1.5 pl-1 pr-2 text-sm text-white">
           <Image
-            src="/images/logo/boardbuddy_small_logo_white.png"
+            src={SmallLogoWhite}
             alt="보드버디 흰색 로고"
             width={20}
             height={20}
@@ -26,7 +28,7 @@ const page = () => {
         </div>
       </div>
       <Image
-        src="/images/sundy/sundy_dice.png"
+        src={SundyDice}
         alt="주사위를 든 썬디"
         width={180}
         height={273.5}

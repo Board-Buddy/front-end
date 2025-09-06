@@ -12,6 +12,7 @@ import { postRNMessage, STATE_KEYS } from '@/utils/webview';
 import { SearchIcon } from 'lucide-react';
 import Image from 'next/image';
 import React, { useCallback, useRef, useState } from 'react';
+import SmallLogoOrange from '@images/logo/boardbuddy_small_logo_orange.png';
 
 const SearchInput = () => {
   const [restoredState, setRestoredState] =
@@ -53,7 +54,7 @@ const SearchInput = () => {
   return (
     <div className="flex w-full items-center rounded-3xl border border-gray-200 shadow-md">
       <Image
-        src="/images/logo/boardbuddy_small_logo_orange.png"
+        src={SmallLogoOrange}
         width={24}
         height={24}
         alt="보드버디 로고"

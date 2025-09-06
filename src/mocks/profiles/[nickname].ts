@@ -8,7 +8,7 @@ export const getUserProfile = http.get(
       status: 'success',
       data: {
         profile: {
-          profileImageSignedURL: '/images/banner/banner_1.jpeg',
+          profileImageSignedURL: null,
           description: '안녕하세요',
           rank: 2,
           buddyScore: 68,

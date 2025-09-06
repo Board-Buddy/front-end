@@ -6,6 +6,7 @@ import { GetArticleRequestParams } from '@/types/article';
 import { Province } from '@/types/location';
 import { ChevronDown } from 'lucide-react';
 import Image from 'next/image';
+import SundyMap from '@images/sundy/sundy_map.png';
 
 interface Props extends Pick<GetArticleRequestParams, 'sgg'> {
   route: string;
@@ -32,12 +33,7 @@ const LocationSettingButton = ({ sgg, route, province }: Props) => {
 
   return (
     <div className="mb-2 mt-4 flex items-center gap-2" onClick={onClick}>
-      <Image
-        src="/images/sundy/sundy_map.png"
-        alt="map_sundy"
-        width={18}
-        height={28}
-      />
+      <Image src={SundyMap} alt="map_sundy" width={18} height={28} />
       <div className="flex w-[300px] items-center bg-transparent p-0">
         <span className="text-lg font-bold text-gray-800">
           {getLocationLabel(sgg, province)}

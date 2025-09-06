@@ -10,6 +10,9 @@ import { MapPinIcon, MessageSquareIcon, StarIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, useEffect, useState } from 'react';
+import SundyMapShadow from '@images/sundy/sundy_map_shadow.png';
+import SundyChessShadow from '@images/sundy/sundy_chess_shadow.png';
+import SundyDiceShadow from '@images/sundy/sundy_dice_shadow.png';
 
 const About = () => {
   const [api, setApi] = useState<CarouselApi>();
@@ -24,7 +27,7 @@ const About = () => {
           보드게임카페를
           간편하게
           찾아볼 수 있어요`,
-      image: '/images/sundy/sundy_map_shadow.png',
+      image: SundyMapShadow,
       alt: '마커를 든 썬디',
     },
     {
@@ -35,7 +38,7 @@ const About = () => {
           뽑아 순위를 정해요
           TOP3에
           도전해봐요!`,
-      image: '/images/sundy/sundy_chess_shadow.png',
+      image: SundyChessShadow,
       alt: '체스를 든 썬디',
     },
     {
@@ -46,7 +49,7 @@ const About = () => {
           서로 평가를 통해
           버디지수를
           올려봐요!`,
-      image: '/images/sundy/sundy_dice_shadow.png',
+      image: SundyDiceShadow,
       alt: '주사위를 든 썬디',
     },
   ];

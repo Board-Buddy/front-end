@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import useAppRouter from '@/hooks/custom/useAppRouter';
+import SundyDice from '@images/sundy/sundy_dice.png';
 
 const NotFound = () => {
   const router = useAppRouter();
@@ -14,7 +15,7 @@ const NotFound = () => {
   return (
     <div className="flex h-full flex-col items-center justify-center">
       <Image
-        src="/images/sundy/sundy_dice.png"
+        src={SundyDice}
         width={120}
         height={182}
         alt="Not Found"

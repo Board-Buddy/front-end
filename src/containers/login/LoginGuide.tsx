@@ -3,18 +3,14 @@
 import { Button } from '@/components/ui/button';
 import useAppRouter from '@/hooks/custom/useAppRouter';
 import Image from 'next/image';
+import SundyDice from '@images/sundy/sundy_dice.png';
 
 const LoginGuide = () => {
   const router = useAppRouter();
 
   return (
     <div className="flex h-screen w-full flex-col items-center justify-center gap-8">
-      <Image
-        src="/images/sundy/sundy_dice.png"
-        alt="주사위를 든 썬디"
-        width={120}
-        height={182}
-      />
+      <Image src={SundyDice} alt="주사위를 든 썬디" width={120} height={182} />
       <div className="flex flex-col gap-4">
         <p className="text-center text-gray-700">
           세션이 만료되었거나 로그인이 필요한 기능이예요.

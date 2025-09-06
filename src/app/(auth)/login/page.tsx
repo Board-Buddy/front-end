@@ -2,6 +2,8 @@ import AppLink from '@/components/AppLink';
 import CredentialFindButton from '@/containers/login/CredentialFindButton';
 import LoginForm from '@/containers/login/LoginForm';
 import Image from 'next/image';
+import SundyHeart from '@images/sundy/sundy_heart.png';
+import LogoWhite from '@images/logo/boardbuddy_logo_white.png';
 
 const page = () => {
   return (
@@ -14,7 +16,7 @@ const page = () => {
       </div>
       <div className="relative mb-20 mt-12 w-full rounded-3xl bg-white px-6 py-8">
         <Image
-          src="/images/sundy/sundy_heart.png"
+          src={SundyHeart}
           alt="하트를 들고 있는 썬디"
           width={92}
           height={162}
@@ -38,12 +40,7 @@ const page = () => {
           </div>
         </div>
       </div>
-      <Image
-        src="/images/logo/boardbuddy_logo_white.png"
-        alt="보드버디 흰색 로고"
-        width={130}
-        height={65}
-      />
+      <Image src={LogoWhite} alt="보드버디 로고" width={130} height={65} />
     </div>
   );
 };

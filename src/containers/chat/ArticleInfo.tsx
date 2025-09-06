@@ -4,6 +4,8 @@ import { ArticleSimpleInfo } from '@/types/chat';
 import { formatMeetingTime } from '@/utils/date';
 import { UsersRoundIcon } from 'lucide-react';
 import Image from 'next/image';
+import ClockIcon from '@images/icon/clock_icon.png';
+import MapIcon from '@images/icon/map_icon_gray.png';
 
 interface Props {
   articleId: Article['id'];
@@ -22,7 +24,7 @@ const ArticleInfo = ({ articleId, articleSimpleInfo }: Props) => {
             <div>
               <div className="flex items-center">
                 <Image
-                  src="/images/icon/clock_icon.png"
+                  src={ClockIcon}
                   alt="clock"
                   width={12}
                   height={12}
@@ -36,7 +38,7 @@ const ArticleInfo = ({ articleId, articleSimpleInfo }: Props) => {
             </div>
             <div className="mt-1 flex items-center">
               <Image
-                src="/images/icon/map_icon_gray.png"
+                src={MapIcon}
                 alt="map"
                 width={12}
                 height={12}

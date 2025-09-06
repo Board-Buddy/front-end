@@ -36,6 +36,7 @@ import useRestoreAppState from '@/hooks/custom/useRestoreAppState';
 import { saveStateToApp, STATE_KEYS } from '@/utils/webview';
 import useImagePicker from '@/hooks/custom/useImagePicker';
 import { errorToast } from '@/utils/customToast';
+import DefaultProfile from '@images/default_profile.png';
 
 type RestoredFormState = Pick<
   EditProfileDTO,
@@ -316,7 +317,7 @@ const MyProfileEditForm = () => {
                   ? URL.createObjectURL(imageFile)
                   : getPlaceholder(
                       'profileImageFile',
-                      '/images/default_profile.png',
+                      '@images/default_profile.png',
                     )
               }
               className="rounded-full object-cover"
@@ -328,11 +329,7 @@ const MyProfileEditForm = () => {
               EDIT
             </div>
             <AvatarFallback>
-              <Image
-                src="/images/default_profile.png"
-                alt="avatar_image"
-                fill
-              />
+              <Image src={DefaultProfile} alt="avatar_image" fill />
             </AvatarFallback>
           </Avatar>
           <input

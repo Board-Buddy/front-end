@@ -1,7 +1,7 @@
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 
 interface Props {
-  imageSrc: string;
+  imageSrc: StaticImageData;
   altText: string;
   label: string;
   count: number;

@@ -1,5 +1,6 @@
 import RegisterForm from '@/containers/register/RegisterForm';
 import Image from 'next/image';
+import Logo from '@images/logo/boardbuddy_logo.png';
 
 const page = () => {
   return (
@@ -7,7 +8,7 @@ const page = () => {
       <div className="px-8 pb-8 pt-4">
         <div>
           <Image
-            src="/images/logo/boardbuddy_logo.png"
+            src={Logo}
             width={70}
             height={35}
             alt="보드버디 로고"

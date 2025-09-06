@@ -3,12 +3,12 @@ import { cn } from '@/utils/tailwind';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import AppLink from './AppLink';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
+import DefaultProfile from '@images/default_profile.png';
+import FirstRankBadge from '@images/badge/first_rank_badge.png';
+import SecondRankBadge from '@images/badge/second_rank_badge.png';
+import ThirdRankBadge from '@images/badge/third_rank_badge.png';
 
-const rankBadge = [
-  '/images/badge/first_rank_badge.png',
-  '/images/badge/second_rank_badge.png',
-  '/images/badge/third_rank_badge.png',
-];
+const rankBadge = [FirstRankBadge, SecondRankBadge, ThirdRankBadge];
 
 const avatarSizeTW: { [key: string]: string } = {
   xs: 'size-8',
@@ -53,7 +53,7 @@ const CustomAvatar = ({ src, rank, nickname, avatarSize }: Props) => {
           className="rounded-full border border-gray-500 object-cover"
         />
         <AvatarFallback>
-          <Image src="/images/default_profile.png" alt="avatar_image" fill />
+          <Image src={DefaultProfile} alt="avatar_image" fill />
         </AvatarFallback>
         <div
           className={cn(

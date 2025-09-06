@@ -9,10 +9,16 @@ import {
 import { ARTICLE_STATUS } from '@/constants/article';
 import { Article as ArticleType } from '@/types/article';
 import { formatMeetingTime, formatRelativeTime } from '@/utils/date';
-import { rankBadgeImageSrc } from '@/utils/rankBadge';
-
 import { cn } from '@/utils/tailwind';
 import Image from 'next/image';
+import ParticipantsIcon from '@images/icon/participants_icon.png';
+import ClockIcon from '@images/icon/clock_icon.png';
+import MapIcon from '@images/icon/map_icon.png';
+import FirstRankBadge from '@images/badge/first_rank_badge.png';
+import SecondRankBadge from '@images/badge/second_rank_badge.png';
+import ThirdRankBadge from '@images/badge/third_rank_badge.png';
+
+const rankBadge = [FirstRankBadge, SecondRankBadge, ThirdRankBadge];
 
 type Props = { onClick: () => void } & ArticleType;
 
@@ -29,8 +35,7 @@ const Article = ({
   createdAt,
   status,
 }: Props) => {
-  const badgeImage =
-    author && author.rank ? rankBadgeImageSrc(author.rank) : null;
+  const badgeImage = author && author.rank ? rankBadge[author.rank - 1] : null;
 
   return (
     <Card onClick={onClick}>
@@ -55,7 +60,7 @@ const Article = ({
       <CardContent className="flex flex-col text-sm">
         <div className="flex items-center text-secondary">
           <Image
-            src="/images/icon/map_icon.png"
+            src={MapIcon}
             alt="map"
             width={12}
             height={12}
@@ -65,7 +70,7 @@ const Article = ({
         </div>
         <div className="flex items-center text-gray-600">
           <Image
-            src="/images/icon/participants_icon.png"
+            src={ParticipantsIcon}
             alt="participants"
             width={12}
             height={12}
@@ -75,7 +80,7 @@ const Article = ({
         </div>
         <div className="flex items-center text-gray-700">
           <Image
-            src="/images/icon/clock_icon.png"
+            src={ClockIcon}
             alt="clock"
             width={12}
             height={12}

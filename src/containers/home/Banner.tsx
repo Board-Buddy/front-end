@@ -4,7 +4,9 @@ import Image from 'next/image';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import '@/styles/carousel.css';
-// import CustomDot from './CustomDot';
+import FirstBanner from '@images/banner/banner_1.jpeg';
+import SecondBanner from '@images/banner/banner_2.jpeg';
+import ThirdBanner from '@images/banner/banner_3.jpeg';
 
 const Banner = () => {
   const responsive = {
@@ -27,8 +29,6 @@ const Banner = () => {
       draggable
       swipeable
       arrows={false}
-      // showDots
-      // customDot={<CustomDot />}
       responsive={responsive}
       infinite
       containerClass="carousel-container"
@@ -36,24 +36,24 @@ const Banner = () => {
       autoPlaySpeed={4000}
     >
       <Image
-        src="/images/banner/banner_1.jpeg"
+        src={FirstBanner}
         width={448}
         height={300}
         alt="banner_1"
         priority
       />
       <Image
-        src="/images/banner/banner_2.jpeg"
+        src={SecondBanner}
         width={448}
         height={300}
         alt="banner_2"
         priority
       />
       <Image
-        src="/images/banner/banner_3.jpeg"
+        src={ThirdBanner}
         width={448}
         height={300}
-        alt="banner_2"
+        alt="banner_3"
         priority
       />
     </Carousel>

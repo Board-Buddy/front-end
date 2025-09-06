@@ -8,6 +8,7 @@ import { postRNMessage, STATE_KEYS } from '@/utils/webview';
 import { SearchIcon } from 'lucide-react';
 import Image from 'next/image';
 import React, { useRef } from 'react';
+import SmallLogoOrange from '@images/logo/boardbuddy_small_logo_orange.png';
 
 const HomeSearchInput = () => {
   const router = useAppRouter();
@@ -46,7 +47,7 @@ const HomeSearchInput = () => {
   return (
     <div className="relative mx-auto flex h-12 w-[350px] -translate-y-1/2 items-center rounded-3xl border border-gray-200 bg-white shadow-md">
       <Image
-        src="/images/logo/boardbuddy_small_logo_orange.png"
+        src={SmallLogoOrange}
         width={24}
         height={24}
         alt="보드버디 로고"
