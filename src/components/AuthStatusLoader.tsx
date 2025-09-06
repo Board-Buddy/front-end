@@ -1,15 +1,16 @@
 'use client';
 
 import { ReactNode, useEffect } from 'react';
-import { useUserLoginCheck } from '@/hooks/useAuth';
+import { useUserInfo } from '@/hooks/useAuth';
 import { useSetUserInfo } from '@/hooks/custom/useSetUserInfo';
 
 interface Props {
+  loggedIn: boolean;
   children: ReactNode;
 }
 
-const AuthStatusLoader = ({ children }: Props) => {
-  const { data, isPending } = useUserLoginCheck({ isReady: true });
+const AuthStatusLoader = ({ loggedIn, children }: Props) => {
+  const { data, isPending } = useUserInfo({ isReady: loggedIn });
   const setUserInfo = useSetUserInfo();
 
   useEffect(() => {
