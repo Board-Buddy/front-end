@@ -1,13 +1,10 @@
 import AuthStatusLoader from '@/components/AuthStatusLoader';
 import LoginPromptModal from '@/components/LoginPromptModal';
-import { checkUserLogin } from '@/services/auth';
 import { ReactNode } from 'react';
 
-const Layout = async ({ children }: Readonly<{ children: ReactNode }>) => {
-  const isLoggedIn = await checkUserLogin();
-
+const Layout = ({ children }: Readonly<{ children: ReactNode }>) => {
   return (
-    <AuthStatusLoader loggedIn={isLoggedIn}>
+    <AuthStatusLoader>
       {children}
       <LoginPromptModal />
     </AuthStatusLoader>

@@ -5,12 +5,11 @@ import { useUserInfo } from '@/hooks/useAuth';
 import { useSetUserInfo } from '@/hooks/custom/useSetUserInfo';
 
 interface Props {
-  loggedIn: boolean;
   children: ReactNode;
 }
 
-const AuthStatusLoader = ({ loggedIn, children }: Props) => {
-  const { data, isPending } = useUserInfo({ isReady: loggedIn });
+const AuthStatusLoader = ({ children }: Props) => {
+  const { data, isPending } = useUserInfo();
   const setUserInfo = useSetUserInfo();
 
   useEffect(() => {

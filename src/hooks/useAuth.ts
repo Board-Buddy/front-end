@@ -40,11 +40,10 @@ export const useUserLogin = () => {
   });
 };
 
-export const useUserInfo = ({ isReady }: { isReady: boolean }) => {
+export const useUserInfo = () => {
   return useQuery({
     queryKey: authQueryKeys.userInfo(),
     queryFn: getUserInfo,
-    enabled: isReady,
   });
 };
 
