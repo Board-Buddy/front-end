@@ -53,12 +53,20 @@ export const login = (data: { username: string; password: string }) =>
 /** 로그인 확인 API */
 export const checkUserLogin = () =>
   api
-    .get<
-      SuccessResponse<{
-        profileDTO: UserInfo;
-      }>
-    >(ENDPOINT.AUTH.STATUS())
-    .then((response) => response.data.data.profileDTO);
+    .get<SuccessResponse<null>>(ENDPOINT.AUTH.STATUS())
+    .then((response) => response.status)
+    .then((status) => {
+      if (status === 200) {
+        return true;
+      }
+      return false;
+    });
+
+/** 내 정보 확인 API */
+export const getUserInfo = () =>
+  api
+    .get<SuccessResponse<{ memberInfo: UserInfo }>>(ENDPOINT.USER.USER_INFO())
+    .then((response) => response.data.data.memberInfo);
 
 /** 소셜 로그인 추가 인증 API */
 export const oauthRegister = (data: { phoneNumber: string }) =>

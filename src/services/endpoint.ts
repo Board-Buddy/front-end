@@ -41,6 +41,7 @@ export const ENDPOINT = {
   USER: {
     PROFILE: (nickname: string) => `/profiles/${nickname}` as const,
     BADGES: (nickname: string) => `/badges/${nickname}` as const,
+    USER_INFO: () => `/members/me` as const,
   },
   GATHER_ARTICLE: {
     LIST: () => `/gather-articles` as const,
