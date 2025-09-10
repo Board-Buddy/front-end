@@ -4,9 +4,9 @@ import Image from 'next/image';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import '@/styles/carousel.css';
-import FirstBanner from '@images/banner/banner_1.jpeg';
-import SecondBanner from '@images/banner/banner_2.jpeg';
-import ThirdBanner from '@images/banner/banner_3.jpeg';
+import FirstBanner from '@images/banner/banner_1.jpg';
+import SecondBanner from '@images/banner/banner_2.jpg';
+import ThirdBanner from '@images/banner/banner_3.jpg';
 
 const Banner = () => {
   const responsive = {
