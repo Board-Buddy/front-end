@@ -8,8 +8,6 @@ import ArticleListContainer from '@/containers/home/ArticleListContainer';
 import { rankingQueryKeys } from '@/utils/queryKeys';
 import HomeSearchInput from '@/containers/search/HomeSearchInput';
 
-export const dynamic = 'force-dynamic';
-
 const page = async () => {
   const queryClient = getQueryClient();
 
