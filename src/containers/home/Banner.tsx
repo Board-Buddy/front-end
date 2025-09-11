@@ -1,61 +1,58 @@
 'use client';
 
 import Image from 'next/image';
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
-import '@/styles/carousel.css';
 import FirstBanner from '@images/banner/banner_1.jpg';
 import SecondBanner from '@images/banner/banner_2.jpg';
 import ThirdBanner from '@images/banner/banner_3.jpg';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel';
+import Autoplay from 'embla-carousel-autoplay';
 
 const Banner = () => {
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 1,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 1,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-    },
-  };
-
   return (
     <Carousel
-      draggable
-      swipeable
-      arrows={false}
-      responsive={responsive}
-      infinite
-      containerClass="carousel-container"
-      autoPlay
-      autoPlaySpeed={4000}
+      opts={{ loop: true }}
+      plugins={[
+        Autoplay({
+          delay: 4000,
+        }),
+      ]}
     >
-      <Image
-        src={FirstBanner}
-        width={448}
-        height={300}
-        alt="banner_1"
-        priority
-      />
-      <Image
-        src={SecondBanner}
-        width={448}
-        height={300}
-        alt="banner_2"
-        priority
-      />
-      <Image
-        src={ThirdBanner}
-        width={448}
-        height={300}
-        alt="banner_3"
-        priority
-      />
+      <CarouselContent className="m-0">
+        <CarouselItem className="pl-0">
+          <Image
+            src={FirstBanner}
+            width={448}
+            height={300}
+            alt="banner_1"
+            priority // 우선순위가 높다고 간주하여 preload, lazy loading 비활성화
+            placeholder="blur"
+          />
+        </CarouselItem>
+        <CarouselItem className="pl-0">
+          <Image
+            src={SecondBanner}
+            width={448}
+            height={300}
+            alt="banner_2"
+            priority
+            placeholder="blur"
+          />
+        </CarouselItem>
+        <CarouselItem className="pl-0">
+          <Image
+            src={ThirdBanner}
+            width={448}
+            height={300}
+            alt="banner_3"
+            priority
+            placeholder="blur"
+          />
+        </CarouselItem>
+      </CarouselContent>
     </Carousel>
   );
 };

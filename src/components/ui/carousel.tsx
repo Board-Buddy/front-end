@@ -68,7 +68,6 @@ const Carousel = React.forwardRef<
     const [canScrollPrev, setCanScrollPrev] = React.useState(false);
     const [canScrollNext, setCanScrollNext] = React.useState(false);
 
-    // eslint-disable-next-line
     const onSelect = React.useCallback((api: CarouselApi) => {
       if (!api) {
         return;
@@ -125,7 +124,7 @@ const Carousel = React.forwardRef<
       <CarouselContext.Provider
         value={{
           carouselRef,
-          api,
+          api: api,
           opts,
           orientation:
             orientation || (opts?.axis === 'y' ? 'vertical' : 'horizontal'),
