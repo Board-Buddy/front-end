@@ -33,14 +33,12 @@ interface Props {
 
 const CustomAvatar = ({ src, rank, nickname, avatarSize }: Props) => {
   const userInfo = useUserInfo();
+  const loggedInUser = userInfo.userInfo?.nickname === nickname;
 
   return (
     <AppLink
-      href={
-        userInfo.userInfo?.nickname === nickname
-          ? `/my`
-          : `/profile/${nickname}`
-      }
+      href={loggedInUser ? `/my` : `/profile/${nickname}`}
+      screenName={loggedInUser ? 'MyPageScreen' : undefined}
       headerTitle={`${nickname} 님의 프로필`}
     >
       <Avatar
