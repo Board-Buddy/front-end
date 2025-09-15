@@ -53,6 +53,7 @@ const BadgeList = ({ badges, nickname }: Props) => {
                     width={65}
                     height={65}
                     className="bg-transparent"
+                    unoptimized
                   />
                 </div>
                 <div className="mt-2 text-center text-sm font-bold text-gray-600">
