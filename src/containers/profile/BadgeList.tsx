@@ -4,7 +4,6 @@ import { UserInfo } from '@/types/user';
 import { cn } from '@/utils/tailwind';
 import { ChevronRight } from 'lucide-react';
 import Image from 'next/image';
-import DefaultProfile from '@images/default_profile.png';
 
 interface Props {
   badges: Badge[];
@@ -48,7 +47,7 @@ const BadgeList = ({ badges, nickname }: Props) => {
               <div key={badge.badgeYearMonth}>
                 <div className="flex size-24 items-center justify-center rounded-full bg-bgGray">
                   <Image
-                    src={badge.badgeImageSignedURL || DefaultProfile}
+                    src={badge.badgeImageSignedURL}
                     alt="badge image"
                     width={65}
                     height={65}
