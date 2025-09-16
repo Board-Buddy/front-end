@@ -92,11 +92,11 @@ const Header = () => {
   } else if (pathname.includes('chat') && pathname.split('/').length >= 3) {
     title = '채팅';
     leftArrow = true;
-  } else if (pathname.includes('profile') && pathname.split('/').length >= 3) {
+  } else if (pathname.includes('profile') && pathname.split('/').length === 3) {
     const nickname = decodeURIComponent(pathname.split('/').pop()!);
     title = `${nickname} 님의 프로필`;
     leftArrow = true;
-  } else if (pathname.includes('badges') && pathname.split('/').length >= 4) {
+  } else if (pathname.includes('badges') && pathname.split('/').length === 4) {
     const nickname = decodeURIComponent(pathname.split('/')[2]!);
     title = `${nickname} 님의 뱃지 목록`;
     leftArrow = true;
