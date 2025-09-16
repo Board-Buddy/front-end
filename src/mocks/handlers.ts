@@ -9,7 +9,7 @@ import { myActivityHandlers } from './my';
 import { notificationHandlers } from './notifications';
 import { profileHandlers } from './profiles';
 import { rankingHandlers } from './rankings';
-import { RegionHandlers } from './regions';
+import { regionHandlers } from './regions';
 import { reviewHandlers } from './reviews';
 import { wsHandlers } from './ws';
 
@@ -26,6 +26,6 @@ export const handlers = [
   ...myActivityHandlers,
   ...reviewHandlers,
   ...wsHandlers,
-  ...RegionHandlers,
+  ...regionHandlers,
   ...membersHandlers,
 ];
