@@ -4,6 +4,7 @@ import { boardCafeHandlers } from './board-cafes';
 import { chatHandlers } from './chat';
 import { articleHandlers } from './gather-articles';
 import { participationHandlers } from './gather-articles/[gatherArticleId]/participation';
+import { membersHandlers } from './members';
 import { myActivityHandlers } from './my';
 import { notificationHandlers } from './notifications';
 import { profileHandlers } from './profiles';
@@ -26,4 +27,5 @@ export const handlers = [
   ...reviewHandlers,
   ...wsHandlers,
   ...RegionHandlers,
+  ...membersHandlers,
 ];
