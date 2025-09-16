@@ -16,12 +16,12 @@ const ChatItem = ({
       headerTitle="채팅"
     >
       <div className="flex min-h-28 w-full justify-center">
-        <div className="basis-2/3 rounded-xl bg-white px-4 py-3">
-          <div className="flex items-center">
-            <p className="max-w-48 truncate text-lg font-bold tracking-tighter text-primary">
+        <div className="max-w-[66.666%] basis-2/3 rounded-xl bg-white px-4 py-3">
+          <div className="flex items-center justify-between">
+            <p className="truncate text-lg font-bold tracking-tighter text-primary">
               {gatherArticleSimpleInfo.title}
             </p>
-            <p className="ml-auto text-xs font-semibold tracking-tighter text-gray-400">
+            <p className="flex-none text-xs font-semibold tracking-tighter text-gray-400">
               {getLastMessageSentTime(latestChatMessageInfo.sentAt)}
             </p>
           </div>
