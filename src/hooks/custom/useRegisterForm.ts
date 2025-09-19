@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { CustomAxiosError } from '@/types/api';
 
-const formSchema = z
+export const registerFormSchema = z
   .object({
     id: z
       .string()
@@ -55,6 +55,8 @@ const formSchema = z
     }
   });
 
+export type RegisterFormValues = z.infer<typeof registerFormSchema>;
+
 const useRegisterForm = () => {
   const [openRegisterSuccess, setOpenRegisterSuccess] = useState(false);
   const [openRegisterError, setOpenRegisterError] = useState(false);
@@ -66,8 +68,8 @@ const useRegisterForm = () => {
     useState(false);
   const [verifiedPhone, setVerifiedPhone] = useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerFormSchema),
     defaultValues: {
       id: '',
       password: '',
@@ -81,7 +83,8 @@ const useRegisterForm = () => {
 
   const verifyId = async () => {
     const idValue = form.getValues('id');
-    const validation = formSchema._def.schema.shape.id.safeParse(idValue);
+    const validation =
+      registerFormSchema._def.schema.shape.id.safeParse(idValue);
 
     if (!validation.success) {
       form.setError('id', {
@@ -106,7 +109,7 @@ const useRegisterForm = () => {
   const verifyNickname = async () => {
     const nicknameValue = form.getValues('nickname');
     const validation =
-      formSchema._def.schema.shape.nickname.safeParse(nicknameValue);
+      registerFormSchema._def.schema.shape.nickname.safeParse(nicknameValue);
 
     if (!validation.success) {
       form.setError('nickname', {
@@ -131,7 +134,7 @@ const useRegisterForm = () => {
   const sendPhoneCertificationNumber = async () => {
     const phoneNumberValue = form.getValues('phone');
     const validation =
-      formSchema._def.schema.shape.phone.safeParse(phoneNumberValue);
+      registerFormSchema._def.schema.shape.phone.safeParse(phoneNumberValue);
 
     if (!validation.success) {
       form.setError('phone', {
@@ -172,7 +175,7 @@ const useRegisterForm = () => {
     }
   };
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: RegisterFormValues) => {
     if (!uniqueId) {
       form.setError('id', {
         type: 'manual',
