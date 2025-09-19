@@ -68,7 +68,7 @@ const RegisterForm = () => {
             setShowPhoneVerifyCodeInput={setShowPhoneVerifyCodeInput}
             setVerifiedPhone={setVerifiedPhone}
             sendPhoneCertificationNumber={sendPhoneCertificationNumber}
-                    showPhoneVerifyCodeInput={showPhoneVerifyCodeInput}
+            showPhoneVerifyCodeInput={showPhoneVerifyCodeInput}
           />
           {showPhoneVerifyCodeInput && (
             <PhoneVerifyField
@@ -82,6 +82,7 @@ const RegisterForm = () => {
             className={cn(
               'bg-primary text-white font-bold text-lg w-full h-12',
             )}
+            disabled={!form.formState.isDirty || !form.formState.isValid}
           >
             가입하기
           </Button>
