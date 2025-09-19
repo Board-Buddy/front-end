@@ -70,6 +70,7 @@ const useRegisterForm = () => {
 
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerFormSchema),
+    mode: 'onBlur',
     defaultValues: {
       id: '',
       password: '',
