@@ -20,6 +20,7 @@ const RankingCard = ({ nickname, profileUrl, rank }: Props) => {
         rank === 2 && 'translate-x-6',
         rank === 3 && '-translate-x-6',
       )}
+      aria-label={`${rank}위 ${nickname}`}
     >
       <CardContent className="p-0">
         <div className="flex flex-col items-center gap-2">
@@ -34,6 +35,7 @@ const RankingCard = ({ nickname, profileUrl, rank }: Props) => {
               'text-gray-500 font-bold line-clamp-2',
               rank === 1 ? 'text-base' : 'text-sm',
             )}
+            aria-hidden={true}
           >
             {nickname}
           </span>

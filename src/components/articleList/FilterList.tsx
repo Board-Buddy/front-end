@@ -40,11 +40,14 @@ const FilterList = ({
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button className="ml-auto flex items-center bg-white p-0">
+          <Button
+            className="ml-auto flex items-center bg-white p-0"
+            aria-label="정렬 옵션"
+          >
             <p className="text-sm font-medium">
               {sort === null ? '최신순' : '임박순'}
             </p>
-            <ChevronDown className="ml-1 size-3 shrink-0" />
+            <ChevronDown className="ml-1 size-3 shrink-0" aria-hidden="true" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-24 bg-white" align="end">

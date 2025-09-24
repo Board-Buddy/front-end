@@ -32,9 +32,15 @@ const LocationSettingButton = ({ sgg, route, province }: Props) => {
   };
 
   return (
-    <div className="mb-2 mt-4 flex items-center gap-2" onClick={onClick}>
-      <Image src={SundyMap} alt="map_sundy" width={18} height={28} />
-      <div className="flex w-[300px] items-center bg-transparent p-0">
+    <div
+      className="mb-2 mt-4 inline-flex items-center justify-start gap-2"
+      onClick={onClick}
+      role="button"
+      aria-label="지역 필터 설정"
+      tabIndex={0}
+    >
+      <Image src={SundyMap} alt="" role="presentation" width={18} height={28} />
+      <div className="flex items-center bg-transparent p-0">
         <span className="text-lg font-bold text-gray-800">
           {getLocationLabel(sgg, province)}
         </span>

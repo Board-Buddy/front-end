@@ -55,6 +55,7 @@ const HomeSearchInput = () => {
       />
       <div className="flex grow items-center">
         <Input
+          aria-label="검색어 입력"
           type="search"
           className="border-none"
           placeholder="검색어를 입력하세요"
@@ -62,8 +63,11 @@ const HomeSearchInput = () => {
           onKeyDown={handleKeyDown}
         />
         <SearchIcon
+          aria-label="검색"
+          role="button"
           className="ml-auto mr-4 text-gray-400"
           onClick={handleSearch}
+          tabIndex={0}
         />
       </div>
     </div>

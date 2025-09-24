@@ -31,7 +31,10 @@ const Ranking = () => {
   ];
 
   return (
-    <div className="my-2 flex items-center justify-center">
+    <div
+      className="my-2 flex items-center justify-center"
+      aria-label="이번 달 랭킹"
+    >
       {rankingData.map((person) => (
         <RankingCard
           key={person.rank}

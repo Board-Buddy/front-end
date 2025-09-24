@@ -38,7 +38,7 @@ const Article = ({
   const badgeImage = author && author.rank ? rankBadge[author.rank - 1] : null;
 
   return (
-    <Card onClick={onClick}>
+    <Card onClick={onClick} tabIndex={0} aria-label={title} role="link">
       <CardHeader>
         <CardTitle className="flex items-center text-base font-semibold text-gray-600">
           <div

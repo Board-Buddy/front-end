@@ -20,6 +20,7 @@ const Banner = () => {
           delay: 4000,
         }),
       ]}
+      aria-label="배너"
     >
       <CarouselContent className="m-0">
         <CarouselItem className="pl-0">
@@ -27,7 +28,7 @@ const Banner = () => {
             src={FirstBanner}
             width={448}
             height={300}
-            alt="banner_1"
+            alt="보드게임 할 사람, 여기 버디 모여라!"
             priority // 우선순위가 높다고 간주하여 preload, lazy loading 비활성화
             placeholder="blur"
           />
@@ -37,7 +38,7 @@ const Banner = () => {
             src={SecondBanner}
             width={448}
             height={300}
-            alt="banner_2"
+            alt="모임에 참여하고 당신의 보드버디를 늘려보세요"
             priority
             placeholder="blur"
           />
@@ -47,7 +48,7 @@ const Banner = () => {
             src={ThirdBanner}
             width={448}
             height={300}
-            alt="banner_3"
+            alt="좋은 후기로 인기 버디가 되어보세요!"
             priority
             placeholder="blur"
           />
