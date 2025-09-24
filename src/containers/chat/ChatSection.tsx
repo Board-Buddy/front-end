@@ -44,16 +44,9 @@ const ChatSection = ({
   }, []);
 
   useEffect(() => {
-    const scroll = scrollRef.current;
-    if (!scroll) return;
-
-    const isAtBottom =
-      scroll.scrollHeight - scroll.scrollTop - scroll.clientHeight < 50;
-
-    if (isAtBottom) {
-      // 새로운 메시지가 추가될 때 스크롤을 조정하여 가장 최근 메시지가 보이도록 한다.
-      messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }
+    // 새로운 메시지가 추가될 때 스크롤을 조정하여 가장 최근 메시지가 보이도록 한다.
+    // TODO: 스크롤 위치가 최하단에 있을 때만 스크롤 이동하도록 변경 필요
+    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
 
   return (
