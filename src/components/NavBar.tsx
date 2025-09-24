@@ -32,9 +32,16 @@ const NavBar = () => {
   }
 
   return (
-    <ul className="flex h-16 items-center border-t border-gray-200 px-6 py-4">
+    <ul
+      className="flex h-16 items-center border-t border-gray-200 px-6 py-4"
+      aria-label="메인 내비게이션 바"
+    >
       {navBarList.map((item) => (
-        <li key={item.title} className="basis-1/4">
+        <li
+          key={item.title}
+          className="basis-1/4"
+          aria-label={`${item.title} 페이지로 가기`}
+        >
           <Link href={item.to} className="flex flex-col items-center">
             <item.icon
               width={24}

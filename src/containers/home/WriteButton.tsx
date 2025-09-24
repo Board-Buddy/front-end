@@ -38,6 +38,7 @@ const WriteButton = () => {
       )}
     >
       <Button
+        aria-label="모집글 작성"
         className="size-12 rounded-full border-none bg-primary p-0 shadow-md"
         onClick={handleClick}
       >

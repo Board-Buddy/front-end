@@ -89,6 +89,8 @@ const ArticleList = ({
                     group.posts.length > 0 ? group.posts[0].id : 'last-group'
                   }
                   className="flex flex-col gap-y-4 pb-4"
+                  role="list"
+                  aria-label="모집글 목록"
                 >
                   {group.posts.map((article) => (
                     <Article

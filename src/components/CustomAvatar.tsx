@@ -40,6 +40,7 @@ const CustomAvatar = ({ src, rank, nickname, avatarSize }: Props) => {
       href={loggedInUser ? `/my` : `/profile/${nickname}`}
       screenName={loggedInUser ? 'MyPageScreen' : undefined}
       headerTitle={`${nickname} 님의 프로필`}
+      aria-label={`${nickname} 님의 프로필 페이지로 이동`}
     >
       <Avatar
         className={cn(
@@ -49,9 +50,10 @@ const CustomAvatar = ({ src, rank, nickname, avatarSize }: Props) => {
         <AvatarImage
           src={src || '/images/default_profile.png'}
           className="rounded-full border border-gray-500 object-cover"
+          alt={`${nickname} 님의 프로필 사진`}
         />
         <AvatarFallback>
-          <Image src={DefaultProfile} alt="avatar_image" fill />
+          <Image src={DefaultProfile} alt="기본 프로필 사진" fill />
         </AvatarFallback>
         <div
           className={cn(
@@ -66,7 +68,7 @@ const CustomAvatar = ({ src, rank, nickname, avatarSize }: Props) => {
               src={rankBadge[rank - 1]}
               width={badgeSizeTW[avatarSize]}
               height={badgeSizeTW[avatarSize]}
-              alt="rank_image"
+              alt={`${rank}등 배지`}
             />
           ) : (
             <div className="size-5" />
