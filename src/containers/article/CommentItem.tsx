@@ -68,21 +68,21 @@ const CommentItem = ({
               )}
             >
               <Ellipsis className="size-4 text-gray-400" />
-              <DropdownMenuContent className="-ml-8 -mt-2 w-16 bg-white">
-                <DropdownMenuItem
-                  className="transition-all hover:bg-slate-50"
-                  onClick={() => onEditClick(comment.id, comment.content)}
-                >
-                  수정
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  className="transition-all hover:bg-slate-50"
-                  onClick={() => onDeleteClick(comment.id)}
-                >
-                  삭제
-                </DropdownMenuItem>
-              </DropdownMenuContent>
             </DropdownMenuTrigger>
+            <DropdownMenuContent className="-ml-8 -mt-2 w-16 bg-white">
+              <DropdownMenuItem
+                className="transition-all hover:bg-slate-50"
+                onClick={() => onEditClick(comment.id, comment.content)}
+              >
+                수정
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                className="transition-all hover:bg-slate-50"
+                onClick={() => onDeleteClick(comment.id)}
+              >
+                삭제
+              </DropdownMenuItem>
+            </DropdownMenuContent>
           </DropdownMenu>
         </div>
       </div>
