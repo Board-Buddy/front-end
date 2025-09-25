@@ -36,8 +36,7 @@ const CommentItem = ({
   return (
     <div
       className={cn(
-        'my-2 p-4',
-        !isReply && 'border-b border-gray-200 last-of-type:border-none',
+        'my-2 p-4 border-b border-gray-200 last:border-none',
         isReply && 'rounded-lg bg-gray-100',
       )}
     >
