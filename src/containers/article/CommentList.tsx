@@ -22,7 +22,11 @@ import CommentInput from './CommentInput';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
 import useAppRouter from '@/hooks/custom/useAppRouter';
 
-const CommentList = ({ articleId }: { articleId: Article['id'] }) => {
+interface Props {
+  articleId: Article['id'];
+}
+
+const CommentList = ({ articleId }: Props) => {
   const router = useAppRouter();
 
   const { userInfo } = useUserInfo();
