@@ -5,32 +5,19 @@ import { Input } from '@/components/ui/input';
 import { useLoginRequiredAction } from '@/hooks/custom/useLoginRequiredAction';
 import { useAddComment, useEditComment } from '@/hooks/useComment';
 import { Article } from '@/types/article';
-import { Reply } from '@/types/comment';
+import { CommentProps } from '@/types/comment';
 import { cn } from '@/utils/tailwind';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 
-interface Props {
+interface Props
+  extends Pick<
+    CommentProps,
+    | 'parentComment'
+    | 'setParentComment'
+    | 'editingComment'
+    | 'setEditingComment'
+  > {
   articleId: Article['id'];
-  parentComment: {
-    parentId: Reply['id'];
-    authorNickname: Reply['author']['nickname'];
-  } | null;
-  setParentComment: Dispatch<
-    SetStateAction<{
-      parentId: Reply['id'];
-      authorNickname: Reply['author']['nickname'];
-    } | null>
-  >;
-  editingComment: {
-    id: Reply['id'];
-    content: Reply['content'];
-  } | null;
-  setEditingComment: Dispatch<
-    SetStateAction<{
-      id: Reply['id'];
-      content: Reply['content'];
-    } | null>
-  >;
 }
 
 const CommentInput = ({

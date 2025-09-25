@@ -6,13 +6,13 @@ import ErrorFallback from '@/components/ErrorFallback';
 import { Article } from '@/types/article';
 import ArticleContent from './ArticleContent';
 import Profile from './Profile';
-import CommentList from './CommentList';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
 import ArticleParticipationStatus from './ArticleParticipationStatus';
 import { useLoginPromptModal } from '@/store/modalStore';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/tailwind';
 import useAppRouter from '@/hooks/custom/useAppRouter';
+import CommentContainer from './CommentContainer';
 
 const ArticleDetail = ({ id }: { id: Article['id'] }) => {
   const router = useAppRouter();
@@ -88,7 +88,7 @@ const ArticleDetail = ({ id }: { id: Article['id'] }) => {
           </Button>
         </div>
       )}
-      <CommentList articleId={id} />
+      <CommentContainer articleId={id} />
     </div>
   );
 };
