@@ -21,8 +21,6 @@ const CommentList = ({
   setOpenReplyDeleteAlert,
   setDeleteCommentId,
 }: Props) => {
-  console.log(comments);
-
   const handleReplyButtonClick = (
     parentId: Reply['id'],
     authorNickname: Reply['author']['nickname'],
