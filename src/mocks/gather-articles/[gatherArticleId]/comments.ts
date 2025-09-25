@@ -26,7 +26,7 @@ export const addComment = http.post<any, { content: string }>(
     const newComment = {
       id: comments.size,
       author: {
-        nickname: 'yubin',
+        nickname: 'kong',
         rank: 0,
         profileImageSignedURL: '',
       },
@@ -53,7 +53,7 @@ export const addReply = http.post<any, { content: string }>(
     const newComment = {
       id: comments.size,
       author: {
-        nickname: 'yubin',
+        nickname: 'kong',
         rank: 1,
         profileImageSignedURL: '',
       },
