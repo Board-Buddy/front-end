@@ -51,7 +51,7 @@ const CommentItem = ({
         <p className="text-sm">{comment.author.nickname}</p>
         <div className="ml-auto flex gap-2">
           {!isReply && (
-            <Button className="bg-transparent p-0">
+            <Button className="bg-transparent p-0" aria-label="대댓글 달기">
               <MessageSquare
                 className="size-4 text-gray-400"
                 onClick={() =>
@@ -66,6 +66,7 @@ const CommentItem = ({
                 nickname === comment.author.nickname ? 'visible' : 'hidden',
                 'bg-transparent p-0',
               )}
+              aria-label="댓글 수정/삭제 드롭다운"
             >
               <Ellipsis className="size-4 text-gray-400" />
             </DropdownMenuTrigger>

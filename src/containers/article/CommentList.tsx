@@ -41,9 +41,9 @@ const CommentList = ({
   };
 
   return (
-    <ul>
+    <ul aria-labelledby="comment">
       {comments.map((comment) => (
-        <li key={comment.id} aria-label="댓글">
+        <li key={comment.id}>
           <CommentItem
             comment={comment}
             onReplyClick={() =>
