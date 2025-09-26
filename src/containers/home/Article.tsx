@@ -41,7 +41,7 @@ const Article = ({
     <Card onClick={onClick} tabIndex={0} aria-label={title} role="listitem">
       <CardHeader>
         <CardTitle className="flex items-center text-base font-semibold text-gray-600">
-          <div
+          <span
             className={cn(
               'border rounded-md px-2 py-0.5 mr-2 flex-none',
               status === 'open'
@@ -50,7 +50,7 @@ const Article = ({
             )}
           >
             {ARTICLE_STATUS[status]}
-          </div>
+          </span>
           <p className="line-clamp-1">{title}</p>
         </CardTitle>
         <CardDescription className="text-gray-500">
@@ -58,47 +58,61 @@ const Article = ({
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col text-sm">
-        <div className="flex items-center text-secondary">
+        <p className="flex items-center text-secondary">
           <Image
             src={MapIcon}
-            alt="map"
+            alt=""
+            aria-hidden="true"
             width={12}
             height={12}
             className="mr-1"
           />
           {meetingLocation}
-        </div>
-        <div className="flex items-center text-gray-600">
+        </p>
+        <p
+          className="flex items-center text-gray-600"
+          aria-label={`현재 ${currentParticipants}명 참여, 최대 ${maxParticipants}명`}
+        >
           <Image
             src={ParticipantsIcon}
-            alt="participants"
+            alt=""
+            aria-hidden="true"
             width={12}
             height={12}
             className="mr-1"
           />
           {currentParticipants}/{maxParticipants}명 참여
-        </div>
-        <div className="flex items-center text-gray-700">
+        </p>
+        <p className="flex items-center text-gray-700">
           <Image
             src={ClockIcon}
-            alt="clock"
+            alt=""
+            aria-hidden="true"
             width={12}
             height={12}
             className="mr-1"
           />
           {formatMeetingTime(startDateTime, endDateTime)}
-        </div>
+        </p>
       </CardContent>
       <CardFooter className="flex text-sm">
-        <div className="mr-auto text-gray-500">
-          {formatRelativeTime(createdAt)}
-        </div>
-        <div className="flex items-center">
+        <p className="mr-auto text-gray-500">{formatRelativeTime(createdAt)}</p>
+        <p className="flex items-center">
           {badgeImage && (
-            <Image src={badgeImage} alt="rank_badge" width={30} height={30} />
+            <Image
+              src={badgeImage}
+              alt={`${author?.rank}등 배지`}
+              width={30}
+              height={30}
+            />
           )}
-          <p className="text-gray-700">{author?.nickname}</p>
-        </div>
+          <span
+            className="text-gray-700"
+            aria-label={`작성자 ${author?.nickname}`}
+          >
+            {author?.nickname}
+          </span>
+        </p>
       </CardFooter>
     </Card>
   );
