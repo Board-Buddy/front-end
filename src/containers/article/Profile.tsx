@@ -5,7 +5,10 @@ import { ChevronRight } from 'lucide-react';
 
 const Profile = ({ author }: { author: Author }) => {
   return (
-    <div className="flex items-center border-b border-gray-200 p-4">
+    <div
+      className="flex items-center border-b border-gray-200 p-4"
+      aria-label="작성자 프로필"
+    >
       <CustomAvatar
         src={author.profileImageSignedURL || null}
         rank={author.rank}
@@ -20,6 +23,7 @@ const Profile = ({ author }: { author: Author }) => {
         <AppLink
           href={`/profile/${author.nickname}`}
           headerTitle={`${author.nickname} 님의 프로필`}
+          aria-label={`${author.nickname} 님의 프로필 페이지로 이동`}
         >
           <ChevronRight className="size-5 text-gray-700" />
         </AppLink>

@@ -116,6 +116,7 @@ const ArticleContent = ({
                 isAuthor ? 'visible' : 'hidden',
                 'ml-auto cursor-pointer',
               )}
+              aria-label="모집글 수정/삭제 드롭다운"
             >
               <EllipsisVerticalIcon />
               <DropdownMenuContent className="-ml-8 mt-1 w-16 bg-white">
@@ -144,17 +145,20 @@ const ArticleContent = ({
             <div className="flex items-center text-gray-600">
               <Image
                 src={ParticipantsIcon}
-                alt="participants"
+                alt=""
+                aria-hidden="true"
                 width={12}
                 height={12}
                 className="mr-1"
+                aria-label={`현재 ${currentParticipants}명 참여, 최대 ${maxParticipants}명`}
               />
               {currentParticipants}/{maxParticipants}명 참여
             </div>
             <div className="flex items-center text-gray-700">
               <Image
                 src={ClockIcon}
-                alt="clock"
+                alt=""
+                aria-hidden="true"
                 width={12}
                 height={12}
                 className="mr-1"
@@ -168,7 +172,8 @@ const ArticleContent = ({
           <div className="my-2 flex items-center text-sm text-secondary">
             <Image
               src={MapIcon}
-              alt="map"
+              alt=""
+              aria-hidden="true"
               width={12}
               height={12}
               className="mr-1"

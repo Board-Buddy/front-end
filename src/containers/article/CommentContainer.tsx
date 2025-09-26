@@ -57,7 +57,9 @@ const CommentContainer = ({ articleId }: Props) => {
   return (
     <>
       <div className="p-4">
-        <span className="text-lg font-bold text-gray-700">댓글</span>
+        <span id="comment" className="text-lg font-bold text-gray-700">
+          댓글
+        </span>
         <CommentList
           comments={commentList}
           setParentComment={setParentComment}
