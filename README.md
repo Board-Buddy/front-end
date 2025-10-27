@@ -1,7 +1,7 @@
 ![header](https://capsule-render.vercel.app/api?type=waving&height=250&color=E9711C&text=BoardBuddy&textBg=false&fontColor=ffffff&fontSize=40&fontAlign=50&fontAlignY=39&section=header)
 
 <div align="center">
-  <h4>개발 기간: 2024/6/28 ~ 2024/8/14</h3><br>
+  <h4>개발 기간: 2024/6/28 ~ 진행 중</h3><br>
   <a href="#배포-주소">배포 주소</a> • <a href="#프로젝트-소개">프로젝트 소개</a> • <a href="#프론트엔드-주요-기술-스택">기술 스택</a> • <a href="#front-end-멤버-소개">멤버 소개</a> • <a href="#역할-및-담당-기능">역할 및 담당 기능</a> • <a href="#주요-기능">주요 기능</a> • <a href="#아키텍처">아키텍처</a> • <a href="#산출물">산출물</a> • <a href="#시연영상">시연영상</a>
 </div>
 
