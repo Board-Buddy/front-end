@@ -78,7 +78,7 @@ export const getArticle = http.get(
           title: '퇴근 후 보드게임 ㄱㄱ하실분',
           description: '스플렌더 하실 분~',
           author: {
-            nickname: '김구구',
+            nickname: 'kong',
             rank: 1,
             profileImageSignedURL: '',
             description: '자기소개',
