@@ -80,12 +80,6 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
     form.reset(formState);
   }, [formState, form]);
 
-  useEffect(() => {
-    return () => {
-      saveStateToApp(STATE_KEYS.ARTICLE_WRITE_FORM, null);
-    };
-  }, []);
-
   const handleLocationSettingButton = () => {
     setFormState(form.getValues());
 
