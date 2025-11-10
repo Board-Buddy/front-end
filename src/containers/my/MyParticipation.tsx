@@ -28,7 +28,7 @@ const MyParticipation = ({ joinCount, nickname }: Props) => {
       {!nickname && (
         <div className="mt-2 flex gap-4 text-gray-700">
           <AppLink
-            href="my/activity"
+            href="/my/activity"
             className="w-full"
             headerTitle="나의 활동"
           >
