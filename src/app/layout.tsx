@@ -37,6 +37,9 @@ export const metadata: Metadata = {
     ],
     locale: 'ko_KR',
   },
+  verification: {
+    google: 'X1xHGFlVn2nMh1e8HfS6YhIQUQgpwjY9T6HNnUZ8y3M',
+  },
 };
 
 export const viewport: Viewport = {
