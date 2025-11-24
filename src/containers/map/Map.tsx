@@ -5,7 +5,6 @@ import { Cafe, Location } from '@/types/map';
 import { useGetBoardCafes } from '@/hooks/useMap';
 import useKakaoMap from '@/hooks/custom/useKakaoMap';
 import useCafesMarkers from '@/hooks/custom/useCafesMarkers';
-import usePanToCafe from '@/hooks/custom/usePanToCafe';
 import ReloadButton from './ReloadButton';
 import useIsWebView from '@/hooks/custom/useIsWebView';
 import { MAX_SEARCH_RADIUS } from '@/constants/map';
@@ -17,11 +16,10 @@ const infoHeight = 250;
 interface Props {
   location: Location;
   children?: ReactNode;
-  cafeInfo: Cafe | null;
   setCafeInfo: (cafe: Cafe | null) => void;
 }
 
-const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
+const Map = ({ location, children, setCafeInfo }: Props) => {
   const [showInfo, setShowInfo] = useState(false);
   const [showReloadButton, setShowReloadButton] = useState(false);
 
@@ -44,7 +42,7 @@ const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
     radius,
   });
 
-  const clickListener = useCafesMarkers(
+  useCafesMarkers(
     cafes,
     mapObject,
     markersRef,
@@ -52,8 +50,6 @@ const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
     setCafeInfo,
     setShowReloadButton,
   );
-
-  usePanToCafe(cafeInfo, mapObject, showInfo, clickListener);
 
   const onReloadButtonClick = async () => {
     if (radius >= MAX_SEARCH_RADIUS) {

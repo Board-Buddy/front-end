@@ -63,7 +63,7 @@ const GeoLocation = () => {
   }
 
   return (
-    <Map location={location} cafeInfo={cafeInfo} setCafeInfo={setCafeInfo}>
+    <Map location={location} setCafeInfo={setCafeInfo}>
       {pathname.includes('map') && (
         <CafeInfo
           cafe={cafeInfo}

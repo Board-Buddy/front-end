@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Cafe } from '@/types/map';
 
 /** 카페 데이터를 기반으로 마커 생성 */
@@ -12,8 +12,6 @@ const useCafesMarkers = (
   setCafeInfo: (cafe: Cafe | null) => void,
   setShowReloadButton: (show: boolean) => void,
 ) => {
-  const [clickListener, setClickListener] = useState(false);
-
   useEffect(() => {
     if (cafes && mapObject) {
       // 기존 마커들을 지도에서 제거
@@ -43,7 +41,6 @@ const useCafesMarkers = (
           return function () {
             setCafeInfo(cafe);
             setShowInfo(true);
-            setClickListener((old) => !old);
             setShowReloadButton(false);
           };
         }
@@ -68,8 +65,6 @@ const useCafesMarkers = (
     setShowInfo,
     setShowReloadButton,
   ]);
-
-  return clickListener;
 };
 
 export default useCafesMarkers;
