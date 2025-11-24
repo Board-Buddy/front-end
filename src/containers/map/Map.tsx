@@ -37,7 +37,6 @@ const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
   const {
     data: cafes = [],
     isPending,
-    isError,
     refetch,
   } = useGetBoardCafes({
     x: center.lng,
@@ -66,11 +65,17 @@ const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
       setShowReloadButton(false);
       return;
     }
-    setShowReloadButton(false);
 
-    if (isError) {
-      console.log('카페 데이터 조회 에러');
+    const result = await refetch();
+
+    if (result.isError) {
+      errorToast(
+        'cafe-fetch-error',
+        '데이터를 불러오는 중에 오류가 발생했어요. 잠시 후 다시 시도해주세요.',
+      );
     }
+
+    setShowReloadButton(false);
   };
 
   const getMapHeight = () => {
