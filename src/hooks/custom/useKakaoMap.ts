@@ -7,7 +7,7 @@ import {
   MAP_INITIAL_RADIUS,
   MAP_MAX_LEVEL,
 } from '@/constants/map';
-import { Location } from '@/types/map';
+import { Cafe, Location } from '@/types/map';
 
 /** 카카오 지도 로드 및 초기화
  * @param location 초기화 시 center로 지정할 위치({lat: 위도, lng: 경도})
@@ -29,6 +29,7 @@ const useKakaoMap = (
   });
 
   const markersRef = useRef<any[]>([]); // 마커들을 저장하는 배열
+  const [selectedCafeId, setSelectedCafeId] = useState<Cafe['id'] | null>(null);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -59,6 +60,7 @@ const useKakaoMap = (
         window.kakao.maps.event.addListener(map, 'click', () => {
           if (setShowInfo) {
             setShowInfo(false);
+            setSelectedCafeId(null);
           }
         });
 
@@ -168,7 +170,15 @@ const useKakaoMap = (
     isMarkerSundy,
   ]);
 
-  return { mapRef, mapObject, markersRef, radius, center };
+  return {
+    mapRef,
+    mapObject,
+    markersRef,
+    radius,
+    center,
+    selectedCafeId,
+    setSelectedCafeId,
+  };
 };
 
 export default useKakaoMap;
