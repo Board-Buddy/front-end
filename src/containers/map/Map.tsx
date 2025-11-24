@@ -26,12 +26,15 @@ const Map = ({ location, children, setCafeInfo }: Props) => {
 
   const isWebView = useIsWebView();
 
-  const { mapRef, mapObject, markersRef, radius, center } = useKakaoMap(
-    location,
-    true,
-    setShowInfo,
-    setShowReloadButton,
-  );
+  const {
+    mapRef,
+    mapObject,
+    markersRef,
+    radius,
+    center,
+    selectedCafeId,
+    setSelectedCafeId,
+  } = useKakaoMap(location, true, setShowInfo, setShowReloadButton);
 
   const {
     data: cafes = [],
@@ -50,6 +53,8 @@ const Map = ({ location, children, setCafeInfo }: Props) => {
     setShowInfo,
     setCafeInfo,
     setShowReloadButton,
+    selectedCafeId,
+    setSelectedCafeId,
   );
 
   const onReloadButtonClick = async () => {

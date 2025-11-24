@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { Cafe } from '@/types/map';
 
-/** 카페 데이터를 기반으로 마커 생성 */
+/** 카페 데이터를 기반으로 마커 생성 + 선택 상태에 따라 이미지 교체 */
 const useCafesMarkers = (
   cafes: Cafe[],
   mapObject: any,
@@ -11,52 +11,65 @@ const useCafesMarkers = (
   setShowInfo: (show: boolean) => void,
   setCafeInfo: (cafe: Cafe | null) => void,
   setShowReloadButton: (show: boolean) => void,
+  selectedCafeId: Cafe['id'] | null,
+  setSelectedCafeId: (id: Cafe['id'] | null) => void,
 ) => {
+  // 마커 이미지 캐싱 (불필요한 마커 이미지 재생성 방지)
+  const defaultImageRef = useRef<any>(null);
+  const selectedImageRef = useRef<any>(null);
+
+  // 이미지 초기화
   useEffect(() => {
-    if (cafes && mapObject) {
-      // 기존 마커들을 지도에서 제거
-      markersRef.current.forEach((marker: any) => marker.setMap(null));
-      markersRef.current = [];
+    if (!mapObject) return; // mapObject가 준비되기 전까지 대기
 
-      // 새로운 마커들을 지도에 추가
-      cafes.forEach((cafe) => {
-        const markerPosition = new window.kakao.maps.LatLng(cafe.y, cafe.x);
+    defaultImageRef.current = new window.kakao.maps.MarkerImage(
+      '/images/icon/marker_icon.png',
+      new window.kakao.maps.Size(30, 30),
+    );
 
-        // 마커 이미지 생성
-        const markerImage = new window.kakao.maps.MarkerImage(
-          '/images/icon/marker_icon.png',
-          new window.kakao.maps.Size(37, 50),
-          { offset: new window.kakao.maps.Point(27, 60) },
-        );
+    selectedImageRef.current = new window.kakao.maps.MarkerImage(
+      '/images/icon/selected_marker_icon.png',
+      new window.kakao.maps.Size(37, 50),
+    );
+  }, [mapObject]);
 
-        const marker = new window.kakao.maps.Marker({
-          map: mapObject,
-          position: markerPosition,
-          image: markerImage,
-          clickable: true, // 마커를 클릭했을 때 지도의 클릭 이벤트가 발생하지 않도록 설정
-        });
+  // 마커 생성
+  useEffect(() => {
+    if (!cafes || !mapObject) return;
 
-        // 상세 정보를 표시하는 클로저를 만드는 함수
-        function makeClickListener() {
-          return function () {
-            setCafeInfo(cafe);
-            setShowInfo(true);
-            setShowReloadButton(false);
-          };
-        }
+    // 기존 마커 제거
+    markersRef.current.forEach((marker: any) => marker.setMap(null));
+    markersRef.current = [];
 
-        // 마커에 click 이벤트 등록
-        // 이벤트 리스너로는 클로저를 만들어 등록합니다
-        // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-        window.kakao.maps.event.addListener(
-          marker,
-          'click',
-          makeClickListener(),
-        );
+    // 새 마커 생성
+    cafes.forEach((cafe) => {
+      const position = new window.kakao.maps.LatLng(cafe.y, cafe.x);
 
-        markersRef.current.push(marker); // 마커를 배열에 저장
+      const marker = new window.kakao.maps.Marker({
+        map: mapObject,
+        position,
+        image: defaultImageRef.current,
+        clickable: true, // 마커 클릭 시 지도 클릭 이벤트 방지
       });
-    }
+
+      // 마커에 id 저장 (나중에 선택된 마커인지 판단하기 위함)
+      marker._cafeId = cafe.id;
+
+      // 마커 클릭 이벤트 클로저 (클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됨)
+      function makeClickListener() {
+        return function () {
+          setCafeInfo(cafe);
+          setShowInfo(true);
+          setShowReloadButton(false);
+          setSelectedCafeId(cafe.id);
+        };
+      }
+
+      // 마커에 클릭 이벤트 등록
+      window.kakao.maps.event.addListener(marker, 'click', makeClickListener());
+
+      markersRef.current.push(marker); // 마커 저장
+    });
   }, [
     cafes,
     mapObject,
@@ -64,7 +77,21 @@ const useCafesMarkers = (
     setCafeInfo,
     setShowInfo,
     setShowReloadButton,
+    setSelectedCafeId,
   ]);
+
+  // 선택된 마커만 이미지 교체
+  useEffect(() => {
+    if (!markersRef.current.length) return;
+
+    markersRef.current.forEach((marker: any) => {
+      const isSelected = marker._cafeId === selectedCafeId;
+
+      marker.setImage(
+        isSelected ? selectedImageRef.current : defaultImageRef.current,
+      );
+    });
+  }, [selectedCafeId, markersRef]);
 };
 
 export default useCafesMarkers;
