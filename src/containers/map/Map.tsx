@@ -8,6 +8,8 @@ import useCafesMarkers from '@/hooks/custom/useCafesMarkers';
 import usePanToCafe from '@/hooks/custom/usePanToCafe';
 import ReloadButton from './ReloadButton';
 import useIsWebView from '@/hooks/custom/useIsWebView';
+import { MAX_SEARCH_RADIUS } from '@/constants/map';
+import { errorToast } from '@/utils/customToast';
 
 const headerHeight = 56;
 const infoHeight = 250;
@@ -35,7 +37,6 @@ const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
   const {
     data: cafes = [],
     isPending,
-    isError,
     refetch,
   } = useGetBoardCafes({
     x: center.lng,
@@ -54,25 +55,31 @@ const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
 
   usePanToCafe(cafeInfo, mapObject, showInfo, clickListener);
 
-  const onReloadButtonClick = () => {
-    // 보드게임 카페 조회 요청
-    refetch();
-    setShowReloadButton(false);
+  const onReloadButtonClick = async () => {
+    if (radius >= MAX_SEARCH_RADIUS) {
+      errorToast(
+        'max-radius',
+        `한 번에 조회할 수 있는 반경은 최대 ${MAX_SEARCH_RADIUS / 1000}km입니다. 지도를 확대해서 다시 검색해 주세요.`,
+      );
 
-    if (isError) {
-      console.log('카페 데이터 조회 에러');
+      setShowReloadButton(false);
+      return;
     }
+
+    const result = await refetch();
+
+    if (result.isError) {
+      errorToast(
+        'cafe-fetch-error',
+        '데이터를 불러오는 중에 오류가 발생했어요. 잠시 후 다시 시도해주세요.',
+      );
+    }
+
+    setShowReloadButton(false);
   };
 
   const getMapHeight = () => {
-    let px = 0;
-
-    if (showInfo) {
-      px += infoHeight;
-      if (!isWebView) px += headerHeight;
-    } else {
-      if (!isWebView) px += headerHeight;
-    }
+    const px = (showInfo ? infoHeight : 0) + (isWebView ? 0 : headerHeight);
 
     return `calc(100dvh - ${px}px)`;
   };
