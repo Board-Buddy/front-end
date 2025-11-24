@@ -8,6 +8,8 @@ import useCafesMarkers from '@/hooks/custom/useCafesMarkers';
 import usePanToCafe from '@/hooks/custom/usePanToCafe';
 import ReloadButton from './ReloadButton';
 import useIsWebView from '@/hooks/custom/useIsWebView';
+import { MAX_SEARCH_RADIUS } from '@/constants/map';
+import { errorToast } from '@/utils/customToast';
 
 const headerHeight = 56;
 const infoHeight = 250;
@@ -54,9 +56,16 @@ const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
 
   usePanToCafe(cafeInfo, mapObject, showInfo, clickListener);
 
-  const onReloadButtonClick = () => {
-    // 보드게임 카페 조회 요청
-    refetch();
+  const onReloadButtonClick = async () => {
+    if (radius >= MAX_SEARCH_RADIUS) {
+      errorToast(
+        'max-radius',
+        `한 번에 조회할 수 있는 반경은 최대 ${MAX_SEARCH_RADIUS / 1000}km입니다. 지도를 확대해서 다시 검색해 주세요.`,
+      );
+
+      setShowReloadButton(false);
+      return;
+    }
     setShowReloadButton(false);
 
     if (isError) {
