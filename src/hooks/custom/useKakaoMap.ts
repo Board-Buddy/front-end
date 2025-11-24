@@ -3,10 +3,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { KAKAO_APP_KEY } from '@/constants/env';
 import {
-  LEVEL_TO_RADIUS,
   MAP_INITIAL_LEVEL,
+  MAP_INITIAL_RADIUS,
   MAP_MAX_LEVEL,
-  } from '@/constants/map';
+} from '@/constants/map';
 import { Location } from '@/types/map';
 
 /** 카카오 지도 로드 및 초기화
@@ -18,12 +18,10 @@ const useKakaoMap = (
   setShowInfo?: (show: boolean) => void,
   setShowReloadButton?: (show: boolean) => void,
   setStatic?: boolean,
-  ) => {
+) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const [mapObject, setMapObject] = useState<any>(null);
-  const [radius, setRadius] = useState<number>(
-    LEVEL_TO_RADIUS[MAP_INITIAL_LEVEL],
-  );
+  const [radius, setRadius] = useState<number>(MAP_INITIAL_RADIUS);
 
   const [center, setCenter] = useState<{ lat: number; lng: number }>({
     lat: location.latitude,
@@ -48,8 +46,8 @@ const useKakaoMap = (
             location.latitude,
             location.longitude,
           ),
-          level            : MAP_INITIAL_LEVEL,
-          // maxLevel: MAP_MAX_LEVEL,
+          level: MAP_INITIAL_LEVEL,
+          maxLevel: MAP_MAX_LEVEL,
           draggable: !setStatic,
           zoomable: !setStatic,
         };
@@ -64,13 +62,57 @@ const useKakaoMap = (
           }
         });
 
+        // 두 좌표 간 거리 계산 (Harvesine 공식)
+        const getDistance = (point1: any, point2: any) => {
+          const lat1 = point1.getLat();
+          const lng1 = point1.getLng();
+          const lat2 = point2.getLat();
+          const lng2 = point2.getLng();
+
+          const R = 6371000; // 지구 반경 (m)
+          const toRad = (deg: any) => (deg * Math.PI) / 180;
+
+          const dLat = toRad(lat2 - lat1);
+          const dLng = toRad(lng2 - lng1);
+
+          const a =
+            Math.sin(dLat / 2) ** 2 +
+            Math.cos(toRad(lat1)) *
+              Math.cos(toRad(lat2)) *
+              Math.sin(dLng / 2) ** 2;
+
+          const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+          return R * c;
+        };
+
         // 지도 확대/축소 이벤트 등록
         window.kakao.maps.event.addListener(map, 'zoom_changed', () => {
           if (setShowReloadButton) {
             setShowReloadButton(true);
           }
-          const level = map.getLevel();
-          setRadius(LEVEL_TO_RADIUS[level]);
+
+          const bounds = map.getBounds(); // ((남, 서), (북, 동)) 좌표를 반환
+          const ne = bounds.getNorthEast(); // 북동쪽 좌표
+          const sw = bounds.getSouthWest(); // 남서쪽 좌표
+
+          // 가로/세로 반경 계산
+          const centerPoint = map.getCenter();
+
+          const latDistance =
+            getDistance(
+              new window.kakao.maps.LatLng(centerPoint.getLat(), sw.getLng()),
+              new window.kakao.maps.LatLng(centerPoint.getLat(), ne.getLng()),
+            ) / 2;
+
+          const lngDistance =
+            getDistance(
+              new window.kakao.maps.LatLng(sw.getLat(), centerPoint.getLng()),
+              new window.kakao.maps.LatLng(ne.getLat(), centerPoint.getLng()),
+            ) / 2;
+
+          // 안전하게 화면 전체를 포함시키도록 큰 값으로 radius 설정
+          setRadius(Math.ceil(Math.max(latDistance, lngDistance)));
         });
 
         // 지도 이동(드래그) 이벤트 등록
@@ -123,7 +165,7 @@ const useKakaoMap = (
     setShowInfo,
     setShowReloadButton,
     setStatic,
-        isMarkerSundy,
+    isMarkerSundy,
   ]);
 
   return { mapRef, mapObject, markersRef, radius, center };
