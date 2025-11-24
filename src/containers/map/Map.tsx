@@ -79,14 +79,7 @@ const Map = ({ location, children, cafeInfo, setCafeInfo }: Props) => {
   };
 
   const getMapHeight = () => {
-    let px = 0;
-
-    if (showInfo) {
-      px += infoHeight;
-      if (!isWebView) px += headerHeight;
-    } else {
-      if (!isWebView) px += headerHeight;
-    }
+    const px = (showInfo ? infoHeight : 0) + (isWebView ? 0 : headerHeight);
 
     return `calc(100dvh - ${px}px)`;
   };
