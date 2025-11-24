@@ -9,9 +9,10 @@ import ReloadButton from './ReloadButton';
 import useIsWebView from '@/hooks/custom/useIsWebView';
 import { MAX_SEARCH_RADIUS } from '@/constants/map';
 import { errorToast } from '@/utils/customToast';
+import { remToPx } from '@/utils/remToPx';
 
-const headerHeight = 56;
-const infoHeight = 250;
+const headerHeight = remToPx(3.5);
+const infoHeight = remToPx(16);
 
 interface Props {
   location: Location;

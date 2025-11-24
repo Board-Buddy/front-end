@@ -15,7 +15,7 @@ const CafeInfo = ({ cafe, onClick, buttonTitle }: Props) => {
   const { phone, placeName, placeUrl, roadAddressName } = cafe;
 
   return (
-    <div className="rounded-2xl bg-white p-4 shadow-[0_-2px_10px_0_rgba(48,48,48,0.1)]">
+    <div className="h-64 bg-white p-4 shadow-[0_-2px_10px_0_rgba(48,48,48,0.1)]">
       <div className="flex flex-col gap-4">
         <h2 className="text-lg font-bold">{placeName}</h2>
         <div className="flex min-h-[114px] flex-col gap-1 text-base text-gray-800">

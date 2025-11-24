@@ -114,7 +114,7 @@ const Header = () => {
       {pathname === '/search' || pathname.includes('/home') ? (
         <>{leftArrow && <BackButton className="absolute mx-2 my-6" />}</>
       ) : (
-        <div className="flex h-14 items-center border-b border-gray-200 px-2 py-3">
+        <div className="flex min-h-14 items-center border-b border-gray-200 px-2 py-3">
           <div className="flex basis-1/12 items-center justify-center">
             {leftArrow && <BackButton />}
           </div>
