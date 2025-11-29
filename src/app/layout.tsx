@@ -16,27 +16,10 @@ const fontSans = FontSans({
   variable: '--font-sans',
 });
 
-export const BASE_URL = 'https://m.boardbuddi.com';
-
 export const metadata: Metadata = {
   title: '보드버디',
   description: '보드게임 할 사람, 여기 버디 모여라!',
-  icons: {
-    icon: '/images/logo/boardbuddy_small_logo_orange.png',
-  },
-  openGraph: {
-    title: '보드버디',
-    url: BASE_URL,
-    siteName: '보드버디',
-    images: [
-      {
-        url: `${BASE_URL}/images/og_image.png`,
-        width: 1600,
-        height: 630,
-      },
-    ],
-    locale: 'ko_KR',
-  },
+  metadataBase: new URL('https://m.boardbuddi.com'),
   verification: {
     google: 'X1xHGFlVn2nMh1e8HfS6YhIQUQgpwjY9T6HNnUZ8y3M',
   },

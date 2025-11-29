@@ -4,7 +4,7 @@ import CustomAlert from '@/components/CustomAlert';
 import useAppRouter from '@/hooks/custom/useAppRouter';
 import { useUserLoginCheck } from '@/hooks/useAuth';
 import { LoaderCircleIcon } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 const OAuthLoginSuccess = () => {
   const router = useAppRouter();
@@ -14,13 +14,13 @@ const OAuthLoginSuccess = () => {
 
   const [openError, setOpenError] = useState(false);
 
-  useEffect(() => {
-    if (isSuccess) {
-      router.push({ href: '/home', screenName: 'HomeScreen' });
-    } else if (isError) {
-      setOpenError(true);
-    }
-  }, [isSuccess, isError, router]);
+  if (isSuccess) {
+    router.push({ href: '/home', screenName: 'HomeScreen' });
+  }
+
+  if (isError) {
+    setOpenError(true);
+  }
 
   return (
     <>

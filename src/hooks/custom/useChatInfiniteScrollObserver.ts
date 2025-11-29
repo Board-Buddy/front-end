@@ -7,7 +7,7 @@ interface Props {
   threshold?: number;
   hasPreviousPage: boolean | undefined;
   fetchPreviousPage: () => Promise<InfiniteQueryObserverResult>;
-  scrollRef: RefObject<HTMLDivElement>;
+  scrollRef: RefObject<HTMLDivElement | null>;
 }
 
 export const useChatInfiniteScrollObserver = ({
