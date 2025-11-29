@@ -1,8 +1,6 @@
 import ReviewTargetUserList from '@/containers/reviews/ReviewTargetUserList';
 
-type Params = Promise<{ articleId: string }>;
-
-const page = async ({ params }: { params: Params }) => {
+const page = async ({ params }: PageProps<'/article/[articleId]/reviews'>) => {
   const { articleId } = await params;
 
   return (

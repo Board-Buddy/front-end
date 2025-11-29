@@ -5,9 +5,9 @@ import Loading from '@/components/Loading';
 import ChatRoom from '@/containers/chat/ChatRoom';
 import { Suspense } from 'react';
 
-type Params = Promise<{ articleId: string; chatRoomId: string }>;
-
-const Page = async ({ params }: { params: Params }) => {
+const Page = async ({
+  params,
+}: PageProps<'/chat/[articleId]/[chatRoomId]'>) => {
   const { articleId, chatRoomId } = await params;
 
   return (

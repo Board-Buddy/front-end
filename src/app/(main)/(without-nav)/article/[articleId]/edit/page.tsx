@@ -1,8 +1,6 @@
 import ArticleEditForm from '@/containers/article/ArticleEditForm';
 
-type Params = Promise<{ articleId: string }>;
-
-const page = async ({ params }: { params: Params }) => {
+const page = async ({ params }: PageProps<'/article/[articleId]/edit'>) => {
   const { articleId } = await params;
 
   return (
