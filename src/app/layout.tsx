@@ -16,11 +16,10 @@ const fontSans = FontSans({
   variable: '--font-sans',
 });
 
-export const BASE_URL = 'https://m.boardbuddi.com';
-
 export const metadata: Metadata = {
   title: '보드버디',
   description: '보드게임 할 사람, 여기 버디 모여라!',
+  metadataBase: new URL('https://m.boardbuddi.com'),
   verification: {
     google: 'X1xHGFlVn2nMh1e8HfS6YhIQUQgpwjY9T6HNnUZ8y3M',
   },

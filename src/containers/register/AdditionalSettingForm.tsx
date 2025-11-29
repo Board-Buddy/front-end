@@ -42,6 +42,14 @@ const AdditionalSettingForm = () => {
     isReady: getUserInfo,
   });
 
+  if (isSuccess) {
+    setOpenLoginSuccess(true);
+  }
+
+  if (isError) {
+    setOpenLoginError(true);
+  }
+
   const formSchema = z.object({
     phone: z
       .string()
@@ -130,16 +138,6 @@ const AdditionalSettingForm = () => {
       }
     }
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      setOpenLoginSuccess(true);
-    }
-
-    if (isError) {
-      setOpenLoginError(true);
-    }
-  }, [isSuccess, error, router, isError]);
 
   return (
     <>
