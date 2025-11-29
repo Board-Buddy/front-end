@@ -53,8 +53,8 @@ const Article = ({
           </div>
           <p className="line-clamp-1">{title}</p>
         </CardTitle>
-        <CardDescription className="text-gray-500">
-          <p className="line-clamp-1">{description}</p>
+        <CardDescription className="text-gray-500 line-clamp-1">
+          {description}
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col text-sm">

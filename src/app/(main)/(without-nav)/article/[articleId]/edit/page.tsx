@@ -1,9 +1,13 @@
 import ArticleEditForm from '@/containers/article/ArticleEditForm';
 
-const page = ({ params }: { params: { articleId: string } }) => {
+type Params = Promise<{ articleId: string }>;
+
+const page = async ({ params }: { params: Params }) => {
+  const { articleId } = await params;
+
   return (
     <div className="p-4">
-      <ArticleEditForm articleId={Number(params.articleId)} />
+      <ArticleEditForm articleId={Number(articleId)} />
     </div>
   );
 };

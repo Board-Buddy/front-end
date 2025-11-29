@@ -1,7 +1,11 @@
 import BadgeListDetail from '@/containers/profile/BadgeListDetail';
 
-const page = ({ params }: { params: { nickname: string } }) => {
-  return <BadgeListDetail nickname={params.nickname} />;
+type Params = Promise<{ nickname: string }>;
+
+const page = async ({ params }: { params: Params }) => {
+  const { nickname } = await params;
+
+  return <BadgeListDetail nickname={nickname} />;
 };
 
 export default page;

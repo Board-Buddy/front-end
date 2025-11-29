@@ -1,9 +1,13 @@
 import ReviewTargetUserList from '@/containers/reviews/ReviewTargetUserList';
 
-const page = ({ params }: { params: { articleId: string } }) => {
+type Params = Promise<{ articleId: string }>;
+
+const page = async ({ params }: { params: Params }) => {
+  const { articleId } = await params;
+
   return (
     <div className="p-4">
-      <ReviewTargetUserList articleId={Number(params.articleId)} />
+      <ReviewTargetUserList articleId={Number(articleId)} />
     </div>
   );
 };

@@ -1,7 +1,11 @@
 import ParticipantList from '@/containers/participants/ParticipantList';
 
-const page = ({ params }: { params: { articleId: string } }) => {
-  return <ParticipantList articleId={Number(params.articleId)} />;
+type Params = Promise<{ articleId: string }>;
+
+const page = async ({ params }: { params: Params }) => {
+  const { articleId } = await params;
+
+  return <ParticipantList articleId={Number(articleId)} />;
 };
 
 export default page;
