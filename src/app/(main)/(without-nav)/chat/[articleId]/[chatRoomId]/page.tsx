@@ -5,17 +5,17 @@ import Loading from '@/components/Loading';
 import ChatRoom from '@/containers/chat/ChatRoom';
 import { Suspense } from 'react';
 
-const Page = ({
+const Page = async ({
   params,
-}: {
-  params: { articleId: string; chatRoomId: string };
-}) => {
+}: PageProps<'/chat/[articleId]/[chatRoomId]'>) => {
+  const { articleId, chatRoomId } = await params;
+
   return (
     <CustomErrorBoundary>
       <Suspense fallback={<Loading />}>
         <ChatRoom
-          chatRoomId={Number(params.chatRoomId)}
-          articleId={Number(params.articleId)}
+          chatRoomId={Number(chatRoomId)}
+          articleId={Number(articleId)}
         />
       </Suspense>
     </CustomErrorBoundary>

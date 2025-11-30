@@ -145,7 +145,7 @@ const ArticleEditForm = ({ articleId }: { articleId: number }) => {
               <div className="flex">
                 <FormMessage className="ml-1 mt-1 text-sm text-red-600" />
                 <FormDescription className="ml-auto pt-1 text-right text-gray-500">
-                  {field.value.length > 50 ? 50 : field.value.length}/50
+                  {Math.min(field.value?.length ?? 0, 50)}/50
                 </FormDescription>
               </div>
             </FormItem>

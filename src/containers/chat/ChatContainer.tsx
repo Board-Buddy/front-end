@@ -2,7 +2,7 @@ import { ChatRoom, Message } from '@/types/chat';
 import useWebSocket from '@/hooks/custom/useWebSocket';
 import ChatSection from './ChatSection';
 import ChatInput from './ChatInput';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useGetExistingMessages } from '@/hooks/useChat';
 import Loading from '@/components/Loading';
 
@@ -13,8 +13,6 @@ interface Props {
 }
 
 const ChatContainer = ({ chatRoomId, messages, setMessages }: Props) => {
-  const [isInitialMessagesLoaded, setIsInitialMessagesLoaded] = useState(false);
-
   const { handleSendMessage } = useWebSocket(chatRoomId, setMessages);
 
   const { data, isPending, isError, fetchPreviousPage, hasPreviousPage } =
@@ -38,14 +36,7 @@ const ChatContainer = ({ chatRoomId, messages, setMessages }: Props) => {
     });
   }, [setMessages, data]);
 
-  useEffect(() => {
-    if (!isInitialMessagesLoaded && messages !== null) {
-      // 최초 메시지 세팅 완료
-      setIsInitialMessagesLoaded(true);
-    }
-  }, [isInitialMessagesLoaded, messages]);
-
-  if (isPending || isError || messages === null || !isInitialMessagesLoaded) {
+  if (isPending || isError || messages === null) {
     return <Loading />;
   }
 

@@ -41,12 +41,12 @@ const useWebViewMessageHandler = <T extends keyof MessagePayloadMap>(
     };
 
     window.addEventListener('message', handleWebViewMessage); // ios
-    // @ts-ignore
+    // @ts-expect-error Android의 경우 document에 이벤트 리스너를 추가해야 함
     document.addEventListener('message', handleWebViewMessage); // android
 
     return () => {
       window.removeEventListener('message', handleWebViewMessage);
-      // @ts-ignore
+      // @ts-expect-error Android의 경우 document에 이벤트 리스너를 추가해야 함
       document.removeEventListener('message', handleWebViewMessage);
     };
   }, [isWebView, messageType, callback, key]);

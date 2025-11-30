@@ -1,7 +1,9 @@
 import ArticleDetail from '@/containers/article/ArticleDetail';
 
-const page = ({ params }: { params: { articleId: string } }) => {
-  return <ArticleDetail id={Number(params.articleId)} />;
+const page = async ({ params }: PageProps<'/article/[articleId]'>) => {
+  const { articleId } = await params;
+
+  return <ArticleDetail id={Number(articleId)} />;
 };
 
 export default page;

@@ -1,10 +1,12 @@
 import Profile from '@/containers/profile/Profile';
 import ProfileContainer from '@/containers/profile/ProfileContainer';
 
-const Page = ({ params }: { params: { nickname: string } }) => {
+const Page = async ({ params }: PageProps<'/profile/[nickname]'>) => {
+  const { nickname } = await params;
+
   return (
     <ProfileContainer>
-      <Profile nickname={params.nickname} />{' '}
+      <Profile nickname={nickname} />
     </ProfileContainer>
   );
 };

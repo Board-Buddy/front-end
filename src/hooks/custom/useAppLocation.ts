@@ -30,8 +30,10 @@ const useAppLocation = () => {
     if (permissionStatus === 'granted') {
       postRNMessage(MessageType.GET_LOCATION);
     } else if (permissionStatus === 'denied') {
-      setError(
-        `보드게임 카페 지도를 이용하시려면\n설정에서 위치 권한을 허용해주세요.`,
+      Promise.resolve().then(() =>
+        setError(
+          `보드게임 카페 지도를 이용하시려면\n설정에서 위치 권한을 허용해주세요.`,
+        ),
       );
     }
   }, [isWebView, permissionStatus]);

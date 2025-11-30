@@ -1,26 +1,18 @@
-import { FlatCompat } from '@eslint/eslintrc';
-import { fileURLToPath } from 'url';
-import path from 'path';
+import { defineConfig, globalIgnores } from 'eslint/config';
+import nextVitals from 'eslint-config-next/core-web-vitals';
+import nextTs from 'eslint-config-next/typescript';
+import prettier from 'eslint-config-prettier';
 
-import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
-import prettier from 'eslint-plugin-prettier';
 import tailwindcss from 'eslint-plugin-tailwindcss';
 import importPlugin from 'eslint-plugin-import';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
-
-const configArray = [
-  ...compat.extends('next/core-web-vitals'),
-
+const eslintConfig = defineConfig([
+  ...nextVitals,
+  ...nextTs,
   {
     languageOptions: {
       ecmaVersion: 'latest',
@@ -34,23 +26,19 @@ const configArray = [
       },
     },
     files: ['**/*.{js,jsx,ts,tsx}'],
-    ignores: ['src/components/ui/**/*', 'public/mockServiceWorker.js'],
     plugins: {
       '@typescript-eslint': tseslint.plugin,
       react,
       'react-hooks': reactHooks,
       jsxA11y,
-      prettier,
       tailwindcss,
       import: importPlugin,
     },
     rules: {
       ...react.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
-      ...js.configs.recommended.rules,
       ...tseslint.configs.recommended.rules,
       ...jsxA11y.configs.recommended.rules,
-      ...prettier.configs.recommended.rules,
       ...tailwindcss.configs.recommended.rules,
 
       // typescript
@@ -104,6 +92,15 @@ const configArray = [
       },
     },
   },
-];
+  prettier,
+  globalIgnores([
+    '.next/**',
+    'out/**',
+    'build/**',
+    'next-env.d.ts',
+    'src/components/ui/**/*',
+    'public/mockServiceWorker.js',
+  ]),
+]);
 
-export default configArray;
+export default eslintConfig;

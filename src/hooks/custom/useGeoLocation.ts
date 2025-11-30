@@ -30,7 +30,11 @@ const useGeoLocation = (options = {}) => {
     const { geolocation } = navigator;
 
     if (!geolocation) {
-      setError('해당 기능이 지원되지 않는 브라우저입니다.');
+      // 동기적으로 setState를 호출하지 않고 비동기 처리
+      Promise.resolve().then(() =>
+        setError('해당 기능이 지원되지 않는 브라우저입니다.'),
+      );
+
       return;
     }
 
