@@ -133,15 +133,10 @@ const useKakaoMap = (
         const currentMarkerImage = new window.kakao.maps.MarkerImage(
           isMarkerSundy
             ? '/images/sundy/sundy_map.png'
-            : '/images/icon/marker_icon.png',
+            : '/images/icon/selected_marker_icon.png',
           isMarkerSundy
             ? new window.kakao.maps.Size(36, 56)
             : new window.kakao.maps.Size(37, 50),
-          {
-            offset: isMarkerSundy
-              ? new window.kakao.maps.Point(18, 56)
-              : new window.kakao.maps.Point(18, 50),
-          },
         );
 
         const currentMarkerPosition = new window.kakao.maps.LatLng(
