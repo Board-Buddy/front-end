@@ -1,36 +1,49 @@
-import { API_BASE_URL } from '@/services/endpoint';
-import { http, HttpResponse } from 'msw';
+import { ACCOUNT_MOCK } from './../register';
+import { createMockHandler } from '@/mocks';
+import { HttpResponse } from 'msw';
+import z from 'zod';
 
-interface RequestBody {
-  nickname: string;
-}
+const RequestBodySchema = z.object({
+  nickname: z.string(),
+});
 
-interface ResponseBody {
-  status: string;
-  data: null;
-  message: string;
-}
+export const checkNickname = createMockHandler<null>({
+  method: 'post',
+  endpoint: 'auth/nickname/check',
+  handler: async ({ request }) => {
+    const requestBody = await request.json();
+    const { data } = RequestBodySchema.safeParse(requestBody);
 
-export const checkNickname = http.post<any, RequestBody, ResponseBody>(
-  `${API_BASE_URL}/auth/nickname/check`,
-  async ({ request }) => {
-    const { nickname } = await request.json();
-
-    if (nickname === 'nickname') {
-      const result = {
-        status: 'failure',
-        data: null,
-        message: '동일한 닉네임이 이미 존재합니다.',
-      };
-      return HttpResponse.json(result, { status: 409 });
+    if (!data) {
+      return HttpResponse.json(
+        {
+          status: 'failure',
+          data: null,
+          message:
+            '요청 본문이 잘못된 형식이거나 유효하지 않은 데이터를 포함하고 있습니다. 올바른 형식으로 요청을 다시 시도하세요.',
+        },
+        { status: 400 },
+      );
     }
 
-    const result = {
-      status: 'success',
-      data: null,
-      message: '사용가능한 아이디 입니다.',
-    };
+    if (ACCOUNT_MOCK.find((account) => account.nickname === data.nickname)) {
+      return HttpResponse.json(
+        {
+          status: 'failure',
+          data: null,
+          message: '동일한 닉네임이 이미 존재합니다.',
+        },
+        { status: 409 },
+      );
+    }
 
-    return HttpResponse.json(result, { status: 200 });
+    return HttpResponse.json(
+      {
+        status: 'success',
+        data: null,
+        message: '사용가능한 아이디 입니다.',
+      },
+      { status: 200 },
+    );
   },
-);
+});

@@ -1,17 +1,31 @@
-import { API_BASE_URL } from '@/services/endpoint';
-import { http, HttpResponse } from 'msw';
+import { HttpResponse } from 'msw';
+import { createMockHandler } from '..';
+import { loggedInUserInfo } from './login';
+import { UserInfo } from '@/types/user';
 
-export const status = http.get(`${API_BASE_URL}/auth/status`, () => {
-  return HttpResponse.json({
-    status: 'success',
-    data: {
-      profileDTO: {
-        nickname: '김구구',
-        isPhoneNumberVerified: true,
-        profileImageSignedURL: null,
-        memberType: 'SOCIAL',
+export const status = createMockHandler<{ profileDTO: UserInfo }>({
+  method: 'get',
+  endpoint: 'auth/status',
+  handler: () => {
+    if (!loggedInUserInfo) {
+      return HttpResponse.json(
+        {
+          status: 'failure',
+          data: null,
+          message: '로그인 하지 않은 사용자의 요청입니다.',
+        },
+        {
+          status: 404,
+        },
+      );
+    }
+
+    return HttpResponse.json({
+      status: 'success',
+      data: {
+        profileDTO: loggedInUserInfo,
       },
-    },
-    message: '유효한 세션입니다.',
-  });
+      message: `${loggedInUserInfo.nickname}님의 세션은 유효합니다.`,
+    });
+  },
 });

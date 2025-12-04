@@ -1,15 +1,19 @@
-import { API_BASE_URL } from '@/services/endpoint';
-import { http, HttpResponse } from 'msw';
+import { delay, HttpResponse } from 'msw';
+import { createMockHandler } from '..';
 
-export const withdrawal = http.post(
-  `${API_BASE_URL}/auth/withdrawal`,
-  async () => {
-    const result = {
-      status: 'success',
-      data: null,
-      message: '회원탈퇴가 완료되었습니다.',
-    };
+export const withdrawal = createMockHandler<null>({
+  method: 'post',
+  endpoint: 'auth/withdrawal',
+  handler: async () => {
+    await delay();
 
-    return HttpResponse.json(result, { status: 200 });
+    return HttpResponse.json(
+      {
+        status: 'success',
+        data: null,
+        message: '회원탈퇴가 완료되었습니다.',
+      },
+      { status: 200 },
+    );
   },
-);
+});
