@@ -30,9 +30,7 @@ export const login = createMockHandler<{ profileDTO: UserInfo }>({
       );
     }
 
-    const account = ACCOUNT_MOCK.find(
-      (acc) => acc.username === data.username && acc.password === data.password,
-    );
+    const account = ACCOUNT_MOCK.find((acc) => acc.username === data.username);
 
     // 입력한 아이디가 올바르지 않은 경우
     if (!account) {
