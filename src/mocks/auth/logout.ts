@@ -3,7 +3,7 @@ import { createMockHandler } from '..';
 
 export const logout = createMockHandler<null>({
   method: 'post',
-  endpoint: 'auth/logout',
+  endpoint: '/auth/logout',
   handler: async () => {
     await delay();
 

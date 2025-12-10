@@ -9,7 +9,7 @@ const RequestBodySchema = z.object({
 
 export const checkUsername = createMockHandler<null>({
   method: 'post',
-  endpoint: 'auth/username/check',
+  endpoint: '/auth/username/check',
   handler: async ({ request }) => {
     const requestBody = await request.json();
     const { data } = RequestBodySchema.safeParse(requestBody);

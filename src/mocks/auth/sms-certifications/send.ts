@@ -3,7 +3,7 @@ import { HttpResponse } from 'msw';
 
 export const smsCertificationSend = createMockHandler<null>({
   method: 'post',
-  endpoint: 'auth/sms-certifications/send',
+  endpoint: '/auth/sms-certifications/send',
   handler: () => {
     return HttpResponse.json(
       {

@@ -3,7 +3,7 @@ import { createMockHandler } from '..';
 
 export const withdrawal = createMockHandler<null>({
   method: 'post',
-  endpoint: 'auth/withdrawal',
+  endpoint: '/auth/withdrawal',
   handler: async () => {
     await delay();
 

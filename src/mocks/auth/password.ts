@@ -8,7 +8,7 @@ const requestBodySchema = z.object({
 
 export const passwordCheck = createMockHandler<null>({
   method: 'post',
-  endpoint: 'auth/password',
+  endpoint: '/auth/password',
   handler: async ({ request }) => {
     const requestBody = await request.json();
     const { data } = requestBodySchema.safeParse(requestBody);

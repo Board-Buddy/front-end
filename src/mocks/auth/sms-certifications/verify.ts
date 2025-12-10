@@ -9,7 +9,7 @@ const requestBodySchema = z.object({
 
 export const smsCertificationVerify = createMockHandler<null>({
   method: 'post',
-  endpoint: 'auth/sms-certifications/verify',
+  endpoint: '/auth/sms-certifications/verify',
   handler: async ({ request }) => {
     const requestBody = await request.json();
     const { data } = requestBodySchema.safeParse(requestBody);

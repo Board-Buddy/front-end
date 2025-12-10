@@ -1,6 +1,5 @@
 import { createMockHandler } from '@/mocks';
-import { API_BASE_URL } from '@/services/endpoint';
-import { http, HttpResponse } from 'msw';
+import { HttpResponse } from 'msw';
 import z from 'zod';
 
 const RequestBodySchema = z.object({
@@ -9,7 +8,7 @@ const RequestBodySchema = z.object({
 
 export const oauthRegister = createMockHandler<null>({
   method: 'post',
-  endpoint: 'auth/oauth2/register',
+  endpoint: '/auth/oauth2/register',
   handler: async ({ request }) => {
     const requestBody = await request.json();
     const { data } = RequestBodySchema.safeParse(requestBody);

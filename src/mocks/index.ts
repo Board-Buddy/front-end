@@ -17,4 +17,4 @@ export const createMockHandler = <T>({
   endpoint,
   handler,
 }: CreateMockHandlerParams<T>) =>
-  http[method](`${API_BASE_URL}/${endpoint}`, handler);
+  http[method](`${API_BASE_URL}${endpoint}`, handler);

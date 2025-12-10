@@ -181,7 +181,7 @@ const ProvinceCodeSchema = z.enum(PROVINCE_CODES);
 
 export const getDistricts = createMockHandler<{ dataList: District[] }>({
   method: 'get',
-  endpoint: 'regions/provinces/:provinceCode([A-Z]+)/districts',
+  endpoint: '/regions/provinces/:provinceCode([A-Z]+)/districts',
   handler: ({ params }) => {
     const { provinceCode } = params;
 

@@ -13,7 +13,7 @@ const RequestBodySchema = z.object({
 
 export const login = createMockHandler<{ profileDTO: UserInfo }>({
   method: 'post',
-  endpoint: 'auth/login',
+  endpoint: '/auth/login',
   handler: async ({ request }) => {
     const requestBody = await request.json();
     const { data } = RequestBodySchema.safeParse(requestBody);

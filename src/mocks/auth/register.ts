@@ -43,7 +43,7 @@ const RequestBodySchema = z.object({
 
 export const register = createMockHandler<null>({
   method: 'post',
-  endpoint: 'auth/register',
+  endpoint: '/auth/register',
   handler: async ({ request }) => {
     const requestBody = await request.json();
     const { data } = RequestBodySchema.safeParse(requestBody);

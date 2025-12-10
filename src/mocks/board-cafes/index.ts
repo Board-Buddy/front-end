@@ -6,7 +6,7 @@ import { loggedInUserInfo } from '../auth/login';
 
 export const getBoardCafeInfos = createMockHandler<{ cafes: Cafe[] }>({
   method: 'get',
-  endpoint: 'board-cafes',
+  endpoint: '/board-cafes',
   handler: async ({ request }) => {
     const url = new URL(request.url);
     const radius = url.searchParams.get('radius');

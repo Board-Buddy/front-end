@@ -92,7 +92,7 @@ const PROVINCE_LIST_MOCK: Province[] = [
 
 export const getProvinces = createMockHandler<{ dataList: Province[] }>({
   method: 'get',
-  endpoint: 'regions/provinces',
+  endpoint: '/regions/provinces',
   handler: () => {
     return HttpResponse.json(
       {
