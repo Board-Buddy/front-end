@@ -1,29 +1,57 @@
 import { MAX_SEARCH_RADIUS } from '@/constants/map';
-import { API_BASE_URL } from '@/services/endpoint';
-import { http, HttpResponse } from 'msw';
+import { HttpResponse } from 'msw';
+import { createMockHandler } from '..';
+import { Cafe } from '@/types/map';
+import { loggedInUserInfo } from '../auth/login';
 
-export const boardCafes = http.get(
-  `${API_BASE_URL}/board-cafes`,
-  ({ request }) => {
+export const getBoardCafeInfos = createMockHandler<{ cafes: Cafe[] }>({
+  method: 'get',
+  endpoint: 'board-cafes',
+  handler: async ({ request }) => {
     const url = new URL(request.url);
     const radius = url.searchParams.get('radius');
 
+    if (loggedInUserInfo === null) {
+      return HttpResponse.json(
+        {
+          status: 'error',
+          data: null,
+          message:
+            '보드 게임 카페 찾기 요청을 처리할 수 없습니다. 관리자에게 문의하세요.',
+        },
+        {
+          status: 500,
+        },
+      );
+    }
+
     if (!radius || isNaN(Number(radius))) {
-      return HttpResponse.json({
-        status: 'failure',
-        data: null,
-        message: 'radius 파라미터가 필요합니다.',
-      });
+      return HttpResponse.json(
+        {
+          status: 'failure',
+          data: null,
+          message: 'radius 파라미터가 필요합니다.',
+        },
+        {
+          status: 400,
+        },
+      );
     }
 
     if (Number(radius) < 0 || Number(radius) > MAX_SEARCH_RADIUS) {
-      return HttpResponse.json({
-        status: 'failure',
-        data: null,
-        message: `반경 값은 0에서 ${MAX_SEARCH_RADIUS} 사이여야 합니다.`,
-      });
+      return HttpResponse.json(
+        {
+          status: 'failure',
+          data: null,
+          message: `반경 값은 0에서 ${MAX_SEARCH_RADIUS} 사이여야 합니다.`,
+        },
+        {
+          status: 400,
+        },
+      );
     }
 
+    // NOTE: 실제 카카오 지도 조회 대신 임의의 데이터 사용
     return HttpResponse.json(
       {
         status: 'success',
@@ -43,7 +71,6 @@ export const boardCafes = http.get(
               x: '126.972438244896',
               y: '37.5725658604431',
             },
-
             {
               addressName: '서울 종로구 관철동 19-11',
               distance: '2613',
@@ -79,6 +106,6 @@ export const boardCafes = http.get(
       { status: 200 },
     );
   },
-);
+});
 
-export const boardCafeHandlers = [boardCafes];
+export const boardCafeHandlers = [getBoardCafeInfos];
