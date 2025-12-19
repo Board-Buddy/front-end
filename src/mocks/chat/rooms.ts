@@ -7,7 +7,7 @@ export const getChatRooms = createMockHandler<{
   chatRoomDetailsList: ChatRoom[];
 }>({
   method: 'get',
-  endpoint: '/chat/room',
+  endpoint: '/chat/rooms',
   handler: () => {
     // NOTE: 참여 여부와 관련 없이 임시 데이터 사용
     const articleList = GATHER_ARTICLE_MOCK_DATA.slice(0, 4);
