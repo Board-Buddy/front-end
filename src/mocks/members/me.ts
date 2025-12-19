@@ -5,7 +5,7 @@ import { UserInfo } from '@/types/user';
 
 export const getUserInfo = createMockHandler<{ profileDTO: UserInfo }>({
   method: 'get',
-  endpoint: 'members/me',
+  endpoint: '/members/me',
   handler: () => {
     if (!loggedInUserInfo) {
       return HttpResponse.json(
