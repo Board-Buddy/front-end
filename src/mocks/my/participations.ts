@@ -1,66 +1,27 @@
-import { API_BASE_URL } from '@/services/endpoint';
-import { http, HttpResponse } from 'msw';
+import { HttpResponse } from 'msw';
+import { createMockHandler } from '..';
+import { ArticleList } from '@/types/article';
+import { GATHER_ARTICLE_MOCK_DATA } from '../gather-articles';
+import { loggedInUserInfo } from '../auth/login';
 
-export const getMyJoinedArticles = http.get(
-  `${API_BASE_URL}/my/participations`,
-  async () => {
-    const result = {
-      status: 'success',
-      data: {
-        posts: [
-          {
-            id: 1,
-            title: '퇴근 후 보드게임 ㄱㄱ하실분',
-            description: '스플렌더 하실 분~',
-            meetingLocation: '레드버튼 신림점',
-            maxParticipants: 4,
-            currentParticipants: 2,
-            startDateTime: '2024-07-20 11:00',
-            endDateTime: '2024-07-20 13:00',
-            createdAt: '2024-07-19 13:09',
-            status: 'open',
-          },
-          {
-            id: 2,
-            title: '퇴근 후 보드게임 ㄱㄱ하실분',
-            description: '스플렌더 하실 분~',
-            meetingLocation: '레드버튼 신림점',
-            maxParticipants: 4,
-            currentParticipants: 2,
-            startDateTime: '2024-07-20 11:00',
-            endDateTime: '2024-07-20 13:00',
-            createdAt: '2024-07-19 13:09',
-            status: 'closed',
-          },
-          {
-            id: 3,
-            title: '퇴근 후 보드게임 ㄱㄱ하실분',
-            description: '스플렌더 하실 분~',
-            meetingLocation: '레드버튼 신림점',
-            maxParticipants: 4,
-            currentParticipants: 2,
-            startDateTime: '2024-07-20 11:00',
-            endDateTime: '2024-07-20 13:00',
-            createdAt: '2024-07-19 13:09',
-            status: 'closed',
-          },
-          {
-            id: 4,
-            title: '퇴근 후 보드게임 ㄱㄱ하실분',
-            description: '스플렌더 하실 분~',
-            meetingLocation: '레드버튼 신림점',
-            maxParticipants: 4,
-            currentParticipants: 2,
-            startDateTime: '2024-07-20 11:00',
-            endDateTime: '2024-07-20 13:00',
-            createdAt: '2024-07-19 13:09',
-            status: 'closed',
-          },
-        ],
+// NOTE: 참가 여부까지 모킹하지 않으므로 내가 작성한 모집글 조회 API와 동일하게 구성
+export const getMyJoinedArticles = createMockHandler<{ posts: ArticleList }>({
+  method: 'get',
+  endpoint: '/my/participations',
+  handler: () => {
+    const articles = GATHER_ARTICLE_MOCK_DATA.filter(
+      (article) => article.author?.nickname === loggedInUserInfo?.nickname,
+    );
+
+    return HttpResponse.json(
+      {
+        status: 'success',
+        data: {
+          posts: articles,
+        },
+        message: '작성한 모집글이 조회되었습니다.',
       },
-      message: '참여한 모집글이 조회되었습니다.',
-    };
-
-    return HttpResponse.json(result, { status: 200 });
+      { status: 200 },
+    );
   },
-);
+});
