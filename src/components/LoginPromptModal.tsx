@@ -35,7 +35,7 @@ const LoginPromptModal = () => {
             className="w-full cursor-pointer place-content-center rounded-br-lg bg-primary text-sm font-semibold text-white"
             onClick={() => {
               close();
-              router.push({ href: '/login-splash' });
+              router.push({ href: '/login' });
             }}
           >
             <p>로그인하기</p>
