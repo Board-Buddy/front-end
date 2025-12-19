@@ -11,6 +11,7 @@ import { getArticleParticipationStatus } from './[gatherArticleId]/participation
 import { Article, ArticleList } from '@/types/article';
 import { createMockHandler } from '..';
 import z from 'zod';
+import { loggedInUserInfo } from '../auth/login';
 
 export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
   {
@@ -532,6 +533,10 @@ export const addArticle = createMockHandler<{ post: { id: number } }>({
       status: 'open',
       x: 126.929502, // x, y 좌표는 임의로 설정
       y: 37.4831938,
+      author: {
+        nickname: loggedInUserInfo?.nickname ?? 'user',
+        rank: null,
+      },
     };
 
     GATHER_ARTICLE_MOCK_DATA.push(newArticle);
