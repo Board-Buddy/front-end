@@ -2,9 +2,9 @@ import { createMockHandler } from '@/mocks';
 import { Comment } from '@/types/comment';
 import { HttpResponse } from 'msw';
 import { GATHER_ARTICLE_MOCK_DATA } from '..';
-import { loggedInUserInfo } from '@/mocks/auth/login';
 import z from 'zod';
 import { formatDateTime } from '@/utils/date';
+import { getLoggedInUserInfo } from '@/mocks/auth/login';
 
 // 댓글을 저장할 Map 객체 초기화
 const COMMENT_MOCK_DATA = new Map<number, Comment[]>();
@@ -68,6 +68,8 @@ export const addComment = createMockHandler<null>({
         { status: 400 },
       );
     }
+
+    const loggedInUserInfo = getLoggedInUserInfo();
 
     if (!loggedInUserInfo) {
       return HttpResponse.json(
@@ -156,6 +158,8 @@ export const addReply = createMockHandler<null>({
         { status: 400 },
       );
     }
+
+    const loggedInUserInfo = getLoggedInUserInfo();
 
     if (!loggedInUserInfo) {
       return HttpResponse.json(

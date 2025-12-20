@@ -4,7 +4,11 @@ import z from 'zod';
 import { ACCOUNT_MOCK } from './register';
 import { UserInfo } from '@/types/user';
 
-export let loggedInUserInfo: UserInfo | null = null;
+let loggedInUserInfo: UserInfo | null = null;
+export const getLoggedInUserInfo = () => loggedInUserInfo;
+export const setLoggedInUserInfo = (userInfo: UserInfo | null) => {
+  loggedInUserInfo = userInfo;
+};
 
 const RequestBodySchema = z.object({
   username: z.string(),

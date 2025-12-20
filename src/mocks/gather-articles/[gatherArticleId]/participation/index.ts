@@ -1,8 +1,8 @@
 import { createMockHandler } from '@/mocks';
-import { loggedInUserInfo } from '@/mocks/auth/login';
 import { ParticipantInfo } from '@/types/article';
 import { HttpResponse } from 'msw';
 import { GATHER_ARTICLE_MOCK_DATA } from '../..';
+import { getLoggedInUserInfo } from '@/mocks/auth/login';
 
 const participationMap = new Map<number, ParticipantInfo[]>([
   [
@@ -91,6 +91,8 @@ export const applyParticipation = createMockHandler<null>({
 
     const participants = participationMap.get(Number(articleId)) || [];
 
+    const loggedInUserInfo = getLoggedInUserInfo();
+
     const newParticipation = {
       id: participants.length + 1,
       nickname: loggedInUserInfo?.nickname ?? 'user',
@@ -131,6 +133,8 @@ export const cancelParticipation = createMockHandler<null>({
     }
 
     const participants = participationMap.get(Number(articleId)) || [];
+
+    const loggedInUserInfo = getLoggedInUserInfo();
 
     const updatedParticipants = participants.filter(
       (participation) =>

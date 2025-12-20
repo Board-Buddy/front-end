@@ -11,7 +11,7 @@ import { getArticleParticipationStatus } from './[gatherArticleId]/participation
 import { Article, ArticleList } from '@/types/article';
 import { createMockHandler } from '..';
 import z from 'zod';
-import { loggedInUserInfo } from '../auth/login';
+import { getLoggedInUserInfo } from '../auth/login';
 
 export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
   {
@@ -524,6 +524,8 @@ export const addArticle = createMockHandler<{ post: { id: number } }>({
         { status: 400 },
       );
     }
+
+    const loggedInUserInfo = getLoggedInUserInfo();
 
     const newArticle: Article = {
       id: GATHER_ARTICLE_MOCK_DATA.length + 1,

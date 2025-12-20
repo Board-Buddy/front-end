@@ -2,7 +2,7 @@ import { MAX_SEARCH_RADIUS } from '@/constants/map';
 import { HttpResponse } from 'msw';
 import { createMockHandler } from '..';
 import { Cafe } from '@/types/map';
-import { loggedInUserInfo } from '../auth/login';
+import { getLoggedInUserInfo } from '../auth/login';
 
 export const getBoardCafeInfos = createMockHandler<{ cafes: Cafe[] }>({
   method: 'get',
@@ -10,6 +10,8 @@ export const getBoardCafeInfos = createMockHandler<{ cafes: Cafe[] }>({
   handler: async ({ request }) => {
     const url = new URL(request.url);
     const radius = url.searchParams.get('radius');
+
+    const loggedInUserInfo = getLoggedInUserInfo();
 
     if (loggedInUserInfo === null) {
       return HttpResponse.json(

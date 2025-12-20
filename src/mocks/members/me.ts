@@ -1,12 +1,14 @@
 import { HttpResponse } from 'msw';
 import { createMockHandler } from '..';
-import { loggedInUserInfo } from '../auth/login';
 import { UserInfo } from '@/types/user';
+import { getLoggedInUserInfo } from '../auth/login';
 
 export const getUserInfo = createMockHandler<{ memberInfo: UserInfo }>({
   method: 'get',
   endpoint: '/members/me',
   handler: () => {
+    const loggedInUserInfo = getLoggedInUserInfo();
+
     if (!loggedInUserInfo) {
       return HttpResponse.json(
         {
