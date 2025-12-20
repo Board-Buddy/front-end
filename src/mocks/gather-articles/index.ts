@@ -28,7 +28,7 @@ export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
     endDateTime: '2024-07-20 21:00',
     createdAt: '2024-07-20 18:00',
     status: 'open',
-    sido: '서울',
+    sido: '서울특별시',
     sgg: '관악구',
   },
   {
@@ -45,7 +45,7 @@ export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
     endDateTime: '2024-07-20 22:00',
     createdAt: '2024-07-20 18:30',
     status: 'open',
-    sido: '서울',
+    sido: '서울특별시',
     sgg: '강남구',
   },
   {
@@ -62,7 +62,7 @@ export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
     endDateTime: '2024-07-21 16:00',
     createdAt: '2024-07-20 19:00',
     status: 'closed',
-    sido: '서울',
+    sido: '서울특별시',
     sgg: '마포구',
   },
   {
@@ -79,7 +79,7 @@ export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
     endDateTime: '2024-07-21 17:00',
     createdAt: '2024-07-20 19:30',
     status: 'completed',
-    sido: '서울',
+    sido: '서울특별시',
     sgg: '서대문구',
   },
   {
@@ -96,7 +96,7 @@ export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
     endDateTime: '2024-07-22 02:00',
     createdAt: '2024-07-20 20:00',
     status: 'completed',
-    sido: '경기',
+    sido: '경기도',
     sgg: '광명시',
   },
   {
@@ -113,7 +113,7 @@ export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
     endDateTime: '2024-07-21 14:00',
     createdAt: '2024-07-20 20:30',
     status: 'open',
-    sido: '경기',
+    sido: '경기도',
     sgg: '수원시',
   },
   {
@@ -130,7 +130,7 @@ export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
     endDateTime: '2024-07-22 16:00',
     createdAt: '2024-07-20 21:00',
     status: 'closed',
-    sido: '서울',
+    sido: '서울특별시',
     sgg: '광진구',
   },
   {
@@ -147,7 +147,7 @@ export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
     endDateTime: '2024-07-22 21:00',
     createdAt: '2024-07-20 21:30',
     status: 'open',
-    sido: '부산',
+    sido: '부산광역시',
     sgg: '부산진구',
   },
   {
@@ -164,7 +164,7 @@ export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
     endDateTime: '2024-07-23 19:00',
     createdAt: '2024-07-20 22:00',
     status: 'closed',
-    sido: '대전',
+    sido: '대전광역시',
     sgg: '중구',
   },
   {
@@ -181,7 +181,7 @@ export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
     endDateTime: '2024-07-24 03:00',
     createdAt: '2024-07-20 22:30',
     status: 'open',
-    sido: '대구',
+    sido: '대구광역시',
     sgg: '중구',
   },
   {
@@ -198,7 +198,7 @@ export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
     endDateTime: '2024-07-24 14:00',
     createdAt: '2024-07-21 12:00',
     status: 'completed',
-    sido: '인천',
+    sido: '인천광역시',
     sgg: '부평구',
   },
   {
@@ -215,7 +215,7 @@ export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
     endDateTime: '2024-07-24 21:00',
     createdAt: '2024-07-21 12:30',
     status: 'open',
-    sido: '광주',
+    sido: '광주광역시',
     sgg: '서구',
   },
   {
@@ -232,7 +232,7 @@ export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
     endDateTime: '2024-07-25 12:00',
     createdAt: '2024-07-21 13:00',
     status: 'completed',
-    sido: '경기',
+    sido: '경기도',
     sgg: '성남시 분당구',
   },
   {
@@ -249,7 +249,7 @@ export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
     endDateTime: '2024-07-26 03:00',
     createdAt: '2024-07-21 13:30',
     status: 'open',
-    sido: '전북',
+    sido: '전라북도',
     sgg: '전주시 완산구',
   },
   {
@@ -266,7 +266,7 @@ export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
     endDateTime: '2024-07-26 21:00',
     createdAt: '2024-07-21 14:00',
     status: 'open',
-    sido: '울산',
+    sido: '울산광역시',
     sgg: '남구',
   },
   {
@@ -283,7 +283,7 @@ export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
     endDateTime: '2024-07-26 22:00',
     createdAt: '2024-07-21 14:30',
     status: 'closed',
-    sido: '충남',
+    sido: '충청남도',
     sgg: '천안시 서북구',
   },
   {
@@ -300,7 +300,7 @@ export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
     endDateTime: '2024-07-27 15:00',
     createdAt: '2024-07-21 15:00',
     status: 'closed',
-    sido: '제주',
+    sido: '제주특별자치도',
     sgg: '제주시',
   },
   {
@@ -317,7 +317,7 @@ export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
     endDateTime: '2024-07-28 03:00',
     createdAt: '2024-07-21 15:30',
     status: 'open',
-    sido: '경남',
+    sido: '경상남도',
     sgg: '창원시 성산구',
   },
   {
@@ -334,7 +334,7 @@ export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
     endDateTime: '2024-07-28 12:00',
     createdAt: '2024-07-21 16:00',
     status: 'open',
-    sido: '대전',
+    sido: '대전광역시',
     sgg: '유성구',
   },
   {
@@ -351,7 +351,7 @@ export const GATHER_ARTICLE_MOCK_DATA: ArticleList = [
     endDateTime: '2024-07-28 17:00',
     createdAt: '2024-07-21 16:30',
     status: 'open',
-    sido: '강원',
+    sido: '강원도',
     sgg: '강릉시',
   },
 ];
