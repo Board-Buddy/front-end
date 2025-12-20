@@ -191,6 +191,14 @@ export const deleteArticle = createMockHandler<{ post: { id: number } }>({
       );
     }
 
+    const articleIndex = GATHER_ARTICLE_MOCK_DATA.findIndex(
+      (article) => article.id === articleId,
+    );
+
+    if (articleIndex !== -1) {
+      GATHER_ARTICLE_MOCK_DATA.splice(articleIndex, 1);
+    }
+
     return HttpResponse.json(
       {
         status: 'success',
