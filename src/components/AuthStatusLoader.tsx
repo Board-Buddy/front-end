@@ -9,14 +9,18 @@ interface Props {
 }
 
 const AuthStatusLoader = ({ children }: Props) => {
-  const { data, isSuccess } = useUserInfo();
+  const { data, error } = useUserInfo();
   const setUserInfo = useSetUserInfo();
 
   useEffect(() => {
-    if (isSuccess) {
+    if (data) {
       setUserInfo(data ?? null);
     }
-  }, [data, setUserInfo, isSuccess]);
+
+    if (error) {
+      setUserInfo(null);
+    }
+  }, [data, error, setUserInfo]);
 
   return <>{children}</>;
 };
