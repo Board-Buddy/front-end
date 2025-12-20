@@ -3,7 +3,7 @@ import { createMockHandler } from '..';
 import { loggedInUserInfo } from '../auth/login';
 import { UserInfo } from '@/types/user';
 
-export const getUserInfo = createMockHandler<{ profileDTO: UserInfo }>({
+export const getUserInfo = createMockHandler<{ memberInfo: UserInfo }>({
   method: 'get',
   endpoint: '/members/me',
   handler: () => {
@@ -23,7 +23,7 @@ export const getUserInfo = createMockHandler<{ profileDTO: UserInfo }>({
     return HttpResponse.json({
       status: 'success',
       data: {
-        profileDTO: loggedInUserInfo,
+        memberInfo: loggedInUserInfo,
       },
       message: '유저 정보를 성공적으로 조회 했습니다.',
     });
