@@ -52,7 +52,7 @@ const ArticleListContainer = () => {
   );
 
   return (
-    <div className="mb-2 mt-4">
+    <div className="mb-2 mt-4 flex-1">
       <QueryFallbackBoundary>
         <ArticleList
           emptyGuideMessage="작성된 모집글이 없습니다"

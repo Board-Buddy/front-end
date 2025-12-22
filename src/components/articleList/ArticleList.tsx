@@ -59,49 +59,50 @@ const ArticleList = ({
       {isPending && isFetching && <Loading />}
       {!isPending && (
         <>
-          {data.pages.map(
-            (group) =>
-              group.posts && (
-                <div
-                  key={
-                    group.posts.length > 0 ? group.posts[0].id : 'last-group'
-                  }
-                  className="flex flex-col gap-y-4 pb-4"
-                  role="list"
-                  aria-label="모집글 목록"
-                >
-                  {group.posts.map((article) => (
-                    <Article
-                      onClick={() =>
-                        router.push({
-                          href: `/article/${article.id}`,
-                          headerTitle: '모집글 상세',
-                        })
-                      }
-                      key={article.id}
-                      id={article.id}
-                      title={article.title}
-                      description={article.description}
-                      author={article.author}
-                      meetingLocation={article.meetingLocation}
-                      maxParticipants={article.maxParticipants}
-                      currentParticipants={article.currentParticipants}
-                      startDateTime={article.startDateTime}
-                      endDateTime={article.endDateTime}
-                      createdAt={article.createdAt}
-                      status={article.status}
-                    />
-                  ))}
-                </div>
-              ),
-          )}
-          {(data.pages[0].posts === null ||
-            data.pages[0].posts.length === 0) && (
-            <div className="py-12 text-center text-sm text-gray-600">
-              {emptyGuideMessage}
-            </div>
-          )}
-
+          <div className="flex flex-col gap-y-4">
+            {data.pages.map(
+              (group) =>
+                group.posts && (
+                  <div
+                    key={
+                      group.posts.length > 0 ? group.posts[0].id : 'last-group'
+                    }
+                    className="flex flex-col gap-y-4"
+                    role="list"
+                    aria-label="모집글 목록"
+                  >
+                    {group.posts.map((article) => (
+                      <Article
+                        onClick={() =>
+                          router.push({
+                            href: `/article/${article.id}`,
+                            headerTitle: '모집글 상세',
+                          })
+                        }
+                        key={article.id}
+                        id={article.id}
+                        title={article.title}
+                        description={article.description}
+                        author={article.author}
+                        meetingLocation={article.meetingLocation}
+                        maxParticipants={article.maxParticipants}
+                        currentParticipants={article.currentParticipants}
+                        startDateTime={article.startDateTime}
+                        endDateTime={article.endDateTime}
+                        createdAt={article.createdAt}
+                        status={article.status}
+                      />
+                    ))}
+                  </div>
+                ),
+            )}
+            {(data.pages[0].posts === null ||
+              data.pages[0].posts.length === 0) && (
+              <div className="py-12 text-center text-sm text-gray-600">
+                {emptyGuideMessage}
+              </div>
+            )}
+          </div>
           <div ref={setTarget} className="h-0" />
         </>
       )}

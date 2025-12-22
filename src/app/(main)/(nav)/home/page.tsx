@@ -36,17 +36,17 @@ const page = () => {
   const dehydratedState = dehydrate(queryClient);
 
   return (
-    <div>
+    <>
       <NotificationButton />
       <Banner />
       <HomeSearchInput />
       <HydrationBoundary state={dehydratedState}>
         <RankingContainer />
-        <div className="p-8 pt-2">
+        <div className="flex flex-1 p-8 pt-2">
           <ArticleListContainer />
         </div>
       </HydrationBoundary>
-    </div>
+    </>
   );
 };
 

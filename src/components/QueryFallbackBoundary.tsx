@@ -27,7 +27,7 @@ const DefaultErrorFallback = ({ reset, error }: DefaultErrorFallbackProps) => {
   }
 
   return (
-    <div className="flex h-full flex-col items-center justify-center text-sm">
+    <div className="flex size-full flex-col items-center justify-center text-sm">
       <p className="mb-2 text-sm text-gray-700">
         {error.message ?? '알 수 없는 문제가 발생했습니다.'}
       </p>
