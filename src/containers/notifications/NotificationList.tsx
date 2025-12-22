@@ -1,36 +1,12 @@
 'use client';
 
 import { useGetNotificationList } from '@/hooks/useNotifications';
-import Loading from '@/components/Loading';
-import ErrorFallback from '@/components/ErrorFallback';
 import NotificationItem from './NotificationItem';
 import FallbackRender from '@/components/FallbackRender';
 import EmptyFallback from '@/components/EmptyFallback';
-import useAppRouter from '@/hooks/custom/useAppRouter';
 
 const NotificationList = () => {
-  const router = useAppRouter();
-  const {
-    data: notifications,
-    isPending,
-    isError,
-    error,
-    refetch,
-  } = useGetNotificationList();
-
-  if (isPending) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    if (error.response?.status === 401) {
-      router.push({ href: '/login/guide' });
-    }
-
-    return (
-      <ErrorFallback reset={refetch} errMsg={error.response!.data.message} />
-    );
-  }
+  const { data: notifications } = useGetNotificationList();
 
   return (
     <FallbackRender
