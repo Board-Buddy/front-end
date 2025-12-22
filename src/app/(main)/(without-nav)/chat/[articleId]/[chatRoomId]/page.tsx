@@ -1,5 +1,3 @@
-'use client';
-
 import CustomErrorBoundary from '@/components/CustomErrorBoundary';
 import Loading from '@/components/Loading';
 import ChatRoom from '@/containers/chat/ChatRoom';
