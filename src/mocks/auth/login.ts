@@ -4,7 +4,8 @@ import z from 'zod';
 import { ACCOUNT_MOCK } from './register';
 import { UserInfo } from '@/types/user';
 
-let loggedInUserInfo: UserInfo | null = null;
+let loggedInUserInfo: UserInfo | null = ACCOUNT_MOCK[0]; // 기본 로그인 상태는 첫 번째 계정으로 설정
+
 export const getLoggedInUserInfo = () => loggedInUserInfo;
 export const setLoggedInUserInfo = (userInfo: UserInfo | null) => {
   loggedInUserInfo = userInfo;
