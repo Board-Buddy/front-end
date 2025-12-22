@@ -3,7 +3,6 @@
 import { useIntersectionObserver } from '@/hooks/custom/useIntersectionObserver';
 import { useGetArticles } from '@/hooks/useArticle';
 import Loading from '@/components/Loading';
-import ErrorFallback from '@/components/ErrorFallback';
 import Selectors from './Selectors';
 import Article from '../../containers/home/Article';
 import { GetArticleRequestParams } from '@/types/article';
@@ -32,41 +31,20 @@ const ArticleList = ({
   const router = useAppRouter();
   const isSearchPage = useIsSearchPage();
 
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isPending,
-    isFetching,
-    isError,
-    error,
-    refetch,
-  } = useGetArticles({
-    status,
-    sort,
-    sido,
-    sgg,
-    keyword,
-    search: isSearchPage,
-  });
+  const { data, fetchNextPage, hasNextPage, isPending, isFetching } =
+    useGetArticles({
+      status,
+      sort,
+      sido,
+      sgg,
+      keyword,
+      search: isSearchPage,
+    });
 
   const { setTarget } = useIntersectionObserver({
     hasNextPage,
     fetchNextPage,
   });
-
-  if (isError) {
-    if (error.response?.status === 401) {
-      router.push({ href: '/login/guide' });
-    }
-
-    return (
-      <ErrorFallback
-        reset={refetch}
-        errMsg={error.response?.data.message || error.message}
-      />
-    );
-  }
 
   return (
     <div>

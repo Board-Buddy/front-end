@@ -10,16 +10,16 @@ import { CustomAxiosError } from '@/types/api';
 import { Article, GetArticleRequestParams, NewArticle } from '@/types/article';
 import { successToast } from '@/utils/customToast';
 import {
-  InfiniteData,
-  useInfiniteQuery,
+  infiniteQueryOptions,
   useMutation,
   useQuery,
   useQueryClient,
+  useSuspenseInfiniteQuery,
 } from '@tanstack/react-query';
 import useAppRouter from './custom/useAppRouter';
 import { articleQueryKeys } from '@/utils/queryKeys';
 
-export const useGetArticles = ({
+export const getArticleListOptions = ({
   status,
   sort,
   sido,
@@ -27,19 +27,7 @@ export const useGetArticles = ({
   keyword,
   search,
 }: GetArticleRequestParams & { search: boolean }) =>
-  useInfiniteQuery<
-    {
-      posts: Article[];
-      last: boolean;
-    },
-    CustomAxiosError,
-    InfiniteData<{
-      posts: Article[];
-      last: boolean;
-    }>,
-    readonly [string, string, 'search' | 'browse', GetArticleRequestParams],
-    number
-  >({
+  infiniteQueryOptions({
     queryKey: articleQueryKeys.list({
       status,
       sort,
@@ -57,6 +45,18 @@ export const useGetArticles = ({
     gcTime: 5 * 60 * 1000,
     enabled: search ? !!keyword : true,
   });
+
+export const useGetArticles = ({
+  status,
+  sort,
+  sido,
+  sgg,
+  keyword,
+  search,
+}: GetArticleRequestParams & { search: boolean }) =>
+  useSuspenseInfiniteQuery(
+    getArticleListOptions({ status, sort, sido, sgg, keyword, search }),
+  );
 
 export const useGetArticle = (articleId: Article['id']) =>
   useQuery<
