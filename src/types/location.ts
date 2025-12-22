@@ -1,4 +1,5 @@
 export const PROVINCE_CODES = [
+  'ALL', // 프론트에서만 사용하는 전국 코드
   'SEOUL',
   'GYEONGGI',
   'GANGWON',
