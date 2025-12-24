@@ -1,37 +1,12 @@
 'use client';
 
 import { useGetChatRoomList } from '@/hooks/useChat';
-import Loading from '@/components/Loading';
-import ErrorFallback from '@/components/ErrorFallback';
 import ChatItem from './ChatItem';
 import FallbackRender from '@/components/FallbackRender';
 import EmptyFallback from '@/components/EmptyFallback';
-import useAppRouter from '@/hooks/custom/useAppRouter';
 
 const ChatRoomList = () => {
-  const router = useAppRouter();
-
-  const {
-    data: chatRooms,
-    isPending,
-    isError,
-    error,
-    refetch,
-  } = useGetChatRoomList();
-
-  if (isPending) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    if (error.response?.status === 401) {
-      router.push({ href: '/login/guide' });
-    }
-
-    return (
-      <ErrorFallback reset={refetch} errMsg={error.response!.data.message} />
-    );
-  }
+  const { data: chatRooms } = useGetChatRoomList();
 
   return (
     <div className="flex w-full flex-col gap-3 px-8 py-4">

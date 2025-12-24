@@ -8,7 +8,7 @@ import { useUserInfo } from './useUserInfo';
 
 const useWebSocket = (
   chatRoomId: ChatRoom['chatRoomId'],
-  setMessages: Dispatch<SetStateAction<Message[] | null>>,
+  setMessages: Dispatch<SetStateAction<Message[]>>,
 ) => {
   const { userInfo } = useUserInfo();
   const nickname = userInfo?.nickname;
