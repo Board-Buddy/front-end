@@ -1,9 +1,7 @@
 'use client';
 
 import { useGetMyArticles } from '@/hooks/useProfile';
-import Loading from '@/components/Loading';
 import { Article as IArticle } from '@/types/article';
-import ErrorFallback from '@/components/ErrorFallback';
 import Article from '../home/Article';
 import useAppRouter from '@/hooks/custom/useAppRouter';
 import FallbackRender from '@/components/FallbackRender';
@@ -12,27 +10,7 @@ import EmptyFallback from '@/components/EmptyFallback';
 const MyArticle = () => {
   const router = useAppRouter();
 
-  const {
-    data: posts,
-    isPending,
-    isError,
-    error,
-    refetch,
-  } = useGetMyArticles();
-
-  if (isPending) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    if (error.response?.status === 401) {
-      router.push({ href: '/login/guide' });
-    }
-
-    return (
-      <ErrorFallback reset={refetch} errMsg={error.response!.data.message} />
-    );
-  }
+  const { data: posts } = useGetMyArticles();
 
   return (
     <FallbackRender

@@ -8,43 +8,18 @@ import ReviewList from '@/containers/profile/ReviewList';
 import { useGetProfile } from '@/hooks/useProfile';
 import { UserInfo } from '@/types/user';
 import { cn } from '@/utils/tailwind';
-import Loading from '@/components/Loading';
-import ErrorFallback from '@/components/ErrorFallback';
 import QuitButtons from '../my/QuitButtons';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
-import useAppRouter from '@/hooks/custom/useAppRouter';
 
 interface Props {
   nickname?: UserInfo['nickname'];
 }
 
 const Profile = ({ nickname }: Props) => {
-  const router = useAppRouter();
-
   const { userInfo } = useUserInfo();
   const myNickname = userInfo?.nickname || '';
 
-  const {
-    data: profile,
-    isPending,
-    isError,
-    error,
-    refetch,
-  } = useGetProfile(nickname || myNickname);
-
-  if (isPending) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    if (error.response?.status === 401) {
-      router.push({ href: '/login/guide' });
-    }
-
-    return (
-      <ErrorFallback reset={refetch} errMsg={error.response!.data.message} />
-    );
-  }
+  const { data: profile } = useGetProfile(nickname || myNickname);
 
   return (
     <div className={cn('items-center p-8')}>
