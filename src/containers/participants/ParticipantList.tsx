@@ -5,42 +5,18 @@ import {
   useGetParticipationList,
   useRejectParticipationRequest,
 } from '@/hooks/useParticipation';
-import Loading from '@/components/Loading';
-import ErrorFallback from '@/components/ErrorFallback';
 import { Article, ParticipantInfo } from '@/types/article';
 import ParticipantItem from './ParticipantItem';
-import useAppRouter from '@/hooks/custom/useAppRouter';
 
 interface Props {
   articleId: Article['id'];
 }
 
 const ParticipantList = ({ articleId }: Props) => {
-  const router = useAppRouter();
-  const {
-    data: participants,
-    isPending,
-    isError,
-    error,
-    refetch,
-  } = useGetParticipationList(articleId);
+  const { data: participants } = useGetParticipationList(articleId);
 
   const approveMutation = useApproveParticipationRequest(articleId);
   const rejectMutation = useRejectParticipationRequest(articleId);
-
-  if (isPending) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    if (error.response?.status === 401) {
-      router.push({ href: '/login/guide' });
-    }
-
-    return (
-      <ErrorFallback reset={refetch} errMsg={error.response!.data.message} />
-    );
-  }
 
   const onApproveButtonClick = (
     participationId: ParticipantInfo['id'],
