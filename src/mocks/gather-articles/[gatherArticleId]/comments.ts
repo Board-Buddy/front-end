@@ -35,13 +35,16 @@ export const getComments = createMockHandler<{ comments: Comment[] }>({
       );
     }
 
-    return HttpResponse.json({
-      status: 'success',
-      data: {
-        comments: COMMENT_MOCK_DATA.get(articleId) || [],
+    return HttpResponse.json(
+      {
+        status: 'success',
+        data: {
+          comments: COMMENT_MOCK_DATA.get(articleId) || [],
+        },
+        message: '댓글 조회를 성공하였습니다.',
       },
-      message: '댓글 조회를 성공하였습니다.',
-    });
+      { status: 200 },
+    );
   },
 });
 
@@ -111,11 +114,14 @@ export const addComment = createMockHandler<null>({
       newComment,
     ]);
 
-    return HttpResponse.json({
-      status: 'success',
-      data: null,
-      message: '댓글이 작성에 성공하였습니다.',
-    });
+    return HttpResponse.json(
+      {
+        status: 'success',
+        data: null,
+        message: '댓글이 작성에 성공하였습니다.',
+      },
+      { status: 200 },
+    );
   },
 });
 
