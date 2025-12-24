@@ -1,7 +1,10 @@
 import { QueryFallbackBoundary } from '@/components/QueryFallbackBoundary';
 import ArticleDetail from '@/containers/article/ArticleDetail';
 import CommentContainer from '@/containers/article/CommentContainer';
-import { getArticleOptions } from '@/hooks/useArticle';
+import {
+  getArticleOptions,
+  getArticleParticipationStatusOptions,
+} from '@/hooks/useArticle';
 import { getCommentOptions } from '@/hooks/useComment';
 import getQueryClient from '@/utils/getQueryClient';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
@@ -14,6 +17,9 @@ const page = async ({ params }: PageProps<'/article/[articleId]'>) => {
 
   queryClient.prefetchQuery(getArticleOptions(articleNumberId));
   queryClient.prefetchQuery(getCommentOptions(articleNumberId));
+  queryClient.prefetchQuery(
+    getArticleParticipationStatusOptions(articleNumberId),
+  );
 
   const dehydratedState = dehydrate(queryClient);
 
