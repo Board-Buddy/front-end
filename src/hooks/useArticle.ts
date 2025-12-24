@@ -6,15 +6,15 @@ import {
   getArticleParticipationStatus,
   getArticles,
 } from '@/services/article';
-import { CustomAxiosError } from '@/types/api';
 import { Article, GetArticleRequestParams, NewArticle } from '@/types/article';
 import { successToast } from '@/utils/customToast';
 import {
   infiniteQueryOptions,
+  queryOptions,
   useMutation,
-  useQuery,
   useQueryClient,
   useSuspenseInfiniteQuery,
+  useSuspenseQuery,
 } from '@tanstack/react-query';
 import useAppRouter from './custom/useAppRouter';
 import { articleQueryKeys } from '@/utils/queryKeys';
@@ -58,29 +58,29 @@ export const useGetArticles = ({
     getArticleListOptions({ status, sort, sido, sgg, keyword, search }),
   );
 
-export const useGetArticle = (articleId: Article['id']) =>
-  useQuery<
-    Omit<Article, 'id' | 'participationApplicationStatus'>,
-    CustomAxiosError
-  >({
+export const getArticleOptions = (articleId: Article['id']) =>
+  queryOptions({
     queryKey: articleQueryKeys.detail(articleId),
     queryFn: () => getArticle(articleId),
     staleTime: 0,
     gcTime: 0,
   });
 
-export const useGetArticleParticipationStatus = (articleId: Article['id']) =>
-  useQuery<
-    {
-      participationApplicationStatus: Article['participationApplicationStatus'];
-    },
-    CustomAxiosError
-  >({
+export const useGetArticle = (articleId: Article['id']) =>
+  useSuspenseQuery(getArticleOptions(articleId));
+
+export const getArticleParticipationStatusOptions = (
+  articleId: Article['id'],
+) =>
+  queryOptions({
     queryKey: articleQueryKeys.participationStatus(articleId),
     queryFn: () => getArticleParticipationStatus(articleId),
     staleTime: 0,
     gcTime: 0,
   });
+
+export const useGetArticleParticipationStatus = (articleId: Article['id']) =>
+  useSuspenseQuery(getArticleParticipationStatusOptions(articleId));
 
 export const useAddArticle = () => {
   const queryClient = useQueryClient();

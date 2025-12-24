@@ -1,8 +1,6 @@
 'use client';
 
 import { useGetArticle } from '@/hooks/useArticle';
-import Loading from '@/components/Loading';
-import ErrorFallback from '@/components/ErrorFallback';
 import { Article } from '@/types/article';
 import ArticleContent from './ArticleContent';
 import Profile from './Profile';
@@ -11,38 +9,14 @@ import ArticleParticipationStatus from './ArticleParticipationStatus';
 import { useLoginPromptModal } from '@/store/modalStore';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/utils/tailwind';
-import useAppRouter from '@/hooks/custom/useAppRouter';
-import CommentContainer from './CommentContainer';
 
 const ArticleDetail = ({ id }: { id: Article['id'] }) => {
-  const router = useAppRouter();
-
-  const { userInfo, isLoading } = useUserInfo();
+  const { userInfo } = useUserInfo();
   const nickname = userInfo?.nickname;
 
   const openModal = useLoginPromptModal((state) => state.open);
 
-  const {
-    data: article,
-    isPending,
-    isError,
-    error,
-    refetch,
-  } = useGetArticle(id);
-
-  if (isPending || isLoading) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    if (error.response?.status === 401) {
-      router.push({ href: '/login/guide' });
-    }
-
-    return (
-      <ErrorFallback errMsg={error.response?.data.message} reset={refetch} />
-    );
-  }
+  const { data: article } = useGetArticle(id);
 
   const isAuthor = article.author!.nickname === nickname;
   const isCompleted = article.status === 'completed';
@@ -88,7 +62,6 @@ const ArticleDetail = ({ id }: { id: Article['id'] }) => {
           </Button>
         </div>
       )}
-      <CommentContainer articleId={id} />
     </div>
   );
 };

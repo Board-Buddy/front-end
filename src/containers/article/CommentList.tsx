@@ -1,26 +1,29 @@
-import { Comment, CommentProps, Reply } from '@/types/comment';
+import { CommentProps, Reply } from '@/types/comment';
 import CommentItem from './CommentItem';
+import { Article } from '@/types/article';
+import { useGetComments } from '@/hooks/useComment';
 
-interface Props
-  extends Pick<
-    CommentProps,
-    | 'setParentComment'
-    | 'setEditingComment'
-    | 'setOpenCommentDeleteAlert'
-    | 'setOpenReplyDeleteAlert'
-    | 'setDeleteCommentId'
-  > {
-  comments: Comment[];
+interface Props extends Pick<
+  CommentProps,
+  | 'setParentComment'
+  | 'setEditingComment'
+  | 'setOpenCommentDeleteAlert'
+  | 'setOpenReplyDeleteAlert'
+  | 'setDeleteCommentId'
+> {
+  articleId: Article['id'];
 }
 
 const CommentList = ({
-  comments,
+  articleId,
   setParentComment,
   setEditingComment,
   setOpenCommentDeleteAlert,
   setOpenReplyDeleteAlert,
   setDeleteCommentId,
 }: Props) => {
+  const { data: comments } = useGetComments(articleId);
+
   const handleReplyButtonClick = (
     parentId: Reply['id'],
     authorNickname: Reply['author']['nickname'],
