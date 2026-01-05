@@ -1,6 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import MyArticle from './MyArticle';
 import MyJoinedArticle from './MyJoinedArticle';
+import { QueryFallbackBoundary } from '@/components/QueryFallbackBoundary';
 
 const MyActivity = () => {
   return (
@@ -10,10 +11,14 @@ const MyActivity = () => {
         <TabsTrigger value="joinedArticle">참가한 모집글</TabsTrigger>
       </TabsList>
       <TabsContent value="myArticle">
-        <MyArticle />
+        <QueryFallbackBoundary>
+          <MyArticle />
+        </QueryFallbackBoundary>
       </TabsContent>
       <TabsContent value="joinedArticle">
-        <MyJoinedArticle />
+        <QueryFallbackBoundary>
+          <MyJoinedArticle />
+        </QueryFallbackBoundary>
       </TabsContent>
     </Tabs>
   );

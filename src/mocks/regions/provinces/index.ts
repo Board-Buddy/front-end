@@ -1,7 +1,8 @@
-import { API_BASE_URL } from '@/services/endpoint';
-import { http, HttpResponse } from 'msw';
+import { createMockHandler } from '@/mocks';
+import { Province } from '@/types/location';
+import { HttpResponse } from 'msw';
 
-const provinceListMockData = [
+const PROVINCE_LIST_MOCK: Province[] = [
   {
     code: 'SEOUL',
     name: '서울',
@@ -89,15 +90,21 @@ const provinceListMockData = [
   },
 ];
 
-export const getProvinces = http.get(
-  `${API_BASE_URL}/regions/provinces`,
-  () => {
-    return HttpResponse.json({
-      status: 'success',
-      data: {
-        dataList: provinceListMockData,
+export const getProvinces = createMockHandler<{ dataList: Province[] }>({
+  method: 'get',
+  endpoint: '/regions/provinces',
+  handler: () => {
+    return HttpResponse.json(
+      {
+        status: 'success',
+        data: {
+          dataList: PROVINCE_LIST_MOCK,
+        },
+        message: '시/도 목록을 성공적으로 조회 했습니다.',
       },
-      message: '시/도 목록을 성공적으로 조회 했습니다.',
-    });
+      {
+        status: 200,
+      },
+    );
   },
-);
+});

@@ -1,20 +1,24 @@
-import { API_BASE_URL } from '@/services/endpoint';
-import { http, HttpResponse } from 'msw';
+import { HttpResponse } from 'msw';
 import { GATHER_ARTICLE_MOCK_DATA } from '..';
+import { createMockHandler } from '@/mocks';
 
-export const getArticleParticipationStatus = http.get(
-  `${API_BASE_URL}/gather-articles/:id([0-9]+)/participation-status`,
-  ({ params }) => {
-    const { id } = params;
+export const getArticleParticipationStatus = createMockHandler<{
+  post: { participationApplicationStatus: string };
+}>({
+  method: 'get',
+  endpoint: '/gather-articles/:id([0-9]+)/participation-status',
+  handler: ({ params }) => {
+    const articleId = Number(params.id);
 
-    if (
-      !GATHER_ARTICLE_MOCK_DATA.find((article) => article.id === Number(id))
-    ) {
-      return HttpResponse.json({
-        status: 'failure',
-        data: null,
-        message: '존재하지 않는 모집글입니다.',
-      });
+    if (!GATHER_ARTICLE_MOCK_DATA.find((article) => article.id === articleId)) {
+      return HttpResponse.json(
+        {
+          status: 'failure',
+          data: null,
+          message: '존재하지 않는 모집글입니다.',
+        },
+        { status: 404 },
+      );
     }
 
     return HttpResponse.json({
@@ -25,4 +29,4 @@ export const getArticleParticipationStatus = http.get(
       message: '모집글 참가 신청 현황을 성공적으로 조회 하였습니다.',
     });
   },
-);
+});

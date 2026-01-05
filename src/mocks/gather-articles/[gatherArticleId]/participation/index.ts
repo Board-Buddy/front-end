@@ -1,6 +1,8 @@
-import { API_BASE_URL } from '@/services/endpoint';
+import { createMockHandler } from '@/mocks';
 import { ParticipantInfo } from '@/types/article';
-import { http, HttpResponse } from 'msw';
+import { HttpResponse } from 'msw';
+import { GATHER_ARTICLE_MOCK_DATA } from '../..';
+import { getLoggedInUserInfo } from '@/mocks/auth/login';
 
 const participationMap = new Map<number, ParticipantInfo[]>([
   [
@@ -31,10 +33,29 @@ const participationMap = new Map<number, ParticipantInfo[]>([
   [4, []],
 ]);
 
-export const getParticipants = http.get(
-  `${API_BASE_URL}/gather-articles/:articleId([0-9]+)/participation`,
-  ({ params }) => {
-    const { articleId } = params;
+export const getParticipants = createMockHandler<{
+  participationAppliedMemberList: ParticipantInfo[];
+}>({
+  method: 'get',
+  endpoint: '/gather-articles/:articleId([0-9]+)/participation',
+  handler: ({ params }) => {
+    const articleId = Number(params.articleId);
+
+    const article = GATHER_ARTICLE_MOCK_DATA.find(
+      (article) => article.id === articleId,
+    );
+
+    if (!article) {
+      return HttpResponse.json(
+        {
+          status: 'failure',
+          data: null,
+          message: '해당 모집글이 존재하지 않습니다.',
+        },
+        { status: 404 },
+      );
+    }
+
     const participants = participationMap.get(Number(articleId)) || [];
 
     return HttpResponse.json({
@@ -42,22 +63,41 @@ export const getParticipants = http.get(
       data: {
         participationAppliedMemberList: participants,
       },
-      message: '댓글 조회를 성공하였습니다.',
+      message: '해당 모집글의 참가 신청 목록을 성공적으로 조회했습니다.',
     });
   },
-);
+});
 
-export const applyParticipation = http.post(
-  `${API_BASE_URL}/gather-articles/:articleId([0-9]+)/participation`,
-  ({ params }) => {
-    const { articleId } = params;
+export const applyParticipation = createMockHandler<null>({
+  method: 'post',
+  endpoint: '/gather-articles/:articleId([0-9]+)/participation',
+  handler: ({ params }) => {
+    const articleId = Number(params.articleId);
+
+    const article = GATHER_ARTICLE_MOCK_DATA.find(
+      (article) => article.id === articleId,
+    );
+
+    if (!article) {
+      return HttpResponse.json(
+        {
+          status: 'failure',
+          data: null,
+          message: '해당 모집글이 존재하지 않습니다.',
+        },
+        { status: 404 },
+      );
+    }
+
     const participants = participationMap.get(Number(articleId)) || [];
+
+    const loggedInUserInfo = getLoggedInUserInfo();
 
     const newParticipation = {
       id: participants.length + 1,
-      nickname: 'yubin',
+      nickname: loggedInUserInfo?.nickname ?? 'user',
       rank: null,
-      profileImageSignedURL: null,
+      profileImageSignedURL: loggedInUserInfo?.profileImageSignedURL ?? null,
     };
 
     participants.push(newParticipation);
@@ -69,19 +109,39 @@ export const applyParticipation = http.post(
       message: '해당 모집글에 참가 신청이 완료되었습니다.',
     });
   },
-);
+});
 
-export const cancelParticipation = http.put(
-  `${API_BASE_URL}/gather-articles/:articleId([0-9]+)/participation`,
-  ({ params }) => {
-    const { articleId } = params;
-    const participants = participationMap.get(Number(articleId)) || [];
+export const cancelParticipation = createMockHandler<null>({
+  method: 'put',
+  endpoint: '/gather-articles/:articleId([0-9]+)/participation',
+  handler: ({ params }) => {
+    const articleId = Number(params.articleId);
 
-    const updatedParticipants = participants.filter(
-      (participation) => participation.nickname !== 'yubin',
+    const article = GATHER_ARTICLE_MOCK_DATA.find(
+      (article) => article.id === articleId,
     );
 
-    participationMap.set(Number(articleId), updatedParticipants);
+    if (!article) {
+      return HttpResponse.json(
+        {
+          status: 'failure',
+          data: null,
+          message: '해당 모집글이 존재하지 않습니다.',
+        },
+        { status: 404 },
+      );
+    }
+
+    const participants = participationMap.get(Number(articleId)) || [];
+
+    const loggedInUserInfo = getLoggedInUserInfo();
+
+    const updatedParticipants = participants.filter(
+      (participation) =>
+        participation.nickname !== (loggedInUserInfo?.nickname ?? 'user'),
+    );
+
+    participationMap.set(articleId, updatedParticipants);
 
     return HttpResponse.json({
       status: 'success',
@@ -89,15 +149,32 @@ export const cancelParticipation = http.put(
       message: '해당 모집글의 참가 신청을 취소했습니다.',
     });
   },
-);
+});
 
-export const approveParticipation = http.put(
-  `${API_BASE_URL}/gather-articles/:articleId([0-9]+)/participation/:participationId([0-9]+)/approval`,
-  ({ request, params }) => {
+export const approveParticipation = createMockHandler<null>({
+  method: 'put',
+  endpoint:
+    '/gather-articles/:articleId([0-9]+)/participation/:participationId([0-9]+)/approval',
+  handler: ({ request, params }) => {
     const url = new URL(request.url);
     const applicantNickname = url.searchParams.get('applicantNickname');
 
-    const { articleId } = params;
+    const articleId = Number(params.articleId);
+
+    const article = GATHER_ARTICLE_MOCK_DATA.find(
+      (article) => article.id === articleId,
+    );
+
+    if (!article) {
+      return HttpResponse.json(
+        {
+          status: 'failure',
+          data: null,
+          message: '해당 모집글이 존재하지 않습니다.',
+        },
+        { status: 404 },
+      );
+    }
 
     const participants = participationMap.get(Number(articleId)) || [];
 
@@ -105,7 +182,8 @@ export const approveParticipation = http.put(
       const updatedParticipants = participants.filter(
         (member) => member.nickname !== applicantNickname,
       );
-      participationMap.set(Number(articleId), updatedParticipants);
+
+      participationMap.set(articleId, updatedParticipants);
 
       return HttpResponse.json({
         status: 'success',
@@ -114,15 +192,32 @@ export const approveParticipation = http.put(
       });
     }
   },
-);
+});
 
-export const rejectParticipation = http.put(
-  `${API_BASE_URL}/gather-articles/:articleId([0-9]+)/participation/:participationId([0-9]+)/rejection`,
-  ({ request, params }) => {
+export const rejectParticipation = createMockHandler<null>({
+  method: 'put',
+  endpoint:
+    '/gather-articles/:articleId([0-9]+)/participation/:participationId([0-9]+)/rejection',
+  handler: ({ request, params }) => {
     const url = new URL(request.url);
     const applicantNickname = url.searchParams.get('applicantNickname');
 
-    const { articleId } = params;
+    const articleId = Number(params.articleId);
+
+    const article = GATHER_ARTICLE_MOCK_DATA.find(
+      (article) => article.id === articleId,
+    );
+
+    if (!article) {
+      return HttpResponse.json(
+        {
+          status: 'failure',
+          data: null,
+          message: '해당 모집글이 존재하지 않습니다.',
+        },
+        { status: 404 },
+      );
+    }
 
     const participants = participationMap.get(Number(articleId)) || [];
 
@@ -139,7 +234,7 @@ export const rejectParticipation = http.put(
       });
     }
   },
-);
+});
 
 export const participationHandlers = [
   getParticipants,

@@ -2,7 +2,7 @@ import Search from '@/containers/search/Search';
 
 const page = () => {
   return (
-    <div className="px-4 pb-4 pt-3">
+    <div className="flex h-full flex-col px-4 pb-4 pt-3">
       <Search />
     </div>
   );

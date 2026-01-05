@@ -1,15 +1,35 @@
-import { API_BASE_URL } from '@/services/endpoint';
-import { http, HttpResponse } from 'msw';
+import { getLoggedInUserInfo } from '@/mocks/auth/login';
 
-export const withdrawal = http.post(
-  `${API_BASE_URL}/auth/withdrawal`,
-  async () => {
-    const result = {
-      status: 'success',
-      data: null,
-      message: '회원탈퇴가 완료되었습니다.',
-    };
+import { delay, HttpResponse } from 'msw';
+import { createMockHandler } from '..';
+import { ACCOUNT_MOCK } from './register';
+import { setLoggedInUserInfo } from './login';
 
-    return HttpResponse.json(result, { status: 200 });
+export const withdrawal = createMockHandler<null>({
+  method: 'post',
+  endpoint: '/auth/withdrawal',
+  handler: async () => {
+    await delay();
+
+    const loggedInUserInfo = getLoggedInUserInfo();
+
+    const accountIndex = ACCOUNT_MOCK.findIndex(
+      (account) => account.nickname === loggedInUserInfo?.nickname,
+    );
+
+    if (accountIndex === -1) {
+      ACCOUNT_MOCK.splice(accountIndex, 1);
+    }
+
+    setLoggedInUserInfo(null);
+
+    return HttpResponse.json(
+      {
+        status: 'success',
+        data: null,
+        message: '회원탈퇴가 완료되었습니다.',
+      },
+      { status: 200 },
+    );
   },
-);
+});

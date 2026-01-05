@@ -1,47 +1,22 @@
 'use client';
 
-import ErrorFallback from '@/components/ErrorFallback';
 import FallbackRender from '@/components/FallbackRender';
-import Loading from '@/components/Loading';
 import { useUserInfo } from '@/hooks/custom/useUserInfo';
 import { useGetBadgeList } from '@/hooks/useProfile';
 import { UserInfo } from '@/types/user';
 import { cn } from '@/utils/tailwind';
 import Image from 'next/image';
 import EmptyFallback from '@/components/EmptyFallback';
-import useAppRouter from '@/hooks/custom/useAppRouter';
 
 interface Props {
   nickname?: UserInfo['nickname'];
 }
 
 const BadgeListDetail = ({ nickname }: Props) => {
-  const router = useAppRouter();
-
   const { userInfo } = useUserInfo();
   const myNickname = userInfo?.nickname || '';
 
-  const {
-    data: badges,
-    isPending,
-    isError,
-    error,
-    refetch,
-  } = useGetBadgeList(nickname || myNickname);
-
-  if (isPending) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    if (error.response?.status === 401) {
-      router.push({ href: '/login/guide' });
-    }
-
-    return (
-      <ErrorFallback reset={refetch} errMsg={error.response!.data.message} />
-    );
-  }
+  const { data: badges } = useGetBadgeList(nickname || myNickname);
 
   return (
     <div className="px-4 py-8">

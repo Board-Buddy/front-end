@@ -6,6 +6,7 @@ import { Article } from '@/types/article';
 import ArticleInfo from './ArticleInfo';
 import ChatContainer from './ChatContainer';
 import { useState } from 'react';
+import { QueryFallbackBoundary } from '@/components/QueryFallbackBoundary';
 
 interface Props {
   articleId: Article['id'];
@@ -13,7 +14,7 @@ interface Props {
 }
 
 const ChatRoom = ({ chatRoomId, articleId }: Props) => {
-  const [messages, setMessages] = useState<Message[] | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const { data: articleSimpleInfo } = useGetArticleSimpleInfo(
     chatRoomId,
@@ -26,11 +27,13 @@ const ChatRoom = ({ chatRoomId, articleId }: Props) => {
         articleId={articleId}
         articleSimpleInfo={articleSimpleInfo}
       />
-      <ChatContainer
-        chatRoomId={chatRoomId}
-        messages={messages}
-        setMessages={setMessages}
-      />
+      <QueryFallbackBoundary>
+        <ChatContainer
+          chatRoomId={chatRoomId}
+          messages={messages}
+          setMessages={setMessages}
+        />
+      </QueryFallbackBoundary>
     </>
   );
 };

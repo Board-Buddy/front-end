@@ -1,53 +1,38 @@
-import { API_BASE_URL } from '@/services/endpoint';
-import { http, HttpResponse } from 'msw';
+import { HttpResponse } from 'msw';
+import { createMockHandler } from '..';
+import { ChatRoom } from '@/types/chat';
+import { GATHER_ARTICLE_MOCK_DATA } from '../gather-articles';
 
-export const getChatRooms = http.get(`${API_BASE_URL}/chat/rooms`, () => {
-  return HttpResponse.json({
-    status: 'success',
-    data: {
-      chatRoomDetailsList: [
-        {
-          chatRoomId: 1,
-          gatherArticleSimpleInfo: {
-            gatherArticleId: 30,
-            title: '스플렌더 같이 하실 분 ㄱㄱ 긴 버전 어쩌구 저쩌구',
-            currentParticipants: 3,
-            meetingLocation: '레드버튼 신림점',
-          },
-          latestChatMessageInfo: {
-            content: '확인했습니다. 감사합니다 :)',
-            sentAt: '2024-07-19 13:09',
-          },
+export const getChatRooms = createMockHandler<{
+  chatRoomDetailsList: ChatRoom[];
+}>({
+  method: 'get',
+  endpoint: '/chat/rooms',
+  handler: () => {
+    // NOTE: 참여 여부와 관련 없이 임시 데이터 사용
+    const articleList = GATHER_ARTICLE_MOCK_DATA.slice(0, 4);
+
+    return HttpResponse.json(
+      {
+        status: 'success',
+        data: {
+          chatRoomDetailsList: articleList.map((article, index) => ({
+            chatRoomId: index,
+            gatherArticleSimpleInfo: {
+              gatherArticleId: article.id,
+              title: article.title,
+              currentParticipants: article.currentParticipants,
+              meetingLocation: article.meetingLocation,
+            },
+            latestChatMessageInfo: {
+              content: '확인했습니다. 감사합니다 :)',
+              sentAt: '2025-07-19 13:09',
+            },
+          })),
         },
-        {
-          chatRoomId: 2,
-          gatherArticleSimpleInfo: {
-            gatherArticleId: 30,
-            title: '스플렌더 같이 하실 분 ㄱㄱ',
-            currentParticipants: 3,
-            meetingLocation: '레드버튼 신림점',
-          },
-          latestChatMessageInfo: {
-            content: '확인했습니다. 감사합니다 :)',
-            sentAt: '2024-07-19 13:09',
-          },
-        },
-        {
-          chatRoomId: 3,
-          gatherArticleSimpleInfo: {
-            gatherArticleId: 30,
-            title: '스플렌더 같이 하실 분 ㄱㄱ',
-            currentParticipants: 3,
-            meetingLocation: '성균관대역점 더홀릭',
-          },
-          latestChatMessageInfo: {
-            content:
-              '확인했습니다. 감사합니다 :)확인했습니다. 감사합니다 :)확인했습니다. 감사합니다 :)확인했습니다. 감사합니다 :)확인했습니다. 감사합니다 :)확인했습니다. 감사합니다 :)',
-            sentAt: '2024-07-19 13:09',
-          },
-        },
-      ],
-    },
-    message: '채팅 메세지들의 정보들을 성공적으로 조회했습니다.',
-  });
+        message: '채팅 메세지들의 정보들을 성공적으로 조회했습니다.',
+      },
+      { status: 200 },
+    );
+  },
 });

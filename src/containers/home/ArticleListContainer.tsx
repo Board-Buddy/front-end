@@ -14,6 +14,7 @@ import { STATE_KEYS } from '@/utils/webview';
 import useRestoreAppState from '@/hooks/custom/useRestoreAppState';
 import { ArticleParams } from '@/store/createArticleFilterStore';
 import { useCallback, useMemo, useState } from 'react';
+import { QueryFallbackBoundary } from '@/components/QueryFallbackBoundary';
 
 const ArticleListContainer = () => {
   const [restoredState, setRestoredState] =
@@ -51,17 +52,21 @@ const ArticleListContainer = () => {
   );
 
   return (
-    <ArticleList
-      emptyGuideMessage="작성된 모집글이 없습니다"
-      status={merged.status}
-      sort={merged.sort}
-      sido={merged.sido}
-      sgg={merged.sgg}
-      keyword={merged.keyword}
-      setStatus={setStatus}
-      setSort={setSort}
-      province={merged.province}
-    />
+    <div className="mb-2 mt-4 flex-1">
+      <QueryFallbackBoundary>
+        <ArticleList
+          emptyGuideMessage="작성된 모집글이 없습니다"
+          status={merged.status}
+          sort={merged.sort}
+          sido={merged.sido}
+          sgg={merged.sgg}
+          keyword={merged.keyword}
+          setStatus={setStatus}
+          setSort={setSort}
+          province={merged.province}
+        />
+      </QueryFallbackBoundary>
+    </div>
   );
 };
 

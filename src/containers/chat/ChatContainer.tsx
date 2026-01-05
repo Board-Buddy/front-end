@@ -4,21 +4,18 @@ import ChatSection from './ChatSection';
 import ChatInput from './ChatInput';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useGetExistingMessages } from '@/hooks/useChat';
-import Loading from '@/components/Loading';
 
 interface Props {
   chatRoomId: ChatRoom['chatRoomId'];
-  messages: Message[] | null;
-  setMessages: Dispatch<SetStateAction<Message[] | null>>;
+  messages: Message[];
+  setMessages: Dispatch<SetStateAction<Message[]>>;
 }
 
 const ChatContainer = ({ chatRoomId, messages, setMessages }: Props) => {
   const { handleSendMessage } = useWebSocket(chatRoomId, setMessages);
 
-  const { data, isPending, isError, fetchPreviousPage, hasPreviousPage } =
-    useGetExistingMessages({
-      chatRoomId,
-    });
+  const { data, fetchPreviousPage, hasPreviousPage } =
+    useGetExistingMessages(chatRoomId);
 
   useEffect(() => {
     if (!data) return;
@@ -35,10 +32,6 @@ const ChatContainer = ({ chatRoomId, messages, setMessages }: Props) => {
       return [...uniquePastMessages, ...(prev || [])];
     });
   }, [setMessages, data]);
-
-  if (isPending || isError || messages === null) {
-    return <Loading />;
-  }
 
   return (
     <>

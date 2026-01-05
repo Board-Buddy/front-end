@@ -1,34 +1,31 @@
-'use client';
-
 import {
   getArticleSimpleInfo,
   getChatRoomList,
   getExistingMessages,
 } from '@/services/chat';
-import { CustomAxiosError, InfiniteScrollResponseData } from '@/types/api';
 import { Article } from '@/types/article';
-import { ArticleSimpleInfo, ChatRoom, Message } from '@/types/chat';
+import { ChatRoom } from '@/types/chat';
 import { chatQueryKeys } from '@/utils/queryKeys';
 import {
-  useInfiniteQuery,
-  useQuery,
+  infiniteQueryOptions,
+  queryOptions,
+  useSuspenseInfiniteQuery,
   useSuspenseQuery,
 } from '@tanstack/react-query';
 
-export const useGetChatRoomList = () => {
-  return useQuery<ChatRoom[], CustomAxiosError>({
-    queryKey: chatQueryKeys.chatRoomList(),
-    queryFn: getChatRoomList,
-    staleTime: 30 * 1000,
-  });
-};
+export const getChatRoomListOptions = queryOptions({
+  queryKey: chatQueryKeys.chatRoomList(),
+  queryFn: getChatRoomList,
+  staleTime: 30 * 1000,
+});
 
-export const useGetExistingMessages = ({
-  chatRoomId,
-}: {
-  chatRoomId: ChatRoom['chatRoomId'];
-}) =>
-  useInfiniteQuery<InfiniteScrollResponseData<Message>, CustomAxiosError>({
+export const useGetChatRoomList = () =>
+  useSuspenseQuery(getChatRoomListOptions);
+
+export const getExistingMessagesOptions = (
+  chatRoomId: ChatRoom['chatRoomId'],
+) =>
+  infiniteQueryOptions({
     queryKey: chatQueryKeys.messageList(chatRoomId),
     queryFn: ({ pageParam }) => {
       const direction = pageParam === undefined ? 'initial' : 'older';
@@ -46,14 +43,21 @@ export const useGetExistingMessages = ({
     staleTime: 0,
   });
 
-export const useGetArticleSimpleInfo = (
+export const useGetExistingMessages = (chatRoomId: ChatRoom['chatRoomId']) =>
+  useSuspenseInfiniteQuery(getExistingMessagesOptions(chatRoomId));
+
+export const getArticleSimpleInfoOptions = (
   chatRoomId: ChatRoom['chatRoomId'],
   articleId: Article['id'],
-) => {
-  return useSuspenseQuery<Omit<ArticleSimpleInfo, 'id'>>({
+) =>
+  queryOptions({
     queryKey: chatQueryKeys.articleSimpleInfo(chatRoomId, articleId),
     queryFn: () => getArticleSimpleInfo(chatRoomId, articleId),
     staleTime: 30 * 1000,
     gcTime: 5 * 60 * 1000,
   });
-};
+
+export const useGetArticleSimpleInfo = (
+  chatRoomId: ChatRoom['chatRoomId'],
+  articleId: Article['id'],
+) => useSuspenseQuery(getArticleSimpleInfoOptions(chatRoomId, articleId));

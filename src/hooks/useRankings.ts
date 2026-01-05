@@ -1,12 +1,13 @@
 import { getRankings } from '@/services/ranking';
-import { CustomAxiosError } from '@/types/api';
-import { Ranking } from '@/types/ranking';
 import { rankingQueryKeys } from '@/utils/queryKeys';
-import { useQuery } from '@tanstack/react-query';
+import { queryOptions, useSuspenseQuery } from '@tanstack/react-query';
 
-export const useGetRankings = () => {
-  return useQuery<Ranking[], CustomAxiosError>({
+export const getRankingsOptions = () =>
+  queryOptions({
     queryKey: rankingQueryKeys.all,
     queryFn: getRankings,
   });
+
+export const useGetRankings = () => {
+  return useSuspenseQuery(getRankingsOptions());
 };

@@ -66,11 +66,12 @@ export const checkUserLogin = () =>
       return false;
     });
 
-/** 내 정보 확인 API */
+/** 유저 정보 확인 API */
 export const getUserInfo = () =>
   api
     .get<SuccessResponse<{ memberInfo: UserInfo }>>(ENDPOINT.USER.USER_INFO())
-    .then((response) => response.data.data.memberInfo);
+    .then((response) => response.data.data.memberInfo)
+    .catch(() => null);
 
 /** 소셜 로그인 추가 인증 API */
 export const oauthRegister = (data: { phoneNumber: string }) =>

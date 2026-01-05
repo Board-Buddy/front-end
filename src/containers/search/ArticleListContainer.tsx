@@ -15,6 +15,7 @@ import { ArticleParams } from '@/store/createArticleFilterStore';
 import useRestoreAppState from '@/hooks/custom/useRestoreAppState';
 import { postRNMessage, STATE_KEYS } from '@/utils/webview';
 import { MessageType } from '@/types/webview';
+import { QueryFallbackBoundary } from '@/components/QueryFallbackBoundary';
 
 const ArticleListContainer = () => {
   const [restoredState, setRestoredState] =
@@ -59,17 +60,21 @@ const ArticleListContainer = () => {
   }, [keyword]);
 
   return (
-    <ArticleList
-      emptyGuideMessage="검색 결과가 없습니다"
-      status={merged.status}
-      sort={merged.sort}
-      sido={merged.sido}
-      sgg={merged.sgg}
-      keyword={merged.keyword}
-      setStatus={setStatus}
-      setSort={setSort}
-      province={merged.province}
-    />
+    <div className="mt-4 flex-1 px-2 pt-1">
+      <QueryFallbackBoundary>
+        <ArticleList
+          emptyGuideMessage="검색 결과가 없습니다"
+          status={merged.status}
+          sort={merged.sort}
+          sido={merged.sido}
+          sgg={merged.sgg}
+          keyword={merged.keyword}
+          setStatus={setStatus}
+          setSort={setSort}
+          province={merged.province}
+        />
+      </QueryFallbackBoundary>
+    </div>
   );
 };
 

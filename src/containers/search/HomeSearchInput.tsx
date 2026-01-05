@@ -45,7 +45,7 @@ const HomeSearchInput = () => {
   };
 
   return (
-    <div className="relative mx-8 flex h-12 -translate-y-1/2 items-center rounded-3xl border border-gray-200 bg-white shadow-md">
+    <div className="mx-8 flex min-h-12 -translate-y-1/2 items-center rounded-3xl border border-gray-200 bg-white shadow-md">
       <Image
         src={SmallLogoOrange}
         width={24}

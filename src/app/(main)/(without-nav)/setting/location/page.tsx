@@ -1,12 +1,21 @@
 import LocationFilterContainer from '@/containers/home/LocationFilterContainer';
-
-export const dynamic = 'force-dynamic';
+import { getProvinceListOptions } from '@/hooks/useLocation';
+import getQueryClient from '@/utils/getQueryClient';
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 const page = () => {
+  const queryClient = getQueryClient();
+
+  queryClient.prefetchQuery(getProvinceListOptions());
+
+  const dehydratedState = dehydrate(queryClient);
+
   return (
-    <div className="flex flex-col">
-      <LocationFilterContainer />
-    </div>
+    <HydrationBoundary state={dehydratedState}>
+      <div className="flex h-full flex-col">
+        <LocationFilterContainer />
+      </div>
+    </HydrationBoundary>
   );
 };
 

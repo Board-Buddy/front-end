@@ -1,13 +1,13 @@
 'use client';
 
-import { Suspense, useState } from 'react';
+import { useState } from 'react';
 import ProvinceSelector from './ProvinceSelector';
 import DistrictSelector from './DistrictSelector';
 import { Province } from '@/types/location';
-import Loading from '@/components/Loading';
 import NationwideFallback from './NationwideFallback';
 import useIsWebView from '@/hooks/custom/useIsWebView';
 import { cn } from '@/utils/tailwind';
+import { QueryFallbackBoundary } from '@/components/QueryFallbackBoundary';
 
 export const NATION_WIDE = {
   code: 'ALL',
@@ -30,7 +30,7 @@ const LocationFilter = ({ province, setSido, setSgg, setProvince }: Props) => {
   );
 
   return (
-    <Suspense fallback={<Loading />}>
+    <QueryFallbackBoundary>
       <div className="flex items-start">
         <ProvinceSelector
           selectedProvince={selectedProvince}
@@ -39,13 +39,13 @@ const LocationFilter = ({ province, setSido, setSgg, setProvince }: Props) => {
           setSgg={setSgg}
           setProvince={setProvince}
         />
-        <Suspense fallback={null}>
-          <div
-            className={cn(
-              'flex-1 overflow-y-auto px-6',
-              isWebView ? 'h-dvh' : 'h-[calc(100vh-theme(spacing.14))]',
-            )}
-          >
+        <div
+          className={cn(
+            'flex-1 overflow-y-auto px-6',
+            isWebView ? 'h-dvh' : 'h-[calc(100vh-theme(spacing.14))]',
+          )}
+        >
+          <QueryFallbackBoundary>
             {selectedProvince.code === 'ALL' ? (
               <NationwideFallback />
             ) : (
@@ -56,10 +56,10 @@ const LocationFilter = ({ province, setSido, setSgg, setProvince }: Props) => {
                 setProvince={setProvince}
               />
             )}
-          </div>
-        </Suspense>
+          </QueryFallbackBoundary>
+        </div>
       </div>
-    </Suspense>
+    </QueryFallbackBoundary>
   );
 };
 

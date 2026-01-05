@@ -1,12 +1,19 @@
-import { API_BASE_URL } from '@/services/endpoint';
-import { http, HttpResponse } from 'msw';
+import { delay, HttpResponse } from 'msw';
+import { createMockHandler } from '..';
 
-export const logout = http.post(`${API_BASE_URL}/auth/logout`, async () => {
-  const result = {
-    status: 'success',
-    data: null,
-    message: '성공적으로 로그아웃 되었습니다.',
-  };
+export const logout = createMockHandler<null>({
+  method: 'post',
+  endpoint: '/auth/logout',
+  handler: async () => {
+    await delay();
 
-  return HttpResponse.json(result, { status: 200 });
+    return HttpResponse.json(
+      {
+        status: 'success',
+        data: null,
+        message: '성공적으로 로그아웃 되었습니다.',
+      },
+      { status: 200 },
+    );
+  },
 });

@@ -1,12 +1,10 @@
-'use client';
-
 import SearchInput from './SearchInput';
 import BackButton from '@/components/BackButton';
 import ArticleListContainer from './ArticleListContainer';
-import useIsWebView from '@/hooks/custom/useIsWebView';
+import { getIsWebView } from '@/utils/getIsWebView';
 
-const Search = () => {
-  const isWebView = useIsWebView();
+const Search = async () => {
+  const isWebView = await getIsWebView();
 
   return (
     <>
@@ -14,9 +12,7 @@ const Search = () => {
         {!isWebView && <BackButton />}
         <SearchInput />
       </div>
-      <div className="px-2 pt-1">
-        <ArticleListContainer />
-      </div>
+      <ArticleListContainer />
     </>
   );
 };

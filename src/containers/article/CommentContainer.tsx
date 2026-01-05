@@ -1,23 +1,19 @@
 'use client';
 
-import { useDeleteComment, useGetComments } from '@/hooks/useComment';
+import { useDeleteComment } from '@/hooks/useComment';
 import { useState } from 'react';
 import CustomAlert from '@/components/CustomAlert';
-import Loading from '@/components/Loading';
-import ErrorFallback from '@/components/ErrorFallback';
 import { Article } from '@/types/article';
 import CommentInput from './CommentInput';
-import useAppRouter from '@/hooks/custom/useAppRouter';
 import { EditingComment, ParentComment } from '@/types/comment';
 import CommentList from './CommentList';
+import { QueryFallbackBoundary } from '@/components/QueryFallbackBoundary';
 
 interface Props {
   articleId: Article['id'];
 }
 
 const CommentContainer = ({ articleId }: Props) => {
-  const router = useAppRouter();
-
   const [openCommentDeleteAlert, setOpenCommentDeleteAlert] = useState(false);
   const [deleteCommentId, setDeleteCommentId] = useState<number | null>(null);
   const [openReplyDeleteAlert, setOpenReplyDeleteAlert] = useState(false);
@@ -32,42 +28,22 @@ const CommentContainer = ({ articleId }: Props) => {
 
   const deleteCommentMutation = useDeleteComment(articleId);
 
-  const {
-    data: commentList,
-    isPending,
-    isError,
-    error,
-    refetch,
-  } = useGetComments(articleId);
-
-  if (isPending) {
-    return <Loading />;
-  }
-
-  if (isError) {
-    if (error.response?.status === 401) {
-      router.push({ href: '/login/guide' });
-    }
-
-    return (
-      <ErrorFallback reset={refetch} errMsg={error.response!.data.message} />
-    );
-  }
-
   return (
     <>
       <div className="p-4">
         <span id="comment" className="text-lg font-bold text-gray-700">
           댓글
         </span>
-        <CommentList
-          comments={commentList}
-          setParentComment={setParentComment}
-          setEditingComment={setEditingComment}
-          setOpenCommentDeleteAlert={setOpenCommentDeleteAlert}
-          setOpenReplyDeleteAlert={setOpenReplyDeleteAlert}
-          setDeleteCommentId={setDeleteCommentId}
-        />
+        <QueryFallbackBoundary>
+          <CommentList
+            articleId={articleId}
+            setParentComment={setParentComment}
+            setEditingComment={setEditingComment}
+            setOpenCommentDeleteAlert={setOpenCommentDeleteAlert}
+            setOpenReplyDeleteAlert={setOpenReplyDeleteAlert}
+            setDeleteCommentId={setDeleteCommentId}
+          />
+        </QueryFallbackBoundary>
         <CommentInput
           articleId={articleId}
           parentComment={parentComment}

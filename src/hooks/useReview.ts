@@ -1,20 +1,24 @@
 import { getReviewTargetUserList, sendReview } from '@/services/review';
-import { CustomAxiosError } from '@/types/api';
 import { Article } from '@/types/article';
 import { Review } from '@/types/review';
 import { successToast } from '@/utils/customToast';
 import { reviewTargetUserQueryKeys } from '@/utils/queryKeys';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useMutation,
+  useQueryClient,
+  useSuspenseQuery,
+} from '@tanstack/react-query';
 import { Dispatch, SetStateAction } from 'react';
 
-export const useGetReviewTargetUserList = (articleId: Article['id']) => {
-  return useQuery<Review[], CustomAxiosError>({
-    queryKey: reviewTargetUserQueryKeys.list(articleId),
-    queryFn: () => getReviewTargetUserList(articleId),
-    staleTime: 0,
-    gcTime: 0,
-  });
-};
+export const getReviewTargetUserListOptions = (articleId: Article['id']) => ({
+  queryKey: reviewTargetUserQueryKeys.list(articleId),
+  queryFn: () => getReviewTargetUserList(articleId),
+  staleTime: 0,
+  gcTime: 0,
+});
+
+export const useGetReviewTargetUserList = (articleId: Article['id']) =>
+  useSuspenseQuery(getReviewTargetUserListOptions(articleId));
 
 export const useSendReview = (
   articleId: Article['id'],

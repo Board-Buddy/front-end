@@ -1,30 +1,52 @@
-import { API_BASE_URL } from '@/services/endpoint';
-import { http, HttpResponse } from 'msw';
+import { HttpResponse } from 'msw';
+import { createMockHandler } from '..';
+import { Badge } from '@/types/profile';
+import { ACCOUNT_MOCK } from '../auth/register';
 
-export const getBadgeList = http.get(
-  `${API_BASE_URL}/badges/:nickname`,
-  async () => {
-    const result = {
-      status: 'success',
-      data: {
-        badges: [
-          {
-            badgeImageSignedURL: null,
-            badgeYearMonth: '2024.09',
-          },
-          {
-            badgeImageSignedURL: null,
-            badgeYearMonth: '2024.08',
-          },
-          {
-            badgeImageSignedURL: null,
-            badgeYearMonth: '2024.07',
-          },
-        ],
+export const getBadgeList = createMockHandler<{ badges: Badge[] }>({
+  method: 'get',
+  endpoint: '/badges/:nickname',
+  handler: ({ params }) => {
+    const nickname = params.nickname;
+
+    const account = ACCOUNT_MOCK.find(
+      (account) => account.nickname === nickname,
+    );
+
+    if (!account) {
+      return HttpResponse.json(
+        {
+          status: 'failure',
+          data: null,
+          message: '해당 유저를 찾을 수 없습니다.',
+        },
+        { status: 400 },
+      );
+    }
+
+    // NOTE: 뱃지 조회는 임시 데이터로 처리
+    return HttpResponse.json(
+      {
+        status: 'success',
+        data: {
+          badges: [
+            {
+              badgeImageSignedURL: '/images/default_profile.png',
+              badgeYearMonth: '2024.09',
+            },
+            {
+              badgeImageSignedURL: '/images/default_profile.png',
+              badgeYearMonth: '2024.08',
+            },
+            {
+              badgeImageSignedURL: '/images/default_profile.png',
+              badgeYearMonth: '2024.07',
+            },
+          ],
+        },
+        message: '뱃지가 조회되었습니다.',
       },
-      message: '뱃지가 조회되었습니다.',
-    };
-
-    return HttpResponse.json(result, { status: 200 });
+      { status: 200 },
+    );
   },
-);
+});

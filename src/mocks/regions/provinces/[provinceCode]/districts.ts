@@ -1,7 +1,14 @@
-import { API_BASE_URL } from '@/services/endpoint';
-import { http, HttpResponse } from 'msw';
+import { createMockHandler } from '@/mocks';
+import { District, PROVINCE_CODES, ProvinceCode } from '@/types/location';
+import { HttpResponse } from 'msw';
+import z from 'zod';
 
-const districtListMockData = [
+interface DistrictMockItem {
+  provinceCode: ProvinceCode;
+  districts: District[];
+}
+
+const DISTRICT_LIST_MOCK: DistrictMockItem[] = [
   {
     provinceCode: 'SEOUL',
     districts: [
@@ -170,19 +177,43 @@ const districtListMockData = [
   },
 ];
 
-export const getDistricts = http.get(
-  `${API_BASE_URL}/regions/provinces/:provinceCode([A-Z]+)/districts`,
-  ({ params }) => {
+const ProvinceCodeSchema = z.enum(PROVINCE_CODES);
+
+export const getDistricts = createMockHandler<{ dataList: District[] }>({
+  method: 'get',
+  endpoint: '/regions/provinces/:provinceCode([A-Z]+)/districts',
+  handler: ({ params }) => {
     const { provinceCode } = params;
 
-    return HttpResponse.json({
-      status: 'success',
-      data: {
-        dataList: districtListMockData.find(
-          (data) => data.provinceCode === provinceCode,
-        )?.districts || [{ name: 'mock data 없음' }],
+    const parsed = ProvinceCodeSchema.safeParse(provinceCode);
+
+    if (!parsed.success) {
+      return HttpResponse.json(
+        {
+          status: 'error',
+          data: null,
+          message: `올바르지 않은 Province Code 입니다: ${provinceCode}`,
+        },
+        {
+          status: 400,
+        },
+      );
+    }
+
+    return HttpResponse.json(
+      {
+        status: 'success',
+        data: {
+          dataList: DISTRICT_LIST_MOCK.find(
+            (data) => data.provinceCode === provinceCode,
+          )?.districts || [{ name: 'mock data 없음' }],
+        },
+        message:
+          'Province Code 매핑된 시/군/구 목록을 성공적으로 조회 했습니다.',
       },
-      message: 'Province Code 매핑된 시/군/구 목록을 성공적으로 조회 했습니다.',
-    });
+      {
+        status: 200,
+      },
+    );
   },
-);
+});

@@ -33,7 +33,7 @@ const LocationSettingButton = ({ sgg, route, province }: Props) => {
 
   return (
     <div
-      className="mb-2 mt-4 inline-flex items-center justify-start gap-2"
+      className="inline-flex items-center justify-start gap-2"
       onClick={onClick}
       role="button"
       aria-label="지역 필터 설정"

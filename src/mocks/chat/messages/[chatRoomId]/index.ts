@@ -1,8 +1,13 @@
-import { API_BASE_URL } from '@/services/endpoint';
+import { createMockHandler } from '@/mocks';
+import { InfiniteScrollResponseData } from '@/types/api';
 import { Message } from '@/types/chat';
-import { http, HttpResponse } from 'msw';
+import { HttpResponse } from 'msw';
 
-const CHAT_MOCK_DATA: Message[] = [
+const DEFAULT_CHAT_ROOM_ID = 0;
+
+const CHAT_MOCK_DATA = new Map<number, Message[]>();
+
+CHAT_MOCK_DATA.set(DEFAULT_CHAT_ROOM_ID, [
   {
     id: 20001,
     content: '[입장] kong1님이 입장했습니다.',
@@ -257,7 +262,7 @@ const CHAT_MOCK_DATA: Message[] = [
     messageType: 'TALK',
     sentAt: '2025-06-26T17:02:50.000',
   },
-];
+]);
 
 const CHAT_COUNT_PER_PAGE = 10;
 
@@ -266,29 +271,37 @@ const getNextCursor = (lastSeenMessage: Message) => {
   return `${sentAtEpoch}_${lastSeenMessage.id}`;
 };
 
-export const getExistingMessages = http.get(
-  `${API_BASE_URL}/chat/messages/:chatRoomId([0-9]+)`,
-  ({ request }) => {
+export const getExistingMessages = createMockHandler<
+  InfiniteScrollResponseData<Message>
+>({
+  method: 'get',
+  endpoint: '/chat/messages/:chatRoomId([0-9]+)',
+  handler: ({ request, params }) => {
+    const chatRoomId = Number(params.chatRoomId);
+    const messages = CHAT_MOCK_DATA.get(chatRoomId) ?? [];
+
     const url = new URL(request.url);
     const direction = url.searchParams.get('direction');
     const cursor = url.searchParams.get('cursor');
 
     if (direction === 'initial') {
-      const dataList = CHAT_MOCK_DATA.slice(-CHAT_COUNT_PER_PAGE);
-      const hasMore = CHAT_MOCK_DATA.length > CHAT_COUNT_PER_PAGE;
+      const dataList = messages.slice(-CHAT_COUNT_PER_PAGE);
+      const hasMore = messages.length > CHAT_COUNT_PER_PAGE;
 
-      return HttpResponse.json({
-        status: 'success',
-        data: {
-          dataList,
-          hasMore,
-          nextCursor: hasMore
-            ? getNextCursor(
-                CHAT_MOCK_DATA[CHAT_MOCK_DATA.length - CHAT_COUNT_PER_PAGE],
-              )
-            : null,
+      return HttpResponse.json(
+        {
+          status: 'success',
+          data: {
+            dataList,
+            hasMore,
+            nextCursor: hasMore
+              ? getNextCursor(messages[messages.length - CHAT_COUNT_PER_PAGE])
+              : null,
+          },
+          message: '채팅 메세지들의 정보를 성공적으로 조회했습니다.',
         },
-      });
+        { status: 200 },
+      );
     }
 
     if (direction === 'older') {
@@ -304,36 +317,28 @@ export const getExistingMessages = http.get(
         );
       }
 
-      const cursorIndex = CHAT_MOCK_DATA.findIndex(
+      const cursorIndex = messages.findIndex(
         (message) => cursor === getNextCursor(message),
       );
 
-      const dataList = CHAT_MOCK_DATA.slice(
-        cursorIndex + 1 < CHAT_COUNT_PER_PAGE
-          ? 0
-          : cursorIndex - CHAT_COUNT_PER_PAGE,
-        cursorIndex,
-      );
+      const start = Math.max(0, cursorIndex - CHAT_COUNT_PER_PAGE);
+      const dataList = messages.slice(start, cursorIndex);
+      const hasMore = start > 0;
 
-      const hasMore = cursorIndex + 1 > CHAT_COUNT_PER_PAGE;
-
-      return HttpResponse.json({
-        status: 'success',
-        data: {
-          dataList,
-          hasMore,
-          nextCursor: hasMore
-            ? getNextCursor(
-                CHAT_MOCK_DATA[
-                  cursorIndex - CHAT_COUNT_PER_PAGE > 0
-                    ? cursorIndex - CHAT_COUNT_PER_PAGE
-                    : 0
-                ],
-              )
-            : null,
+      return HttpResponse.json(
+        {
+          status: 'success',
+          data: {
+            dataList,
+            hasMore,
+            nextCursor: hasMore ? getNextCursor(messages[start]) : null,
+          },
+          message: '채팅 메세지들의 정보들을 성공적으로 조회했습니다.',
         },
-        message: '채팅 메세지들의 정보들을 성공적으로 조회했습니다.',
-      });
+        {
+          status: 200,
+        },
+      );
     }
   },
-);
+});

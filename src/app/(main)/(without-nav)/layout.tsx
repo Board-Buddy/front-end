@@ -8,7 +8,7 @@ export default function Layout({
 }>) {
   return (
     <WriteFormProvider>
-      <main className="overflow-y-auto">{children}</main>
+      <main className="h-dvh overflow-y-auto">{children}</main>
     </WriteFormProvider>
   );
 }

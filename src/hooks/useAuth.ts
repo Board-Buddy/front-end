@@ -23,6 +23,7 @@ export const useUserLoginCheck = ({ isReady }: { isReady: boolean }) => {
 export const useUserLogin = () => {
   const router = useAppRouter();
   const setUserInfo = useSetUserInfo();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (data: { username: string; password: string }) => login(data),
@@ -30,6 +31,7 @@ export const useUserLogin = () => {
       const userInfo = data;
 
       setUserInfo(userInfo);
+      queryClient.removeQueries({ queryKey: authQueryKeys.userInfo() });
 
       router.replace({ href: '/home', screenName: 'HomeScreen' });
     },
