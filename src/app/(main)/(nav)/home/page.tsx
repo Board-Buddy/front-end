@@ -6,13 +6,14 @@ import {
   dehydrate,
   HydrationBoundary,
   infiniteQueryOptions,
-  queryOptions,
 } from '@tanstack/react-query';
-import { rankingQueryKeys } from '@/utils/queryKeys';
 import RankingContainer from '@/containers/home/RankingContainer';
-import getQueryClient from '@/utils/getQueryClient';
 import { getArticleListOptions } from '@/hooks/useArticle';
+import { getRankingsOptions } from '@/hooks/useRankings';
+import { getQueryClient } from '@/utils/get-query-client';
 
+// 필터 기본값 상수화
+// TODO: searchParams 활용해 필터 초기값 설정하기
 const DEFAULT_FILTER = {
   status: null,
   sort: null,
@@ -24,8 +25,7 @@ const DEFAULT_FILTER = {
 
 const page = () => {
   const queryClient = getQueryClient();
-
-  queryClient.prefetchQuery(queryOptions({ queryKey: rankingQueryKeys.all }));
+  queryClient.prefetchQuery(getRankingsOptions());
 
   // 필터 기본값 상수화
   // TODO: searchParams 활용해 필터 초기값 설정하기

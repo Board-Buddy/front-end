@@ -1,7 +1,7 @@
 import { QueryFallbackBoundary } from '@/components/QueryFallbackBoundary';
 import BadgeListDetail from '@/containers/profile/BadgeListDetail';
 import { getBadgeListOptions } from '@/hooks/useProfile';
-import getQueryClient from '@/utils/getQueryClient';
+import { getQueryClient } from '@/utils/get-query-client';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 const page = async ({ params }: PageProps<'/profile/[nickname]/badges'>) => {

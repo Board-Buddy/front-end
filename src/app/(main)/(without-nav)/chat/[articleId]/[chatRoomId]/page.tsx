@@ -4,7 +4,7 @@ import {
   getArticleSimpleInfoOptions,
   getExistingMessagesOptions,
 } from '@/hooks/useChat';
-import getQueryClient from '@/utils/getQueryClient';
+import { getQueryClient } from '@/utils/get-query-client';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 const Page = async ({

@@ -1,7 +1,7 @@
 import { QueryFallbackBoundary } from '@/components/QueryFallbackBoundary';
 import ReviewTargetUserList from '@/containers/reviews/ReviewTargetUserList';
 import { getReviewTargetUserListOptions } from '@/hooks/useReview';
-import getQueryClient from '@/utils/getQueryClient';
+import { getQueryClient } from '@/utils/get-query-client';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 const page = async ({ params }: PageProps<'/article/[articleId]/reviews'>) => {

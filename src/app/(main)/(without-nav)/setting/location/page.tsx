@@ -1,6 +1,6 @@
 import LocationFilterContainer from '@/containers/home/LocationFilterContainer';
 import { getProvinceListOptions } from '@/hooks/useLocation';
-import getQueryClient from '@/utils/getQueryClient';
+import { getQueryClient } from '@/utils/get-query-client';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 const page = () => {
