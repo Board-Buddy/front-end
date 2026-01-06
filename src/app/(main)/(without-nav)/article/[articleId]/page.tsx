@@ -6,7 +6,7 @@ import {
   getArticleParticipationStatusOptions,
 } from '@/hooks/useArticle';
 import { getCommentOptions } from '@/hooks/useComment';
-import getQueryClient from '@/utils/getQueryClient';
+import { getQueryClient } from '@/utils/get-query-client';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 const page = async ({ params }: PageProps<'/article/[articleId]'>) => {

@@ -1,7 +1,7 @@
 import { QueryFallbackBoundary } from '@/components/QueryFallbackBoundary';
 import ParticipantList from '@/containers/participants/ParticipantList';
 import { getParticipationListOptions } from '@/hooks/useParticipation';
-import getQueryClient from '@/utils/getQueryClient';
+import { getQueryClient } from '@/utils/get-query-client';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 const page = async ({

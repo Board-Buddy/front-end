@@ -2,7 +2,7 @@ import { QueryFallbackBoundary } from '@/components/QueryFallbackBoundary';
 import NotificationList from '@/containers/notifications/NotificationList';
 import NotificationListContainer from '@/containers/notifications/NotificationListContainer';
 import { getNotificationListOptions } from '@/hooks/useNotifications';
-import getQueryClient from '@/utils/getQueryClient';
+import { getQueryClient } from '@/utils/get-query-client';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 const Page = async () => {
