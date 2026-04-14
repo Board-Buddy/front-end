@@ -13,7 +13,7 @@
 <br><br>
 
 ## 배포 주소
-> 🔗 [Board Buddy 바로가기](https://m.boardbuddi.com) (⚠️ 26.03.30 기준 백엔드 서버 이전 중으로 정상 접속이 불가능합니다.)
+> 🔗 [Board Buddy 바로가기](https://m.boredbuddi.com)
 
 <br><br>
 
