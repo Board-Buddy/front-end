@@ -65,7 +65,7 @@
     "@types/ws": "^8.5.12",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
-    "baseline-browser-mapping": "^2.8.32",
+    "baseline-browser-mapping": "^2.10.18",
     "eslint": "^9.39.1",
     "eslint-config-next": "^16.0.5",
     "eslint-config-prettier": "^9.1.2",
